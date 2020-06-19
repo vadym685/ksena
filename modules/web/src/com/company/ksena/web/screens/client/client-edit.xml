@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="com.company.ksena.web.screens.client">
+    <data>
+        <instance id="clientDc"
+                  class="com.company.ksena.entity.Client"
+        >
+            <view extends="_local"></view>
+            <loader/>
+        </instance>
+        <collection id="clientsDc" class="com.company.ksena.entity.Client">
+            <view extends="_local"/>
+            <loader id="clientsDl">
+                <query>
+                    <![CDATA[select e from ksena_Client e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="clientDc">
+            <column width="250px">
+                <textField id="fullNameField" property="fullName"/>
+                <textField id="phoneNumberField" property="phoneNumber"/>
+                <textField id="seriesField" property="series"/>
+                <textField id="pasportNumberField" property="pasportNumber"/>
+
+                <textField id="authorityField" property="authority"/>
+                <dateField id="dateOfIssueField" property="dateOfIssue"/>
+                <textField id="individualTaxpayerNumberField" property="individualTaxpayerNumber"/>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>
