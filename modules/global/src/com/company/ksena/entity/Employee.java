@@ -50,8 +50,6 @@ public class Employee extends StandardEntity {
         this.pasportNumber = pasportNumber;
     }
 
-
-
     public Integer getPasportNumber() {
         return pasportNumber;
     }
