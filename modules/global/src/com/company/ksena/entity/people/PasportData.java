@@ -1,4 +1,4 @@
-package com.company.ksena.entity;
+package com.company.ksena.entity.people;
 
 import com.haulmont.cuba.core.entity.StandardEntity;
 
@@ -8,22 +8,21 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-@Table(name = "KSENA_CLIENT")
-@Entity(name = "ksena_Client")
-public class Client extends StandardEntity {
-    private static final long serialVersionUID = -9005267031335817417L;
+@Table(name = "KSENA_PASPORT_DATA")
+@Entity(name = "ksena_PasportData")
+public class PasportData extends StandardEntity {
+    private static final long serialVersionUID = -3797793039657279647L;
 
-    @NotNull
-    @Column(name = "FULL_NAME", nullable = false)
+    @Column(name = "FULL_NAME")
     protected String fullName;
 
-    @NotNull
-    @Column(name = "PHONE_NUMBER", nullable = false)
+    @Column(name = "PHONE_NUMBER")
     protected Integer phoneNumber;
 
-    @Column(name = "SERIES", length = 3)
+    @Column(name = "SERIES", length = 2)
     protected String series;
 
+    @NotNull
     @Column(name = "PASPORT_NUMBER")
     protected Integer pasportNumber;
 
@@ -35,6 +34,22 @@ public class Client extends StandardEntity {
 
     @Column(name = "INDIVIDUAL_TAXPAYER_NUMBER")
     protected String individualTaxpayerNumber;
+
+    public Integer getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(Integer phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
 
     public String getIndividualTaxpayerNumber() {
         return individualTaxpayerNumber;
@@ -74,21 +89,5 @@ public class Client extends StandardEntity {
 
     public void setSeries(String series) {
         this.series = series;
-    }
-
-    public Integer getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(Integer phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
     }
 }

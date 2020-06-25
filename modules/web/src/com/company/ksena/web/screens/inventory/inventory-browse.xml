@@ -2,51 +2,46 @@
 <window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
         xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
         caption="msg://browseCaption"
-        focusComponent="clientsTable"
-        messagesPack="com.company.ksena.web.screens.client">
+        focusComponent="inventoriesTable"
+        messagesPack="com.company.ksena.web.screens.inventory">
     <data readOnly="true">
-        <collection id="clientsDc"
-                    class="com.company.ksena.entity.people.Client"
+        <collection id="inventoriesDc"
+                    class="com.company.ksena.entity.Inventory"
                     view="_local">
-            <loader id="clientsDl">
+            <loader id="inventoriesDl">
                 <query>
-                    <![CDATA[select e from ksena_Client e]]>
+                    <![CDATA[select e from ksena_Inventory e]]>
                 </query>
             </loader>
         </collection>
     </data>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="clientsTable"
+    <layout expand="inventoriesTable"
             spacing="true">
         <filter id="filter"
-                applyTo="clientsTable"
-                dataLoader="clientsDl">
+                applyTo="inventoriesTable"
+                dataLoader="inventoriesDl">
             <properties include=".*"/>
         </filter>
-        <groupTable id="clientsTable"
+        <groupTable id="inventoriesTable"
                     width="100%"
-                    dataContainer="clientsDc">
+                    dataContainer="inventoriesDc">
             <actions>
                 <action id="create" type="create"/>
                 <action id="edit" type="edit"/>
                 <action id="remove" type="remove"/>
             </actions>
             <columns>
-                <column id="fullName"/>
-                <column id="phoneNumber"/>
-                <column id="series"/>
-                <column id="pasportNumber"/>
-                <column id="authority"/>
-                <column id="dateOfIssue"/>
-                <column id="individualTaxpayerNumber"/>
+                <column id="name"/>
+                <column id="description"/>
             </columns>
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
-                <button id="createBtn" action="clientsTable.create"/>
-                <button id="editBtn" action="clientsTable.edit"/>
-                <button id="removeBtn" action="clientsTable.remove"/>
+                <button id="createBtn" action="inventoriesTable.create"/>
+                <button id="editBtn" action="inventoriesTable.edit"/>
+                <button id="removeBtn" action="inventoriesTable.remove"/>
             </buttonsPanel>
         </groupTable>
         <hbox id="lookupActions" spacing="true" visible="false">

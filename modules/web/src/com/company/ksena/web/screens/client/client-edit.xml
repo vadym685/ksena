@@ -5,19 +5,10 @@
         messagesPack="com.company.ksena.web.screens.client">
     <data>
         <instance id="clientDc"
-                  class="com.company.ksena.entity.Client"
-        >
-            <view extends="_local"></view>
+                  class="com.company.ksena.entity.people.Client"
+                  view="_local">
             <loader/>
         </instance>
-        <collection id="clientsDc" class="com.company.ksena.entity.Client">
-            <view extends="_local"/>
-            <loader id="clientsDl">
-                <query>
-                    <![CDATA[select e from ksena_Client e]]>
-                </query>
-            </loader>
-        </collection>
     </data>
     <dialogMode height="600"
                 width="800"/>
@@ -28,7 +19,6 @@
                 <textField id="phoneNumberField" property="phoneNumber"/>
                 <textField id="seriesField" property="series"/>
                 <textField id="pasportNumberField" property="pasportNumber"/>
-
                 <textField id="authorityField" property="authority"/>
                 <dateField id="dateOfIssueField" property="dateOfIssue"/>
                 <textField id="individualTaxpayerNumberField" property="individualTaxpayerNumber"/>

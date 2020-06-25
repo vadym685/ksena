@@ -6,7 +6,7 @@
         messagesPack="com.company.ksena.web.screens.employee">
     <data readOnly="true">
         <collection id="employeesDc"
-                    class="com.company.ksena.entity.Employee"
+                    class="com.company.ksena.entity.people.Employee"
                     view="_local">
             <loader id="employeesDl">
                 <query>

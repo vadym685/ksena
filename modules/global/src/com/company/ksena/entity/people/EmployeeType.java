@@ -1,4 +1,4 @@
-package com.company.ksena.entity;
+package com.company.ksena.entity.people;
 
 import com.haulmont.chile.core.datatypes.impl.EnumClass;
 

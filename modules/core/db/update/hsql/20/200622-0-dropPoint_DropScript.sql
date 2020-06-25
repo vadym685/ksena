@@ -1,0 +1,1 @@
+drop table KSENA_POINT__U47820 if exists cascade ;

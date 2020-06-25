@@ -3,5 +3,8 @@
     <menu id="application-ksena" insertBefore="administration">
         <item screen="ksena_Client.browse"/>
         <item screen="ksena_Employee.browse"/>
-    </menu>
+        <item screen="ksena_TaskDocument.browse"/>
+        <item screen="ksena_Point.browse"/>
+        <item screen="ksena_Inventory.browse"/>
+           </menu>
 </menu-config>

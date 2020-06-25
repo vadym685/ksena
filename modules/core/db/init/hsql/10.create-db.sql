@@ -1,5 +1,5 @@
--- begin KSENA_CLIENT
-create table KSENA_CLIENT (
+-- begin KSENA_PASPORT_DATA
+create table KSENA_PASPORT_DATA (
     ID varchar(36) not null,
     VERSION integer not null,
     CREATE_TS timestamp,
@@ -8,20 +8,51 @@ create table KSENA_CLIENT (
     UPDATED_BY varchar(50),
     DELETE_TS timestamp,
     DELETED_BY varchar(50),
+    DTYPE varchar(100),
     --
-    FULL_NAME varchar(255) not null,
-    PHONE_NUMBER integer not null,
-    SERIES varchar(3),
+    FULL_NAME varchar(255),
+    PHONE_NUMBER integer,
+    SERIES varchar(2),
     PASPORT_NUMBER integer,
     AUTHORITY varchar(255),
     DATE_OF_ISSUE date,
     INDIVIDUAL_TAXPAYER_NUMBER varchar(255),
     --
+    -- from ksena_Client
+    POINT_ID varchar(36),
+    --
+    -- from ksena_Employee
+    EMPLOYEE_TYPE varchar(50),
+    TASK_DOCUMENT_ID varchar(36),
+    --
     primary key (ID)
 )^
--- end KSENA_CLIENT
--- begin KSENA_EMPLOYEE
-create table KSENA_EMPLOYEE (
+-- end KSENA_PASPORT_DATA
+-- begin KSENA_COORDINATES
+create table KSENA_COORDINATES (
+    ID varchar(36) not null,
+    VERSION integer not null,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    DTYPE varchar(100),
+    --
+    LATITUDE double precision,
+    LONGITUDE double precision,
+    --
+    -- from ksena_Point
+    NAME varchar(255),
+    ADRESS varchar(255),
+    COMENT varchar(255),
+    --
+    primary key (ID)
+)^
+-- end KSENA_COORDINATES
+-- begin KSENA_TASK_DOCUMENT
+create table KSENA_TASK_DOCUMENT (
     ID varchar(36) not null,
     VERSION integer not null,
     CREATE_TS timestamp,
@@ -31,15 +62,30 @@ create table KSENA_EMPLOYEE (
     DELETE_TS timestamp,
     DELETED_BY varchar(50),
     --
-    FULL_NAME varchar(255) not null,
-    PHONE_NUMBER integer,
-    SERIES varchar(255),
-    PASPORT_NUMBER integer,
-    AUTHORITY varchar(255),
-    DATEOF_ISSUE date,
-    INDIVIDUAL_TAXPAYER_NUMBER varchar(255),
-    EMPLOYEE_TYPE varchar(50),
+    CREATE_DATE date,
+    IS_ACTIVE boolean,
+    CLIENT_ID varchar(36),
+    TASK_TYPE varchar(50),
+    POINT_ID varchar(36),
     --
     primary key (ID)
 )^
--- end KSENA_EMPLOYEE
+-- end KSENA_TASK_DOCUMENT
+-- begin KSENA_INVENTORY
+create table KSENA_INVENTORY (
+    ID varchar(36) not null,
+    VERSION integer not null,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    --
+    NAME varchar(255),
+    DESCRIPTION varchar(255),
+    TASK_DOCUMENT_ID varchar(36),
+    --
+    primary key (ID)
+)^
+-- end KSENA_INVENTORY

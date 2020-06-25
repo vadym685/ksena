@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
     <persistence-unit name="ksena" transaction-type="RESOURCE_LOCAL">
-        <class>com.company.ksena.entity.Client</class>
-        <class>com.company.ksena.entity.Employee</class>
+        <class>com.company.ksena.entity.people.Client</class>
+        <class>com.company.ksena.entity.people.Employee</class>
+        <class>com.company.ksena.entity.task.TaskDocument</class>
+        <class>com.company.ksena.entity.point.Point</class>
+        <class>com.company.ksena.entity.point.Coordinates</class>
+        <class>com.company.ksena.entity.people.PasportData</class>
+        <class>com.company.ksena.entity.Inventory</class>
 
     </persistence-unit>
 </persistence>

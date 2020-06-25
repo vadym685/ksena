@@ -2,51 +2,47 @@
 <window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
         xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
         caption="msg://browseCaption"
-        focusComponent="clientsTable"
-        messagesPack="com.company.ksena.web.screens.client">
+        focusComponent="taskDocumentsTable"
+        messagesPack="com.company.ksena.web.screens.taskdocument">
     <data readOnly="true">
-        <collection id="clientsDc"
-                    class="com.company.ksena.entity.people.Client"
+        <collection id="taskDocumentsDc"
+                    class="com.company.ksena.entity.task.TaskDocument"
                     view="_local">
-            <loader id="clientsDl">
+            <loader id="taskDocumentsDl">
                 <query>
-                    <![CDATA[select e from ksena_Client e]]>
+                    <![CDATA[select e from ksena_TaskDocument e]]>
                 </query>
             </loader>
         </collection>
     </data>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="clientsTable"
+    <layout expand="taskDocumentsTable"
             spacing="true">
         <filter id="filter"
-                applyTo="clientsTable"
-                dataLoader="clientsDl">
+                applyTo="taskDocumentsTable"
+                dataLoader="taskDocumentsDl">
             <properties include=".*"/>
         </filter>
-        <groupTable id="clientsTable"
+        <groupTable id="taskDocumentsTable"
                     width="100%"
-                    dataContainer="clientsDc">
+                    dataContainer="taskDocumentsDc">
             <actions>
                 <action id="create" type="create"/>
                 <action id="edit" type="edit"/>
                 <action id="remove" type="remove"/>
             </actions>
             <columns>
-                <column id="fullName"/>
-                <column id="phoneNumber"/>
-                <column id="series"/>
-                <column id="pasportNumber"/>
-                <column id="authority"/>
-                <column id="dateOfIssue"/>
-                <column id="individualTaxpayerNumber"/>
+                <column id="createDate"/>
+                <column id="isActive"/>
+                <column id="taskType"/>
             </columns>
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
-                <button id="createBtn" action="clientsTable.create"/>
-                <button id="editBtn" action="clientsTable.edit"/>
-                <button id="removeBtn" action="clientsTable.remove"/>
+                <button id="createBtn" action="taskDocumentsTable.create"/>
+                <button id="editBtn" action="taskDocumentsTable.edit"/>
+                <button id="removeBtn" action="taskDocumentsTable.remove"/>
             </buttonsPanel>
         </groupTable>
         <hbox id="lookupActions" spacing="true" visible="false">

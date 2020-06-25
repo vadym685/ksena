@@ -2,51 +2,49 @@
 <window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
         xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
         caption="msg://browseCaption"
-        focusComponent="clientsTable"
-        messagesPack="com.company.ksena.web.screens.client">
+        focusComponent="pointsTable"
+        messagesPack="com.company.ksena.web.screens.point">
     <data readOnly="true">
-        <collection id="clientsDc"
-                    class="com.company.ksena.entity.people.Client"
+        <collection id="pointsDc"
+                    class="com.company.ksena.entity.point.Point"
                     view="_local">
-            <loader id="clientsDl">
+            <loader id="pointsDl">
                 <query>
-                    <![CDATA[select e from ksena_Client e]]>
+                    <![CDATA[select e from ksena_Point e]]>
                 </query>
             </loader>
         </collection>
     </data>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="clientsTable"
+    <layout expand="pointsTable"
             spacing="true">
         <filter id="filter"
-                applyTo="clientsTable"
-                dataLoader="clientsDl">
+                applyTo="pointsTable"
+                dataLoader="pointsDl">
             <properties include=".*"/>
         </filter>
-        <groupTable id="clientsTable"
+        <groupTable id="pointsTable"
                     width="100%"
-                    dataContainer="clientsDc">
+                    dataContainer="pointsDc">
             <actions>
                 <action id="create" type="create"/>
                 <action id="edit" type="edit"/>
                 <action id="remove" type="remove"/>
             </actions>
             <columns>
-                <column id="fullName"/>
-                <column id="phoneNumber"/>
-                <column id="series"/>
-                <column id="pasportNumber"/>
-                <column id="authority"/>
-                <column id="dateOfIssue"/>
-                <column id="individualTaxpayerNumber"/>
+                <column id="latitude"/>
+                <column id="longitude"/>
+                <column id="name"/>
+                <column id="adress"/>
+                <column id="coment"/>
             </columns>
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
-                <button id="createBtn" action="clientsTable.create"/>
-                <button id="editBtn" action="clientsTable.edit"/>
-                <button id="removeBtn" action="clientsTable.remove"/>
+                <button id="createBtn" action="pointsTable.create"/>
+                <button id="editBtn" action="pointsTable.edit"/>
+                <button id="removeBtn" action="pointsTable.remove"/>
             </buttonsPanel>
         </groupTable>
         <hbox id="lookupActions" spacing="true" visible="false">

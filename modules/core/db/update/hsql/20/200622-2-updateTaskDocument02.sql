@@ -1,0 +1,1 @@
+alter table KSENA_TASK_DOCUMENT add constraint FK_KSENA_TASK_DOCUMENT_ON_CLIENT foreign key (CLIENT_ID) references KSENA_PASPORT_DATA(ID);
