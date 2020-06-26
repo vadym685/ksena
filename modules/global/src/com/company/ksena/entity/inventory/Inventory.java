@@ -1,4 +1,4 @@
-package com.company.ksena.entity;
+package com.company.ksena.entity.inventory;
 
 import com.company.ksena.entity.task.TaskDocument;
 import com.haulmont.chile.core.annotations.NamePattern;

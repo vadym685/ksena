@@ -1,6 +1,6 @@
 package com.company.ksena.entity.task;
 
-import com.company.ksena.entity.Inventory;
+import com.company.ksena.entity.inventory.Inventory;
 import com.company.ksena.entity.people.Client;
 import com.company.ksena.entity.people.Employee;
 import com.company.ksena.entity.point.Point;

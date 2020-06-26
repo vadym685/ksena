@@ -5,7 +5,7 @@
         messagesPack="com.company.ksena.web.screens.inventory">
     <data>
         <instance id="inventoryDc"
-                  class="com.company.ksena.entity.Inventory"
+                  class="com.company.ksena.entity.inventory.Inventory"
                   view="_local">
             <loader/>
         </instance>

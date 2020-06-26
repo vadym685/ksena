@@ -7,7 +7,7 @@
         <class>com.company.ksena.entity.point.Point</class>
         <class>com.company.ksena.entity.point.Coordinates</class>
         <class>com.company.ksena.entity.people.PasportData</class>
-        <class>com.company.ksena.entity.Inventory</class>
+        <class>com.company.ksena.entity.inventory.Inventory</class>
 
     </persistence-unit>
 </persistence>

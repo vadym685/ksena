@@ -1,7 +1,7 @@
 package com.company.ksena.web.screens.inventory;
 
 import com.haulmont.cuba.gui.screen.*;
-import com.company.ksena.entity.Inventory;
+import com.company.ksena.entity.inventory.Inventory;
 
 @UiController("ksena_Inventory.browse")
 @UiDescriptor("inventory-browse.xml")

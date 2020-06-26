@@ -6,7 +6,7 @@
         messagesPack="com.company.ksena.web.screens.inventory">
     <data readOnly="true">
         <collection id="inventoriesDc"
-                    class="com.company.ksena.entity.Inventory"
+                    class="com.company.ksena.entity.inventory.Inventory"
                     view="_local">
             <loader id="inventoriesDl">
                 <query>
