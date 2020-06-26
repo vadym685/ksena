@@ -6,7 +6,7 @@
     <data>
         <instance id="taskDocumentDc"
                   class="com.company.ksena.entity.task.TaskDocument"
-                  view="taskDocument-view_3">
+                  view="taskDocument-view">
             <loader/>
             <collection id="employeesDc" property="employees"/>
             <collection id="inventoryDc" property="inventory"/>

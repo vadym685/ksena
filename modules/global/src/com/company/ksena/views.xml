@@ -3,26 +3,6 @@
 
     <view entity="ksena_TaskDocument" name="taskDocument-view" extends="_local">
         <property name="client" view="_minimal"/>
-        <property name="point" view="_minimal">
-            <property name="adress"/>
-        </property>
-    </view>
-    <view entity="ksena_TaskDocument" name="taskDocument-view_1" extends="_local">
-        <property name="client" view="_minimal"/>
-        <property name="point" view="_minimal">
-            <property name="adress"/>
-        </property>
-    </view>
-    <view entity="ksena_TaskDocument" name="taskDocument-view_2" extends="_local">
-        <property name="client" view="_minimal">
-            <property name="phoneNumber"/>
-        </property>
-        <property name="point" view="_minimal">
-            <property name="adress"/>
-        </property>
-    </view>
-    <view entity="ksena_TaskDocument" name="taskDocument-view_3" extends="_local">
-        <property name="client" view="_minimal"/>
         <property name="point" view="_minimal"/>
         <property name="employees" view="_minimal">
             <property name="employeeType"/>
