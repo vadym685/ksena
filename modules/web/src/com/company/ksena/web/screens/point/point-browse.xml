@@ -33,10 +33,10 @@
                 <action id="remove" type="remove"/>
             </actions>
             <columns>
-                <column id="latitude"/>
-                <column id="longitude"/>
                 <column id="name"/>
                 <column id="adress"/>
+                <column id="latitude"/>
+                <column id="longitude"/>
                 <column id="coment"/>
             </columns>
             <rowsCount/>

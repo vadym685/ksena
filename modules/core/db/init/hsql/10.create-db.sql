@@ -18,12 +18,11 @@ create table KSENA_PASPORT_DATA (
     DATE_OF_ISSUE date,
     INDIVIDUAL_TAXPAYER_NUMBER varchar(255),
     --
-    -- from ksena_Client
-    POINT_ID varchar(36),
-    --
     -- from ksena_Employee
     EMPLOYEE_TYPE varchar(50),
-    TASK_DOCUMENT_ID varchar(36),
+    --
+    -- from ksena_Client
+    POINT_ID varchar(36),
     --
     primary key (ID)
 )^
@@ -84,8 +83,21 @@ create table KSENA_INVENTORY (
     --
     NAME varchar(255),
     DESCRIPTION varchar(255),
-    TASK_DOCUMENT_ID varchar(36),
     --
     primary key (ID)
 )^
 -- end KSENA_INVENTORY
+-- begin KSENA_TASK_DOCUMENT_EMPLOYEE_LINK
+create table KSENA_TASK_DOCUMENT_EMPLOYEE_LINK (
+    EMPLOYEE_ID varchar(36) not null,
+    TASK_DOCUMENT_ID varchar(36) not null,
+    primary key (EMPLOYEE_ID, TASK_DOCUMENT_ID)
+)^
+-- end KSENA_TASK_DOCUMENT_EMPLOYEE_LINK
+-- begin KSENA_TASK_DOCUMENT_INVENTORY_LINK
+create table KSENA_TASK_DOCUMENT_INVENTORY_LINK (
+    INVENTORY_ID varchar(36) not null,
+    TASK_DOCUMENT_ID varchar(36) not null,
+    primary key (INVENTORY_ID, TASK_DOCUMENT_ID)
+)^
+-- end KSENA_TASK_DOCUMENT_INVENTORY_LINK
