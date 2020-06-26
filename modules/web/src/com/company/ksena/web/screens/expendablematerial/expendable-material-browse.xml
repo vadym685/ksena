@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://browseCaption"
+        focusComponent="expendableMaterialsTable"
+        messagesPack="com.company.ksena.web.screens.expendablematerial">
+    <data readOnly="true">
+        <collection id="expendableMaterialsDc"
+                    class="com.company.ksena.entity.inventory.ExpendableMaterial"
+                    view="_local">
+            <loader id="expendableMaterialsDl">
+                <query>
+                    <![CDATA[select e from ksena_ExpendableMaterial e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="expendableMaterialsTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="expendableMaterialsTable"
+                dataLoader="expendableMaterialsDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="expendableMaterialsTable"
+                    width="100%"
+                    dataContainer="expendableMaterialsDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="name"/>
+                <column id="description"/>
+                <column id="standartAmount"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="expendableMaterialsTable.create"/>
+                <button id="editBtn" action="expendableMaterialsTable.edit"/>
+                <button id="removeBtn" action="expendableMaterialsTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="com.company.ksena.web.screens.expendablematerial">
+    <data>
+        <instance id="expendableMaterialDc"
+                  class="com.company.ksena.entity.inventory.ExpendableMaterial"
+                  view="_local">
+            <loader/>
+        </instance>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="expendableMaterialDc">
+            <column width="250px">
+                <textField id="nameField" property="name"/>
+                <textField id="descriptionField" property="description"/>
+                <textField id="standartAmountField" property="standartAmount"/>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

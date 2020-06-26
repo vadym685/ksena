@@ -101,3 +101,47 @@ create table KSENA_TASK_DOCUMENT_INVENTORY_LINK (
     primary key (INVENTORY_ID, TASK_DOCUMENT_ID)
 )^
 -- end KSENA_TASK_DOCUMENT_INVENTORY_LINK
+-- begin KSENA_CLEANING_POSITION
+create table KSENA_CLEANING_POSITION (
+    ID varchar(36) not null,
+    VERSION integer not null,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    --
+    NAME varchar(255),
+    DESCRIPTION varchar(255),
+    NEED_TIME double precision,
+    PRICE double precision,
+    --
+    primary key (ID)
+)^
+-- end KSENA_CLEANING_POSITION
+-- begin KSENA_EXPENDABLE_MATERIAL
+create table KSENA_EXPENDABLE_MATERIAL (
+    ID varchar(36) not null,
+    VERSION integer not null,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    --
+    NAME varchar(255),
+    DESCRIPTION varchar(255),
+    STANDART_AMOUNT double precision,
+    --
+    primary key (ID)
+)^
+-- end KSENA_EXPENDABLE_MATERIAL
+-- begin KSENA_CLEANING_POSITION_EXPENDABLE_MATERIAL_LINK
+create table KSENA_CLEANING_POSITION_EXPENDABLE_MATERIAL_LINK (
+    EXPENDABLE_MATERIAL_ID varchar(36) not null,
+    CLEANING_POSITION_ID varchar(36) not null,
+    primary key (EXPENDABLE_MATERIAL_ID, CLEANING_POSITION_ID)
+)^
+-- end KSENA_CLEANING_POSITION_EXPENDABLE_MATERIAL_LINK

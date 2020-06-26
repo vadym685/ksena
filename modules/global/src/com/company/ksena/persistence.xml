@@ -8,6 +8,8 @@
         <class>com.company.ksena.entity.point.Coordinates</class>
         <class>com.company.ksena.entity.people.PasportData</class>
         <class>com.company.ksena.entity.inventory.Inventory</class>
+        <class>com.company.ksena.entity.cleaning_map.CleaningPosition</class>
+        <class>com.company.ksena.entity.inventory.ExpendableMaterial</class>
 
     </persistence-unit>
 </persistence>

@@ -6,5 +6,7 @@
         <item screen="ksena_TaskDocument.browse"/>
         <item screen="ksena_Point.browse"/>
         <item screen="ksena_Inventory.browse"/>
-           </menu>
+        <item screen="ksena_ExpendableMaterial.browse"/>
+        <item screen="ksena_CleaningPosition.browse"/>
+    </menu>
 </menu-config>
