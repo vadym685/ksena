@@ -20,6 +20,7 @@ create table KSENA_PASPORT_DATA (
     --
     -- from ksena_Employee
     EMPLOYEE_TYPE varchar(50),
+    MOBILE_PHONE_ID varchar(36),
     --
     -- from ksena_Client
     POINT_ID varchar(36),
@@ -152,3 +153,22 @@ create table KSENA_TASK_DOCUMENT_CLEANING_POSITION_LINK (
     primary key (TASK_DOCUMENT_ID, CLEANING_POSITION_ID)
 )^
 -- end KSENA_TASK_DOCUMENT_CLEANING_POSITION_LINK
+-- begin KSENA_MOBILE_PHONE
+create table KSENA_MOBILE_PHONE (
+    ID varchar(36) not null,
+    VERSION integer not null,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    --
+    EMEI varchar(255),
+    ANDROID_VERSION varchar(255),
+    PHONE_NAME varchar(255),
+    EMPLOYEE_ID varchar(36),
+    --
+    primary key (ID)
+)^
+-- end KSENA_MOBILE_PHONE

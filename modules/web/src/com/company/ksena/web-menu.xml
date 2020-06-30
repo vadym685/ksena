@@ -8,5 +8,6 @@
         <item screen="ksena_Inventory.browse"/>
         <item screen="ksena_ExpendableMaterial.browse"/>
         <item screen="ksena_CleaningPosition.browse"/>
+        <item screen="ksena_MobilePhone.browse"/>
     </menu>
 </menu-config>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://browseCaption"
+        focusComponent="mobilePhonesTable"
+        messagesPack="com.company.ksena.web.screens.mobilephone">
+    <data readOnly="true">
+        <collection id="mobilePhonesDc"
+                    class="com.company.ksena.entity.people.MobilePhone"
+                    view="_local">
+            <loader id="mobilePhonesDl">
+                <query>
+                    <![CDATA[select e from ksena_MobilePhone e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="mobilePhonesTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="mobilePhonesTable"
+                dataLoader="mobilePhonesDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="mobilePhonesTable"
+                    width="100%"
+                    dataContainer="mobilePhonesDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="imei"/>
+                <column id="androidVersion"/>
+                <column id="phoneModel"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="mobilePhonesTable.create"/>
+                <button id="editBtn" action="mobilePhonesTable.edit"/>
+                <button id="removeBtn" action="mobilePhonesTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

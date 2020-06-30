@@ -36,4 +36,17 @@
             <property name="price"/>
         </property>
     </view>
+    <view entity="ksena_Employee" name="employee-view">
+        <property name="employeeType"/>
+        <property name="mobilePhone" view="_minimal">
+            <property name="imei"/>
+        </property>
+        <property name="fullName"/>
+        <property name="phoneNumber"/>
+        <property name="series"/>
+        <property name="pasportNumber"/>
+        <property name="authority"/>
+        <property name="dateOfIssue"/>
+        <property name="individualTaxpayerNumber"/>
+    </view>
 </views>

@@ -7,11 +7,13 @@ import com.company.ksena.entity.people.Employee;
 import com.company.ksena.entity.point.Point;
 import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
+import com.haulmont.cuba.core.entity.annotation.PublishEntityChangedEvents;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
+@PublishEntityChangedEvents
 @NamePattern("%s|id")
 @Table(name = "KSENA_TASK_DOCUMENT")
 @Entity(name = "ksena_TaskDocument")
@@ -112,6 +114,6 @@ public class TaskDocument extends StandardEntity {
     }
 
     public void setCreateDate(LocalDate createDate) {
-        this.createDate = LocalDate.now();
+        this.createDate = createDate;//LocalDate.now();
     }
 }

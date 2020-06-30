@@ -10,6 +10,7 @@
         <class>com.company.ksena.entity.inventory.Inventory</class>
         <class>com.company.ksena.entity.cleaning_map.CleaningPosition</class>
         <class>com.company.ksena.entity.inventory.ExpendableMaterial</class>
+        <class>com.company.ksena.entity.people.MobilePhone</class>
 
     </persistence-unit>
 </persistence>

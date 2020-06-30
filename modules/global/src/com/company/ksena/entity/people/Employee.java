@@ -13,11 +13,24 @@ public class Employee extends PasportData {
 
     @Column(name = "EMPLOYEE_TYPE")
     protected String employeeType;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MOBILE_PHONE_ID")
+    protected MobilePhone mobilePhone;
+
     @JoinTable(name = "KSENA_TASK_DOCUMENT_EMPLOYEE_LINK",
             joinColumns = @JoinColumn(name = "EMPLOYEE_ID"),
             inverseJoinColumns = @JoinColumn(name = "TASK_DOCUMENT_ID"))
     @ManyToMany
     protected List<TaskDocument> taskDocuments;
+
+    public MobilePhone getMobilePhone() {
+        return mobilePhone;
+    }
+
+    public void setMobilePhone(MobilePhone mobilePhone) {
+        this.mobilePhone = mobilePhone;
+    }
 
     public List<TaskDocument> getTaskDocuments() {
         return taskDocuments;

@@ -85,6 +85,7 @@
                 </buttonsPanel>
             </table>
         </groupBox>
+        <calendar/>
         <hbox id="editActions" spacing="true">
             <button action="windowCommitAndClose"/>
             <button action="windowClose"/>
