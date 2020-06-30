@@ -114,6 +114,11 @@ public class TaskDocument extends StandardEntity {
     }
 
     public void setCreateDate(LocalDate createDate) {
-        this.createDate = createDate;//LocalDate.now();
+        if (createDate == null) {
+            this.createDate = LocalDate.now();
+        }
+        else{ this.createDate = createDate;
+        }
+
     }
 }
