@@ -1,5 +1,6 @@
 package com.company.ksena.entity.task;
 
+import com.company.ksena.entity.cleaning_map.CleaningPosition;
 import com.company.ksena.entity.inventory.Inventory;
 import com.company.ksena.entity.people.Client;
 import com.company.ksena.entity.people.Employee;
@@ -45,6 +46,18 @@ public class TaskDocument extends StandardEntity {
             inverseJoinColumns = @JoinColumn(name = "INVENTORY_ID"))
     @ManyToMany
     protected List<Inventory> inventory;
+
+    @JoinTable(name = "KSENA_TASK_DOCUMENT_CLEANING_POSITION_LINK", joinColumns = @JoinColumn(name = "TASK_DOCUMENT_ID"), inverseJoinColumns = @JoinColumn(name = "CLEANING_POSITION_ID"))
+    @ManyToMany
+    protected List<CleaningPosition> cleaningMap;
+
+    public void setCleaningMap(List<CleaningPosition> cleaningMap) {
+        this.cleaningMap = cleaningMap;
+    }
+
+    public List<CleaningPosition> getCleaningMap() {
+        return cleaningMap;
+    }
 
     public List<Inventory> getInventory() {
         return inventory;

@@ -1,0 +1,5 @@
+create table KSENA_TASK_DOCUMENT_CLEANING_POSITION_LINK (
+    TASK_DOCUMENT_ID varchar(36) not null,
+    CLEANING_POSITION_ID varchar(36) not null,
+    primary key (TASK_DOCUMENT_ID, CLEANING_POSITION_ID)
+);
