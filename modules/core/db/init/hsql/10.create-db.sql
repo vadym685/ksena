@@ -63,6 +63,7 @@ create table KSENA_TASK_DOCUMENT (
     DELETED_BY varchar(50),
     --
     CREATE_DATE date,
+    DATE_OF_COMPLETION date,
     IS_ACTIVE boolean,
     CLIENT_ID varchar(36),
     TASK_TYPE varchar(50),

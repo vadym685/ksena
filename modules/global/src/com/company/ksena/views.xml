@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <views xmlns="http://schemas.haulmont.com/cuba/view.xsd">
 
-    <view entity="ksena_TaskDocument" name="taskDocument-view" extends="_local">
-        <property name="client" view="_minimal"/>
-        <property name="point" view="_minimal"/>
-        <property name="employees" view="_minimal">
-            <property name="employeeType"/>
-        </property>
-        <property name="inventory" view="_minimal">
-            <property name="description"/>
-        </property>
-    </view>
+
     <view entity="ksena_CleaningPosition" name="cleaningPosition-view">
         <property name="name"/>
         <property name="description"/>
@@ -21,7 +12,7 @@
             <property name="standartAmount"/>
         </property>
     </view>
-    <view entity="ksena_TaskDocument" name="taskDocument-view_1" extends="_local">
+    <view entity="ksena_TaskDocument" name="taskDocument-view" extends="_local">
         <property name="client" view="_minimal"/>
         <property name="point" view="_minimal"/>
         <property name="employees" view="_minimal">

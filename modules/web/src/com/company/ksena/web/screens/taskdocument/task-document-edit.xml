@@ -6,7 +6,7 @@
     <data>
         <instance id="taskDocumentDc"
                   class="com.company.ksena.entity.task.TaskDocument"
-                  view="taskDocument-view_1">
+                  view="taskDocument-view">
             <loader/>
             <collection id="employeesDc" property="employees"/>
             <collection id="inventoryDc" property="inventory"/>
@@ -16,7 +16,8 @@
     <dialogMode height="600"
                 width="800"/>
     <layout expand="editActions" spacing="true">
-        <form id="form" dataContainer="taskDocumentDc">
+        <hbox>
+        <form id="form" dataContainer="taskDocumentDc" >
             <column width="250px">
                 <dateField id="createDateField" property="createDate"/>
                 <checkBox id="isActiveField" property="isActive"/>
@@ -33,8 +34,13 @@
                         <action id="clear" type="picker_clear"/>
                     </actions>
                 </pickerField>
+                <dateField id="dateOfCompletionField" property="dateOfCompletion"/>
             </column>
         </form>
+        <calendar id="calendar" height="100%"
+                  firstVisibleHourOfDay="7" lastVisibleHourOfDay="19" navigationButtonsVisible="true"
+                  startDateProperty="createDate" lastVisibleDayOfWeek="7"/>
+        </hbox>
         <groupBox id="employeesBox" caption="msg://com.company.ksena.entity.task/TaskDocument.employees">
             <table id="employeesTable" dataContainer="employeesDc" width="100%" height="200px">
                 <actions>
@@ -85,7 +91,7 @@
                 </buttonsPanel>
             </table>
         </groupBox>
-        <calendar/>
+
         <hbox id="editActions" spacing="true">
             <button action="windowCommitAndClose"/>
             <button action="windowClose"/>
