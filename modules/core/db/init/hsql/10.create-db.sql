@@ -64,6 +64,8 @@ create table KSENA_TASK_DOCUMENT (
     --
     CREATE_DATE date,
     DATE_OF_COMPLETION date,
+    COST_PER_HOUR double precision,
+    TYPE_OF_COST_FORMATION varchar(50),
     IS_ACTIVE boolean,
     CLIENT_ID varchar(36),
     TASK_TYPE varchar(50),

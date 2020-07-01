@@ -1,9 +1,8 @@
 package com.company.ksena.web.screens.taskdocument;
 
 import com.company.ksena.entity.task.TaskType;
-import com.haulmont.cuba.gui.components.Calendar;
-import com.haulmont.cuba.gui.components.DateField;
-import com.haulmont.cuba.gui.components.HasValue;
+import com.company.ksena.entity.task.TypeOfCostFormation;
+import com.haulmont.cuba.gui.components.*;
 import com.haulmont.cuba.gui.screen.*;
 import com.company.ksena.entity.task.TaskDocument;
 
@@ -21,6 +20,8 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
     private Calendar<Date> calendar;
     @Inject
     private DateField<LocalDate> dateOfCompletionField;
+    @Inject
+    private TextField<Double> costPerHourField;
 
     @Subscribe("taskTypeField")
     public void onTaskTypeFieldValueChange(HasValue.ValueChangeEvent<Boolean> event) {
@@ -32,6 +33,14 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                 dateOfCompletionField.setVisible(false);}
         else {calendar.setVisible(false);
             dateOfCompletionField.setVisible(false);}
-
+    }
+    @Subscribe("typeOfCostFormationField")
+    public void onTypeOfCostFormationFieldValueChange(HasValue.ValueChangeEvent<Boolean> event) {
+        if (this.getEditedEntity().getTypeOfCostFormation() == TypeOfCostFormation.fromId("FOR TIME"))
+           {costPerHourField.setVisible(true);}
+        else if (this.getEditedEntity().getTypeOfCostFormation() == TypeOfCostFormation.fromId("FOR CLEANING MAP"))
+           {costPerHourField.setVisible(false);}
+        else
+           {costPerHourField.setVisible(false);}
     }
 }

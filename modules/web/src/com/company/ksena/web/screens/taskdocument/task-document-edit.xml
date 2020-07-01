@@ -35,6 +35,8 @@
                     </actions>
                 </pickerField>
                 <dateField id="dateOfCompletionField" property="dateOfCompletion"/>
+                <lookupField id="typeOfCostFormationField" property="typeOfCostFormation"/>
+                <textField id="costPerHourField" property="costPerHour"/>
             </column>
         </form>
         <calendar id="calendar" height="100%"

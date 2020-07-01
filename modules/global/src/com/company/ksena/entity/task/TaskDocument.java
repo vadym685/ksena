@@ -26,6 +26,12 @@ public class TaskDocument extends StandardEntity {
     @Column(name = "DATE_OF_COMPLETION")
     protected LocalDate dateOfCompletion;
 
+    @Column(name = "COST_PER_HOUR")
+    protected Double costPerHour;
+
+    @Column(name = "TYPE_OF_COST_FORMATION")
+    protected String typeOfCostFormation;
+
     @Column(name = "IS_ACTIVE")
     protected Boolean isActive;
 
@@ -55,6 +61,22 @@ public class TaskDocument extends StandardEntity {
     @JoinTable(name = "KSENA_TASK_DOCUMENT_CLEANING_POSITION_LINK", joinColumns = @JoinColumn(name = "TASK_DOCUMENT_ID"), inverseJoinColumns = @JoinColumn(name = "CLEANING_POSITION_ID"))
     @ManyToMany
     protected List<CleaningPosition> cleaningMap;
+
+    public Double getCostPerHour() {
+        return costPerHour;
+    }
+
+    public void setCostPerHour(Double costPerHour) {
+        this.costPerHour = costPerHour;
+    }
+
+    public TypeOfCostFormation getTypeOfCostFormation() {
+        return typeOfCostFormation == null ? null : TypeOfCostFormation.fromId(typeOfCostFormation);
+    }
+
+    public void setTypeOfCostFormation(TypeOfCostFormation typeOfCostFormation) {
+        this.typeOfCostFormation = typeOfCostFormation == null ? null : typeOfCostFormation.getId();
+    }
 
     public LocalDate getDateOfCompletion() {
         return dateOfCompletion;
