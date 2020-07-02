@@ -27,15 +27,15 @@
                         <action id="clear" type="picker_clear"/>
                     </actions>
                 </pickerField>
-                <lookupField id="taskTypeField" property="taskType"/>
-                <lookupField id="typeOfPeriodicityField" property="typeOfPeriodicity" visible="false"/>
-                <textField id="intervalField" property="interval" visible="false"/>
                 <pickerField id="pointField" property="point">
                     <actions>
                         <action id="lookup" type="picker_lookup"/>
                         <action id="clear" type="picker_clear"/>
                     </actions>
                 </pickerField>
+                <lookupField id="taskTypeField" property="taskType"/>
+                <lookupField id="typeOfPeriodicityField" property="typeOfPeriodicity" visible="false"/>
+                <textField id="intervalField" property="interval" visible="false"/>
                 <dateField id="dateOfCompletionField" property="dateOfCompletion" visible="false"/>
                 <lookupField id="typeOfCostFormationField" property="typeOfCostFormation"/>
                 <textField id="costPerHourField" property="costPerHour" visible="false"/>

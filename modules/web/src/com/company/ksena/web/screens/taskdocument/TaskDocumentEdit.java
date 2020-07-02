@@ -36,30 +36,38 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
     public void onTaskTypeFieldValueChange(HasValue.ValueChangeEvent<Boolean> event) {
         if (this.getEditedEntity().getTaskType() == TaskType.fromId("ONE TIME"))
             {typeOfPeriodicityField.setVisible(false);
-                dateOfCompletionField.setVisible(true);}
+                dateOfCompletionField.setVisible(true);
+                typeOfPeriodicityField.clear();}
         else if (this.getEditedEntity().getTaskType() == TaskType.fromId("REPEAT"))
             {typeOfPeriodicityField.setVisible(true);
-                dateOfCompletionField.setVisible(false);}
+                dateOfCompletionField.setVisible(false);
+            dateOfCompletionField.clear();}
         else {typeOfPeriodicityField.setVisible(false);
-            dateOfCompletionField.setVisible(false);}
+            dateOfCompletionField.setVisible(false);
+            dateOfCompletionField.clear();
+            typeOfPeriodicityField.clear();}
     }
     @Subscribe("typeOfCostFormationField")
     public void onTypeOfCostFormationFieldValueChange(HasValue.ValueChangeEvent<Boolean> event) {
         if (this.getEditedEntity().getTypeOfCostFormation() == TypeOfCostFormation.fromId("FOR TIME"))
            {costPerHourField.setVisible(true);}
         else if (this.getEditedEntity().getTypeOfCostFormation() == TypeOfCostFormation.fromId("FOR CLEANING MAP"))
-           {costPerHourField.setVisible(false);}
+           {costPerHourField.setVisible(false);
+           costPerHourField.clear();}
         else
-           {costPerHourField.setVisible(false);}
+           {costPerHourField.setVisible(false);
+               costPerHourField.clear();}
     }
     @Subscribe("typeOfPeriodicityField")
     public void onTypeOfPeriodicityFieldValueChange(HasValue.ValueChangeEvent<Boolean> event) {
         if (this.getEditedEntity().getTypeOfPeriodicity() == TypeOfPeriodicity.fromId("PERIOD"))
-        {intervalField.setVisible(false);}
+        {intervalField.setVisible(false);
+        intervalField.clear();}
         else if (this.getEditedEntity().getTypeOfPeriodicity() == TypeOfPeriodicity.fromId("PERIODICITY"))
         {intervalField.setVisible(true);}
         else
-        {intervalField.setVisible(false);}
+        {intervalField.setVisible(false);
+            intervalField.clear();}
     }
 
 }
