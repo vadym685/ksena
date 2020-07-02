@@ -70,6 +70,8 @@ create table KSENA_TASK_DOCUMENT (
     CLIENT_ID varchar(36),
     TASK_TYPE varchar(50),
     POINT_ID varchar(36),
+    TYPE_OF_PERIODICITY varchar(50),
+    INTERVAL integer,
     --
     primary key (ID)
 )^

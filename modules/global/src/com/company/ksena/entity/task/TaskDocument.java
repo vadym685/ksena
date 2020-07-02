@@ -46,6 +46,9 @@ public class TaskDocument extends StandardEntity {
     @JoinColumn(name = "POINT_ID")
     protected Point point;
 
+    @Column(name = "TYPE_OF_PERIODICITY")
+    protected String typeOfPeriodicity;
+
     @JoinTable(name = "KSENA_TASK_DOCUMENT_EMPLOYEE_LINK",
             joinColumns = @JoinColumn(name = "TASK_DOCUMENT_ID"),
             inverseJoinColumns = @JoinColumn(name = "EMPLOYEE_ID"))
@@ -61,6 +64,25 @@ public class TaskDocument extends StandardEntity {
     @JoinTable(name = "KSENA_TASK_DOCUMENT_CLEANING_POSITION_LINK", joinColumns = @JoinColumn(name = "TASK_DOCUMENT_ID"), inverseJoinColumns = @JoinColumn(name = "CLEANING_POSITION_ID"))
     @ManyToMany
     protected List<CleaningPosition> cleaningMap;
+
+    @Column(name = "INTERVAL")
+    protected Integer interval;
+
+    public Integer getInterval() {
+        return interval;
+    }
+
+    public void setInterval(Integer interval) {
+        this.interval = interval;
+    }
+
+    public TypeOfPeriodicity getTypeOfPeriodicity() {
+        return typeOfPeriodicity == null ? null : TypeOfPeriodicity.fromId(typeOfPeriodicity);
+    }
+
+    public void setTypeOfPeriodicity(TypeOfPeriodicity typeOfPeriodicity) {
+        this.typeOfPeriodicity = typeOfPeriodicity == null ? null : typeOfPeriodicity.getId();
+    }
 
     public Double getCostPerHour() {
         return costPerHour;
