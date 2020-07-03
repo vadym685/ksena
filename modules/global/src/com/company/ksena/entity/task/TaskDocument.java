@@ -61,19 +61,33 @@ public class TaskDocument extends StandardEntity {
     @ManyToMany
     protected List<Inventory> inventory;
 
+    @JoinTable(name = "KSENA_TASK_DOCUMENT_DAY_INTERVAL_LINK",
+            joinColumns = @JoinColumn(name = "TASK_DOCUMENT_ID"),
+            inverseJoinColumns = @JoinColumn(name = "DAY_INTERVAL_ID"))
+    @ManyToMany
+    protected List<DayInterval> cleaningDay;
+
     @JoinTable(name = "KSENA_TASK_DOCUMENT_CLEANING_POSITION_LINK", joinColumns = @JoinColumn(name = "TASK_DOCUMENT_ID"), inverseJoinColumns = @JoinColumn(name = "CLEANING_POSITION_ID"))
     @ManyToMany
     protected List<CleaningPosition> cleaningMap;
 
     @Column(name = "INTERVAL")
-    protected Integer interval;
+    protected Integer periodicity;
 
-    public Integer getInterval() {
-        return interval;
+    public List<DayInterval> getCleaningDay() {
+        return cleaningDay;
     }
 
-    public void setInterval(Integer interval) {
-        this.interval = interval;
+    public void setCleaningDay(List<DayInterval> cleaningDay) {
+        this.cleaningDay = cleaningDay;
+    }
+
+    public Integer getPeriodicity() {
+        return periodicity;
+    }
+
+    public void setPeriodicity(Integer periodicity) {
+        this.periodicity = periodicity;
     }
 
     public TypeOfPeriodicity getTypeOfPeriodicity() {

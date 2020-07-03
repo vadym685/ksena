@@ -11,6 +11,7 @@
         <class>com.company.ksena.entity.cleaning_map.CleaningPosition</class>
         <class>com.company.ksena.entity.inventory.ExpendableMaterial</class>
         <class>com.company.ksena.entity.people.MobilePhone</class>
+        <class>com.company.ksena.entity.task.DayInterval</class>
 
     </persistence-unit>
 </persistence>

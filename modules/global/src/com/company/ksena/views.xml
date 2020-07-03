@@ -21,6 +21,10 @@
         <property name="inventory" view="_minimal">
             <property name="description"/>
         </property>
+        <property name="cleaningDay" view="_minimal">
+            <property name="numberDay"/>
+            <property name="nameDay"/>
+        </property>
         <property name="cleaningMap" view="_minimal">
             <property name="description"/>
             <property name="needTime"/>

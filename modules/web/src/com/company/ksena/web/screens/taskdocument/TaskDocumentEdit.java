@@ -1,18 +1,18 @@
 package com.company.ksena.web.screens.taskdocument;
 
-import com.company.ksena.entity.task.TaskType;
-import com.company.ksena.entity.task.TypeOfCostFormation;
-import com.company.ksena.entity.task.TypeOfPeriodicity;
+import com.company.ksena.entity.cleaning_map.CleaningPosition;
+import com.company.ksena.entity.task.*;
 import com.haulmont.cuba.gui.components.*;
 import com.haulmont.cuba.gui.components.calendar.CalendarEvent;
 import com.haulmont.cuba.gui.components.calendar.ListCalendarEventProvider;
 import com.haulmont.cuba.gui.components.calendar.SimpleCalendarEvent;
+import com.haulmont.cuba.gui.model.CollectionPropertyContainer;
 import com.haulmont.cuba.gui.screen.*;
-import com.company.ksena.entity.task.TaskDocument;
 
 import javax.inject.Inject;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.Date;
 
 @UiController("ksena_TaskDocument.edit")
@@ -21,8 +21,6 @@ import java.util.Date;
 @LoadDataBeforeShow
 public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
 
-//    @Inject
-//    private Calendar<Date> calendar;
     @Inject
     private DateField<LocalDate> dateOfCompletionField;
     @Inject
@@ -30,7 +28,13 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
     @Inject
     private LookupField<TypeOfPeriodicity> typeOfPeriodicityField;
     @Inject
-    private TextField<Integer> intervalField;
+    private TextField<Integer> periodicityField;
+    @Inject
+    private GroupBoxLayout cleaningDayBox;
+    @Inject
+    private CollectionPropertyContainer<DayInterval> cleaningDayDc;
+    @Inject
+    private Table<DayInterval> cleaningDayTable;
 
     @Subscribe("taskTypeField")
     public void onTaskTypeFieldValueChange(HasValue.ValueChangeEvent<Boolean> event) {
@@ -61,13 +65,22 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
     @Subscribe("typeOfPeriodicityField")
     public void onTypeOfPeriodicityFieldValueChange(HasValue.ValueChangeEvent<Boolean> event) {
         if (this.getEditedEntity().getTypeOfPeriodicity() == TypeOfPeriodicity.fromId("PERIOD"))
-        {intervalField.setVisible(false);
-        intervalField.clear();}
+        {periodicityField.setVisible(false);
+            periodicityField.clear();
+            cleaningDayBox.setVisible(true);
+
+        }
         else if (this.getEditedEntity().getTypeOfPeriodicity() == TypeOfPeriodicity.fromId("PERIODICITY"))
-        {intervalField.setVisible(true);}
+        {periodicityField.setVisible(true);
+            cleaningDayBox.setVisible(false);
+
+        }
         else
-        {intervalField.setVisible(false);
-            intervalField.clear();}
+        {periodicityField.setVisible(false);
+            periodicityField.clear();
+            cleaningDayBox.setVisible(false);
+            cleaningDayTable.setMultiLineCells(true);
+        }
     }
 
 }
