@@ -23,7 +23,6 @@
                     width="100%"
                     dataContainer="dayIntervalsDc">
             <columns>
-                <column id="numberDay"/>
                 <column id="nameDay"/>
             </columns>
             <rowsCount/>

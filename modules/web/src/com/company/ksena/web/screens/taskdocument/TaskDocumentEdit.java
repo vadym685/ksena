@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Objects;
 
 @UiController("ksena_TaskDocument.edit")
 @UiDescriptor("task-document-edit.xml")
@@ -36,51 +37,57 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
     @Inject
     private Table<DayInterval> cleaningDayTable;
 
+
     @Subscribe("taskTypeField")
     public void onTaskTypeFieldValueChange(HasValue.ValueChangeEvent<Boolean> event) {
-        if (this.getEditedEntity().getTaskType() == TaskType.fromId("ONE TIME"))
-            {typeOfPeriodicityField.setVisible(false);
-                dateOfCompletionField.setVisible(true);
-                typeOfPeriodicityField.clear();}
-        else if (this.getEditedEntity().getTaskType() == TaskType.fromId("REPEAT"))
-            {typeOfPeriodicityField.setVisible(true);
-                dateOfCompletionField.setVisible(false);
-            dateOfCompletionField.clear();}
-        else {typeOfPeriodicityField.setVisible(false);
-            dateOfCompletionField.setVisible(false);
-            dateOfCompletionField.clear();
-            typeOfPeriodicityField.clear();}
+        if (this.getEditedEntity().getTaskType() == TaskType.fromId("ONE TIME")) {
+            typeOfPeriodicityField.setVisible(false);
+//            dateOfCompletionField.setVisible(true);
+            typeOfPeriodicityField.clear();
+        } else if (this.getEditedEntity().getTaskType() == TaskType.fromId("REPEAT")) {
+            typeOfPeriodicityField.setVisible(true);
+//            dateOfCompletionField.setVisible(false);
+//            dateOfCompletionField.clear();
+        } else {
+            typeOfPeriodicityField.setVisible(false);
+//            dateOfCompletionField.setVisible(false);
+//            dateOfCompletionField.clear();
+            typeOfPeriodicityField.clear();
+        }
     }
+
     @Subscribe("typeOfCostFormationField")
     public void onTypeOfCostFormationFieldValueChange(HasValue.ValueChangeEvent<Boolean> event) {
-        if (this.getEditedEntity().getTypeOfCostFormation() == TypeOfCostFormation.fromId("FOR TIME"))
-           {costPerHourField.setVisible(true);}
-        else if (this.getEditedEntity().getTypeOfCostFormation() == TypeOfCostFormation.fromId("FOR CLEANING MAP"))
-           {costPerHourField.setVisible(false);
-           costPerHourField.clear();}
-        else
-           {costPerHourField.setVisible(false);
-               costPerHourField.clear();}
+        if (this.getEditedEntity().getTypeOfCostFormation() == TypeOfCostFormation.fromId("FOR TIME")) {
+            costPerHourField.setVisible(true);
+        } else if (this.getEditedEntity().getTypeOfCostFormation() == TypeOfCostFormation.fromId("FOR CLEANING MAP")) {
+            costPerHourField.setVisible(false);
+            costPerHourField.clear();
+        } else {
+            costPerHourField.setVisible(false);
+            costPerHourField.clear();
+        }
     }
+
     @Subscribe("typeOfPeriodicityField")
     public void onTypeOfPeriodicityFieldValueChange(HasValue.ValueChangeEvent<Boolean> event) {
-        if (this.getEditedEntity().getTypeOfPeriodicity() == TypeOfPeriodicity.fromId("PERIOD"))
-        {periodicityField.setVisible(false);
+        if (this.getEditedEntity().getTypeOfPeriodicity() == TypeOfPeriodicity.fromId("PERIOD")) {
+            periodicityField.setVisible(false);
             periodicityField.clear();
             cleaningDayBox.setVisible(true);
 
-        }
-        else if (this.getEditedEntity().getTypeOfPeriodicity() == TypeOfPeriodicity.fromId("PERIODICITY"))
-        {periodicityField.setVisible(true);
+        } else if (this.getEditedEntity().getTypeOfPeriodicity() == TypeOfPeriodicity.fromId("PERIODICITY")) {
+            periodicityField.setVisible(true);
             cleaningDayBox.setVisible(false);
 
-        }
-        else
-        {periodicityField.setVisible(false);
+        } else {
+            periodicityField.setVisible(false);
             periodicityField.clear();
             cleaningDayBox.setVisible(false);
-            cleaningDayTable.setMultiLineCells(true);
+            this.cleaningDayDc.getMutableItems().clear();
+
         }
+
     }
 
 }

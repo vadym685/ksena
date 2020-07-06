@@ -22,6 +22,7 @@
                 <form id="form" dataContainer="taskDocumentDc">
                 <column width="250px">
                     <dateField id="createDateField" property="createDate"/>
+                    <dateField id="dateOfCompletionField" property="dateOfCompletion"/>
                     <checkBox id="isActiveField" property="isActive"/>
                     <pickerField id="clientField" property="client">
                         <actions>
@@ -38,7 +39,6 @@
                     <lookupField id="taskTypeField" property="taskType"/>
                     <lookupField id="typeOfPeriodicityField" property="typeOfPeriodicity" visible="false"/>
                     <textField id="periodicityField" property="periodicity" visible="false"/>
-                    <dateField id="dateOfCompletionField" property="dateOfCompletion" visible="false"/>
                     <lookupField id="typeOfCostFormationField" property="typeOfCostFormation"/>
                     <textField id="costPerHourField" property="costPerHour" visible="false"/>
                 </column>
