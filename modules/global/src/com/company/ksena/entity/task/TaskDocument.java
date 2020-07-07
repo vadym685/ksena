@@ -1,8 +1,8 @@
 package com.company.ksena.entity.task;
 
 import com.company.ksena.entity.cleaning_map.CleaningPosition;
+import com.company.ksena.entity.company.Company;
 import com.company.ksena.entity.inventory.Inventory;
-import com.company.ksena.entity.people.Client;
 import com.company.ksena.entity.people.Employee;
 import com.company.ksena.entity.point.Point;
 import com.haulmont.chile.core.annotations.NamePattern;
@@ -35,16 +35,16 @@ public class TaskDocument extends StandardEntity {
     @Column(name = "IS_ACTIVE")
     protected Boolean isActive;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CLIENT_ID")
-    protected Client client;
-
     @Column(name = "TASK_TYPE")
     protected String taskType;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "POINT_ID")
     protected Point point;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "COMPANY_ID")
+    protected Company company;
 
     @Column(name = "TYPE_OF_PERIODICITY")
     protected String typeOfPeriodicity;
@@ -73,6 +73,25 @@ public class TaskDocument extends StandardEntity {
 
     @Column(name = "INTERVAL")
     protected Integer periodicity;
+
+    @OneToMany(mappedBy = "taskDocument")
+    protected List<Task> task;
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public List<Task> getTask() {
+        return task;
+    }
+
+    public void setTask(List<Task> task) {
+        this.task = task;
+    }
 
     public List<DayInterval> getCleaningDay() {
         return cleaningDay;
@@ -168,14 +187,6 @@ public class TaskDocument extends StandardEntity {
 
     public void setTaskType(TaskType taskType) {
         this.taskType = taskType == null ? null : taskType.getId();
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
     }
 
     public LocalDate getCreateDate() {

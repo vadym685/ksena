@@ -12,8 +12,7 @@ create table KSENA_PASPORT_DATA (
     --
     FULL_NAME varchar(255),
     PHONE_NUMBER integer,
-    SERIES varchar(2),
-    PASPORT_NUMBER integer,
+    PASPORT_NUMBER varchar(2),
     AUTHORITY varchar(255),
     DATE_OF_ISSUE date,
     INDIVIDUAL_TAXPAYER_NUMBER varchar(255),
@@ -21,9 +20,6 @@ create table KSENA_PASPORT_DATA (
     -- from ksena_Employee
     EMPLOYEE_TYPE varchar(50),
     MOBILE_PHONE_ID varchar(36),
-    --
-    -- from ksena_Client
-    POINT_ID varchar(36),
     --
     primary key (ID)
 )^
@@ -67,9 +63,9 @@ create table KSENA_TASK_DOCUMENT (
     COST_PER_HOUR double precision,
     TYPE_OF_COST_FORMATION varchar(50),
     IS_ACTIVE boolean,
-    CLIENT_ID varchar(36),
     TASK_TYPE varchar(50),
     POINT_ID varchar(36),
+    COMPANY_ID varchar(36),
     TYPE_OF_PERIODICITY varchar(50),
     INTERVAL integer,
     --
@@ -201,3 +197,73 @@ create table KSENA_TASK_DOCUMENT_DAY_INTERVAL_LINK (
     primary key (DAY_INTERVAL_ID, TASK_DOCUMENT_ID)
 )^
 -- end KSENA_TASK_DOCUMENT_DAY_INTERVAL_LINK
+-- begin KSENA_TASK
+create table KSENA_TASK (
+    ID varchar(36) not null,
+    VERSION integer not null,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    --
+    TASK_DOCUMENT_ID varchar(36),
+    DATE_OF_COMPLETION date,
+    TASK_STATUS varchar(50),
+    POINT_ID varchar(36),
+    --
+    primary key (ID)
+)^
+-- end KSENA_TASK
+
+-- begin KSENA_TASK_EMPLOYEE_LINK
+create table KSENA_TASK_EMPLOYEE_LINK (
+    EMPLOYEE_ID varchar(36) not null,
+    TASK_ID varchar(36) not null,
+    primary key (EMPLOYEE_ID, TASK_ID)
+)^
+-- end KSENA_TASK_EMPLOYEE_LINK
+-- begin KSENA_TASK_INVENTORY_LINK
+create table KSENA_TASK_INVENTORY_LINK (
+    INVENTORY_ID varchar(36) not null,
+    TASK_ID varchar(36) not null,
+    primary key (INVENTORY_ID, TASK_ID)
+)^
+-- end KSENA_TASK_INVENTORY_LINK
+-- begin KSENA_TASK_CLEANING_POSITION_LINK
+create table KSENA_TASK_CLEANING_POSITION_LINK (
+    TASK_ID varchar(36) not null,
+    CLEANING_POSITION_ID varchar(36) not null,
+    primary key (TASK_ID, CLEANING_POSITION_ID)
+)^
+-- end KSENA_TASK_CLEANING_POSITION_LINK
+-- begin KSENA_COMPANY
+create table KSENA_COMPANY (
+    ID varchar(36) not null,
+    VERSION integer not null,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    --
+    NAME varchar(255),
+    FULL_NAME varchar(255),
+    LEGAL_ADDRESS varchar(255),
+    ACTUAL_ADDRESS varchar(255),
+    EMAIL varchar(255),
+    CONTACT_PHONE integer,
+    INDIVIDUAL_TAXPAYER_NUMBER varchar(255),
+    --
+    primary key (ID)
+)^
+-- end KSENA_COMPANY
+-- begin KSENA_COMPANY_CLIENT_EMPLOYEE_LINK
+create table KSENA_COMPANY_CLIENT_EMPLOYEE_LINK (
+    CLIENT_EMPLOYEE_ID varchar(36) not null,
+    COMPANY_ID varchar(36) not null,
+    primary key (CLIENT_EMPLOYEE_ID, COMPANY_ID)
+)^
+-- end KSENA_COMPANY_CLIENT_EMPLOYEE_LINK

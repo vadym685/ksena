@@ -13,8 +13,8 @@
         </property>
     </view>
     <view entity="ksena_TaskDocument" name="taskDocument-view" extends="_local">
-        <property name="client" view="_minimal"/>
         <property name="point" view="_minimal"/>
+        <property name="company" view="_minimal"/>
         <property name="employees" view="_minimal">
             <property name="employeeType"/>
         </property>
@@ -38,10 +38,35 @@
         </property>
         <property name="fullName"/>
         <property name="phoneNumber"/>
-        <property name="series"/>
         <property name="pasportNumber"/>
         <property name="authority"/>
         <property name="dateOfIssue"/>
         <property name="individualTaxpayerNumber"/>
+    </view>
+    <view entity="ksena_Task" name="task-view" extends="_local">
+        <property name="taskDocument" view="_minimal"/>
+        <property name="point" view="_minimal"/>
+        <property name="employees" view="_minimal"/>
+    </view>
+    <view entity="ksena_Task" name="task-view_1" extends="_local">
+        <property name="taskDocument" view="_minimal"/>
+        <property name="point" view="_minimal"/>
+        <property name="employees" view="_minimal">
+            <property name="employeeType"/>
+            <property name="mobilePhone" view="_minimal"/>
+        </property>
+        <property name="cleaningMap" view="_minimal">
+            <property name="description"/>
+            <property name="needTime"/>
+            <property name="price"/>
+        </property>
+        <property name="inventory" view="_minimal">
+            <property name="description"/>
+        </property>
+    </view>
+    <view entity="ksena_Company" name="company-view" extends="_local">
+        <property name="responsibleEmployee" view="_minimal"/>
+    </view>
+    <view entity="ksena_Company" name="company-view_1" extends="_local">
     </view>
 </views>

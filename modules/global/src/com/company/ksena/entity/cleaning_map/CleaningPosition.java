@@ -1,6 +1,7 @@
 package com.company.ksena.entity.cleaning_map;
 
 import com.company.ksena.entity.inventory.ExpendableMaterial;
+import com.company.ksena.entity.task.Task;
 import com.company.ksena.entity.task.TaskDocument;
 import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
@@ -36,6 +37,19 @@ public class CleaningPosition extends StandardEntity {
             inverseJoinColumns = @JoinColumn(name = "TASK_DOCUMENT_ID"))
     @ManyToMany
     protected List<TaskDocument> taskDocuments;
+    @JoinTable(name = "KSENA_TASK_CLEANING_POSITION_LINK",
+            joinColumns = @JoinColumn(name = "CLEANING_POSITION_ID"),
+            inverseJoinColumns = @JoinColumn(name = "TASK_ID"))
+    @ManyToMany
+    protected List<Task> tasks;
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
 
     public List<TaskDocument> getTaskDocuments() {
         return taskDocuments;

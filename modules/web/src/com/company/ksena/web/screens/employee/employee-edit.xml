@@ -17,8 +17,7 @@
             <column width="250px">
                 <textField id="fullNameField" property="fullName"/>
                 <textField id="phoneNumberField" property="phoneNumber"/>
-                <textField id="seriesField" property="series"/>
-                <textField id="pasportNumberField" property="pasportNumber"/>
+                <textField id="seriesField" property="pasportNumber"/>
                 <textField id="authorityField" property="authority"/>
                 <dateField id="dateOfIssueField" property="dateOfIssue"/>
                 <textField id="individualTaxpayerNumberField" property="individualTaxpayerNumber"/>

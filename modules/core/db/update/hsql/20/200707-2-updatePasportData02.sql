@@ -1,0 +1,3 @@
+alter table KSENA_PASPORT_DATA alter column COMPANY_ID rename to COMPANY_ID__U09113 ^
+alter table KSENA_PASPORT_DATA drop constraint FK_KSENA_PASPORT_DATA_ON_COMPANY ;
+drop index IDX_KSENA_PASPORT_DATA_ON_COMPANY ;

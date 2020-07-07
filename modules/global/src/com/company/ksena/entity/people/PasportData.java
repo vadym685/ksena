@@ -5,7 +5,6 @@ import com.haulmont.cuba.core.entity.StandardEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Table(name = "KSENA_PASPORT_DATA")
@@ -19,12 +18,8 @@ public class PasportData extends StandardEntity {
     @Column(name = "PHONE_NUMBER")
     protected Integer phoneNumber;
 
-    @Column(name = "SERIES", length = 2)
-    protected String series;
-
-    @NotNull
-    @Column(name = "PASPORT_NUMBER")
-    protected Integer pasportNumber;
+    @Column(name = "PASPORT_NUMBER", length = 2)
+    protected String pasportNumber;
 
     @Column(name = "AUTHORITY")
     protected String authority;
@@ -75,19 +70,11 @@ public class PasportData extends StandardEntity {
         this.authority = authority;
     }
 
-    public Integer getPasportNumber() {
+    public String getPasportNumber() {
         return pasportNumber;
     }
 
-    public void setPasportNumber(Integer pasportNumber) {
+    public void setPasportNumber(String pasportNumber) {
         this.pasportNumber = pasportNumber;
-    }
-
-    public String getSeries() {
-        return series;
-    }
-
-    public void setSeries(String series) {
-        this.series = series;
     }
 }

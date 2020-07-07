@@ -1,5 +1,6 @@
 package com.company.ksena.entity.people;
 
+import com.company.ksena.entity.task.Task;
 import com.company.ksena.entity.task.TaskDocument;
 import com.haulmont.chile.core.annotations.NamePattern;
 
@@ -23,6 +24,19 @@ public class Employee extends PasportData {
             inverseJoinColumns = @JoinColumn(name = "TASK_DOCUMENT_ID"))
     @ManyToMany
     protected List<TaskDocument> taskDocuments;
+    @JoinTable(name = "KSENA_TASK_EMPLOYEE_LINK",
+            joinColumns = @JoinColumn(name = "EMPLOYEE_ID"),
+            inverseJoinColumns = @JoinColumn(name = "TASK_ID"))
+    @ManyToMany
+    protected List<Task> tasks;
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
 
     public MobilePhone getMobilePhone() {
         return mobilePhone;

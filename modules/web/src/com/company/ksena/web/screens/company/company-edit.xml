@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="com.company.ksena.web.screens.company">
+    <data>
+        <instance id="companyDc"
+                  class="com.company.ksena.entity.company.Company"
+                  view="company-view">
+            <loader/>
+            <collection id="responsibleEmployeeDc" property="responsibleEmployee"/>
+        </instance>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="companyDc">
+            <column width="250px">
+                <textField id="nameField" property="name"/>
+                <textField id="fullNameField" property="fullName"/>
+                <textField id="legalAddressField" property="legalAddress"/>
+                <textField id="actualAddressField" property="actualAddress"/>
+                <textField id="emailField" property="email"/>
+                <textField id="contactPhoneField" property="contactPhone"/>
+                <textField id="individualTaxpayerNumberField" property="individualTaxpayerNumber"/>
+            </column>
+        </form>
+        <groupBox id="responsibleEmployeeBox"
+                  caption="msg://com.company.ksena.entity.company/Company.responsibleEmployee">
+            <table id="responsibleEmployeeTable" dataContainer="responsibleEmployeeDc" width="100%" height="200px">
+                <actions>
+                    <action id="add" type="add"/>
+                    <action id="exclude" type="exclude"/>
+                </actions>
+                <columns>
+                    <column id="fullName"/>
+                </columns>
+                <buttonsPanel>
+                    <button action="responsibleEmployeeTable.add"/>
+                    <button action="responsibleEmployeeTable.exclude"/>
+                </buttonsPanel>
+            </table>
+        </groupBox>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

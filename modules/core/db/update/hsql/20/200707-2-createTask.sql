@@ -1,0 +1,6 @@
+alter table KSENA_TASK add constraint FK_KSENA_TASK_ON_TASK_DOCUMENT foreign key (TASK_DOCUMENT_ID) references KSENA_TASK_DOCUMENT(ID);
+alter table KSENA_TASK add constraint FK_KSENA_TASK_ON_CLIENT foreign key (CLIENT_ID) references KSENA_PASPORT_DATA(ID);
+alter table KSENA_TASK add constraint FK_KSENA_TASK_ON_POINT foreign key (POINT_ID) references KSENA_COORDINATES(ID);
+create index IDX_KSENA_TASK_ON_TASK_DOCUMENT on KSENA_TASK (TASK_DOCUMENT_ID);
+create index IDX_KSENA_TASK_ON_CLIENT on KSENA_TASK (CLIENT_ID);
+create index IDX_KSENA_TASK_ON_POINT on KSENA_TASK (POINT_ID);

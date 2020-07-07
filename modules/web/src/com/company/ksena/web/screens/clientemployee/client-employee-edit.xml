@@ -2,10 +2,10 @@
 <window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
         caption="msg://editorCaption"
         focusComponent="form"
-        messagesPack="com.company.ksena.web.screens.client">
+        messagesPack="com.company.ksena.web.screens.clientemployee">
     <data>
-        <instance id="clientDc"
-                  class="com.company.ksena.entity.people.Client"
+        <instance id="clientEmployeeDc"
+                  class="com.company.ksena.entity.people.ClientEmployee"
                   view="_local">
             <loader/>
         </instance>
@@ -13,11 +13,10 @@
     <dialogMode height="600"
                 width="800"/>
     <layout expand="editActions" spacing="true">
-        <form id="form" dataContainer="clientDc">
+        <form id="form" dataContainer="clientEmployeeDc">
             <column width="250px">
                 <textField id="fullNameField" property="fullName"/>
                 <textField id="phoneNumberField" property="phoneNumber"/>
-                <textField id="seriesField" property="series"/>
                 <textField id="pasportNumberField" property="pasportNumber"/>
                 <textField id="authorityField" property="authority"/>
                 <dateField id="dateOfIssueField" property="dateOfIssue"/>

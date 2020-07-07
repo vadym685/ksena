@@ -35,7 +35,6 @@
             <columns>
                 <column id="fullName"/>
                 <column id="phoneNumber"/>
-                <column id="series"/>
                 <column id="pasportNumber"/>
                 <column id="authority"/>
                 <column id="dateOfIssue"/>

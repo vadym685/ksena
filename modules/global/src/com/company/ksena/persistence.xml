@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
     <persistence-unit name="ksena" transaction-type="RESOURCE_LOCAL">
-        <class>com.company.ksena.entity.people.Client</class>
+        <class>com.company.ksena.entity.people.ClientEmployee</class>
         <class>com.company.ksena.entity.people.Employee</class>
         <class>com.company.ksena.entity.task.TaskDocument</class>
         <class>com.company.ksena.entity.point.Point</class>
@@ -12,6 +12,7 @@
         <class>com.company.ksena.entity.inventory.ExpendableMaterial</class>
         <class>com.company.ksena.entity.people.MobilePhone</class>
         <class>com.company.ksena.entity.task.DayInterval</class>
-
+        <class>com.company.ksena.entity.task.Task</class>
+        <class>com.company.ksena.entity.company.Company</class>
     </persistence-unit>
 </persistence>
