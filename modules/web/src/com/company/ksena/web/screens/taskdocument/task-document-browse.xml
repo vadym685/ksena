@@ -7,7 +7,10 @@
     <data readOnly="true">
         <collection id="taskDocumentsDc"
                     class="com.company.ksena.entity.task.TaskDocument"
-                    view="_local">
+        >
+            <view extends="_local">
+                <property name="company" view="_minimal"/>
+            </view>
             <loader id="taskDocumentsDl">
                 <query>
                     <![CDATA[select e from ksena_TaskDocument e]]>
@@ -33,7 +36,9 @@
                 <action id="remove" type="remove"/>
             </actions>
             <columns>
+                <column id="docNumber"/>
                 <column id="createDate"/>
+                <column id="company"/>
                 <column id="isActive"/>
                 <column id="taskType"/>
             </columns>

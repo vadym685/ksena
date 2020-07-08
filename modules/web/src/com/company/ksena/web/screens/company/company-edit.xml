@@ -7,10 +7,12 @@
         <instance id="companyDc"
                   class="com.company.ksena.entity.company.Company"
                   view="company-view">
-            <loader/>
+            <loader>
+            </loader>
             <collection id="responsibleEmployeeDc" property="responsibleEmployee"/>
         </instance>
     </data>
+
     <dialogMode height="600"
                 width="800"/>
     <layout expand="editActions" spacing="true">

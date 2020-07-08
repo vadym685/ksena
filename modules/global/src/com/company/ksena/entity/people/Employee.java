@@ -5,6 +5,7 @@ import com.company.ksena.entity.task.TaskDocument;
 import com.haulmont.chile.core.annotations.NamePattern;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @NamePattern("%s|fullName")
@@ -15,6 +16,12 @@ public class Employee extends PasportData {
     @Column(name = "EMPLOYEE_TYPE")
     protected String employeeType;
 
+    @Column(name = "COMPLETED_TRAINING")
+    protected Boolean completedTraining;
+
+    @Column(name = "IS_ACTIVE")
+    protected Boolean isActive;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MOBILE_PHONE_ID")
     protected MobilePhone mobilePhone;
@@ -24,11 +31,50 @@ public class Employee extends PasportData {
             inverseJoinColumns = @JoinColumn(name = "TASK_DOCUMENT_ID"))
     @ManyToMany
     protected List<TaskDocument> taskDocuments;
+
     @JoinTable(name = "KSENA_TASK_EMPLOYEE_LINK",
             joinColumns = @JoinColumn(name = "EMPLOYEE_ID"),
             inverseJoinColumns = @JoinColumn(name = "TASK_ID"))
     @ManyToMany
     protected List<Task> tasks;
+
+    @Column(name = "DATE_OF_EMPLOYMENT")
+    protected LocalDate dateOfEmployment;
+
+    @Column(name = "DATE_OF_DISMISSAL")
+    protected LocalDate dateOfDismissal;
+
+    public LocalDate getDateOfDismissal() {
+        return dateOfDismissal;
+    }
+
+    public void setDateOfDismissal(LocalDate dateOfDismissal) {
+        this.dateOfDismissal = dateOfDismissal;
+    }
+
+    public LocalDate getDateOfEmployment() {
+        return dateOfEmployment;
+    }
+
+    public void setDateOfEmployment(LocalDate dateOfEmployment) {
+        this.dateOfEmployment = dateOfEmployment;
+    }
+
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    public Boolean getCompletedTraining() {
+        return completedTraining;
+    }
+
+    public void setCompletedTraining(Boolean completedTraining) {
+        this.completedTraining = completedTraining;
+    }
 
     public List<Task> getTasks() {
         return tasks;

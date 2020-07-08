@@ -10,7 +10,7 @@ import javax.persistence.ManyToMany;
 import java.util.List;
 
 @NamePattern("%s|fullName")
-@Entity(name = "ksena_Client")
+@Entity(name = "ksena_ClientEmployee")
 public class ClientEmployee extends PasportData {
     private static final long serialVersionUID = -9005267031335817417L;
 

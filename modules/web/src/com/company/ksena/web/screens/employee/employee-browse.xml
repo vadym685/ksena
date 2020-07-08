@@ -40,6 +40,8 @@
                 <column id="dateOfIssue"/>
                 <column id="individualTaxpayerNumber"/>
                 <column id="employeeType"/>
+                <column id="completedTraining"/>
+                <column id="isActive"/>
             </columns>
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"

@@ -14,22 +14,26 @@
                 width="800"/>
     <layout expand="editActions" spacing="true">
         <form id="form" dataContainer="employeeDc">
-            <column width="250px">
-                <textField id="fullNameField" property="fullName"/>
-                <textField id="phoneNumberField" property="phoneNumber"/>
-                <textField id="seriesField" property="pasportNumber"/>
-                <textField id="authorityField" property="authority"/>
-                <dateField id="dateOfIssueField" property="dateOfIssue"/>
-                <textField id="individualTaxpayerNumberField" property="individualTaxpayerNumber"/>
-                <lookupField id="employeeTypeField" property="employeeType"/>
-                <pickerField id="mobilePhoneField" property="mobilePhone">
-                    <actions>
-                        <action id="lookup" type="picker_lookup"/>
-                        <action id="clear" type="picker_clear"/>
-                    </actions>
-                </pickerField>
-            </column>
-        </form>
+         <column width="250px">
+             <textField id="fullNameField" property="fullName"/>
+             <checkBox id="isActiveField" property="isActive"/>
+             <checkBox id="completedTrainingField" property="completedTraining"/>
+             <textField id="phoneNumberField" property="phoneNumber"/>
+             <textField id="seriesField" property="pasportNumber"/>
+             <textField id="authorityField" property="authority"/>
+             <dateField id="dateOfIssueField" property="dateOfIssue"/>
+             <textField id="individualTaxpayerNumberField" property="individualTaxpayerNumber"/>
+             <lookupField id="employeeTypeField" property="employeeType"/>
+             <pickerField id="mobilePhoneField" property="mobilePhone">
+                 <actions>
+                     <action id="lookup" type="picker_lookup"/>
+                     <action id="clear" type="picker_clear"/>
+                 </actions>
+             </pickerField>
+             <dateField id="dateOfEmploymentField" property="dateOfEmployment"/>
+             <dateField id="dateOfDismissalField" property="dateOfDismissal"/>
+         </column>
+     </form>
         <hbox id="editActions" spacing="true">
             <button action="windowCommitAndClose"/>
             <button action="windowClose"/>

@@ -9,7 +9,8 @@ public enum EmployeeType implements EnumClass<String> {
 
     CADRES("CADRES"),
     SELF_EMPLOYED("SELF EMPLOYED"),
-    TEMPORARY_STAFF("TEMPORARY STAFF");
+    TEMPORARY_STAFF("TEMPORARY STAFF"),
+    ADMINISTRATIVE_STAFF("ADMINISTRATIVE STAFF");
 
     private String id;
 

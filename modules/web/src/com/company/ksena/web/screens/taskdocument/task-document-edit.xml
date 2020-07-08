@@ -21,6 +21,7 @@
             <groupBox id="dataBox" spacing="true" width="100%">
                 <form id="form" dataContainer="taskDocumentDc">
                 <column width="250px">
+                    <textField id="docNumberField" property="docNumber"/>
                     <dateField id="createDateField" property="createDate"/>
                     <dateField id="dateOfCompletionField" property="dateOfCompletion"/>
                     <checkBox id="isActiveField" property="isActive"/>

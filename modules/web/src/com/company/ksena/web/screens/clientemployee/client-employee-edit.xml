@@ -6,7 +6,16 @@
     <data>
         <instance id="clientEmployeeDc"
                   class="com.company.ksena.entity.people.ClientEmployee"
-                  view="_local">
+        >
+            <view>
+                <property name="companies" view="_minimal"/>
+                <property name="fullName"/>
+                <property name="phoneNumber"/>
+                <property name="pasportNumber"/>
+                <property name="authority"/>
+                <property name="dateOfIssue"/>
+                <property name="individualTaxpayerNumber"/>
+            </view>
             <loader/>
         </instance>
     </data>
@@ -16,6 +25,7 @@
         <form id="form" dataContainer="clientEmployeeDc">
             <column width="250px">
                 <textField id="fullNameField" property="fullName"/>
+                <textField id="companiesField" property="companies"/>
                 <textField id="phoneNumberField" property="phoneNumber"/>
                 <textField id="pasportNumberField" property="pasportNumber"/>
                 <textField id="authorityField" property="authority"/>

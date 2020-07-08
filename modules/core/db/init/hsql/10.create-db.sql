@@ -19,7 +19,11 @@ create table KSENA_PASPORT_DATA (
     --
     -- from ksena_Employee
     EMPLOYEE_TYPE varchar(50),
+    COMPLETED_TRAINING boolean,
+    IS_ACTIVE boolean,
     MOBILE_PHONE_ID varchar(36),
+    DATE_OF_EMPLOYMENT date,
+    DATE_OF_DISMISSAL date,
     --
     primary key (ID)
 )^
@@ -58,6 +62,7 @@ create table KSENA_TASK_DOCUMENT (
     DELETE_TS timestamp,
     DELETED_BY varchar(50),
     --
+    DOC_NUMBER varchar(255),
     CREATE_DATE date,
     DATE_OF_COMPLETION date,
     COST_PER_HOUR double precision,

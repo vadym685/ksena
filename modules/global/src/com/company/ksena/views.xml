@@ -33,9 +33,11 @@
     </view>
     <view entity="ksena_Employee" name="employee-view">
         <property name="employeeType"/>
-        <property name="mobilePhone" view="_minimal">
-            <property name="imei"/>
-        </property>
+        <property name="completedTraining"/>
+        <property name="isActive"/>
+        <property name="mobilePhone" view="_minimal"/>
+        <property name="dateOfEmployment"/>
+        <property name="dateOfDismissal"/>
         <property name="fullName"/>
         <property name="phoneNumber"/>
         <property name="pasportNumber"/>

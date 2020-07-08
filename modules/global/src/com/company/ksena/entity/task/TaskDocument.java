@@ -8,8 +8,11 @@ import com.company.ksena.entity.point.Point;
 import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
 import com.haulmont.cuba.core.entity.annotation.PublishEntityChangedEvents;
+import org.checkerframework.common.aliasing.qual.Unique;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -19,6 +22,10 @@ import java.util.List;
 @Entity(name = "ksena_TaskDocument")
 public class TaskDocument extends StandardEntity {
     private static final long serialVersionUID = 2314314178317765350L;
+
+    @NotNull
+    @Column(name = "DOC_NUMBER", unique = true)
+    protected String docNumber;
 
     @Column(name = "CREATE_DATE")
     protected LocalDate createDate;
@@ -76,6 +83,14 @@ public class TaskDocument extends StandardEntity {
 
     @OneToMany(mappedBy = "taskDocument")
     protected List<Task> task;
+
+    public String getDocNumber() {
+        return docNumber;
+    }
+
+    public void setDocNumber(String docNumber) {
+        this.docNumber = docNumber;
+    }
 
     public Company getCompany() {
         return company;

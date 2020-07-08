@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <menu-config xmlns="http://schemas.haulmont.com/cuba/menu.xsd">
     <menu id="application-ksena" insertBefore="administration">
-        <item screen="ksena_Client.browse"/>
+        <item screen="ksena_Company.browse"/>
+        <item screen="ksena_ClientEmployee.browse"/>
         <item screen="ksena_Employee.browse"/>
         <item screen="ksena_TaskDocument.browse"/>
         <item screen="ksena_Point.browse"/>
@@ -9,7 +10,7 @@
         <item screen="ksena_ExpendableMaterial.browse"/>
         <item screen="ksena_CleaningPosition.browse"/>
         <item screen="ksena_MobilePhone.browse"/>
-        <item screen="ksena_Task.browse"/>
-        <item screen="ksena_Company.browse"/>
+<!--        <item screen="ksena_Task.browse"/>-->
+
     </menu>
 </menu-config>
