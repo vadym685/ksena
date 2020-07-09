@@ -3,6 +3,7 @@ package com.company.ksena.entity.people;
 import com.company.ksena.entity.task.Task;
 import com.company.ksena.entity.task.TaskDocument;
 import com.haulmont.chile.core.annotations.NamePattern;
+import com.haulmont.cuba.core.entity.FileDescriptor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -43,6 +44,19 @@ public class Employee extends PasportData {
 
     @Column(name = "DATE_OF_DISMISSAL")
     protected LocalDate dateOfDismissal;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "IMAGE_FILE_ID")
+    protected FileDescriptor imageFile;
+
+    public void setImageFile(FileDescriptor imageFile) {
+        this.imageFile = imageFile;
+    }
+
+    public FileDescriptor getImageFile() {
+        return imageFile;
+    }
+
 
     public LocalDate getDateOfDismissal() {
         return dateOfDismissal;

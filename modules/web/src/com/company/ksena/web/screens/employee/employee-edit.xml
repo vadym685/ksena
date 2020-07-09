@@ -34,6 +34,17 @@
              <dateField id="dateOfDismissalField" property="dateOfDismissal"/>
          </column>
      </form>
+        <image id="image" width="100%"  />
+        <vbox id="dropZone"
+              height="200"
+              width="100%"
+              spacing="true">
+            <upload id="upload"
+                    dropZone="dropZone"
+                    showClearButton="true"
+                    showFileName="true"/>
+        </vbox>
+
         <hbox id="editActions" spacing="true">
             <button action="windowCommitAndClose"/>
             <button action="windowClose"/>

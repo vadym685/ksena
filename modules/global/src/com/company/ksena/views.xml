@@ -44,6 +44,8 @@
         <property name="authority"/>
         <property name="dateOfIssue"/>
         <property name="individualTaxpayerNumber"/>
+        <property name="imageFile" view="_base">
+        </property>
     </view>
     <view entity="ksena_Task" name="task-view" extends="_local">
         <property name="taskDocument" view="_minimal"/>

@@ -24,6 +24,7 @@ create table KSENA_PASPORT_DATA (
     MOBILE_PHONE_ID varchar(36),
     DATE_OF_EMPLOYMENT date,
     DATE_OF_DISMISSAL date,
+    IMAGE_FILE_ID varchar(36),
     --
     primary key (ID)
 )^
