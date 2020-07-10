@@ -1,20 +1,18 @@
 package com.company.ksena.web.screens.employee;
 
+import com.haulmont.cuba.core.entity.FileDescriptor;
 import com.haulmont.cuba.core.global.DataManager;
+import com.haulmont.cuba.core.global.FileStorageException;
 import com.haulmont.cuba.gui.Screens;
-import com.haulmont.cuba.gui.app.core.file.FileUploadDialog;
-import com.haulmont.cuba.gui.components.Button;
-import com.haulmont.cuba.gui.components.FileDescriptorResource;
 import com.haulmont.cuba.gui.components.FileUploadField;
 import com.haulmont.cuba.gui.components.Image;
-import com.haulmont.cuba.gui.data.DataSupplier;
-import com.haulmont.cuba.gui.data.Datasource;
-import com.haulmont.cuba.gui.export.ExportDisplay;
+import com.haulmont.cuba.gui.model.InstanceContainer;
 import com.haulmont.cuba.gui.screen.*;
 import com.company.ksena.entity.people.Employee;
 import com.haulmont.cuba.gui.upload.FileUploadingAPI;
 
 import javax.inject.Inject;
+import java.util.List;
 
 @UiController("ksena_Employee.edit")
 @UiDescriptor("employee-edit.xml")
@@ -24,15 +22,40 @@ public class EmployeeEdit extends StandardEditor<Employee> {
 
     @Inject
     private Screens screens;
-
+    @Inject
+    private DataManager dataManager;
+    @Inject
+    private FileUploadField upload;
     @Inject
     private Image image;
+    @Inject
+    private FileUploadingAPI fileUploadingAPI;
+
+    @Inject
+    protected InstanceContainer<Employee> employeeDc;
+
 
     @Subscribe("upload")
-    public void onUploadFileUploadSucceed(FileUploadField.FileUploadSucceedEvent event) {
+    public void onUploadFileUploadSucceed(FileUploadField.FileUploadSucceedEvent event) throws FileStorageException {
+
 
         System.out.print("");
+//        FileDescriptor imageDescriptor = upload.getFileDescriptor();
+//
+//
+//        try {
+//            assert imageDescriptor != null;
+//            fileUploadingAPI.putFileIntoStorage(upload.getFileId(), imageDescriptor);
+//
+//            FileDescriptor savedImageDescriptor = dataManager.commit(imageDescriptor);
+//            employeeDc.getItem(savedImageDescriptor);
+
+//            employeeDc(savedImageDescriptor);
+//        } catch (FileStorageException e) {
+//        }
     }
+//        Set<FileDescriptor> selectedPhoto = event.;
+
 
 //    private void displayImage() {
 //        if (getItem().getImageFile() != null) {
@@ -41,13 +64,6 @@ public class EmployeeEdit extends StandardEditor<Employee> {
 //        } else {
 //            image.setVisible(false);
 //        }}
-
-    @Inject
-    private DataManager dataManager;
-    @Inject
-    private FileUploadField upload;
-
-
 
 //    @Subscribe("showUploadDialogBtn")
 //    protected void onShowUploadDialogBtnClick(Button.ClickEvent event) {

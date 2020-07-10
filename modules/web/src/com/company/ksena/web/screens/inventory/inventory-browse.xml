@@ -35,6 +35,12 @@
             <columns>
                 <column id="name"/>
                 <column id="description"/>
+                <column id="serialNumber"/>
+                <column id="colour"/>
+                <column id="commissioningDate"/>
+                <column id="decommissioningDate"/>
+                <column id="availableForUse"/>
+                <column id="reasonForDecommissioning"/>
             </columns>
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"

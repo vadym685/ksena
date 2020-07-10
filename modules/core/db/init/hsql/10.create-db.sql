@@ -91,6 +91,12 @@ create table KSENA_INVENTORY (
     --
     NAME varchar(255),
     DESCRIPTION varchar(255),
+    SERIAL_NUMBER varchar(255),
+    COLOUR varchar(255),
+    COMMISSIONING_DATE date,
+    DECOMMISSIONING_DATE date,
+    AVAILABLE_FOR_USE boolean,
+    REASON_FOR_DECOMMISSIONING varchar(255),
     --
     primary key (ID)
 )^
@@ -273,3 +279,21 @@ create table KSENA_COMPANY_CLIENT_EMPLOYEE_LINK (
     primary key (CLIENT_EMPLOYEE_ID, COMPANY_ID)
 )^
 -- end KSENA_COMPANY_CLIENT_EMPLOYEE_LINK
+-- begin KSENA_BREAKAGE
+create table KSENA_BREAKAGE (
+    ID varchar(36) not null,
+    VERSION integer not null,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    --
+    DESCRIPTION varchar(255),
+    BREAKDOWN_DATE date,
+    INVENTORY_ID varchar(36),
+    --
+    primary key (ID)
+)^
+-- end KSENA_BREAKAGE

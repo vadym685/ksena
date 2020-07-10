@@ -73,4 +73,9 @@
     </view>
     <view entity="ksena_Company" name="company-view_1" extends="_local">
     </view>
+    <view entity="ksena_Inventory" name="inventory-view" extends="_local">
+        <property name="breakage" view="_minimal">
+            <property name="breakdownDate"/>
+        </property>
+    </view>
 </views>

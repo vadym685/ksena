@@ -6,9 +6,17 @@
     <data>
         <instance id="inventoryDc"
                   class="com.company.ksena.entity.inventory.Inventory"
-                  view="_local">
+                  view="inventory-view">
             <loader/>
         </instance>
+        <collection id="breakagesDc" class="com.company.ksena.entity.inventory.Breakage">
+            <view extends="_local"/>
+            <loader id="breakagesDl">
+                <query>
+                    <![CDATA[select e from ksena_Breakage e]]>
+                </query>
+            </loader>
+        </collection>
     </data>
     <dialogMode height="600"
                 width="800"/>
@@ -17,8 +25,34 @@
             <column width="250px">
                 <textField id="nameField" property="name"/>
                 <textField id="descriptionField" property="description"/>
+                <textField id="serialNumberField" property="serialNumber"/>
+                <textField id="colourField" property="colour"/>
+                <dateField id="commissioningDateField" property="commissioningDate"/>
+                <dateField id="decommissioningDateField" property="decommissioningDate"/>
+                <checkBox id="availableForUseField" property="availableForUse"/>
+                <textField id="reasonForDecommissioningField" property="reasonForDecommissioning"/>
+
             </column>
+
         </form>
+        <table id="breakagesTable" height="200" dataContainer="breakagesDc" width="600">
+            <actions>
+                <action id="create" type="create">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="remove" type="remove"/>
+            </actions>
+            <buttonsPanel alwaysVisible="true">
+                <button id="breakagesTableCreateBtn" action="breakagesTable.create"/>
+                <button id="breakagesTableRemoveBtn" action="breakagesTable.remove"/>
+            </buttonsPanel>
+            <columns>
+                <column id="description"/>
+                <column id="breakdownDate"/>
+            </columns>
+        </table>
         <hbox id="editActions" spacing="true">
             <button action="windowCommitAndClose"/>
             <button action="windowClose"/>

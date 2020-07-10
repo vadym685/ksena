@@ -59,8 +59,7 @@
 
         </hbox>
 
-        <groupBox id="employeesBox" caption="msg://com.company.ksena.entity.task/TaskDocument.employees"
-        >
+        <groupBox id="employeesBox" caption="msg://com.company.ksena.entity.task/TaskDocument.employees">
             <table id="employeesTable" dataContainer="employeesDc" width="100%" height="200px">
                 <actions>
                     <action id="add" type="add"/>

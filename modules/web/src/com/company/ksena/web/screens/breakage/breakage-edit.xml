@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="com.company.ksena.web.screens.breakage">
+    <data>
+        <instance id="breakageDc"
+                  class="com.company.ksena.entity.inventory.Breakage"
+                  view="_local">
+            <loader/>
+        </instance>
+    </data>
+    <dialogMode height="300"
+                width="400"
+                modal="true"
+                resizable="true"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="breakageDc">
+            <column width="250px">
+                <textField id="descriptionField" property="description"/>
+                <dateField id="breakdownDateField" property="breakdownDate"/>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

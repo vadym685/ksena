@@ -14,5 +14,6 @@
         <class>com.company.ksena.entity.task.DayInterval</class>
         <class>com.company.ksena.entity.task.Task</class>
         <class>com.company.ksena.entity.company.Company</class>
+        <class>com.company.ksena.entity.inventory.Breakage</class>
     </persistence-unit>
 </persistence>
