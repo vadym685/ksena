@@ -17,9 +17,21 @@ public class Breakage extends StandardEntity {
 
     @Column(name = "BREAKDOWN_DATE")
     protected LocalDate breakdownDate;
+
+    @Column(name = "FIX_DATE")
+    protected LocalDate fixDate;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "INVENTORY_ID")
     protected Inventory inventory;
+
+    public LocalDate getFixDate() {
+        return fixDate;
+    }
+
+    public void setFixDate(LocalDate fixDate) {
+        this.fixDate = fixDate;
+    }
 
     public Inventory getInventory() {
         return inventory;

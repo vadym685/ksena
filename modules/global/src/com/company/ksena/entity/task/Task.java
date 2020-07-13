@@ -2,7 +2,6 @@ package com.company.ksena.entity.task;
 
 import com.company.ksena.entity.cleaning_map.CleaningPosition;
 import com.company.ksena.entity.inventory.Inventory;
-import com.company.ksena.entity.people.ClientEmployee;
 import com.company.ksena.entity.people.Employee;
 import com.company.ksena.entity.point.Point;
 import com.haulmont.cuba.core.entity.StandardEntity;
@@ -11,8 +10,11 @@ import com.haulmont.cuba.core.entity.annotation.LookupType;
 import com.haulmont.cuba.core.entity.annotation.PublishEntityChangedEvents;
 
 import javax.persistence.*;
+import javax.validation.constraints.Positive;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
+import java.util.UUID;
 
 @PublishEntityChangedEvents
 @Table(name = "KSENA_TASK")
@@ -24,6 +26,16 @@ public class Task extends StandardEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TASK_DOCUMENT_ID")
     protected TaskDocument taskDocument;
+
+    @Positive
+    @Column(name = "COST")
+    protected Double cost;
+
+    @Column(name = "TASK_TIME_PLANE")
+    protected LocalTime taskTimePlane;
+
+    @Column(name = "TASK_TIME_FACTUAL")
+    protected LocalTime taskTimeFactual;
 
     @Column(name = "DATE_OF_COMPLETION")
     protected LocalDate dateOfCompletion;
@@ -53,6 +65,30 @@ public class Task extends StandardEntity {
             inverseJoinColumns = @JoinColumn(name = "INVENTORY_ID"))
     @ManyToMany
     protected List<Inventory> inventory;
+
+    public LocalTime getTaskTimeFactual() {
+        return taskTimeFactual;
+    }
+
+    public void setTaskTimeFactual(LocalTime taskTimeFactual) {
+        this.taskTimeFactual = taskTimeFactual;
+    }
+
+    public LocalTime getTaskTimePlane() {
+        return taskTimePlane;
+    }
+
+    public void setTaskTimePlane(LocalTime taskTimePlane) {
+        this.taskTimePlane = taskTimePlane;
+    }
+
+    public Double getCost() {
+        return cost;
+    }
+
+    public void setCost(Double cost) {
+        this.cost = cost;
+    }
 
     public List<Inventory> getInventory() {
         return inventory;

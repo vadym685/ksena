@@ -18,7 +18,7 @@
             <column width="250px">
                 <textField id="nameField" property="name"/>
                 <textField id="descriptionField" property="description"/>
-                <textField id="needTimeField" property="needTime"/>
+                <timeField id="needTimeField" property="needTime"/>
                 <textField id="priceField" property="price"/>
             </column>
         </form>

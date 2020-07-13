@@ -7,6 +7,7 @@ import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
 
 import javax.persistence.*;
+import java.time.LocalTime;
 import java.util.List;
 
 @NamePattern("%s|name")
@@ -22,7 +23,7 @@ public class CleaningPosition extends StandardEntity {
     protected String description;
 
     @Column(name = "NEED_TIME")
-    protected Double needTime;
+    protected LocalTime needTime;
 
     @Column(name = "PRICE")
     protected Double price;
@@ -32,16 +33,26 @@ public class CleaningPosition extends StandardEntity {
             inverseJoinColumns = @JoinColumn(name = "EXPENDABLE_MATERIAL_ID"))
     @ManyToMany
     protected List<ExpendableMaterial> expendableMaterials;
+
     @JoinTable(name = "KSENA_TASK_DOCUMENT_CLEANING_POSITION_LINK",
             joinColumns = @JoinColumn(name = "CLEANING_POSITION_ID"),
             inverseJoinColumns = @JoinColumn(name = "TASK_DOCUMENT_ID"))
     @ManyToMany
     protected List<TaskDocument> taskDocuments;
+
     @JoinTable(name = "KSENA_TASK_CLEANING_POSITION_LINK",
             joinColumns = @JoinColumn(name = "CLEANING_POSITION_ID"),
             inverseJoinColumns = @JoinColumn(name = "TASK_ID"))
     @ManyToMany
     protected List<Task> tasks;
+
+    public void setNeedTime(LocalTime needTime) {
+        this.needTime = needTime;
+    }
+
+    public LocalTime getNeedTime() {
+        return needTime;
+    }
 
     public List<Task> getTasks() {
         return tasks;
@@ -73,14 +84,6 @@ public class CleaningPosition extends StandardEntity {
 
     public void setPrice(Double price) {
         this.price = price;
-    }
-
-    public Double getNeedTime() {
-        return needTime;
-    }
-
-    public void setNeedTime(Double needTime) {
-        this.needTime = needTime;
     }
 
     public String getDescription() {

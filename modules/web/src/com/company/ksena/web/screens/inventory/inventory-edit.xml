@@ -25,17 +25,18 @@
             <column width="250px">
                 <textField id="nameField" property="name"/>
                 <textField id="descriptionField" property="description"/>
+                <checkBox id="availableForUseField" property="availableForUse"/>
                 <textField id="serialNumberField" property="serialNumber"/>
                 <textField id="colourField" property="colour"/>
                 <dateField id="commissioningDateField" property="commissioningDate"/>
                 <dateField id="decommissioningDateField" property="decommissioningDate"/>
-                <checkBox id="availableForUseField" property="availableForUse"/>
                 <textField id="reasonForDecommissioningField" property="reasonForDecommissioning"/>
 
             </column>
 
         </form>
-        <table id="breakagesTable" height="200" dataContainer="breakagesDc" width="600">
+        <groupBox id="breakagesBox" caption="msg://com.company.ksena.entity.inventory.Breakage">
+        <table id="breakagesTable" height="200" dataContainer="breakagesDc" width="100%">
             <actions>
                 <action id="create" type="create">
                     <properties>
@@ -43,16 +44,20 @@
                     </properties>
                 </action>
                 <action id="remove" type="remove"/>
+                <action id="edit" type="edit"/>
             </actions>
             <buttonsPanel alwaysVisible="true">
                 <button id="breakagesTableCreateBtn" action="breakagesTable.create"/>
                 <button id="breakagesTableRemoveBtn" action="breakagesTable.remove"/>
+                <button id="breakagesTableEditBtn" action="breakagesTable.edit"/>
             </buttonsPanel>
             <columns>
                 <column id="description"/>
                 <column id="breakdownDate"/>
+                <column id="fixDate"/>
             </columns>
         </table>
+        </groupBox>
         <hbox id="editActions" spacing="true">
             <button action="windowCommitAndClose"/>
             <button action="windowClose"/>

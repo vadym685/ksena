@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="com.company.ksena.web.screens.task">
+    <data>
+        <instance id="taskDc"
+                  class="com.company.ksena.entity.task.Task"
+                  view="task-view">
+            <loader/>
+            <collection id="employeesDc" property="employees"/>
+            <collection id="cleaningMapDc" property="cleaningMap"/>
+            <collection id="inventoryDc" property="inventory"/>
+        </instance>
+        <collection id="taskDocumentsDc" class="com.company.ksena.entity.task.TaskDocument" view="_minimal">
+            <loader id="taskDocumentsLc">
+                <query>
+                    <![CDATA[select e from ksena_TaskDocument e]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="pointsDc" class="com.company.ksena.entity.point.Point" view="_minimal">
+            <loader id="pointsLc">
+                <query>
+                    <![CDATA[select e from ksena_Point e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="taskDc">
+            <column width="250px">
+                <lookupPickerField id="taskDocumentField" optionsContainer="taskDocumentsDc" property="taskDocument">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                        <action id="open" type="picker_open"/>
+                        <action id="clear" type="picker_clear"/>
+                    </actions>
+                </lookupPickerField>
+                <dateField id="dateOfCompletionField" property="dateOfCompletion"/>
+                <lookupField id="taskStatusField" property="taskStatus"/>
+                <lookupPickerField id="pointField" optionsContainer="pointsDc" property="point">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                        <action id="open" type="picker_open"/>
+                        <action id="clear" type="picker_clear"/>
+                    </actions>
+                </lookupPickerField>
+                <textField id="costField" property="cost"/>
+                <timeField id="taskTimePlaneField" property="taskTimePlane"/>
+                <timeField id="taskTimeFactualField" property="taskTimeFactual"/>
+
+
+            </column>
+        </form>
+        <groupBox id="employeesBox" caption="msg://com.company.ksena.entity.task/Task.employees">
+            <table id="employeesTable" dataContainer="employeesDc" width="100%" height="200px">
+                <actions>
+                    <action id="add" type="add"/>
+                    <action id="exclude" type="exclude"/>
+                </actions>
+                <columns>
+                    <column id="fullName"/>
+                    <column id="completedTraining"/>
+                    <column id="phoneNumber"/>
+                </columns>
+                <buttonsPanel>
+                    <button action="employeesTable.add"/>
+                    <button action="employeesTable.exclude"/>
+                </buttonsPanel>
+            </table>
+        </groupBox>
+        <hbox width="100%">
+        <groupBox id="cleaningMapBox" caption="msg://com.company.ksena.entity.task/Task.cleaningMap">
+            <table id="cleaningMapTable" dataContainer="cleaningMapDc" width="100%" height="200px">
+                <actions>
+                    <action id="add" type="add"/>
+                    <action id="exclude" type="exclude"/>
+                </actions>
+                <columns>
+                    <column id="name"/>
+                    <column id="description"/>
+                    <column id="needTime"/>
+                    <column id="price"/>
+                </columns>
+                <buttonsPanel>
+                    <button action="cleaningMapTable.add"/>
+                    <button action="cleaningMapTable.exclude"/>
+                </buttonsPanel>
+            </table>
+        </groupBox>
+        <groupBox id="inventoryBox" caption="msg://com.company.ksena.entity.task/Task.inventory">
+            <table id="inventoryTable" dataContainer="inventoryDc" width="100%" height="200px">
+                <actions>
+                    <action id="add" type="add"/>
+                    <action id="exclude" type="exclude"/>
+                </actions>
+                <columns>
+                    <column id="name"/>
+                    <column id="description"/>
+                    <column id="serialNumber"/>
+                    <column id="colour"/>
+                </columns>
+                <buttonsPanel>
+                    <button action="inventoryTable.add"/>
+                    <button action="inventoryTable.exclude"/>
+                </buttonsPanel>
+            </table>
+        </groupBox>
+        </hbox>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

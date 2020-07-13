@@ -24,7 +24,6 @@ create table KSENA_PASPORT_DATA (
     MOBILE_PHONE_ID varchar(36),
     DATE_OF_EMPLOYMENT date,
     DATE_OF_DISMISSAL date,
-    IMAGE_FILE_ID varchar(36),
     --
     primary key (ID)
 )^
@@ -128,7 +127,7 @@ create table KSENA_CLEANING_POSITION (
     --
     NAME varchar(255),
     DESCRIPTION varchar(255),
-    NEED_TIME double precision,
+    NEED_TIME time,
     PRICE double precision,
     --
     primary key (ID)
@@ -221,6 +220,9 @@ create table KSENA_TASK (
     DELETED_BY varchar(50),
     --
     TASK_DOCUMENT_ID varchar(36),
+    COST double precision,
+    TASK_TIME_PLANE time,
+    TASK_TIME_FACTUAL time,
     DATE_OF_COMPLETION date,
     TASK_STATUS varchar(50),
     POINT_ID varchar(36),
@@ -292,8 +294,16 @@ create table KSENA_BREAKAGE (
     --
     DESCRIPTION varchar(255),
     BREAKDOWN_DATE date,
+    FIX_DATE date,
     INVENTORY_ID varchar(36),
     --
     primary key (ID)
 )^
 -- end KSENA_BREAKAGE
+-- begin KSENA_EMPLOYEE_FILE_DESCRIPTOR_LINK
+create table KSENA_EMPLOYEE_FILE_DESCRIPTOR_LINK (
+    EMPLOYEE_ID varchar(36) not null,
+    FILE_DESCRIPTOR_ID varchar(36) not null,
+    primary key (EMPLOYEE_ID, FILE_DESCRIPTOR_ID)
+)^
+-- end KSENA_EMPLOYEE_FILE_DESCRIPTOR_LINK

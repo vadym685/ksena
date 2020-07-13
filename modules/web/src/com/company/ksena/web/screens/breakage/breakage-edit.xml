@@ -19,6 +19,7 @@
             <column width="250px">
                 <textField id="descriptionField" property="description"/>
                 <dateField id="breakdownDateField" property="breakdownDate"/>
+                <dateField id="fixDateField" property="fixDate"/>
             </column>
         </form>
         <hbox id="editActions" spacing="true">

@@ -10,7 +10,8 @@
         <item screen="ksena_ExpendableMaterial.browse"/>
         <item screen="ksena_CleaningPosition.browse"/>
         <item screen="ksena_MobilePhone.browse"/>
-<!--        <item screen="ksena_Task.browse"/>-->
+        <item screen="ksena_Task.browse"/>
+        <!--        <item screen="ksena_Task.browse"/>-->
 
     </menu>
 </menu-config>

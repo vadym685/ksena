@@ -8,6 +8,7 @@
                   class="com.company.ksena.entity.people.Employee"
                   view="employee-view">
             <loader/>
+            <collection id="imageFileDc" property="imageFile"/>
         </instance>
     </data>
     <dialogMode height="600"
@@ -42,7 +43,10 @@
             <upload id="upload"
                     dropZone="dropZone"
                     showClearButton="true"
-                    showFileName="true"/>
+                    showFileName="true"
+                    uploadButtonIcon="UPLOAD"
+                    uploadButtonCaption=""
+                    permittedExtensions=".png,.jpg,.pdf" />
         </vbox>
 
         <hbox id="editActions" spacing="true">

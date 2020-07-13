@@ -45,15 +45,15 @@ public class Employee extends PasportData {
     @Column(name = "DATE_OF_DISMISSAL")
     protected LocalDate dateOfDismissal;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "IMAGE_FILE_ID")
-    protected FileDescriptor imageFile;
+    @JoinTable(name = "KSENA_EMPLOYEE_FILE_DESCRIPTOR_LINK", joinColumns = @JoinColumn(name = "EMPLOYEE_ID"), inverseJoinColumns = @JoinColumn(name = "FILE_DESCRIPTOR_ID"))
+    @ManyToMany
+    protected List<FileDescriptor> imageFile;
 
-    public void setImageFile(FileDescriptor imageFile) {
+    public void setImageFile(List<FileDescriptor> imageFile) {
         this.imageFile = imageFile;
     }
 
-    public FileDescriptor getImageFile() {
+    public List<FileDescriptor> getImageFile() {
         return imageFile;
     }
 

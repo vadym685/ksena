@@ -8,8 +8,6 @@ import com.company.ksena.entity.point.Point;
 import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
 import com.haulmont.cuba.core.entity.annotation.PublishEntityChangedEvents;
-import org.checkerframework.common.aliasing.qual.Unique;
-import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -17,7 +15,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @PublishEntityChangedEvents
-@NamePattern("%s|id")
+@NamePattern("%s|docNumber")
 @Table(name = "KSENA_TASK_DOCUMENT")
 @Entity(name = "ksena_TaskDocument")
 public class TaskDocument extends StandardEntity {
