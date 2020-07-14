@@ -18,7 +18,7 @@
                 width="800"/>
     <layout expand="editActions" spacing="true">
         <hbox width="100%">
-            <groupBox id="dataBox" spacing="true" width="100%">
+            <groupBox id="dataBox" caption="msg://TaskDocumentData" spacing="true" width="100%">
                 <form id="form" dataContainer="taskDocumentDc">
                 <column width="250px">
                     <textField id="docNumberField" property="docNumber"/>

@@ -5,6 +5,7 @@ import com.haulmont.cuba.core.entity.StandardEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 import java.time.LocalDate;
 
 @Table(name = "KSENA_PASPORT_DATA")
@@ -14,6 +15,10 @@ public class PasportData extends StandardEntity {
 
     @Column(name = "FULL_NAME")
     protected String fullName;
+
+    @Email
+    @Column(name = "EMAIL")
+    protected String email;
 
     @Column(name = "PHONE_NUMBER")
     protected Integer phoneNumber;
@@ -30,12 +35,20 @@ public class PasportData extends StandardEntity {
     @Column(name = "INDIVIDUAL_TAXPAYER_NUMBER")
     protected String individualTaxpayerNumber;
 
+    public void setPhoneNumber(Integer phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     public Integer getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Integer phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getFullName() {

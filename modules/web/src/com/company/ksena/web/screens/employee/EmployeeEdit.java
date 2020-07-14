@@ -5,9 +5,7 @@ import com.haulmont.cuba.core.entity.FileDescriptor;
 import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.FileStorageException;
 import com.haulmont.cuba.gui.Screens;
-import com.haulmont.cuba.gui.components.Component;
-import com.haulmont.cuba.gui.components.FileUploadField;
-import com.haulmont.cuba.gui.components.Image;
+import com.haulmont.cuba.gui.components.*;
 import com.haulmont.cuba.gui.model.CollectionPropertyContainer;
 import com.haulmont.cuba.gui.model.InstanceContainer;
 import com.haulmont.cuba.gui.screen.*;
@@ -15,6 +13,7 @@ import com.company.ksena.entity.people.Employee;
 import com.haulmont.cuba.gui.upload.FileUploadingAPI;
 
 import javax.inject.Inject;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -42,6 +41,8 @@ public class EmployeeEdit extends StandardEditor<Employee> {
     protected CollectionPropertyContainer<FileDescriptor> imageFileDc;
 
     private List<FileDescriptor> newImageDescriptors = new ArrayList<>();
+    @Inject
+    private DateField<LocalDate> residenceEndTimeField;
 
 
     @Subscribe("upload")
@@ -56,6 +57,16 @@ public class EmployeeEdit extends StandardEditor<Employee> {
 
         }
       //  Set<FileDescriptor> selectedPhoto = event.;
+    }
+
+    @Subscribe("residencePermanentField")
+    public void onResidencePermanentFieldValueChange(HasValue.ValueChangeEvent<Boolean> event) {
+        if (this.getEditedEntity().getResidencePermanent() == false){
+            residenceEndTimeField.setVisible(true);
+        }
+        else {
+            residenceEndTimeField.setVisible(false);
+        }
     }
 
 

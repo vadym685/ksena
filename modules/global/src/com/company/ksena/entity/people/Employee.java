@@ -17,11 +17,11 @@ public class Employee extends PasportData {
     @Column(name = "EMPLOYEE_TYPE")
     protected String employeeType;
 
-    @Column(name = "COMPLETED_TRAINING")
-    protected Boolean completedTraining;
-
     @Column(name = "IS_ACTIVE")
     protected Boolean isActive;
+
+    @Column(name = "QUALIFICATION")
+    protected String qualification;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MOBILE_PHONE_ID")
@@ -48,6 +48,69 @@ public class Employee extends PasportData {
     @JoinTable(name = "KSENA_EMPLOYEE_FILE_DESCRIPTOR_LINK", joinColumns = @JoinColumn(name = "EMPLOYEE_ID"), inverseJoinColumns = @JoinColumn(name = "FILE_DESCRIPTOR_ID"))
     @ManyToMany
     protected List<FileDescriptor> imageFile;
+
+    @Column(name = "RESIDENCE_NUMBER")
+    protected String residenceNumber;
+
+    @Column(name = "RESIDENCE_PERMANENT")
+    protected Boolean residencePermanent;
+
+    @Column(name = "RESIDENCE_END_TIME")
+    protected LocalDate residenceEndTime;
+
+    @Column(name = "RESIDENCE_ADDRESS")
+    protected String residenceAddress;
+
+    @Column(name = "RESIDENCE_PLACE")
+    protected String residencePlace;
+
+    public String getResidencePlace() {
+        return residencePlace;
+    }
+
+    public void setResidencePlace(String residencePlace) {
+        this.residencePlace = residencePlace;
+    }
+
+    public String getResidenceAddress() {
+        return residenceAddress;
+    }
+
+    public void setResidenceAddress(String residenceAddress) {
+        this.residenceAddress = residenceAddress;
+    }
+
+    public LocalDate getResidenceEndTime() {
+        return residenceEndTime;
+    }
+
+    public void setResidenceEndTime(LocalDate residenceEndTime) {
+        this.residenceEndTime = residenceEndTime;
+    }
+
+    public Boolean getResidencePermanent() {
+        return residencePermanent;
+    }
+
+    public void setResidencePermanent(Boolean residencePermanent) {
+        this.residencePermanent = residencePermanent;
+    }
+
+    public String getResidenceNumber() {
+        return residenceNumber;
+    }
+
+    public void setResidenceNumber(String residenceNumber) {
+        this.residenceNumber = residenceNumber;
+    }
+
+    public Qualification getQualification() {
+        return qualification == null ? null : Qualification.fromId(qualification);
+    }
+
+    public void setQualification(Qualification qualification) {
+        this.qualification = qualification == null ? null : qualification.getId();
+    }
 
     public void setImageFile(List<FileDescriptor> imageFile) {
         this.imageFile = imageFile;
@@ -80,14 +143,6 @@ public class Employee extends PasportData {
 
     public void setIsActive(Boolean isActive) {
         this.isActive = isActive;
-    }
-
-    public Boolean getCompletedTraining() {
-        return completedTraining;
-    }
-
-    public void setCompletedTraining(Boolean completedTraining) {
-        this.completedTraining = completedTraining;
     }
 
     public List<Task> getTasks() {

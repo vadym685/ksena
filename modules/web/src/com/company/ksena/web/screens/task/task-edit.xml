@@ -63,7 +63,6 @@
                 </actions>
                 <columns>
                     <column id="fullName"/>
-                    <column id="completedTraining"/>
                     <column id="phoneNumber"/>
                 </columns>
                 <buttonsPanel>

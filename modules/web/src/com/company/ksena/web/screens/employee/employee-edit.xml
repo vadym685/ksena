@@ -14,16 +14,14 @@
     <dialogMode height="600"
                 width="800"/>
     <layout expand="editActions" spacing="true">
+       <hbox> <groupBox id="employeesDataBox" caption="msg://EmployeeData">
         <form id="form" dataContainer="employeeDc">
          <column width="250px">
              <textField id="fullNameField" property="fullName"/>
              <checkBox id="isActiveField" property="isActive"/>
-             <checkBox id="completedTrainingField" property="completedTraining"/>
+             <lookupField id="qualificationField" property="qualification"/>
+             <textField id="emailField" property="email"/>
              <textField id="phoneNumberField" property="phoneNumber"/>
-             <textField id="seriesField" property="pasportNumber"/>
-             <textField id="authorityField" property="authority"/>
-             <dateField id="dateOfIssueField" property="dateOfIssue"/>
-             <textField id="individualTaxpayerNumberField" property="individualTaxpayerNumber"/>
              <lookupField id="employeeTypeField" property="employeeType"/>
              <pickerField id="mobilePhoneField" property="mobilePhone">
                  <actions>
@@ -35,6 +33,19 @@
              <dateField id="dateOfDismissalField" property="dateOfDismissal"/>
          </column>
      </form>
+        </groupBox>
+        <groupBox id="residenceBox" caption="msg://Residence">
+            <form id="residenceForm" dataContainer="employeeDc">
+                <column width="250px">
+                    <textField id="residenceNumberField" property="residenceNumber"/>
+                    <checkBox id="residencePermanentField" property="residencePermanent"/>
+                    <dateField id="residenceEndTimeField" property="residenceEndTime"/>
+                    <textField id="residenceAddressField" property="residenceAddress"/>
+                    <textField id="residencePlaceField" property="residencePlace"/>
+
+                </column>
+            </form>
+        </groupBox></hbox>
         <image id="image" width="100%"  />
         <vbox id="dropZone"
               height="200"

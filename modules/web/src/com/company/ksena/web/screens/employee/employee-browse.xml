@@ -35,12 +35,7 @@
             <columns>
                 <column id="fullName"/>
                 <column id="phoneNumber"/>
-                <column id="pasportNumber"/>
-                <column id="authority"/>
-                <column id="dateOfIssue"/>
-                <column id="individualTaxpayerNumber"/>
                 <column id="employeeType"/>
-                <column id="completedTraining"/>
                 <column id="isActive"/>
             </columns>
             <rowsCount/>

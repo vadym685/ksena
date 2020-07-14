@@ -33,13 +33,19 @@
     </view>
     <view entity="ksena_Employee" name="employee-view">
         <property name="employeeType"/>
-        <property name="completedTraining"/>
         <property name="isActive"/>
+        <property name="qualification"/>
         <property name="mobilePhone" view="_minimal"/>
         <property name="dateOfEmployment"/>
         <property name="dateOfDismissal"/>
         <property name="imageFile" view="_minimal"/>
+        <property name="residenceNumber"/>
+        <property name="residencePermanent"/>
+        <property name="residenceEndTime"/>
+        <property name="residenceAddress"/>
+        <property name="residencePlace"/>
         <property name="fullName"/>
+        <property name="email"/>
         <property name="phoneNumber"/>
         <property name="pasportNumber"/>
         <property name="authority"/>
@@ -62,7 +68,6 @@
         </property>
         <property name="point" view="_minimal"/>
         <property name="employees" view="_minimal">
-            <property name="completedTraining"/>
             <property name="phoneNumber"/>
         </property>
         <property name="cleaningMap" view="_minimal">

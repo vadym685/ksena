@@ -11,7 +11,8 @@ create table KSENA_PASPORT_DATA (
     DTYPE varchar(100),
     --
     FULL_NAME varchar(255),
-    PHONE_NUMBER integer,
+    EMAIL varchar(255),
+    PHONE_NUMBER varchar(255),
     PASPORT_NUMBER varchar(2),
     AUTHORITY varchar(255),
     DATE_OF_ISSUE date,
@@ -19,11 +20,16 @@ create table KSENA_PASPORT_DATA (
     --
     -- from ksena_Employee
     EMPLOYEE_TYPE varchar(50),
-    COMPLETED_TRAINING boolean,
     IS_ACTIVE boolean,
+    QUALIFICATION varchar(50),
     MOBILE_PHONE_ID varchar(36),
     DATE_OF_EMPLOYMENT date,
     DATE_OF_DISMISSAL date,
+    RESIDENCE_NUMBER varchar(255),
+    RESIDENCE_PERMANENT boolean,
+    RESIDENCE_END_TIME date,
+    RESIDENCE_ADDRESS varchar(255),
+    RESIDENCE_PLACE varchar(255),
     --
     primary key (ID)
 )^
