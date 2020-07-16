@@ -23,6 +23,7 @@
              <textField id="emailField" property="email"/>
              <textField id="phoneNumberField" property="phoneNumber"/>
              <lookupField id="employeeTypeField" property="employeeType"/>
+             <lookupField id="sexField" property="sex"/>
              <pickerField id="mobilePhoneField" property="mobilePhone">
                  <actions>
                      <action id="lookup" type="picker_lookup"/>

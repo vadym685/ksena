@@ -35,6 +35,17 @@ public class PasportData extends StandardEntity {
     @Column(name = "INDIVIDUAL_TAXPAYER_NUMBER")
     protected String individualTaxpayerNumber;
 
+    @Column(name = "SEX")
+    protected String sex;
+
+    public void setSex(Sex sex) {
+        this.sex = sex == null ? null : sex.getId();
+    }
+
+    public Sex getSex() {
+        return sex == null ? null : Sex.fromId(sex);
+    }
+
     public void setPhoneNumber(Integer phoneNumber) {
         this.phoneNumber = phoneNumber;
     }

@@ -7,7 +7,7 @@
     <data readOnly="true">
         <collection id="tasksDc"
                     class="com.company.ksena.entity.task.Task"
-                    view="_base">
+                    view="task-view">
             <loader id="tasksDl">
                 <query>
                     <![CDATA[select e from ksena_Task e]]>

@@ -27,12 +27,6 @@ public class Employee extends PasportData {
     @JoinColumn(name = "MOBILE_PHONE_ID")
     protected MobilePhone mobilePhone;
 
-    @JoinTable(name = "KSENA_TASK_DOCUMENT_EMPLOYEE_LINK",
-            joinColumns = @JoinColumn(name = "EMPLOYEE_ID"),
-            inverseJoinColumns = @JoinColumn(name = "TASK_DOCUMENT_ID"))
-    @ManyToMany
-    protected List<TaskDocument> taskDocuments;
-
     @JoinTable(name = "KSENA_TASK_EMPLOYEE_LINK",
             joinColumns = @JoinColumn(name = "EMPLOYEE_ID"),
             inverseJoinColumns = @JoinColumn(name = "TASK_ID"))
@@ -159,14 +153,6 @@ public class Employee extends PasportData {
 
     public void setMobilePhone(MobilePhone mobilePhone) {
         this.mobilePhone = mobilePhone;
-    }
-
-    public List<TaskDocument> getTaskDocuments() {
-        return taskDocuments;
-    }
-
-    public void setTaskDocuments(List<TaskDocument> taskDocuments) {
-        this.taskDocuments = taskDocuments;
     }
 
     public EmployeeType getEmployeeType() {

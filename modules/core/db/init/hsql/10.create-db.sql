@@ -12,11 +12,12 @@ create table KSENA_PASPORT_DATA (
     --
     FULL_NAME varchar(255),
     EMAIL varchar(255),
-    PHONE_NUMBER varchar(255),
+    PHONE_NUMBER integer,
     PASPORT_NUMBER varchar(2),
     AUTHORITY varchar(255),
     DATE_OF_ISSUE date,
     INDIVIDUAL_TAXPAYER_NUMBER varchar(255),
+    SEX varchar(50),
     --
     -- from ksena_Employee
     EMPLOYEE_TYPE varchar(50),
@@ -106,13 +107,7 @@ create table KSENA_INVENTORY (
     primary key (ID)
 )^
 -- end KSENA_INVENTORY
--- begin KSENA_TASK_DOCUMENT_EMPLOYEE_LINK
-create table KSENA_TASK_DOCUMENT_EMPLOYEE_LINK (
-    EMPLOYEE_ID varchar(36) not null,
-    TASK_DOCUMENT_ID varchar(36) not null,
-    primary key (EMPLOYEE_ID, TASK_DOCUMENT_ID)
-)^
--- end KSENA_TASK_DOCUMENT_EMPLOYEE_LINK
+
 -- begin KSENA_TASK_DOCUMENT_INVENTORY_LINK
 create table KSENA_TASK_DOCUMENT_INVENTORY_LINK (
     INVENTORY_ID varchar(36) not null,
@@ -226,6 +221,7 @@ create table KSENA_TASK (
     DELETED_BY varchar(50),
     --
     TASK_DOCUMENT_ID varchar(36),
+    COMPANY_ID varchar(36),
     COST double precision,
     TASK_TIME_PLANE time,
     TASK_TIME_FACTUAL time,

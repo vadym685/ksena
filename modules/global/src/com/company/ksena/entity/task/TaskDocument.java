@@ -54,12 +54,6 @@ public class TaskDocument extends StandardEntity {
     @Column(name = "TYPE_OF_PERIODICITY")
     protected String typeOfPeriodicity;
 
-    @JoinTable(name = "KSENA_TASK_DOCUMENT_EMPLOYEE_LINK",
-            joinColumns = @JoinColumn(name = "TASK_DOCUMENT_ID"),
-            inverseJoinColumns = @JoinColumn(name = "EMPLOYEE_ID"))
-    @ManyToMany
-    protected List<Employee> employees;
-
     @JoinTable(name = "KSENA_TASK_DOCUMENT_INVENTORY_LINK",
             joinColumns = @JoinColumn(name = "TASK_DOCUMENT_ID"),
             inverseJoinColumns = @JoinColumn(name = "INVENTORY_ID"))
@@ -168,14 +162,6 @@ public class TaskDocument extends StandardEntity {
 
     public void setInventory(List<Inventory> inventory) {
         this.inventory = inventory;
-    }
-
-    public List<Employee> getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(List<Employee> employees) {
-        this.employees = employees;
     }
 
     public Boolean getIsActive() {

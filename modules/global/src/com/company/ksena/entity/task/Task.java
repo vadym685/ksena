@@ -1,6 +1,7 @@
 package com.company.ksena.entity.task;
 
 import com.company.ksena.entity.cleaning_map.CleaningPosition;
+import com.company.ksena.entity.company.Company;
 import com.company.ksena.entity.inventory.Inventory;
 import com.company.ksena.entity.people.Employee;
 import com.company.ksena.entity.point.Point;
@@ -14,7 +15,6 @@ import javax.validation.constraints.Positive;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.UUID;
 
 @PublishEntityChangedEvents
 @Table(name = "KSENA_TASK")
@@ -26,6 +26,16 @@ public class Task extends StandardEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TASK_DOCUMENT_ID")
     protected TaskDocument taskDocument;
+
+    @Lookup(type = LookupType.DROPDOWN, actions = {"open", "clear"})
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "COMPANY_ID")
+    protected Company company;
+
+    @Lookup(type = LookupType.DROPDOWN, actions = {"open", "clear"})
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "POINT_ID")
+    protected Point point;
 
     @Positive
     @Column(name = "COST")
@@ -42,11 +52,6 @@ public class Task extends StandardEntity {
 
     @Column(name = "TASK_STATUS")
     protected String taskStatus;
-
-    @Lookup(type = LookupType.DROPDOWN, actions = {"lookup", "open", "clear"})
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "POINT_ID")
-    protected Point point;
 
     @JoinTable(name = "KSENA_TASK_EMPLOYEE_LINK",
             joinColumns = @JoinColumn(name = "TASK_ID"),
@@ -65,6 +70,18 @@ public class Task extends StandardEntity {
             inverseJoinColumns = @JoinColumn(name = "INVENTORY_ID"))
     @ManyToMany
     protected List<Inventory> inventory;
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public void setPoint(Point point) {
+        this.point = point;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
 
     public LocalTime getTaskTimeFactual() {
         return taskTimeFactual;
@@ -116,10 +133,6 @@ public class Task extends StandardEntity {
 
     public Point getPoint() {
         return point;
-    }
-
-    public void setPoint(Point point) {
-        this.point = point;
     }
 
     public TaskStatus getTaskStatus() {

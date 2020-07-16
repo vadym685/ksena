@@ -30,6 +30,7 @@
                 <textField id="pasportNumberField" property="pasportNumber"/>
                 <textField id="authorityField" property="authority"/>
                 <dateField id="dateOfIssueField" property="dateOfIssue"/>
+                <lookupField id="sexField" property="sex"/>
                 <textField id="individualTaxpayerNumberField" property="individualTaxpayerNumber"/>
             </column>
         </form>

@@ -12,7 +12,7 @@
             <collection id="cleaningMapDc" property="cleaningMap"/>
             <collection id="inventoryDc" property="inventory"/>
         </instance>
-        <collection id="taskDocumentsDc" class="com.company.ksena.entity.task.TaskDocument" view="_minimal">
+        <collection id="taskDocumentsDc" class="com.company.ksena.entity.task.TaskDocument" view="taskDocument-view">
             <loader id="taskDocumentsLc">
                 <query>
                     <![CDATA[select e from ksena_TaskDocument e]]>
@@ -39,15 +39,20 @@
                         <action id="clear" type="picker_clear"/>
                     </actions>
                 </lookupPickerField>
-                <dateField id="dateOfCompletionField" property="dateOfCompletion"/>
-                <lookupField id="taskStatusField" property="taskStatus"/>
+                <pickerField id="companyField" property="company" >
+                    <actions>
+                        <action id="open" type="picker_open"/>
+                        <action id="clear" type="picker_clear"/>
+                    </actions>
+                </pickerField>
                 <lookupPickerField id="pointField" optionsContainer="pointsDc" property="point">
                     <actions>
-                        <action id="lookup" type="picker_lookup"/>
                         <action id="open" type="picker_open"/>
                         <action id="clear" type="picker_clear"/>
                     </actions>
                 </lookupPickerField>
+                <dateField id="dateOfCompletionField" property="dateOfCompletion"/>
+                <lookupField id="taskStatusField" property="taskStatus"/>
                 <textField id="costField" property="cost"/>
                 <timeField id="taskTimePlaneField" property="taskTimePlane"/>
                 <timeField id="taskTimeFactualField" property="taskTimeFactual"/>
@@ -60,6 +65,7 @@
                 <actions>
                     <action id="add" type="add"/>
                     <action id="exclude" type="exclude"/>
+                    <action id="view" type="view"/>
                 </actions>
                 <columns>
                     <column id="fullName"/>
@@ -68,6 +74,7 @@
                 <buttonsPanel>
                     <button action="employeesTable.add"/>
                     <button action="employeesTable.exclude"/>
+                    <button id="employeesTableViewBtn" action="employeesTable.view"/>
                 </buttonsPanel>
             </table>
         </groupBox>
@@ -77,6 +84,7 @@
                 <actions>
                     <action id="add" type="add"/>
                     <action id="exclude" type="exclude"/>
+                    <action id="view" type="view"/>
                 </actions>
                 <columns>
                     <column id="name"/>
@@ -87,6 +95,7 @@
                 <buttonsPanel>
                     <button action="cleaningMapTable.add"/>
                     <button action="cleaningMapTable.exclude"/>
+                    <button id="cleaningMapTableViewBtn" action="cleaningMapTable.view"/>
                 </buttonsPanel>
             </table>
         </groupBox>
@@ -95,6 +104,7 @@
                 <actions>
                     <action id="add" type="add"/>
                     <action id="exclude" type="exclude"/>
+                    <action id="view" type="view"/>
                 </actions>
                 <columns>
                     <column id="name"/>
@@ -105,6 +115,7 @@
                 <buttonsPanel>
                     <button action="inventoryTable.add"/>
                     <button action="inventoryTable.exclude"/>
+                    <button id="inventoryTableViewBtn" action="inventoryTable.view"/>
                 </buttonsPanel>
             </table>
         </groupBox>
