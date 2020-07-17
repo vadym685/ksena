@@ -51,7 +51,7 @@
                         <action id="clear" type="picker_clear"/>
                     </actions>
                 </lookupPickerField>
-                <dateField id="dateOfCompletionField" property="dateOfCompletion" editable="false"/>
+                <dateField id="dateOfCompletionField" property="dateOfCompletion"/>
                 <lookupField id="taskStatusField" property="taskStatus"/>
                 <textField id="costField" property="cost"/>
                 <timeField id="taskTimePlaneField" property="taskTimePlane"/>
