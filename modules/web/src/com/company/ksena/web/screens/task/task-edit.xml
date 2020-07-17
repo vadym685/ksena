@@ -39,13 +39,13 @@
                         <action id="clear" type="picker_clear"/>
                     </actions>
                 </lookupPickerField>
-                <pickerField id="companyField" property="company" >
+                <pickerField id="companyField" property="company" editable="false">
                     <actions>
                         <action id="open" type="picker_open"/>
                         <action id="clear" type="picker_clear"/>
                     </actions>
                 </pickerField>
-                <lookupPickerField id="pointField" optionsContainer="pointsDc" property="point">
+                <lookupPickerField id="pointField" optionsContainer="pointsDc" property="point" editable="false">
                     <actions>
                         <action id="open" type="picker_open"/>
                         <action id="clear" type="picker_clear"/>
