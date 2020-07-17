@@ -42,8 +42,17 @@ public class Company extends StandardEntity {
             inverseJoinColumns = @JoinColumn(name = "CLIENT_EMPLOYEE_ID"))
     @ManyToMany
     protected List<ClientEmployee> responsibleEmployee;
+
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "company")
     protected TaskDocument taskDocument;
+
+    public void setContactPhone(Integer contactPhone) {
+        this.contactPhone = contactPhone;
+    }
+
+    public Integer getContactPhone() {
+        return contactPhone;
+    }
 
     public TaskDocument getTaskDocument() {
         return taskDocument;
@@ -91,14 +100,6 @@ public class Company extends StandardEntity {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
-    }
-
-    public Integer getContactPhone() {
-        return contactPhone;
-    }
-
-    public void setContactPhone(Integer contactPhone) {
-        this.contactPhone = contactPhone;
     }
 
     public String getEmail() {
