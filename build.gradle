@@ -169,5 +169,11 @@ restart.finalizedBy start
 task buildUberJar(type: CubaUberJarBuilding) {
     logbackConfigurationFile = 'etc/uber-jar-logback.xml'
     singleJar = true
-    appProperties = ['cuba.automaticDatabaseUpdate': true]
+    appProperties = ['cuba.automaticDatabaseUpdate': true,
+                     'cuba.dataSource.username'    : 'postgres',
+                     'cuba.dataSource.password'    : 'postgres',
+                     'cuba.dataSource.dbName'      : 'ksena_db',
+                     'cuba.dataSource.host'        : '192.168.122.230',
+                     'cuba.dataSource.port'        : '5432',
+                     'cuba.dataSourceProvider'     : 'application']
 }
