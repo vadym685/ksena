@@ -1,0 +1,89 @@
+При переезде на новую машинку !!!
+
+В файлах:
+
+deploy/tomcat/bin/setenv.bat - прописать set CATALINA_OPTS=%CATALINA_OPTS% -Duser.timezone=GMT
+deploy/tomcat/bin/setenv.sh - прописать CATALINA_OPTS="$CATALINA_OPTS -Duser.timezone=GMT"
+Так мы указываем, что данный сервер будет работать в 0-м часовом диапазоне
+
+deploy\tomcat\bin\setenv.bat - set CATALINA_OPTS=-Xmx1536m -Dfile.encoding=UTF-8
+deploy\tomcat\bin\setenv.sh  - CATALINA_OPTS="-Xmx1536m -Dfile.encoding=UTF-8"
+Нужно укзать размеры использованой памяти приложением - иногда бывают больше закрузки, возможно придется делать увеличение
+
+Заготовка для логирования - deploy/tomcat/conf/logback.xml
+<encoder>
+    <pattern>
+        %d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread%X{cubaApp}%X{cubaUser}] [%file:%red(%line)]| %boldBlue(%M) - %msg%n
+    </pattern>
+</encoder>
+
+Компании и филиаллы в Cuba platform - это группы
+
+Чтобы пользователь компании (супер пользователь или админ) имел доступ ко всем сущностей дочерних групп (филиаллов) нужно:
+Прописать
+{E}.group.id in (select h.group.id from sec$GroupHierarchy h where h.group.id = :session$userGroupId or h.parent.id = :session$userGroupId)
+в поле Constraints  для класса BaseEntity - который является суппер-классом для всех остольных сущьностей
+
+Для доступа группы к своим сущностям, нужно:
+Прописать
+{E}.group.id = :session$userGroupId
+в поле Constraints  для класса BaseEntity
+
+Для интеграции с 1С нужно:
+1. Группы добавить аттрибуты:
+    - branchID - id-шник филиалла в 1C, эта штука нужна для нормальной перепривязки сущностей с 1С в ERP.
+2. Пользователи:
+    - Создание пользователей происходит через стандартное меню создание.
+    - После создания, нужно добавить ид и пароль компании, для интеграции.
+
+Блокировка сущностей от одновременного изменения разными пользователями
+https://doc.cuba-platform.com/manual-6.10-ru/manual.html?_ga=2.49921251.438734674.1587475541-681573755.1587036493#pessimistic_locking
+
+you can hide the system information entry for the whole application through a specific permission in
+Administration > Roles > Role edit > Tab “Specific” > CUBA > generic UI > Systeminformation.
+Generally the context menu e.g. in tables displayes all actions that are defined as actions for this table. Quoting from the docs here:
+
+###Cоздание сервиса сервера и запуск
+[Обсуждение тут, если что](http://qaru.site/questions/48061/spring-boot-application-as-a-service)
+[или тут](https://fabianlee.org/2018/04/15/java-spring-boot-application-as-a-service-using-systemd-on-ubuntu-16-04/)
+
+*Для запуска сервера в фоновом режиме, нужно создать сервис в папке демонов*
+
+>sudo nano /etc/systemd/system/service_name.service
+
+*Закидываем текст ниже, переделываем и сохраняем*
+
+*Пример файла*
+
+[Unit]
+Description=Erp Service
+
+[Service]
+##########Type=simple
+SuccessExitStatus=143
+TimeoutStopSec=10
+Restart=always
+RestartSec=10
+##########Path to project is required
+WorkingDirectory=/full_path_to_project
+ExecStart=sh /full_path_to_project/script.sh
+
+[Install]
+WantedBy=multi-user.target
+
+*Обновим список демонов*
+>sudo systemctl daemon-reload
+
+*чтобы сервис работал при загрузке ОС*
+>sudo systemctl enable service_name.service
+
+*Команды для управления сервисом*
+>sudo systemctl start service_name
+>
+>sudo systemctl stop service_name
+>
+>sudo systemctl restart service_name
+>
+>sudo systemctl status service_name
+>
+
