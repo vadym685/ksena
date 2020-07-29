@@ -37,7 +37,7 @@
         <property name="mobilePhone" view="_minimal"/>
         <property name="dateOfEmployment"/>
         <property name="dateOfDismissal"/>
-        <property name="imageFile" view="_minimal"/>
+        <property name="imageFile" view="_local"/>
         <property name="residenceNumber"/>
         <property name="residencePermanent"/>
         <property name="residenceEndTime"/>

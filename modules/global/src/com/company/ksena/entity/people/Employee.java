@@ -1,7 +1,6 @@
 package com.company.ksena.entity.people;
 
 import com.company.ksena.entity.task.Task;
-import com.company.ksena.entity.task.TaskDocument;
 import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.FileDescriptor;
 
@@ -39,9 +38,9 @@ public class Employee extends PasportData {
     @Column(name = "DATE_OF_DISMISSAL")
     protected LocalDate dateOfDismissal;
 
-    @JoinTable(name = "KSENA_EMPLOYEE_FILE_DESCRIPTOR_LINK", joinColumns = @JoinColumn(name = "EMPLOYEE_ID"), inverseJoinColumns = @JoinColumn(name = "FILE_DESCRIPTOR_ID"))
-    @ManyToMany
-    protected List<FileDescriptor> imageFile;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "IMAGE_FILE_ID")
+    protected FileDescriptor imageFile;
 
     @Column(name = "RESIDENCE_NUMBER")
     protected String residenceNumber;
@@ -57,6 +56,14 @@ public class Employee extends PasportData {
 
     @Column(name = "RESIDENCE_PLACE")
     protected String residencePlace;
+
+    public void setImageFile(FileDescriptor imageFile) {
+        this.imageFile = imageFile;
+    }
+
+    public FileDescriptor getImageFile() {
+        return imageFile;
+    }
 
     public String getResidencePlace() {
         return residencePlace;
@@ -104,14 +111,6 @@ public class Employee extends PasportData {
 
     public void setQualification(Qualification qualification) {
         this.qualification = qualification == null ? null : qualification.getId();
-    }
-
-    public void setImageFile(List<FileDescriptor> imageFile) {
-        this.imageFile = imageFile;
-    }
-
-    public List<FileDescriptor> getImageFile() {
-        return imageFile;
     }
 
 

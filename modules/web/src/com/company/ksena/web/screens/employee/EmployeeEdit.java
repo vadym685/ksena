@@ -34,7 +34,6 @@ public class EmployeeEdit extends StandardEditor<Employee> {
     private Image image;
     @Inject
     private FileUploadingAPI fileUploadingAPI;
-
     @Inject
     protected InstanceContainer<Employee> employeeDc;
     @Inject
@@ -52,7 +51,7 @@ public class EmployeeEdit extends StandardEditor<Employee> {
             fileUploadingAPI.putFileIntoStorage(upload.getFileId(), imageDescriptor);
             FileDescriptor savedImageDescriptor = dataManager.commit(imageDescriptor);
             newImageDescriptors.add(savedImageDescriptor);
-            imageFileDc.getMutableItems().add(savedImageDescriptor);
+                   //imageFileDc.getMutableItems().add(savedImageDescriptor);
         } catch (Exception e) {
 
         }
@@ -68,48 +67,4 @@ public class EmployeeEdit extends StandardEditor<Employee> {
             residenceEndTimeField.setVisible(false);
         }
     }
-
-
-
-
-//    private void displayImage() {
-//        if (getItem().getImageFile() != null) {
-//            image.setSource(FileDescriptorResource.class).setFileDescriptor(getItem().getImageFile());
-//            image.setVisible(true);
-//        } else {
-//            image.setVisible(false);
-//        }}
-
-//    @Subscribe("showUploadDialogBtn")
-//    protected void onShowUploadDialogBtnClick(Button.ClickEvent event) {
-//        FileUploadDialog dialog = (FileUploadDialog) screens.create("fileUploadDialog", OpenMode.DIALOG);
-////        dialog.addCloseWithCommitListener(() -> {
-////            UUID fileId = dialog.getFileId();
-////            String fileName = dialog.getFileName();
-////
-////            File file = fileUploadingAPI.getFile(fileId);
-////
-////            FileDescriptor fileDescriptor = fileUploadingAPI.getFileDescriptor(fileId, fileName);
-////            try {
-////                fileUploadingAPI.putFileIntoStorage(fileId, fileDescriptor);
-////                dataManager.commit(fileDescriptor);
-////            } catch (FileStorageException e) {
-////                throw new RuntimeException(e);
-////            }
-////        });
-////        screens.show(dialog);
-//    }
-//    private void updateImageButtons(boolean enable) {
-//        downloadImageBtn.setEnabled(enable);
-//        clearImageBtn.setEnabled(enable);
-//    }
-//
-//    private void displayImage() {
-//        if (getItem().getImageFile() != null) {
-//            image.setSource(FileDescriptorResource.class).setFileDescriptor(getItem().getImageFile());
-//            image.setVisible(true);
-//        } else {
-//            image.setVisible(false);
-//        }
-//    }
 }

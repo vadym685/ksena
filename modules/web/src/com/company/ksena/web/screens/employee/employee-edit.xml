@@ -8,7 +8,7 @@
                   class="com.company.ksena.entity.people.Employee"
                   view="employee-view">
             <loader/>
-            <collection id="imageFileDc" property="imageFile"/>
+            <instance id="imageFileDc" property="imageFile"/>
         </instance>
     </data>
     <dialogMode height="600"
