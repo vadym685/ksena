@@ -39,8 +39,9 @@ public class Employee extends PasportData {
     @Column(name = "DATE_OF_DISMISSAL")
     protected LocalDate dateOfDismissal;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "IMAGE_FILE_ID")
+    @OneToOne
+    @JoinColumn(name = "IMAGE_FILE_ID",
+            referencedColumnName = "ID")
     protected FileDescriptor imageFile;
 
     @Column(name = "RESIDENCE_NUMBER")

@@ -1,13 +1,16 @@
 package com.company.ksena.web.screens.employee;
 
 
+import com.company.ksena.web.screens.employee.photo_view.PhotoPreviewComponentFactory;
 import com.haulmont.cuba.core.entity.FileDescriptor;
 import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.FileStorageException;
 import com.haulmont.cuba.gui.Screens;
+import com.haulmont.cuba.gui.UiComponents;
 import com.haulmont.cuba.gui.components.*;
 import com.haulmont.cuba.gui.model.CollectionPropertyContainer;
 import com.haulmont.cuba.gui.model.InstanceContainer;
+import com.haulmont.cuba.gui.model.InstancePropertyContainer;
 import com.haulmont.cuba.gui.screen.*;
 import com.company.ksena.entity.people.Employee;
 import com.haulmont.cuba.gui.upload.FileUploadingAPI;
@@ -16,6 +19,7 @@ import javax.inject.Inject;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @UiController("ksena_Employee.edit")
@@ -31,31 +35,57 @@ public class EmployeeEdit extends StandardEditor<Employee> {
     @Inject
     private FileUploadField upload;
     @Inject
-    private Image image;
-    @Inject
     private FileUploadingAPI fileUploadingAPI;
     @Inject
     protected InstanceContainer<Employee> employeeDc;
     @Inject
-    protected CollectionPropertyContainer<FileDescriptor> imageFileDc;
+    private InstancePropertyContainer<FileDescriptor> imageFileDc;
+
+    @Inject
+    private HBoxLayout imageWrapperLayout;
 
     private List<FileDescriptor> newImageDescriptors = new ArrayList<>();
     @Inject
     private DateField<LocalDate> residenceEndTimeField;
-
+    @Inject
+    private UiComponents uiComponents;
+    @Inject
+    private MessageBundle messageBundle;
 
     @Subscribe("upload")
-    public void onUploadFileUploadSucceed(FileUploadField.FileUploadSucceedEvent event) throws FileStorageException {
+    protected void onUploadFileUploadSucceed(FileUploadField.FileUploadSucceedEvent event) {
+        imageWrapperLayout.removeAll();
         FileDescriptor imageDescriptor = upload.getFileDescriptor();
         try {
             fileUploadingAPI.putFileIntoStorage(upload.getFileId(), imageDescriptor);
             FileDescriptor savedImageDescriptor = dataManager.commit(imageDescriptor);
             newImageDescriptors.add(savedImageDescriptor);
-                   //imageFileDc.getMutableItems().add(savedImageDescriptor);
+            imageFileDc.setItem(savedImageDescriptor);
+            imageWrapperLayout.add(photoImage(imageDescriptor));
         } catch (Exception e) {
 
         }
-      //  Set<FileDescriptor> selectedPhoto = event.;
+    }
+
+    @Subscribe
+    public void onAfterShow(AfterShowEvent event) {
+        System.out.println();
+        try {
+            if (Objects.nonNull(employeeDc.getItem().getImageFile())) {
+                imageWrapperLayout.add(photoImage(imageFileDc.getItem()));
+            }
+        } catch (Exception e){
+
+        }
+    }
+
+    private Component photoImage(FileDescriptor file) {
+        PhotoPreviewComponentFactory factory = new PhotoPreviewComponentFactory(
+                uiComponents,
+                messageBundle
+        );
+
+        return factory.create(file);
     }
 
     @Subscribe("residencePermanentField")

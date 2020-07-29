@@ -46,21 +46,24 @@
 
                 </column>
             </form>
-        </groupBox></hbox>
-        <image id="image" width="100%"  />
-        <vbox id="dropZone"
-              height="200"
-              width="100%"
-              spacing="true">
-            <upload id="upload"
-                    dropZone="dropZone"
-                    showClearButton="true"
-                    showFileName="true"
-                    uploadButtonIcon="UPLOAD"
-                    uploadButtonCaption=""
-                    permittedExtensions=".png,.jpg,.pdf" />
-        </vbox>
 
+        </groupBox>
+           <groupBox id="photoBox" caption="msg://Photo" width="100%">
+           <hbox id="imageWrapperLayout"
+                 spacing="true" width="600" height="315px">
+           </hbox>
+               <vbox id="dropZone"
+                     spacing="true">
+                   <upload id="upload"
+                           dropZone="dropZone"
+                           showClearButton="false"
+                           showFileName="false"
+                           uploadButtonIcon="UPLOAD"
+                           uploadButtonCaption=""
+                           permittedExtensions=".png,.jpg,.pdf" />
+               </vbox>
+           </groupBox>
+       </hbox>
         <hbox id="editActions" spacing="true">
             <button action="windowCommitAndClose"/>
             <button action="windowClose"/>
