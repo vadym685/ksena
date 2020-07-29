@@ -1,0 +1,4 @@
+alter table ksena_pasport_data rename to KSENA_PASPORT_DATA__U86191 ;
+alter table ksena_company_client_employee_link drop constraint FK_COMCLIEMP_ON_CLIENT_EMPLOYEE ;
+alter table ksena_mobile_phone drop constraint FK_KSENA_MOBILE_PHONE_ON_EMPLOYEE ;
+alter table ksena_task_employee_link drop constraint FK_TASEMP_ON_EMPLOYEE ;

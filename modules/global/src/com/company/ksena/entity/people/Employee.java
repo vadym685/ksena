@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
+@Table(name = "KSENA_EMPLOYEE")
 @NamePattern("%s|fullName")
 @Entity(name = "ksena_Employee")
 public class Employee extends PasportData {

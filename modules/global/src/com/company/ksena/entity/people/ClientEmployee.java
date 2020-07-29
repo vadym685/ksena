@@ -3,12 +3,10 @@ package com.company.ksena.entity.people;
 import com.company.ksena.entity.company.Company;
 import com.haulmont.chile.core.annotations.NamePattern;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.List;
 
+@Table(name = "KSENA_CLIENT_EMPLOYEE")
 @NamePattern("%s|fullName")
 @Entity(name = "ksena_ClientEmployee")
 public class ClientEmployee extends PasportData {

@@ -81,43 +81,7 @@ create table KSENA_TASK (
     primary key (ID)
 )^
 -- end KSENA_TASK
--- begin KSENA_PASPORT_DATA
-create table KSENA_PASPORT_DATA (
-    ID uuid,
-    VERSION integer not null,
-    CREATE_TS timestamp,
-    CREATED_BY varchar(50),
-    UPDATE_TS timestamp,
-    UPDATED_BY varchar(50),
-    DELETE_TS timestamp,
-    DELETED_BY varchar(50),
-    DTYPE varchar(100),
-    --
-    FULL_NAME varchar(255),
-    EMAIL varchar(255),
-    PHONE_NUMBER integer,
-    PASPORT_NUMBER varchar(2),
-    AUTHORITY varchar(255),
-    DATE_OF_ISSUE date,
-    INDIVIDUAL_TAXPAYER_NUMBER varchar(255),
-    SEX varchar(50),
-    --
-    -- from ksena_Employee
-    EMPLOYEE_TYPE varchar(50),
-    IS_ACTIVE boolean,
-    QUALIFICATION varchar(50),
-    MOBILE_PHONE_ID uuid,
-    DATE_OF_EMPLOYMENT date,
-    DATE_OF_DISMISSAL date,
-    RESIDENCE_NUMBER varchar(255),
-    RESIDENCE_PERMANENT boolean,
-    RESIDENCE_END_TIME date,
-    RESIDENCE_ADDRESS varchar(255),
-    RESIDENCE_PLACE varchar(255),
-    --
-    primary key (ID)
-)^
--- end KSENA_PASPORT_DATA
+
 -- begin KSENA_TASK_DOCUMENT
 create table KSENA_TASK_DOCUMENT (
     ID uuid,
@@ -251,13 +215,6 @@ create table KSENA_TASK_DOCUMENT_DAY_INTERVAL_LINK (
     primary key (DAY_INTERVAL_ID, TASK_DOCUMENT_ID)
 )^
 -- end KSENA_TASK_DOCUMENT_DAY_INTERVAL_LINK
--- begin KSENA_EMPLOYEE_FILE_DESCRIPTOR_LINK
-create table KSENA_EMPLOYEE_FILE_DESCRIPTOR_LINK (
-    EMPLOYEE_ID uuid,
-    FILE_DESCRIPTOR_ID uuid,
-    primary key (EMPLOYEE_ID, FILE_DESCRIPTOR_ID)
-)^
--- end KSENA_EMPLOYEE_FILE_DESCRIPTOR_LINK
 -- begin KSENA_TASK_DOCUMENT_CLEANING_POSITION_LINK
 create table KSENA_TASK_DOCUMENT_CLEANING_POSITION_LINK (
     TASK_DOCUMENT_ID uuid,
@@ -307,3 +264,60 @@ create table KSENA_TASK_EMPLOYEE_LINK (
     primary key (EMPLOYEE_ID, TASK_ID)
 )^
 -- end KSENA_TASK_EMPLOYEE_LINK
+-- begin KSENA_EMPLOYEE
+create table KSENA_EMPLOYEE (
+    ID uuid,
+    VERSION integer not null,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    FULL_NAME varchar(255),
+    EMAIL varchar(255),
+    PHONE_NUMBER integer,
+    PASPORT_NUMBER varchar(2),
+    AUTHORITY varchar(255),
+    DATE_OF_ISSUE date,
+    INDIVIDUAL_TAXPAYER_NUMBER varchar(255),
+    SEX varchar(50),
+    --
+    EMPLOYEE_TYPE varchar(50),
+    IS_ACTIVE boolean,
+    QUALIFICATION varchar(50),
+    MOBILE_PHONE_ID uuid,
+    DATE_OF_EMPLOYMENT date,
+    DATE_OF_DISMISSAL date,
+    IMAGE_FILE_ID uuid,
+    RESIDENCE_NUMBER varchar(255),
+    RESIDENCE_PERMANENT boolean,
+    RESIDENCE_END_TIME date,
+    RESIDENCE_ADDRESS varchar(255),
+    RESIDENCE_PLACE varchar(255),
+    --
+    primary key (ID)
+)^
+-- end KSENA_EMPLOYEE
+-- begin KSENA_CLIENT_EMPLOYEE
+create table KSENA_CLIENT_EMPLOYEE (
+    ID uuid,
+    VERSION integer not null,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    FULL_NAME varchar(255),
+    EMAIL varchar(255),
+    PHONE_NUMBER integer,
+    PASPORT_NUMBER varchar(2),
+    AUTHORITY varchar(255),
+    DATE_OF_ISSUE date,
+    INDIVIDUAL_TAXPAYER_NUMBER varchar(255),
+    SEX varchar(50),
+    --
+    primary key (ID)
+)^
+-- end KSENA_CLIENT_EMPLOYEE

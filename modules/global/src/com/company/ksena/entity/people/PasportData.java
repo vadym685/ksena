@@ -3,13 +3,11 @@ package com.company.ksena.entity.people;
 import com.haulmont.cuba.core.entity.StandardEntity;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.Email;
 import java.time.LocalDate;
 
-@Table(name = "KSENA_PASPORT_DATA")
-@Entity(name = "ksena_PasportData")
+@MappedSuperclass
 public class PasportData extends StandardEntity {
     private static final long serialVersionUID = -3797793039657279647L;
 
