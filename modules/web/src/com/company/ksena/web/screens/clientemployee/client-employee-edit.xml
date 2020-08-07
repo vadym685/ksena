@@ -15,6 +15,7 @@
                 <property name="authority"/>
                 <property name="dateOfIssue"/>
                 <property name="individualTaxpayerNumber"/>
+                <property name="sex"/>
             </view>
             <loader/>
         </instance>
