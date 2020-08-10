@@ -6,17 +6,7 @@
     <data>
         <instance id="clientEmployeeDc"
                   class="com.company.ksena.entity.people.ClientEmployee"
-        >
-            <view>
-                <property name="companies" view="_minimal"/>
-                <property name="fullName"/>
-                <property name="phoneNumber"/>
-                <property name="pasportNumber"/>
-                <property name="authority"/>
-                <property name="dateOfIssue"/>
-                <property name="individualTaxpayerNumber"/>
-                <property name="sex"/>
-            </view>
+                  view="clientEmployee-view">
             <loader/>
         </instance>
     </data>
@@ -26,13 +16,20 @@
         <form id="form" dataContainer="clientEmployeeDc">
             <column width="250px">
                 <textField id="fullNameField" property="fullName"/>
-                <textField id="companiesField" property="companies"/>
+                <textField id="emailField" property="email"/>
+                <pickerField id="companiesField" property="companies">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                        <action id="clear" type="picker_clear"/>
+                    </actions>
+                </pickerField>
+                <textField id="positionField" property="position"/>
                 <textField id="phoneNumberField" property="phoneNumber"/>
                 <textField id="pasportNumberField" property="pasportNumber"/>
                 <textField id="authorityField" property="authority"/>
                 <dateField id="dateOfIssueField" property="dateOfIssue"/>
-                <lookupField id="sexField" property="sex"/>
                 <textField id="individualTaxpayerNumberField" property="individualTaxpayerNumber"/>
+                <lookupField id="sexField" property="sex"/>
             </column>
         </form>
         <hbox id="editActions" spacing="true">

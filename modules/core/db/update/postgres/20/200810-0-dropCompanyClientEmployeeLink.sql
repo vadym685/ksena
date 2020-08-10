@@ -1,0 +1,1 @@
+alter table ksena_company_client_employee_link rename to KSENA_COMPANY_CLIENT_EMPLOYEE_LINK__U92299 ;

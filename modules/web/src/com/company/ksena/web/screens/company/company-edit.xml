@@ -34,13 +34,22 @@
                     <action id="add" type="add"/>
                     <action id="exclude" type="exclude"/>
                 </actions>
-                <columns>
-                    <column id="fullName"/>
-                </columns>
                 <buttonsPanel>
                     <button action="responsibleEmployeeTable.add"/>
                     <button action="responsibleEmployeeTable.exclude"/>
                 </buttonsPanel>
+                <columns>
+                    <column id="fullName"/>
+                    <column id="position"/>
+                    <column id="email"/>
+                    <column id="phoneNumber"/>
+                    <column id="pasportNumber"/>
+                    <column id="authority"/>
+                    <column id="dateOfIssue"/>
+                    <column id="individualTaxpayerNumber"/>
+                    <column id="sex"/>
+                    <column id="companies"/>
+                </columns>
             </table>
         </groupBox>
         <hbox id="editActions" spacing="true">

@@ -53,9 +53,7 @@
         <property name="sex"/>
     </view>
     <view entity="ksena_Company" name="company-view" extends="_local">
-        <property name="responsibleEmployee" view="_minimal"/>
-    </view>
-    <view entity="ksena_Company" name="company-view_1" extends="_local">
+        <property name="responsibleEmployee" view="_local"/>
     </view>
     <view entity="ksena_Inventory" name="inventory-view" extends="_local">
         <property name="breakage" view="_minimal">
@@ -81,4 +79,8 @@
             <property name="colour"/>
         </property>
     </view>
+    <view entity="ksena_ClientEmployee" name="clientEmployee-view" extends="_local">
+        <property name="companies" view="_minimal"/>
+    </view>
+
 </views>

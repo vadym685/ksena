@@ -37,14 +37,19 @@ public class Company extends StandardEntity {
     @Column(name = "INDIVIDUAL_TAXPAYER_NUMBER")
     protected String individualTaxpayerNumber;
 
-    @JoinTable(name = "KSENA_COMPANY_CLIENT_EMPLOYEE_LINK",
-            joinColumns = @JoinColumn(name = "COMPANY_ID"),
-            inverseJoinColumns = @JoinColumn(name = "CLIENT_EMPLOYEE_ID"))
-    @ManyToMany
+    @OneToMany(mappedBy = "companies")
     protected List<ClientEmployee> responsibleEmployee;
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "company")
     protected TaskDocument taskDocument;
+
+    public void setResponsibleEmployee(List<ClientEmployee> responsibleEmployee) {
+        this.responsibleEmployee = responsibleEmployee;
+    }
+
+    public List<ClientEmployee> getResponsibleEmployee() {
+        return responsibleEmployee;
+    }
 
     public void setContactPhone(Integer contactPhone) {
         this.contactPhone = contactPhone;
@@ -60,14 +65,6 @@ public class Company extends StandardEntity {
 
     public void setTaskDocument(TaskDocument taskDocument) {
         this.taskDocument = taskDocument;
-    }
-
-    public List<ClientEmployee> getResponsibleEmployee() {
-        return responsibleEmployee;
-    }
-
-    public void setResponsibleEmployee(List<ClientEmployee> responsibleEmployee) {
-        this.responsibleEmployee = responsibleEmployee;
     }
 
     public String getIndividualTaxpayerNumber() {

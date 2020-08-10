@@ -1,0 +1,3 @@
+alter table KSENA_COMPANY rename column responsible_employee_id to responsible_employee_id__u21410 ;
+alter table KSENA_COMPANY drop constraint FK_KSENA_COMPANY_ON_RESPONSIBLE_EMPLOYEE ;
+drop index IDX_KSENA_COMPANY_ON_RESPONSIBLE_EMPLOYEE ;
