@@ -1,0 +1,5 @@
+create table KSENA_CLIENT_EMPLOYEE_POINT_LINK (
+    POINT_ID uuid,
+    CLIENT_EMPLOYEE_ID uuid,
+    primary key (POINT_ID, CLIENT_EMPLOYEE_ID)
+);

@@ -6,7 +6,7 @@
     <data>
         <instance id="employeeDc"
                   class="com.company.ksena.entity.people.Employee"
-                  view="employee-view">
+                  view="employee-view_1">
             <loader/>
             <instance id="imageFileDc" property="imageFile"/>
         </instance>
@@ -18,10 +18,11 @@
         <form id="form" dataContainer="employeeDc">
          <column width="250px">
              <textField id="fullNameField" property="fullName"/>
+             <textField id = "fullNamePronunciationField" property="fullNamePronunciation"/>
              <checkBox id="isActiveField" property="isActive"/>
              <lookupField id="qualificationField" property="qualification"/>
              <textField id="emailField" property="email"/>
-             <textField id="phoneNumberField" property="phoneNumber"/>
+             <maskedField id="phoneNumberField" property="phoneNumber" mask="~##(###)###-##-##" valueMode="masked"/>
              <lookupField id="employeeTypeField" property="employeeType"/>
              <lookupField id="sexField" property="sex"/>
              <pickerField id="mobilePhoneField" property="mobilePhone">
@@ -32,6 +33,9 @@
              </pickerField>
              <dateField id="dateOfEmploymentField" property="dateOfEmployment"/>
              <dateField id="dateOfDismissalField" property="dateOfDismissal"/>
+             <maskedField id="personalPhoneNumberField" property="personalPhoneNumber" mask="~##(###)###-##-##" valueMode="masked"/>
+             <maskedField id="relativesPhoneNumberField" property="relativesPhoneNumber" mask="~##(###)###-##-##" valueMode="masked"/>
+
          </column>
      </form>
         </groupBox>
@@ -43,7 +47,7 @@
                     <dateField id="residenceEndTimeField" property="residenceEndTime"/>
                     <textField id="residenceAddressField" property="residenceAddress"/>
                     <textField id="residencePlaceField" property="residencePlace"/>
-
+                    <textArea id="comentField" property="coment"/>
                 </column>
             </form>
 

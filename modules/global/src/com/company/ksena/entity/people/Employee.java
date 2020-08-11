@@ -17,6 +17,9 @@ public class Employee extends PasportData {
     @Column(name = "EMPLOYEE_TYPE")
     protected String employeeType;
 
+    @Column(name = "FULL_NAME_PRONUNCIATION")
+    protected String fullNamePronunciation;
+
     @Column(name = "IS_ACTIVE")
     protected Boolean isActive;
 
@@ -44,6 +47,15 @@ public class Employee extends PasportData {
             referencedColumnName = "ID")
     protected FileDescriptor imageFile;
 
+    @Column(name = "COMENT")
+    protected String coment;
+
+    @Column(name = "PERSONAL_PHONE_NUMBER")
+    protected String personalPhoneNumber;
+
+    @Column(name = "RELATIVES_PHONE_NUMBER")
+    protected String relativesPhoneNumber;
+
     @Column(name = "RESIDENCE_NUMBER")
     protected String residenceNumber;
 
@@ -58,6 +70,38 @@ public class Employee extends PasportData {
 
     @Column(name = "RESIDENCE_PLACE")
     protected String residencePlace;
+
+    public String getFullNamePronunciation() {
+        return fullNamePronunciation;
+    }
+
+    public void setFullNamePronunciation(String fullNamePronunciation) {
+        this.fullNamePronunciation = fullNamePronunciation;
+    }
+
+    public String getRelativesPhoneNumber() {
+        return relativesPhoneNumber;
+    }
+
+    public void setRelativesPhoneNumber(String relativesPhoneNumber) {
+        this.relativesPhoneNumber = relativesPhoneNumber;
+    }
+
+    public String getPersonalPhoneNumber() {
+        return personalPhoneNumber;
+    }
+
+    public void setPersonalPhoneNumber(String personalPhoneNumber) {
+        this.personalPhoneNumber = personalPhoneNumber;
+    }
+
+    public String getComent() {
+        return coment;
+    }
+
+    public void setComent(String coment) {
+        this.coment = coment;
+    }
 
     public void setImageFile(FileDescriptor imageFile) {
         this.imageFile = imageFile;

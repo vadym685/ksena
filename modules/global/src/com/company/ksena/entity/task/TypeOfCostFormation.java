@@ -8,7 +8,8 @@ import javax.annotation.Nullable;
 public enum TypeOfCostFormation implements EnumClass<String> {
 
     FOR_TIME("FOR TIME"),
-    FOR_CLEANING_MAP("FOR CLEANING MAP");
+    FOR_CLEANING_MAP("FOR CLEANING MAP"),
+    FIXED_PRISE("FIXED PRISE");
 
     private String id;
 

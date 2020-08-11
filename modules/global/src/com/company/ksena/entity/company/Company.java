@@ -1,6 +1,7 @@
 package com.company.ksena.entity.company;
 
 import com.company.ksena.entity.people.ClientEmployee;
+import com.company.ksena.entity.point.Point;
 import com.company.ksena.entity.task.TaskDocument;
 import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
@@ -18,6 +19,10 @@ public class Company extends StandardEntity {
     @Column(name = "NAME")
     protected String name;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "COMPANY_TYPE_ID")
+    protected CompanyType companyType;
+
     @Column(name = "FULL_NAME")
     protected String fullName;
 
@@ -32,7 +37,7 @@ public class Company extends StandardEntity {
     protected String email;
 
     @Column(name = "CONTACT_PHONE")
-    protected Integer contactPhone;
+    protected String contactPhone;
 
     @Column(name = "INDIVIDUAL_TAXPAYER_NUMBER")
     protected String individualTaxpayerNumber;
@@ -43,20 +48,39 @@ public class Company extends StandardEntity {
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "company")
     protected TaskDocument taskDocument;
 
+    @OneToMany(mappedBy = "company")
+    protected List<Point> points;
+
+    public CompanyType getCompanyType() {
+        return companyType;
+    }
+
+    public void setCompanyType(CompanyType companyType) {
+        this.companyType = companyType;
+    }
+
+    public List<Point> getPoints() {
+        return points;
+    }
+
+    public void setPoints(List<Point> points) {
+        this.points = points;
+    }
+
+    public void setContactPhone(String contactPhone) {
+        this.contactPhone = contactPhone;
+    }
+
+    public String getContactPhone() {
+        return contactPhone;
+    }
+
     public void setResponsibleEmployee(List<ClientEmployee> responsibleEmployee) {
         this.responsibleEmployee = responsibleEmployee;
     }
 
     public List<ClientEmployee> getResponsibleEmployee() {
         return responsibleEmployee;
-    }
-
-    public void setContactPhone(Integer contactPhone) {
-        this.contactPhone = contactPhone;
-    }
-
-    public Integer getContactPhone() {
-        return contactPhone;
     }
 
     public TaskDocument getTaskDocument() {

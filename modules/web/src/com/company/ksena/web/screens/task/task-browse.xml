@@ -41,6 +41,7 @@
             </buttonsPanel>
             <columns>
                 <column id="dateOfCompletion"/>
+                <column id="company"/>
                 <column id="taskStatus"/>
             </columns>
         </groupTable>

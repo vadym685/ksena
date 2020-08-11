@@ -7,7 +7,10 @@
     <data readOnly="true">
         <collection id="pointsDc"
                     class="com.company.ksena.entity.point.Point"
-                    view="_local">
+        >
+            <view extends="_local">
+                <property name="company" view="_minimal"/>
+            </view>
             <loader id="pointsDl">
                 <query>
                     <![CDATA[select e from ksena_Point e]]>
@@ -34,6 +37,7 @@
             </actions>
             <columns>
                 <column id="name"/>
+                <column id="company"/>
                 <column id="adress"/>
                 <column id="latitude"/>
                 <column id="longitude"/>

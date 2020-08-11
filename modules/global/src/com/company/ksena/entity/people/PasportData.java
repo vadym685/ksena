@@ -19,7 +19,7 @@ public class PasportData extends StandardEntity {
     protected String email;
 
     @Column(name = "PHONE_NUMBER")
-    protected Integer phoneNumber;
+    protected String phoneNumber;
 
     @Column(name = "PASPORT_NUMBER", length = 2)
     protected String pasportNumber;
@@ -36,20 +36,20 @@ public class PasportData extends StandardEntity {
     @Column(name = "SEX")
     protected String sex;
 
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
     public void setSex(Sex sex) {
         this.sex = sex == null ? null : sex.getId();
     }
 
     public Sex getSex() {
         return sex == null ? null : Sex.fromId(sex);
-    }
-
-    public void setPhoneNumber(Integer phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public Integer getPhoneNumber() {
-        return phoneNumber;
     }
 
     public String getEmail() {

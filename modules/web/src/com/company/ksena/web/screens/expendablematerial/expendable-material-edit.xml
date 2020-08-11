@@ -17,6 +17,7 @@
             <column width="250px">
                 <textField id="nameField" property="name"/>
                 <textField id="descriptionField" property="description"/>
+                <textField id="priceField" property="price"/>
                 <textField id="standartAmountField" property="standartAmount"/>
             </column>
         </form>

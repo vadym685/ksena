@@ -38,6 +38,9 @@
         <property name="dateOfEmployment"/>
         <property name="dateOfDismissal"/>
         <property name="imageFile" view="_local"/>
+        <property name="coment"/>
+        <property name="personalPhoneNumber"/>
+        <property name="relativesPhoneNumber"/>
         <property name="residenceNumber"/>
         <property name="residencePermanent"/>
         <property name="residenceEndTime"/>
@@ -53,7 +56,11 @@
         <property name="sex"/>
     </view>
     <view entity="ksena_Company" name="company-view" extends="_local">
+        <property name="companyType" view="_minimal"/>
         <property name="responsibleEmployee" view="_local"/>
+        <property name="points" view="_minimal">
+            <property name="adress"/>
+        </property>
     </view>
     <view entity="ksena_Inventory" name="inventory-view" extends="_local">
         <property name="breakage" view="_minimal">
@@ -80,6 +87,15 @@
         </property>
     </view>
     <view entity="ksena_ClientEmployee" name="clientEmployee-view" extends="_local">
+        <property name="points" view="_minimal">
+            <property name="adress"/>
+        </property>
+        <property name="companies" view="_minimal"/>
+    </view>
+    <view entity="ksena_Employee" name="employee-view_1" extends="employee-view">
+        <property name="fullNamePronunciation"/>
+    </view>
+    <view entity="ksena_CompanyType" name="companyType-view" extends="_local">
         <property name="companies" view="_minimal"/>
     </view>
 

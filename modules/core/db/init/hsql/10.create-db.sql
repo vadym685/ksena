@@ -1,40 +1,3 @@
--- begin KSENA_PASPORT_DATA
-create table KSENA_PASPORT_DATA (
-    ID varchar(36) not null,
-    VERSION integer not null,
-    CREATE_TS timestamp,
-    CREATED_BY varchar(50),
-    UPDATE_TS timestamp,
-    UPDATED_BY varchar(50),
-    DELETE_TS timestamp,
-    DELETED_BY varchar(50),
-    DTYPE varchar(100),
-    --
-    FULL_NAME varchar(255),
-    EMAIL varchar(255),
-    PHONE_NUMBER integer,
-    PASPORT_NUMBER varchar(2),
-    AUTHORITY varchar(255),
-    DATE_OF_ISSUE date,
-    INDIVIDUAL_TAXPAYER_NUMBER varchar(255),
-    SEX varchar(50),
-    --
-    -- from ksena_Employee
-    EMPLOYEE_TYPE varchar(50),
-    IS_ACTIVE boolean,
-    QUALIFICATION varchar(50),
-    MOBILE_PHONE_ID varchar(36),
-    DATE_OF_EMPLOYMENT date,
-    DATE_OF_DISMISSAL date,
-    RESIDENCE_NUMBER varchar(255),
-    RESIDENCE_PERMANENT boolean,
-    RESIDENCE_END_TIME date,
-    RESIDENCE_ADDRESS varchar(255),
-    RESIDENCE_PLACE varchar(255),
-    --
-    primary key (ID)
-)^
--- end KSENA_PASPORT_DATA
 -- begin KSENA_COORDINATES
 create table KSENA_COORDINATES (
     ID varchar(36) not null,
@@ -52,6 +15,7 @@ create table KSENA_COORDINATES (
     --
     -- from ksena_Point
     NAME varchar(255),
+    COMPANY_ID varchar(36),
     ADRESS varchar(255),
     COMENT varchar(255),
     --
@@ -148,6 +112,7 @@ create table KSENA_EXPENDABLE_MATERIAL (
     NAME varchar(255),
     DESCRIPTION varchar(255),
     STANDART_AMOUNT double precision,
+    PRICE double precision,
     --
     primary key (ID)
 )^
@@ -266,23 +231,17 @@ create table KSENA_COMPANY (
     DELETED_BY varchar(50),
     --
     NAME varchar(255),
+    COMPANY_TYPE_ID varchar(36),
     FULL_NAME varchar(255),
     LEGAL_ADDRESS varchar(255),
     ACTUAL_ADDRESS varchar(255),
     EMAIL varchar(255),
-    CONTACT_PHONE integer,
+    CONTACT_PHONE varchar(255),
     INDIVIDUAL_TAXPAYER_NUMBER varchar(255),
     --
     primary key (ID)
 )^
 -- end KSENA_COMPANY
--- begin KSENA_COMPANY_CLIENT_EMPLOYEE_LINK
-create table KSENA_COMPANY_CLIENT_EMPLOYEE_LINK (
-    CLIENT_EMPLOYEE_ID varchar(36) not null,
-    COMPANY_ID varchar(36) not null,
-    primary key (CLIENT_EMPLOYEE_ID, COMPANY_ID)
-)^
--- end KSENA_COMPANY_CLIENT_EMPLOYEE_LINK
 -- begin KSENA_BREAKAGE
 create table KSENA_BREAKAGE (
     ID varchar(36) not null,
@@ -302,10 +261,90 @@ create table KSENA_BREAKAGE (
     primary key (ID)
 )^
 -- end KSENA_BREAKAGE
--- begin KSENA_EMPLOYEE_FILE_DESCRIPTOR_LINK
-create table KSENA_EMPLOYEE_FILE_DESCRIPTOR_LINK (
-    EMPLOYEE_ID varchar(36) not null,
-    FILE_DESCRIPTOR_ID varchar(36) not null,
-    primary key (EMPLOYEE_ID, FILE_DESCRIPTOR_ID)
+-- begin KSENA_CLIENT_EMPLOYEE
+create table KSENA_CLIENT_EMPLOYEE (
+    ID varchar(36) not null,
+    VERSION integer not null,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    FULL_NAME varchar(255),
+    EMAIL varchar(255),
+    PHONE_NUMBER varchar(255),
+    PASPORT_NUMBER varchar(2),
+    AUTHORITY varchar(255),
+    DATE_OF_ISSUE date,
+    INDIVIDUAL_TAXPAYER_NUMBER varchar(255),
+    SEX varchar(50),
+    --
+    COMPANIES_ID varchar(36),
+    POSITION_ varchar(255),
+    --
+    primary key (ID)
 )^
--- end KSENA_EMPLOYEE_FILE_DESCRIPTOR_LINK
+-- end KSENA_CLIENT_EMPLOYEE
+-- begin KSENA_EMPLOYEE
+create table KSENA_EMPLOYEE (
+    ID varchar(36) not null,
+    VERSION integer not null,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    FULL_NAME varchar(255),
+    EMAIL varchar(255),
+    PHONE_NUMBER varchar(255),
+    PASPORT_NUMBER varchar(2),
+    AUTHORITY varchar(255),
+    DATE_OF_ISSUE date,
+    INDIVIDUAL_TAXPAYER_NUMBER varchar(255),
+    SEX varchar(50),
+    --
+    EMPLOYEE_TYPE varchar(50),
+    FULL_NAME_PRONUNCIATION varchar(255),
+    IS_ACTIVE boolean,
+    QUALIFICATION varchar(50),
+    MOBILE_PHONE_ID varchar(36),
+    DATE_OF_EMPLOYMENT date,
+    DATE_OF_DISMISSAL date,
+    IMAGE_FILE_ID varchar(36),
+    COMENT varchar(255),
+    PERSONAL_PHONE_NUMBER varchar(255),
+    RELATIVES_PHONE_NUMBER varchar(255),
+    RESIDENCE_NUMBER varchar(255),
+    RESIDENCE_PERMANENT boolean,
+    RESIDENCE_END_TIME date,
+    RESIDENCE_ADDRESS varchar(255),
+    RESIDENCE_PLACE varchar(255),
+    --
+    primary key (ID)
+)^
+-- end KSENA_EMPLOYEE
+-- begin KSENA_CLIENT_EMPLOYEE_POINT_LINK
+create table KSENA_CLIENT_EMPLOYEE_POINT_LINK (
+    POINT_ID varchar(36) not null,
+    CLIENT_EMPLOYEE_ID varchar(36) not null,
+    primary key (POINT_ID, CLIENT_EMPLOYEE_ID)
+)^
+-- end KSENA_CLIENT_EMPLOYEE_POINT_LINK
+-- begin KSENA_COMPANY_TYPE
+create table KSENA_COMPANY_TYPE (
+    ID varchar(36) not null,
+    VERSION integer not null,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    --
+    NAME varchar(255),
+    --
+    primary key (ID)
+)^
+-- end KSENA_COMPANY_TYPE

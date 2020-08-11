@@ -6,22 +6,51 @@
     <data>
         <instance id="pointDc"
                   class="com.company.ksena.entity.point.Point"
-                  view="_local">
+        >
+            <view extends="_local">
+                <property name="company" view="_minimal"/>
+                <property name="clientEmployees" view="_minimal">
+                    <property name="position"/>
+                </property>
+            </view>
             <loader/>
+            <collection id="clientEmployeesDc" property="clientEmployees"/>
         </instance>
     </data>
     <dialogMode height="600"
                 width="800"/>
     <layout expand="editActions" spacing="true">
-        <form id="form" dataContainer="pointDc">
-            <column width="250px">
-                <textField id="latitudeField" property="latitude"/>
-                <textField id="longitudeField" property="longitude"/>
-                <textField id="nameField" property="name"/>
-                <textField id="adressField" property="adress"/>
-                <textField id="comentField" property="coment"/>
-            </column>
-        </form>
+        <hbox>
+            <groupBox id="pointDataBox"  caption="msg://com.company.ksena.entity.point.Point" spacing="true">
+                <form id="form" dataContainer="pointDc">
+                <column width="250px">
+                    <textField id="nameField" property="name"/>
+                    <pickerField id="companyField" property="company"/>
+                    <textField id="adressField" property="adress"/>
+                    <textField id="latitudeField" property="latitude"/>
+                    <textField id="longitudeField" property="longitude"/>
+                    <textArea id="comentField" property="coment"/>
+                </column>
+            </form>
+            </groupBox>
+            <groupBox id="clientEmployeesBox"
+                      caption="msg://com.company.ksena.entity.entity.point.pointEmploees">
+            <table id="clientEmployeesTable" dataContainer="clientEmployeesDc" width="500px" height="282px">
+                <actions>
+                    <action id="add" type="add"/>
+                    <action id="exclude" type="exclude"/>
+                </actions>
+                <buttonsPanel>
+                    <button action="clientEmployeesTable.add"/>
+                    <button action="clientEmployeesTable.exclude"/>
+                </buttonsPanel>
+                <columns>
+                    <column id="fullName"/>
+                    <column id="position"/>
+                </columns>
+            </table>
+        </groupBox>
+        </hbox>
         <hbox id="editActions" spacing="true">
             <button action="windowCommitAndClose"/>
             <button action="windowClose"/>

@@ -2,9 +2,11 @@ package com.company.ksena.entity.inventory;
 
 import com.company.ksena.entity.cleaning_map.CleaningPosition;
 import com.haulmont.chile.core.annotations.NamePattern;
+import com.haulmont.chile.core.annotations.NumberFormat;
 import com.haulmont.cuba.core.entity.StandardEntity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Positive;
 import java.util.List;
 
 @NamePattern("%s|name")
@@ -21,11 +23,25 @@ public class ExpendableMaterial extends StandardEntity {
 
     @Column(name = "STANDART_AMOUNT")
     protected Double standartAmount;
+
+    @NumberFormat(pattern = "##,##0.00")
+    @Positive
+    @Column(name = "PRICE")
+    protected Double price;
+
     @JoinTable(name = "KSENA_CLEANING_POSITION_EXPENDABLE_MATERIAL_LINK",
             joinColumns = @JoinColumn(name = "EXPENDABLE_MATERIAL_ID"),
             inverseJoinColumns = @JoinColumn(name = "CLEANING_POSITION_ID"))
     @ManyToMany
     protected List<CleaningPosition> cleaningPositions;
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
 
     public List<CleaningPosition> getCleaningPositions() {
         return cleaningPositions;

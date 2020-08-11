@@ -8,33 +8,55 @@
                   class="com.company.ksena.entity.people.ClientEmployee"
                   view="clientEmployee-view">
             <loader/>
+            <collection id="pointsDc" property="points"/>
         </instance>
     </data>
     <dialogMode height="600"
                 width="800"/>
     <layout expand="editActions" spacing="true">
-        <form id="form" dataContainer="clientEmployeeDc">
-            <column width="250px">
-                <textField id="fullNameField" property="fullName"/>
-                <textField id="emailField" property="email"/>
-                <pickerField id="companiesField" property="companies">
-                    <actions>
-                        <action id="lookup" type="picker_lookup"/>
-                        <action id="clear" type="picker_clear"/>
-                    </actions>
-                </pickerField>
-                <textField id="positionField" property="position"/>
-                <textField id="phoneNumberField" property="phoneNumber"/>
-                <textField id="pasportNumberField" property="pasportNumber"/>
-                <textField id="authorityField" property="authority"/>
-                <dateField id="dateOfIssueField" property="dateOfIssue"/>
-                <textField id="individualTaxpayerNumberField" property="individualTaxpayerNumber"/>
-                <lookupField id="sexField" property="sex"/>
-            </column>
-        </form>
+        <hbox>
+            <groupBox id="clientEmployeeBox" caption="msg://com.company.ksena.entity.ClientEmployee.ClientEmployeeData" spacing="true">
+                <form id="form" dataContainer="clientEmployeeDc">
+                    <column width="250px">
+                        <textField id="fullNameField" property="fullName"/>
+                        <textField id="emailField" property="email"/>
+                        <pickerField id="companiesField" property="companies">
+                            <actions>
+                                <action id="lookup" type="picker_lookup"/>
+                                <action id="clear" type="picker_clear"/>
+                            </actions>
+                        </pickerField>
+                        <textField id="positionField" property="position"/>
+                        <maskedField id="phoneNumberField" property="phoneNumber" mask="~##(###)###-##-##" valueMode="masked"/>
+                        <textField id="pasportNumberField" property="pasportNumber"/>
+                        <textField id="authorityField" property="authority"/>
+                        <dateField id="dateOfIssueField" property="dateOfIssue"/>
+                        <textField id="individualTaxpayerNumberField" property="individualTaxpayerNumber"/>
+                        <lookupField id="sexField" property="sex"/>
+                    </column>
+                </form>
+            </groupBox>
+        <groupBox id="pointsBox" caption="msg://com.company.ksena.entity.ClientEmployee.ClientEmployeePoints" spacing="true">
+            <table id="pointsTable" dataContainer="pointsDc" width="500px" height="345px">
+                <actions>
+                    <action id="add" type="add"/>
+                    <action id="exclude" type="exclude"/>
+                </actions>
+                <buttonsPanel>
+                    <button action="pointsTable.add"/>
+                    <button action="pointsTable.exclude"/>
+                </buttonsPanel>
+                <columns>
+                    <column id="name"/>
+                    <column id="adress"/>
+                </columns>
+            </table>
+        </groupBox>
+    </hbox>
         <hbox id="editActions" spacing="true">
             <button action="windowCommitAndClose"/>
             <button action="windowClose"/>
         </hbox>
+        <groupBox spacing="true"/>
     </layout>
 </window>

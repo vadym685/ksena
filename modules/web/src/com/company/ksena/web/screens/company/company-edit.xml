@@ -10,6 +10,7 @@
             <loader>
             </loader>
             <collection id="responsibleEmployeeDc" property="responsibleEmployee"/>
+            <collection id="pointsDc" property="points"/>
         </instance>
     </data>
 
@@ -23,7 +24,8 @@
                 <textField id="legalAddressField" property="legalAddress"/>
                 <textField id="actualAddressField" property="actualAddress"/>
                 <textField id="emailField" property="email"/>
-                <textField id="contactPhoneField" property="contactPhone"/>
+                <pickerField id="companyTypeField" property="companyType"/>
+                <maskedField id="contactPhoneField" property="contactPhone" mask="~##(###)###-##-##" valueMode="masked"/>
                 <textField id="individualTaxpayerNumberField" property="individualTaxpayerNumber"/>
             </column>
         </form>
@@ -49,6 +51,23 @@
                     <column id="individualTaxpayerNumber"/>
                     <column id="sex"/>
                     <column id="companies"/>
+                </columns>
+            </table>
+        </groupBox>
+        <groupBox id="pointsBox"
+                  caption="msg://com.company.ksena.entity.company/Company.points">
+            <table id="pointsTable" dataContainer="pointsDc" width="100%" height="200px">
+                <actions>
+                    <action id="add" type="add"/>
+                    <action id="exclude" type="exclude"/>
+                </actions>
+                <buttonsPanel>
+                    <button action="pointsTable.add"/>
+                    <button action="pointsTable.exclude"/>
+                </buttonsPanel>
+                <columns>
+                    <column id="name"/>
+                    <column id="adress"/>
                 </columns>
             </table>
         </groupBox>
