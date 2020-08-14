@@ -84,9 +84,11 @@
                 </actions>
                 <columns>
                     <column id="name"/>
+                    <column id="room" sort="ASCENDING"/>
                     <column id="description"/>
                     <column id="needTime"/>
                     <column id="price"/>
+
                 </columns>
                 <buttonsPanel>
                     <button action="cleaningMapTable.add"/>

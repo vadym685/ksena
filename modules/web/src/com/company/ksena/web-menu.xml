@@ -12,6 +12,7 @@
         <item screen="ksena_Task.browse"/>
         <item screen="ksena_ClientEmployee.browse"/>
         <item screen="ksena_CompanyType.browse"/>
+        <item screen="ksena_Room.browse"/>
         <!--        <item screen="ksena_Task.browse"/>-->
 
     </menu>

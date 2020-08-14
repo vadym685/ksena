@@ -19,6 +19,10 @@ public class CleaningPosition extends StandardEntity {
     @Column(name = "NAME")
     protected String name;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ROOM_ID")
+    protected Room room;
+
     @Column(name = "DESCRIPTION")
     protected String description;
 
@@ -45,6 +49,14 @@ public class CleaningPosition extends StandardEntity {
             inverseJoinColumns = @JoinColumn(name = "TASK_ID"))
     @ManyToMany
     protected List<Task> tasks;
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
 
     public void setNeedTime(LocalTime needTime) {
         this.needTime = needTime;

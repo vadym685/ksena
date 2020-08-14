@@ -91,6 +91,7 @@ create table KSENA_CLEANING_POSITION (
     DELETED_BY varchar(50),
     --
     NAME varchar(255),
+    ROOM_ID varchar(36),
     DESCRIPTION varchar(255),
     NEED_TIME time,
     PRICE double precision,
@@ -348,3 +349,20 @@ create table KSENA_COMPANY_TYPE (
     primary key (ID)
 )^
 -- end KSENA_COMPANY_TYPE
+-- begin KSENA_ROOM
+create table KSENA_ROOM (
+    ID varchar(36) not null,
+    VERSION integer not null,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    --
+    NAME varchar(255),
+    COMENT varchar(255),
+    --
+    primary key (ID)
+)^
+-- end KSENA_ROOM

@@ -3,7 +3,6 @@ package com.company.ksena.entity.task;
 import com.company.ksena.entity.cleaning_map.CleaningPosition;
 import com.company.ksena.entity.company.Company;
 import com.company.ksena.entity.inventory.Inventory;
-import com.company.ksena.entity.people.Employee;
 import com.company.ksena.entity.point.Point;
 import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
@@ -33,6 +32,9 @@ public class TaskDocument extends StandardEntity {
 
     @Column(name = "COST_PER_HOUR")
     protected Double costPerHour;
+
+    @Column(name = "FULL_COST")
+    protected Double fullCost;
 
     @Column(name = "TYPE_OF_COST_FORMATION")
     protected String typeOfCostFormation;
@@ -75,6 +77,14 @@ public class TaskDocument extends StandardEntity {
 
     @OneToMany(mappedBy = "taskDocument")
     protected List<Task> task;
+
+    public Double getFullCost() {
+        return fullCost;
+    }
+
+    public void setFullCost(Double fullCost) {
+        this.fullCost = fullCost;
+    }
 
     public String getDocNumber() {
         return docNumber;

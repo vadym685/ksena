@@ -17,6 +17,7 @@
         <form id="form" dataContainer="cleaningPositionDc">
             <column width="250px">
                 <textField id="nameField" property="name"/>
+                <pickerField id="roomField" property="room"/>
                 <textField id="descriptionField" property="description"/>
                 <timeField id="needTimeField" property="needTime"/>
                 <textField id="priceField" property="price"/>
