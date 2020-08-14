@@ -36,6 +36,7 @@
                     <textField id="periodicityField" property="periodicity" visible="false"/>
                     <lookupField id="typeOfCostFormationField" property="typeOfCostFormation"/>
                     <textField id="costPerHourField" property="costPerHour" visible="false"/>
+                    <textField id="fullCostField" property="fullCost" visible="false"/>
                 </column>
             </form>
             </groupBox>

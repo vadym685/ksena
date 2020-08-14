@@ -1,20 +1,12 @@
 package com.company.ksena.web.screens.taskdocument;
 
-import com.company.ksena.entity.cleaning_map.CleaningPosition;
 import com.company.ksena.entity.task.*;
 import com.haulmont.cuba.gui.components.*;
-import com.haulmont.cuba.gui.components.calendar.CalendarEvent;
-import com.haulmont.cuba.gui.components.calendar.ListCalendarEventProvider;
-import com.haulmont.cuba.gui.components.calendar.SimpleCalendarEvent;
 import com.haulmont.cuba.gui.model.CollectionPropertyContainer;
 import com.haulmont.cuba.gui.screen.*;
 
 import javax.inject.Inject;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Objects;
 
 @UiController("ksena_TaskDocument.edit")
 @UiDescriptor("task-document-edit.xml")
@@ -36,6 +28,8 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
     private CollectionPropertyContainer<DayInterval> cleaningDayDc;
     @Inject
     private Table<DayInterval> cleaningDayTable;
+    @Inject
+    private TextField<Double> fullCostField;
 
 
     @Subscribe("taskTypeField")
@@ -58,15 +52,26 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
 
     @Subscribe("typeOfCostFormationField")
     public void onTypeOfCostFormationFieldValueChange(HasValue.ValueChangeEvent<Boolean> event) {
-        if (this.getEditedEntity().getTypeOfCostFormation() == TypeOfCostFormation.fromId("FOR TIME")) {
+
+        TypeOfCostFormation type =   this.getEditedEntity().getTypeOfCostFormation();
+
+        if ( type.equals(TypeOfCostFormation.FOR_TIME)) {
             costPerHourField.setVisible(true);
-        } else if (this.getEditedEntity().getTypeOfCostFormation() == TypeOfCostFormation.fromId("FOR CLEANING MAP")) {
+            fullCostField.setVisible(false);
+        } else if (type.equals(TypeOfCostFormation.FOR_CLEANING_MAP)) {
             costPerHourField.setVisible(false);
+            fullCostField.setVisible(false);
+            costPerHourField.clear();
+        }else if (type.equals(TypeOfCostFormation.FIXED_PRICE)) {
+            costPerHourField.setVisible(false);
+            fullCostField.setVisible(true);
             costPerHourField.clear();
         } else {
             costPerHourField.setVisible(false);
+            fullCostField.setVisible(false);
             costPerHourField.clear();
         }
+
     }
 
     @Subscribe("typeOfPeriodicityField")

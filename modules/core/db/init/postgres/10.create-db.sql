@@ -10,6 +10,7 @@ create table KSENA_CLEANING_POSITION (
     DELETED_BY varchar(50),
     --
     NAME varchar(255),
+    ROOM_ID uuid,
     DESCRIPTION varchar(255),
     NEED_TIME time,
     PRICE double precision,
@@ -98,6 +99,7 @@ create table KSENA_TASK_DOCUMENT (
     CREATE_DATE date,
     DATE_OF_COMPLETION date,
     COST_PER_HOUR double precision,
+    FULL_COST double precision,
     TYPE_OF_COST_FORMATION varchar(50),
     IS_ACTIVE boolean,
     TASK_TYPE varchar(50),
@@ -348,3 +350,20 @@ create table KSENA_CLIENT_EMPLOYEE_POINT_LINK (
     primary key (POINT_ID, CLIENT_EMPLOYEE_ID)
 )^
 -- end KSENA_CLIENT_EMPLOYEE_POINT_LINK
+-- begin KSENA_ROOM
+create table KSENA_ROOM (
+    ID uuid,
+    VERSION integer not null,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    --
+    NAME varchar(255),
+    COMENT varchar(255),
+    --
+    primary key (ID)
+)^
+-- end KSENA_ROOM
