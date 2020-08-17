@@ -88,6 +88,7 @@
                 </actions>
                 <columns>
                     <column id="name"/>
+                    <column id="room"/>
                     <column id="description"/>
                     <column id="needTime"/>
                     <column id="price"/>
