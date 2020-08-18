@@ -1,17 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <menu-config xmlns="http://schemas.haulmont.com/cuba/menu.xsd">
-    <menu id="application-ksena" insertBefore="administration">
-        <item screen="ksena_Company.browse"/>
-        <item screen="ksena_Employee.browse"/>
+
+    <menu id="Task-ksena" insertBefore="administration" description="mainMsg://Task-ksena">
         <item screen="ksena_TaskDocument.browse"/>
+        <item screen="ksena_Task.browse"/>
+    </menu>
+
+    <menu id="Points-ksena" insertBefore="administration" description="mainMsg://Points-ksena">
         <item screen="ksena_Point.browse"/>
+    </menu>
+
+    <menu id="Employees-ksena" insertBefore="administration" description="mainMsg://Employees-ksena">
+        <item screen="ksena_Employee.browse"/>
+        <item screen="ksena_MobilePhone.browse"/>
+    </menu>
+
+    <menu id="Inventory-ksena" insertBefore="administration" description="mainMsg://Inventory-ksena">
         <item screen="ksena_Inventory.browse"/>
         <item screen="ksena_ExpendableMaterial.browse"/>
         <item screen="ksena_CleaningPosition.browse"/>
-        <item screen="ksena_MobilePhone.browse"/>
-        <item screen="ksena_Task.browse"/>
-        <item screen="ksena_ClientEmployee.browse"/>
-        <item screen="ksena_CompanyType.browse"/>
         <item screen="ksena_Room.browse"/>
     </menu>
+
+    <menu id="Companies-ksena" insertBefore="administration" description="mainMsg://Companies-ksena">
+        <item screen="ksena_Company.browse"/>
+        <item screen="ksena_ClientEmployee.browse"/>
+        <item screen="ksena_CompanyType.browse"/>
+    </menu>
+
 </menu-config>
