@@ -36,11 +36,14 @@
                 <action id="remove" type="remove"/>
             </actions>
             <columns>
+                <group/>
                 <column id="name"/>
-                <column id="company"/>
-                <column id="adress"/>
                 <column id="latitude"/>
                 <column id="longitude"/>
+                <column id="postcode"/>
+                <column id="city"/>
+                <column id="street"/>
+                <column id="houseNumber"/>
                 <column id="coment"/>
             </columns>
             <rowsCount/>

@@ -27,7 +27,7 @@
                             </actions>
                         </pickerField>
                         <textField id="positionField" property="position"/>
-                        <maskedField id="phoneNumberField" property="phoneNumber" mask="~##(###)###-##-##" valueMode="masked"/>
+                        <maskedField id="phoneNumberField" property="phoneNumber" mask="~### ### ### ###" valueMode="masked"/>
                         <textField id="pasportNumberField" property="pasportNumber"/>
                         <textField id="authorityField" property="authority"/>
                         <dateField id="dateOfIssueField" property="dateOfIssue"/>
@@ -48,7 +48,7 @@
                 </buttonsPanel>
                 <columns>
                     <column id="name"/>
-                    <column id="adress"/>
+                    <column id="city"/>
                 </columns>
             </table>
         </groupBox>

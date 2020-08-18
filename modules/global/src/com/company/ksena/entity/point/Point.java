@@ -20,19 +20,53 @@ public class Point extends Coordinates {
     @JoinColumn(name = "COMPANY_ID")
     protected Company company;
 
-    @Column(name = "ADRESS")
-    protected String adress;
+    @Column(name = "POSTCODE")
+    protected String postcode;
+
+    @Column(name = "CITY")
+    protected String city;
+
+    @Column(name = "STREET")
+    protected String street;
+
+    @Column(name = "HOUSE_NUMBER")
+    protected String houseNumber;
 
     @Column(name = "COMENT")
     protected String coment;
 
     @OneToMany(mappedBy = "point")
     protected List<Task> point;
+
     @JoinTable(name = "KSENA_CLIENT_EMPLOYEE_POINT_LINK",
             joinColumns = @JoinColumn(name = "POINT_ID"),
             inverseJoinColumns = @JoinColumn(name = "CLIENT_EMPLOYEE_ID"))
     @ManyToMany
     protected List<ClientEmployee> clientEmployees;
+
+    public String getHouseNumber() {
+        return houseNumber;
+    }
+
+    public void setHouseNumber(String houseNumber) {
+        this.houseNumber = houseNumber;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getPostcode() {
+        return postcode;
+    }
+
+    public void setPostcode(String postcode) {
+        this.postcode = postcode;
+    }
 
     public List<ClientEmployee> getClientEmployees() {
         return clientEmployees;
@@ -74,11 +108,11 @@ public class Point extends Coordinates {
         this.coment = coment;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getCity() {
+        return city;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setCity(String city) {
+        this.city = city;
     }
 }

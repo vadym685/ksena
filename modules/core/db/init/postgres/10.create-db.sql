@@ -184,7 +184,10 @@ create table KSENA_COORDINATES (
     -- from ksena_Point
     NAME varchar(255),
     COMPANY_ID uuid,
-    ADRESS varchar(255),
+    POSTCODE varchar(255),
+    CITY varchar(255),
+    STREET varchar(255),
+    HOUSE_NUMBER varchar(255),
     COMENT varchar(255),
     --
     primary key (ID)

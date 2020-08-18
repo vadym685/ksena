@@ -26,9 +26,14 @@
                 <column width="250px">
                     <textField id="nameField" property="name"/>
                     <pickerField id="companyField" property="company"/>
-                    <textField id="adressField" property="adress"/>
                     <textField id="latitudeField" property="latitude"/>
                     <textField id="longitudeField" property="longitude"/>
+
+                        <textField id="postcodeField" property="postcode"/>
+                        <textField id="cityField" property="city"/>
+                        <textField id="streetField" property="street"/>
+                        <textField id="houseNumberField" property="houseNumber"/>
+
                     <textArea id="comentField" property="coment"/>
                 </column>
             </form>

@@ -67,7 +67,7 @@
                 </buttonsPanel>
                 <columns>
                     <column id="name"/>
-                    <column id="adress"/>
+                    <column id="city"/>
                 </columns>
             </table>
         </groupBox>

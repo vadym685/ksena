@@ -61,7 +61,7 @@
         <property name="companyType" view="_minimal"/>
         <property name="responsibleEmployee" view="_local"/>
         <property name="points" view="_minimal">
-            <property name="adress"/>
+            <property name="city"/>
         </property>
     </view>
     <view entity="ksena_Inventory" name="inventory-view" extends="_local">
@@ -90,7 +90,7 @@
     </view>
     <view entity="ksena_ClientEmployee" name="clientEmployee-view" extends="_local">
         <property name="points" view="_minimal">
-            <property name="adress"/>
+            <property name="city"/>
         </property>
         <property name="companies" view="_minimal"/>
     </view>

@@ -27,6 +27,8 @@ import java.util.Set;
 @EditedEntityContainer("employeeDc")
 @LoadDataBeforeShow
 public class EmployeeEdit extends StandardEditor<Employee> {
+    @Inject
+    private MaskedField<String> phoneNumberField;
 
     @Inject
     private Screens screens;
@@ -51,6 +53,10 @@ public class EmployeeEdit extends StandardEditor<Employee> {
     private UiComponents uiComponents;
     @Inject
     private MessageBundle messageBundle;
+    @Inject
+    private MaskedField<String> personalPhoneNumberField;
+    @Inject
+    private MaskedField<String> relativesPhoneNumberField;
 
     @Subscribe("upload")
     protected void onUploadFileUploadSucceed(FileUploadField.FileUploadSucceedEvent event) {
@@ -69,12 +75,23 @@ public class EmployeeEdit extends StandardEditor<Employee> {
 
     @Subscribe
     public void onAfterShow(AfterShowEvent event) {
+
+        if (phoneNumberField.getValue() == null) {
+            phoneNumberField.setValue("+420");
+        }
+        if (personalPhoneNumberField.getValue() == null) {
+            personalPhoneNumberField.setValue("+420");
+        }
+        if (relativesPhoneNumberField.getValue() == null) {
+            relativesPhoneNumberField.setValue("+420");
+        }
+
         System.out.println();
         try {
             if (Objects.nonNull(employeeDc.getItem().getImageFile())) {
                 imageWrapperLayout.add(photoImage(imageFileDc.getItem()));
             }
-        } catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
@@ -90,11 +107,11 @@ public class EmployeeEdit extends StandardEditor<Employee> {
 
     @Subscribe("residencePermanentField")
     public void onResidencePermanentFieldValueChange(HasValue.ValueChangeEvent<Boolean> event) {
-        if (this.getEditedEntity().getResidencePermanent() == false){
+        if (this.getEditedEntity().getResidencePermanent() == false) {
             residenceEndTimeField.setVisible(true);
-        }
-        else {
+        } else {
             residenceEndTimeField.setVisible(false);
         }
     }
+
 }

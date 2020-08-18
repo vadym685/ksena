@@ -22,7 +22,7 @@
              <checkBox id="isActiveField" property="isActive"/>
              <lookupField id="qualificationField" property="qualification"/>
              <textField id="emailField" property="email"/>
-             <maskedField id="phoneNumberField" property="phoneNumber" mask="~##(###)###-##-##" valueMode="masked"/>
+             <maskedField id="phoneNumberField" property="phoneNumber" mask="~### ### ### ###" valueMode="masked"/>
              <lookupField id="employeeTypeField" property="employeeType"/>
              <lookupField id="sexField" property="sex"/>
              <pickerField id="mobilePhoneField" property="mobilePhone">
@@ -33,8 +33,8 @@
              </pickerField>
              <dateField id="dateOfEmploymentField" property="dateOfEmployment"/>
              <dateField id="dateOfDismissalField" property="dateOfDismissal"/>
-             <maskedField id="personalPhoneNumberField" property="personalPhoneNumber" mask="~##(###)###-##-##" valueMode="masked"/>
-             <maskedField id="relativesPhoneNumberField" property="relativesPhoneNumber" mask="~##(###)###-##-##" valueMode="masked"/>
+             <maskedField id="personalPhoneNumberField" property="personalPhoneNumber" mask="~### ### ### ###" valueMode="masked"/>
+             <maskedField id="relativesPhoneNumberField" property="relativesPhoneNumber" mask="~### ### ### ###" valueMode="masked"/>
 
          </column>
      </form>

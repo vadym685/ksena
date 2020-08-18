@@ -16,7 +16,10 @@ create table KSENA_COORDINATES (
     -- from ksena_Point
     NAME varchar(255),
     COMPANY_ID varchar(36),
-    ADRESS varchar(255),
+    POSTCODE varchar(255),
+    CITY varchar(255),
+    STREET varchar(255),
+    HOUSE_NUMBER varchar(255),
     COMENT varchar(255),
     --
     primary key (ID)
@@ -37,6 +40,7 @@ create table KSENA_TASK_DOCUMENT (
     CREATE_DATE date,
     DATE_OF_COMPLETION date,
     COST_PER_HOUR double precision,
+    FULL_COST double precision,
     TYPE_OF_COST_FORMATION varchar(50),
     IS_ACTIVE boolean,
     TASK_TYPE varchar(50),
@@ -188,12 +192,12 @@ create table KSENA_TASK (
     --
     TASK_DOCUMENT_ID varchar(36),
     COMPANY_ID varchar(36),
+    POINT_ID varchar(36),
     COST double precision,
     TASK_TIME_PLANE time,
     TASK_TIME_FACTUAL time,
     DATE_OF_COMPLETION date,
     TASK_STATUS varchar(50),
-    POINT_ID varchar(36),
     --
     primary key (ID)
 )^
@@ -281,8 +285,8 @@ create table KSENA_CLIENT_EMPLOYEE (
     INDIVIDUAL_TAXPAYER_NUMBER varchar(255),
     SEX varchar(50),
     --
-    COMPANIES_ID varchar(36),
     POSITION_ varchar(255),
+    COMPANIES_ID varchar(36),
     --
     primary key (ID)
 )^
