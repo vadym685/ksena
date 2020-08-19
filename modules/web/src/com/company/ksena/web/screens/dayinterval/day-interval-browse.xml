@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://browseCaption"
+        focusComponent="dayIntervalsTable"
+        messagesPack="com.company.ksena.web.screens.dayinterval">
+    <data readOnly="true">
+        <collection id="dayIntervalsDc"
+                    class="com.company.ksena.entity.task.DayInterval"
+                    view="_local">
+            <loader id="dayIntervalsDl">
+                <query>
+                    <![CDATA[select e from ksena_DayInterval e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="dayIntervalsTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="dayIntervalsTable"
+                dataLoader="dayIntervalsDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="dayIntervalsTable"
+                    width="100%"
+                    dataContainer="dayIntervalsDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="nameDay"/>
+            </columns>
+            <rowsCount/>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>
