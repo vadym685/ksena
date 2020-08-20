@@ -34,6 +34,7 @@
                 <action id="create" type="create"/>
                 <action id="edit" type="edit"/>
                 <action id="remove" type="remove"/>
+                <action id="list" type="listPrintForm" caption="msg://printDetails"/>
             </actions>
             <columns>
                 <column id="docNumber"/>
@@ -48,6 +49,7 @@
                 <button id="createBtn" action="taskDocumentsTable.create"/>
                 <button id="editBtn" action="taskDocumentsTable.edit"/>
                 <button id="removeBtn" action="taskDocumentsTable.remove"/>
+                <button id="listBtn" action="taskDocumentsTable.list"/>
             </buttonsPanel>
         </groupTable>
         <hbox id="lookupActions" spacing="true" visible="false">
