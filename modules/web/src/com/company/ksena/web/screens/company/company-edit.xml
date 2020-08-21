@@ -20,7 +20,7 @@
         <form id="form" dataContainer="companyDc">
             <column width="250px">
                 <textField id="nameField" property="name"/>
-                <textField id="fullNameField" property="fullName"/>
+                <textField id="fullNameField" property="fullName" editable="false"/>
                 <textField id="legalAddressField" property="legalAddress"/>
                 <textField id="actualAddressField" property="actualAddress"/>
                 <textField id="emailField" property="email"/>
