@@ -32,6 +32,7 @@
     <layout expand="editActions" spacing="true">
         <form id="form" dataContainer="taskDc">
             <column width="250px">
+                <textField id="taskNumberField" property="taskNumber"/>
                 <lookupPickerField id="taskDocumentField" optionsContainer="taskDocumentsDc" property="taskDocument">
                     <actions>
                         <action id="lookup" type="picker_lookup"/>

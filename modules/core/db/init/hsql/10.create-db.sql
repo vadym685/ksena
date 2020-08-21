@@ -190,6 +190,7 @@ create table KSENA_TASK (
     DELETE_TS timestamp,
     DELETED_BY varchar(50),
     --
+    TASK_NUMBER varchar(255),
     TASK_DOCUMENT_ID varchar(36),
     COMPANY_ID varchar(36),
     POINT_ID varchar(36),

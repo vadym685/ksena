@@ -31,19 +31,22 @@
                 <action id="create" type="create"/>
                 <action id="edit" type="edit"/>
                 <action id="remove" type="remove"/>
+                <action id="list" type="listPrintForm" caption="msg://printDetails"/>
             </actions>
+            <columns>
+                <column id="taskNumber"/>
+                <column id="dateOfCompletion"/>
+                <column id="company"/>
+                <column id="taskStatus"/>
+            </columns>
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
                 <button id="createBtn" action="tasksTable.create"/>
                 <button id="editBtn" action="tasksTable.edit"/>
                 <button id="removeBtn" action="tasksTable.remove"/>
+                <button id="listBtn" action="tasksTable.list"/>
             </buttonsPanel>
-            <columns>
-                <column id="dateOfCompletion"/>
-                <column id="company"/>
-                <column id="taskStatus"/>
-            </columns>
         </groupTable>
         <hbox id="lookupActions" spacing="true" visible="false">
             <button action="lookupSelectAction"/>

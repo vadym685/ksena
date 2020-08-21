@@ -5,6 +5,7 @@ import com.company.ksena.entity.company.Company;
 import com.company.ksena.entity.inventory.Inventory;
 import com.company.ksena.entity.people.Employee;
 import com.company.ksena.entity.point.Point;
+import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
 import com.haulmont.cuba.core.entity.annotation.Lookup;
 import com.haulmont.cuba.core.entity.annotation.LookupType;
@@ -16,11 +17,15 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+@NamePattern("%s|taskNumber")
 @PublishEntityChangedEvents
 @Table(name = "KSENA_TASK")
 @Entity(name = "ksena_Task")
 public class Task extends StandardEntity {
     private static final long serialVersionUID = -2730506669836310740L;
+
+    @Column(name = "TASK_NUMBER", unique = true)
+    protected String taskNumber;
 
     @Lookup(type = LookupType.DROPDOWN, actions = {"lookup", "open", "clear"})
     @ManyToOne(fetch = FetchType.LAZY)
@@ -70,6 +75,14 @@ public class Task extends StandardEntity {
             inverseJoinColumns = @JoinColumn(name = "INVENTORY_ID"))
     @ManyToMany
     protected List<Inventory> inventory;
+
+    public String getTaskNumber() {
+        return taskNumber;
+    }
+
+    public void setTaskNumber(String taskNumber) {
+        this.taskNumber = taskNumber;
+    }
 
     public void setCompany(Company company) {
         this.company = company;

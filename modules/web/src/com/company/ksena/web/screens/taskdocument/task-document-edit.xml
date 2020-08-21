@@ -83,7 +83,7 @@
                     <action id="add" type="add"/>
                     <action id="exclude" type="exclude"/>
                     <action id="excel" type="excel"/>
-                    <action id="list" type="listPrintForm" caption="Print"/>
+<!--                    <action id="list" type="listPrintForm" caption="Print"/>-->
                 </actions>
                 <columns>
                     <column id="name"/>
@@ -96,7 +96,7 @@
                 <buttonsPanel>
                     <button action="cleaningMapTable.add"/>
                     <button action="cleaningMapTable.exclude"/>
-                    <button id="ListBtn" action="cleaningMapTable.list"/>
+<!--                    <button id="ListBtn" action="cleaningMapTable.list"/>-->
                 </buttonsPanel>
             </table>
         </groupBox>
