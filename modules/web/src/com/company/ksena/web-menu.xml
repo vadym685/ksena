@@ -21,6 +21,7 @@
         <item screen="ksena_Point.browse"/>
         <item screen="ksena_ClientEmployee.browse"/>
         <item screen="ksena_CompanyType.browse"/>
+        <item screen="ksena_CompanyCategory.browse"/>
 
     </menu>
 
