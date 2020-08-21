@@ -19,10 +19,6 @@ public class Company extends StandardEntity {
     @Column(name = "NAME")
     protected String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "COMPANY_TYPE_ID")
-    protected CompanyType companyType;
-
     @Column(name = "FULL_NAME")
     protected String fullName;
 
@@ -50,6 +46,22 @@ public class Company extends StandardEntity {
 
     @OneToMany(mappedBy = "company")
     protected List<Point> points;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "COMPANY_TYPE_ID")
+    protected CompanyType companyType;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "COMPANY_CATEGORY_ID")
+    protected CompanyCategory companyCategory;
+
+    public CompanyCategory getCompanyCategory() {
+        return companyCategory;
+    }
+
+    public void setCompanyCategory(CompanyCategory companyCategory) {
+        this.companyCategory = companyCategory;
+    }
 
     public CompanyType getCompanyType() {
         return companyType;

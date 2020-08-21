@@ -17,6 +17,9 @@
        <hbox> <groupBox id="employeesDataBox" caption="msg://EmployeeData">
         <form id="form" dataContainer="employeeDc">
          <column width="250px">
+             <textField id="firstNameField" property="firstName"/>
+             <textField id="lastNameField" property="lastName"/>
+             <textField id="middleNameField" property="middleName"/>
              <textField id="fullNameField" property="fullName"/>
              <textField id = "fullNamePronunciationField" property="fullNamePronunciation"/>
              <checkBox id="isActiveField" property="isActive"/>

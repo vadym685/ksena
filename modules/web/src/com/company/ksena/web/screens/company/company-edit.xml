@@ -26,6 +26,7 @@
                 <textField id="emailField" property="email"/>
                 <pickerField id="companyTypeField" property="companyType"/>
                 <maskedField id="contactPhoneField" property="contactPhone" mask="~##(###)###-##-##" valueMode="masked"/>
+                <pickerField id="companyCategoryField" property="companyCategory"/>
                 <textField id="individualTaxpayerNumberField" property="individualTaxpayerNumber"/>
             </column>
         </form>

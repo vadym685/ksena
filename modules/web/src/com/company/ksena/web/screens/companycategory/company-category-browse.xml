@@ -2,51 +2,45 @@
 <window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
         xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
         caption="msg://browseCaption"
-        focusComponent="employeesTable"
-        messagesPack="com.company.ksena.web.screens.employee">
+        focusComponent="companyCategoriesTable"
+        messagesPack="com.company.ksena.web.screens.companycategory">
     <data readOnly="true">
-        <collection id="employeesDc"
-                    class="com.company.ksena.entity.people.Employee"
+        <collection id="companyCategoriesDc"
+                    class="com.company.ksena.entity.company.CompanyCategory"
                     view="_local">
-            <loader id="employeesDl">
+            <loader id="companyCategoriesDl">
                 <query>
-                    <![CDATA[select e from ksena_Employee e]]>
+                    <![CDATA[select e from ksena_CompanyCategory e]]>
                 </query>
             </loader>
         </collection>
     </data>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="employeesTable"
+    <layout expand="companyCategoriesTable"
             spacing="true">
         <filter id="filter"
-                applyTo="employeesTable"
-                dataLoader="employeesDl">
+                applyTo="companyCategoriesTable"
+                dataLoader="companyCategoriesDl">
             <properties include=".*"/>
         </filter>
-        <groupTable id="employeesTable"
+        <groupTable id="companyCategoriesTable"
                     width="100%"
-                    dataContainer="employeesDc">
+                    dataContainer="companyCategoriesDc">
             <actions>
                 <action id="create" type="create"/>
                 <action id="edit" type="edit"/>
                 <action id="remove" type="remove"/>
             </actions>
             <columns>
-                <column id="firstName"/>
-                <column id="lastName"/>
-                <column id="middleName"/>
-                <column id="fullName"/>
-                <column id="phoneNumber"/>
-                <column id="employeeType"/>
-                <column id="isActive"/>
+                <column id="name"/>
             </columns>
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
-                <button id="createBtn" action="employeesTable.create"/>
-                <button id="editBtn" action="employeesTable.edit"/>
-                <button id="removeBtn" action="employeesTable.remove"/>
+                <button id="createBtn" action="companyCategoriesTable.create"/>
+                <button id="editBtn" action="companyCategoriesTable.edit"/>
+                <button id="removeBtn" action="companyCategoriesTable.remove"/>
             </buttonsPanel>
         </groupTable>
         <hbox id="lookupActions" spacing="true" visible="false">

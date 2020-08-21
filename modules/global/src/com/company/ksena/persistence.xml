@@ -17,5 +17,6 @@
         <class>com.company.ksena.entity.inventory.Breakage</class>
         <class>com.company.ksena.entity.company.CompanyType</class>
         <class>com.company.ksena.entity.cleaning_map.Room</class>
+        <class>com.company.ksena.entity.company.CompanyCategory</class>
     </persistence-unit>
 </persistence>

@@ -36,6 +36,9 @@
                 <action id="remove" type="remove"/>
             </actions>
             <columns>
+                <column id="firstName"/>
+                <column id="lastName"/>
+                <column id="middleName"/>
                 <column id="fullName"/>
                 <column id="companies"/>
                 <column id="position"/>
