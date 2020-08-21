@@ -49,13 +49,14 @@ create table KSENA_COMPANY (
     DELETED_BY varchar(50),
     --
     NAME varchar(255),
-    COMPANY_TYPE_ID uuid,
     FULL_NAME varchar(255),
     LEGAL_ADDRESS varchar(255),
     ACTUAL_ADDRESS varchar(255),
     EMAIL varchar(255),
     CONTACT_PHONE varchar(255),
     INDIVIDUAL_TAXPAYER_NUMBER varchar(255),
+    COMPANY_TYPE_ID uuid,
+    COMPANY_CATEGORY_ID uuid,
     --
     primary key (ID)
 )^
@@ -71,6 +72,7 @@ create table KSENA_TASK (
     DELETE_TS timestamp,
     DELETED_BY varchar(50),
     --
+    TASK_NUMBER varchar(255),
     TASK_DOCUMENT_ID uuid,
     COMPANY_ID uuid,
     POINT_ID uuid,
@@ -276,6 +278,9 @@ create table KSENA_EMPLOYEE (
     UPDATED_BY varchar(50),
     DELETE_TS timestamp,
     DELETED_BY varchar(50),
+    FIRST_NAME varchar(255),
+    LAST_NAME varchar(255),
+    MIDDLE_NAME varchar(255),
     FULL_NAME varchar(255),
     EMAIL varchar(255),
     PHONE_NUMBER varchar(255),
@@ -315,6 +320,9 @@ create table KSENA_CLIENT_EMPLOYEE (
     UPDATED_BY varchar(50),
     DELETE_TS timestamp,
     DELETED_BY varchar(50),
+    FIRST_NAME varchar(255),
+    LAST_NAME varchar(255),
+    MIDDLE_NAME varchar(255),
     FULL_NAME varchar(255),
     EMAIL varchar(255),
     PHONE_NUMBER varchar(255),
@@ -370,3 +378,19 @@ create table KSENA_ROOM (
     primary key (ID)
 )^
 -- end KSENA_ROOM
+-- begin KSENA_COMPANY_CATEGORY
+create table KSENA_COMPANY_CATEGORY (
+    ID uuid,
+    VERSION integer not null,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    --
+    NAME varchar(255),
+    --
+    primary key (ID)
+)^
+-- end KSENA_COMPANY_CATEGORY
