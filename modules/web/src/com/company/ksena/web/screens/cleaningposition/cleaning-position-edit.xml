@@ -16,7 +16,7 @@
     <layout expand="editActions" spacing="true">
         <form id="form" dataContainer="cleaningPositionDc">
             <column width="250px">
-                <textField id="nameField" property="name"/>
+                <textArea id="nameField" property="name" width="300"/>
                 <pickerField id="roomField" property="room"/>
                 <textField id="descriptionField" property="description"/>
                 <timeField id="needTimeField" property="needTime"/>
