@@ -13,7 +13,6 @@
             <collection id="pointsDc" property="points"/>
         </instance>
     </data>
-
     <dialogMode height="600"
                 width="800"/>
     <layout expand="editActions" spacing="true">
@@ -28,11 +27,20 @@
                 <maskedField id="contactPhoneField" property="contactPhone" mask="~##(###)###-##-##" valueMode="masked"/>
                 <pickerField id="companyCategoryField" property="companyCategory"/>
                 <textField id="individualTaxpayerNumberField" property="individualTaxpayerNumber"/>
+
+
             </column>
         </form>
+
+        <buttonsPanel>
+            <button invoke="createTaskDoc" caption="msg://createTaskDoc"/>
+            <button invoke="createTask" caption="msg://createTask"/>
+        </buttonsPanel>
+
         <groupBox id="responsibleEmployeeBox"
                   caption="msg://com.company.ksena.entity.company/Company.responsibleEmployee">
-            <table id="responsibleEmployeeTable" dataContainer="responsibleEmployeeDc" width="100%" height="200px">
+            <table id="responsibleEmployeeTable" dataContainer="responsibleEmployeeDc" width="100%" height="200px"
+                   align="BOTTOM_LEFT">
                 <actions>
                     <action id="add" type="add"/>
                     <action id="exclude" type="exclude"/>
