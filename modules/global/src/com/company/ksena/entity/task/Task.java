@@ -46,6 +46,9 @@ public class Task extends StandardEntity {
     @Column(name = "COST")
     protected Double cost;
 
+    @Column(name = "DEALY")
+    protected Integer delay;
+
     @Column(name = "TASK_TIME_PLANE")
     protected LocalTime taskTimePlane;
 
@@ -57,6 +60,15 @@ public class Task extends StandardEntity {
 
     @Column(name = "TASK_STATUS")
     protected String taskStatus;
+
+    @Column(name = "SALARY_ELEMENTARY")
+    protected Long salaryElementary;
+
+    @Column(name = "SALARY_MEDIUM")
+    protected Long salaryMedium;
+
+    @Column(name = "SALARY_HIGH")
+    protected Long salaryHigh;
 
     @JoinTable(name = "KSENA_TASK_EMPLOYEE_LINK",
             joinColumns = @JoinColumn(name = "TASK_ID"),
@@ -82,6 +94,42 @@ public class Task extends StandardEntity {
 
     public void setTaskNumber(String taskNumber) {
         this.taskNumber = taskNumber;
+    }
+
+    public Integer getDelay() {
+        return delay;
+    }
+
+    public void setDelay(Integer delay) {
+        this.delay = delay;
+    }
+
+    public void setTaskStatus(String taskStatus) {
+        this.taskStatus = taskStatus;
+    }
+
+    public Long getSalaryElementary() {
+        return salaryElementary;
+    }
+
+    public void setSalaryElementary(Long salaryElementary) {
+        this.salaryElementary = salaryElementary;
+    }
+
+    public Long getSalaryMedium() {
+        return salaryMedium;
+    }
+
+    public void setSalaryMedium(Long salaryMedium) {
+        this.salaryMedium = salaryMedium;
+    }
+
+    public Long getSalaryHigh() {
+        return salaryHigh;
+    }
+
+    public void setSalaryHigh(Long salaryHigh) {
+        this.salaryHigh = salaryHigh;
     }
 
     public void setCompany(Company company) {

@@ -30,6 +30,7 @@
                             </actions>
                         </pickerField>
                         <textField id="positionField" property="position"/>
+                        <checkBox id="isPayingBills" property="isPayingBills"/>
                         <maskedField id="phoneNumberField" property="phoneNumber" mask="~### ### ### ###" valueMode="masked"/>
                         <textField id="pasportNumberField" property="pasportNumber"/>
                         <textField id="authorityField" property="authority"/>

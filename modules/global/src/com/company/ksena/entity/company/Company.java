@@ -1,6 +1,7 @@
 package com.company.ksena.entity.company;
 
 import com.company.ksena.entity.people.ClientEmployee;
+import com.company.ksena.entity.people.Sex;
 import com.company.ksena.entity.point.Point;
 import com.company.ksena.entity.task.TaskDocument;
 import com.haulmont.chile.core.annotations.NamePattern;
@@ -22,11 +23,32 @@ public class Company extends StandardEntity {
     @Column(name = "FULL_NAME")
     protected String fullName;
 
-    @Column(name = "LEGAL_ADDRESS")
-    protected String legalAddress;
+    @Column(name = "LEGAL_CITY")
+    protected String legalCity;
 
-    @Column(name = "ACTUAL_ADDRESS")
-    protected String actualAddress;
+    @Column(name = "LEGAL_STREET")
+    protected String legalStreet;
+
+    @Column(name = "LEGAL_HOUSE_NUMBER")
+    protected String legalHouseNumber;
+
+    @Column(name = "ACTUAL_CITY")
+    protected String actualCity;
+
+    @Column(name = "ACTUAL_STREET")
+    protected String actualStreet;
+
+    @Column(name = "ACTUAL_HOUSE_NUMBER")
+    protected String actualHouseNumber;
+
+    @Column(name = "FIELD_OF_ACTIVITY")
+    protected String fieldOfActivity;
+
+    @Column(name = "FIELD_OF_ACTIVITY_FULL")
+    protected String fieldOfActivityFull;
+
+    @Column(name = "BILL_SEND_TYPE")
+    protected String billSendType;
 
     @Email
     @Column(name = "EMAIL")
@@ -91,6 +113,30 @@ public class Company extends StandardEntity {
         this.responsibleEmployee = responsibleEmployee;
     }
 
+    public void setBillSendType(BillSendType billSendType) {
+        this.billSendType = billSendType == null ? null : billSendType.getId();
+    }
+
+    public BillSendType getBillSendType() {
+        return billSendType == null ? null : BillSendType.fromId(billSendType);
+    }
+
+    public String getFieldOfActivity() {
+        return fieldOfActivity;
+    }
+
+    public void setFieldOfActivity(String fieldOfActivity) {
+        this.fieldOfActivity = fieldOfActivity;
+    }
+
+    public String getFieldOfActivityFull() {
+        return fieldOfActivityFull;
+    }
+
+    public void setFieldOfActivityFull(String fieldOfActivityFull) {
+        this.fieldOfActivityFull = fieldOfActivityFull;
+    }
+
     public List<ClientEmployee> getResponsibleEmployee() {
         return responsibleEmployee;
     }
@@ -111,20 +157,52 @@ public class Company extends StandardEntity {
         this.individualTaxpayerNumber = individualTaxpayerNumber;
     }
 
-    public String getActualAddress() {
-        return actualAddress;
+    public String getLegalCity() {
+        return legalCity;
     }
 
-    public void setActualAddress(String actualAddress) {
-        this.actualAddress = actualAddress;
+    public void setLegalCity(String legalCity) {
+        this.legalCity = legalCity;
     }
 
-    public String getLegalAddress() {
-        return legalAddress;
+    public String getLegalStreet() {
+        return legalStreet;
     }
 
-    public void setLegalAddress(String legalAddress) {
-        this.legalAddress = legalAddress;
+    public void setLegalStreet(String legalStreet) {
+        this.legalStreet = legalStreet;
+    }
+
+    public String getLegalHouseNumber() {
+        return legalHouseNumber;
+    }
+
+    public void setLegalHouseNumber(String legalHouseNumber) {
+        this.legalHouseNumber = legalHouseNumber;
+    }
+
+    public String getActualCity() {
+        return actualCity;
+    }
+
+    public void setActualCity(String actualCity) {
+        this.actualCity = actualCity;
+    }
+
+    public String getActualStreet() {
+        return actualStreet;
+    }
+
+    public void setActualStreet(String actualStreet) {
+        this.actualStreet = actualStreet;
+    }
+
+    public String getActualHouseNumber() {
+        return actualHouseNumber;
+    }
+
+    public void setActualHouseNumber(String actualHouseNumber) {
+        this.actualHouseNumber = actualHouseNumber;
     }
 
     public String getFullName() {

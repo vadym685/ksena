@@ -25,6 +25,7 @@
                     <dateField id="dateOfCompletionField" property="dateOfCompletion"/>
                     <checkBox id="isActiveField" property="isActive"/>
                     <pickerField id="companyField" property="company"/>
+                    <textField id="delay" property="delay"/>
                     <pickerField id="pointField" property="point">
                         <actions>
                             <action id="lookup" type="picker_lookup"/>
