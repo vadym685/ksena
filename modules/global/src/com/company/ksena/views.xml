@@ -12,6 +12,7 @@
             <property name="description"/>
             <property name="standartAmount"/>
         </property>
+
     </view>
     <view entity="ksena_TaskDocument" name="taskDocument-view" extends="_local">
         <property name="point" view="_minimal"/>
@@ -30,7 +31,7 @@
             <property name="description"/>
             <property name="needTime"/>
             <property name="price"/>
-  </property>
+        </property>
     </view>
     <view entity="ksena_Employee" name="employee-view">
         <property name="employeeType"/>

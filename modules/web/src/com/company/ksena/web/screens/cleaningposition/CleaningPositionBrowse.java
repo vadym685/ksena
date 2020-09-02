@@ -8,4 +8,9 @@ import com.company.ksena.entity.cleaning_map.CleaningPosition;
 @LookupComponent("cleaningPositionsTable")
 @LoadDataBeforeShow
 public class CleaningPositionBrowse extends StandardLookup<CleaningPosition> {
+    @Subscribe
+    public void onAfterClose(AfterCloseEvent event) {
+        
+    }
+    
 }

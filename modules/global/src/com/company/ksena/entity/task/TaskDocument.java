@@ -56,6 +56,9 @@ public class TaskDocument extends StandardEntity {
     @Column(name = "TYPE_OF_PERIODICITY")
     protected String typeOfPeriodicity;
 
+    @Column(name = "INTERVAL")
+    protected Integer periodicity;
+
     @JoinTable(name = "KSENA_TASK_DOCUMENT_INVENTORY_LINK",
             joinColumns = @JoinColumn(name = "TASK_DOCUMENT_ID"),
             inverseJoinColumns = @JoinColumn(name = "INVENTORY_ID"))
@@ -71,9 +74,6 @@ public class TaskDocument extends StandardEntity {
     @JoinTable(name = "KSENA_TASK_DOCUMENT_CLEANING_POSITION_LINK", joinColumns = @JoinColumn(name = "TASK_DOCUMENT_ID"), inverseJoinColumns = @JoinColumn(name = "CLEANING_POSITION_ID"))
     @ManyToMany
     protected List<CleaningPosition> cleaningMap;
-
-    @Column(name = "INTERVAL")
-    protected Integer periodicity;
 
     @OneToMany(mappedBy = "taskDocument")
     protected List<Task> task;

@@ -1,0 +1,1 @@
+alter table KSENA_TASK_DOCUMENT drop column CLEANING_TABLE_QUANTITY__U04877 cascade ;

@@ -1,0 +1,1 @@
+alter table KSENA_QUANTITY_POSITION drop column CLEANING_POSITION_ID__U09825 cascade ;

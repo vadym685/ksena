@@ -1,0 +1,1 @@
+drop table KSENA_QUANTITY_POSITION__U84944 if exists cascade ;

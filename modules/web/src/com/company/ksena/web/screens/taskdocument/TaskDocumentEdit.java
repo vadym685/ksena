@@ -1,8 +1,15 @@
 package com.company.ksena.web.screens.taskdocument;
 
+import com.company.ksena.entity.cleaning_map.CleaningPosition;
 import com.company.ksena.entity.task.*;
+import com.haulmont.cuba.core.global.CommitContext;
+import com.haulmont.cuba.core.global.DataManager;
+import com.haulmont.cuba.core.global.Metadata;
 import com.haulmont.cuba.gui.components.*;
+import com.haulmont.cuba.gui.components.TextField;
+import com.haulmont.cuba.gui.model.CollectionContainer;
 import com.haulmont.cuba.gui.model.CollectionPropertyContainer;
+import com.haulmont.cuba.gui.model.DataContext;
 import com.haulmont.cuba.gui.screen.*;
 
 import javax.inject.Inject;
@@ -30,7 +37,18 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
     private Table<DayInterval> cleaningDayTable;
     @Inject
     private TextField<Double> fullCostField;
-
+    @Inject
+    private GroupBoxLayout cleaningMapBox;
+    @Inject
+    private Table<CleaningPosition> cleaningMapTable;
+    @Inject
+    private Metadata metadata;
+    @Inject
+    private DataContext dataContext;
+    @Inject
+    private CollectionPropertyContainer<CleaningPosition> cleaningMapDc;
+    @Inject
+    private DataManager dataManager;
 
     @Subscribe("taskTypeField")
     public void onTaskTypeFieldValueChange(HasValue.ValueChangeEvent<Boolean> event) {
@@ -49,7 +67,6 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
             typeOfPeriodicityField.clear();
         }
     }
-
     @Subscribe("typeOfCostFormationField")
     public void onTypeOfCostFormationFieldValueChange(HasValue.ValueChangeEvent<Boolean> event) {
 
@@ -94,6 +111,16 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
         }
 
     }
+
+    @Subscribe(id = "cleaningMapDc", target = Target.DATA_CONTAINER)
+    public void onCleaningMapDcCollectionChange(CollectionContainer.CollectionChangeEvent<CleaningPosition> event) {
+        if (event.getChangeType().name() == "ADD_ITEMS"){
+
+
+
+        }
+    }
+
 
 
 }
