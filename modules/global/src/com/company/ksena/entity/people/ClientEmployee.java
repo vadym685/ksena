@@ -22,6 +22,9 @@ public class ClientEmployee extends PasportData {
     @Column(name = "POSITION_")
     protected String position;
 
+    @Column(name = "PAYING_BILLS")
+    protected Boolean isPayingBills;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "COMPANIES_ID")
     protected Company companies;
@@ -36,6 +39,14 @@ public class ClientEmployee extends PasportData {
 
     public String getPosition() {
         return position;
+    }
+
+    public Boolean isPayingBills() {
+        return isPayingBills;
+    }
+
+    public void setPayingBills(Boolean payingBills) {
+        isPayingBills = payingBills;
     }
 
     public void setPosition(String position) {

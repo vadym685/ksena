@@ -45,6 +45,9 @@ public class TaskDocument extends StandardEntity {
     @Column(name = "TASK_TYPE")
     protected String taskType;
 
+    @Column(name = "DELAY")
+    protected Integer delay;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "POINT_ID")
     protected Point point;
@@ -104,6 +107,14 @@ public class TaskDocument extends StandardEntity {
 
     public List<Task> getTask() {
         return task;
+    }
+
+    public Integer getDelay() {
+        return delay;
+    }
+
+    public void setDelay(Integer delay) {
+        this.delay = delay;
     }
 
     public void setTask(List<Task> task) {

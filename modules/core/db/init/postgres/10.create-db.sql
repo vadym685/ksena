@@ -50,8 +50,15 @@ create table KSENA_COMPANY (
     --
     NAME varchar(255),
     FULL_NAME varchar(255),
-    LEGAL_ADDRESS varchar(255),
-    ACTUAL_ADDRESS varchar(255),
+    LEGAL_CITY varchar(255),
+    LEGAL_STREET varchar(255),
+    LEGAL_HOUSE_NUMBER varchar(255),
+    ACTUAL_CITY varchar(255),
+    ACTUAL_STREET varchar(255),
+    ACTUAL_HOUSE_NUMBER varchar(255),
+    FIELD_OF_ACTIVITY varchar(255),
+    FIELD_OF_ACTIVITY_FULL varchar(255),
+    BILL_SEND_TYPE varchar(50),
     EMAIL varchar(255),
     CONTACT_PHONE varchar(255),
     INDIVIDUAL_TAXPAYER_NUMBER varchar(255),
@@ -178,7 +185,7 @@ create table KSENA_COORDINATES (
     UPDATED_BY varchar(50),
     DELETE_TS timestamp,
     DELETED_BY varchar(50),
-    DTYPE varchar(100),
+    DTYPE varchar(31),
     --
     LATITUDE double precision,
     LONGITUDE double precision,
@@ -333,6 +340,7 @@ create table KSENA_CLIENT_EMPLOYEE (
     SEX varchar(50),
     --
     POSITION_ varchar(255),
+    PAYING_BILLS boolean,
     COMPANIES_ID uuid,
     --
     primary key (ID)

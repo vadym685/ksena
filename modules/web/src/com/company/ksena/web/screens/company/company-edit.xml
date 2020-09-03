@@ -19,16 +19,21 @@
         <form id="form" dataContainer="companyDc">
             <column width="250px">
                 <textField id="nameField" property="name"/>
-                <textField id="fullNameField" property="fullName" editable="false"/>
-                <textField id="legalAddressField" property="legalAddress"/>
-                <textField id="actualAddressField" property="actualAddress"/>
-                <textField id="emailField" property="email"/>
                 <pickerField id="companyTypeField" property="companyType"/>
+                <textField id="fullNameField" property="fullName" editable="false"/>
+                <textField id="legalCity" property="legalCity"/>
+                <textField id="legalStreet" property="legalStreet"/>
+                <textField id="legalHouseNumber" property="legalHouseNumber"/>
+                <textField id="actualCity" property="actualCity"/>
+                <textField id="actualStreet" property="actualStreet"/>
+                <textField id="actualHouseNumber" property="actualHouseNumber"/>
+                <textField id="fieldOfActivity" property="fieldOfActivity"/>
+                <textField id="fieldOfActivityFull" property="fieldOfActivityFull"/>
+                <lookupField id="billSendType" property="billSendType"/>
+                <textField id="emailField" property="email"/>
                 <maskedField id="contactPhoneField" property="contactPhone" mask="~##(###)###-##-##" valueMode="masked"/>
                 <pickerField id="companyCategoryField" property="companyCategory"/>
                 <textField id="individualTaxpayerNumberField" property="individualTaxpayerNumber"/>
-
-
             </column>
         </form>
 

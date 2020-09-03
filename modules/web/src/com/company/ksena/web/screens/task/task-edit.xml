@@ -54,6 +54,10 @@
                 </lookupPickerField>
                 <dateField id="dateOfCompletionField" property="dateOfCompletion"/>
                 <lookupField id="taskStatusField" property="taskStatus"/>
+                <textField id="delay" property="delay"/>
+                <textField id="salaryElementary" property="salaryElementary"/>
+                <textField id="salaryMedium" property="salaryMedium"/>
+                <textField id="salaryHigh" property="salaryHigh"/>
                 <textField id="costField" property="cost"/>
                 <timeField id="taskTimePlaneField" property="taskTimePlane"/>
                 <timeField id="taskTimeFactualField" property="taskTimeFactual"/>

@@ -35,11 +35,8 @@
             <columns>
                 <column id="name"/>
                 <column id="fullName"/>
-                <column id="legalAddress"/>
-                <column id="actualAddress"/>
                 <column id="email"/>
                 <column id="contactPhone"/>
-                <column id="individualTaxpayerNumber"/>
             </columns>
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"
