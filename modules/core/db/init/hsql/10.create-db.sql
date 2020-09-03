@@ -44,6 +44,7 @@ create table KSENA_TASK_DOCUMENT (
     TYPE_OF_COST_FORMATION varchar(50),
     IS_ACTIVE boolean,
     TASK_TYPE varchar(50),
+    DELAY integer,
     POINT_ID varchar(36),
     COMPANY_ID varchar(36),
     TYPE_OF_PERIODICITY varchar(50),
@@ -201,10 +202,14 @@ create table KSENA_TASK (
     COMPANY_ID varchar(36),
     POINT_ID varchar(36),
     COST double precision,
+    DEALY integer,
     TASK_TIME_PLANE time,
     TASK_TIME_FACTUAL time,
     DATE_OF_COMPLETION date,
     TASK_STATUS varchar(50),
+    SALARY_ELEMENTARY bigint,
+    SALARY_MEDIUM bigint,
+    SALARY_HIGH bigint,
     --
     primary key (ID)
 )^
@@ -243,13 +248,20 @@ create table KSENA_COMPANY (
     DELETED_BY varchar(50),
     --
     NAME varchar(255),
-    COMPANY_TYPE_ID varchar(36),
     FULL_NAME varchar(255),
-    LEGAL_ADDRESS varchar(255),
-    ACTUAL_ADDRESS varchar(255),
+    LEGAL_CITY varchar(255),
+    LEGAL_STREET varchar(255),
+    LEGAL_HOUSE_NUMBER varchar(255),
+    ACTUAL_CITY varchar(255),
+    ACTUAL_STREET varchar(255),
+    ACTUAL_HOUSE_NUMBER varchar(255),
+    FIELD_OF_ACTIVITY varchar(255),
+    FIELD_OF_ACTIVITY_FULL varchar(255),
+    BILL_SEND_TYPE varchar(50),
     EMAIL varchar(255),
     CONTACT_PHONE varchar(255),
     INDIVIDUAL_TAXPAYER_NUMBER varchar(255),
+    COMPANY_TYPE_ID varchar(36),
     COMPANY_CATEGORY_ID varchar(36),
     --
     primary key (ID)
@@ -297,6 +309,7 @@ create table KSENA_CLIENT_EMPLOYEE (
     SEX varchar(50),
     --
     POSITION_ varchar(255),
+    PAYING_BILLS boolean,
     COMPANIES_ID varchar(36),
     --
     primary key (ID)
