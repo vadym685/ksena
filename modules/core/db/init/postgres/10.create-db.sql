@@ -14,6 +14,9 @@ create table KSENA_CLEANING_POSITION (
     DESCRIPTION varchar(255),
     NEED_TIME time,
     PRICE double precision,
+    PRIORITY_CLEANING_POSITION integer,
+    NOTE_CLEANING_POSITION varchar(255),
+    VISIBLE boolean,
     --
     primary key (ID)
 )^
@@ -84,10 +87,14 @@ create table KSENA_TASK (
     COMPANY_ID uuid,
     POINT_ID uuid,
     COST double precision,
+    DEALY integer,
     TASK_TIME_PLANE time,
     TASK_TIME_FACTUAL time,
     DATE_OF_COMPLETION date,
     TASK_STATUS varchar(50),
+    SALARY_ELEMENTARY bigint,
+    SALARY_MEDIUM bigint,
+    SALARY_HIGH bigint,
     --
     primary key (ID)
 )^
@@ -112,6 +119,7 @@ create table KSENA_TASK_DOCUMENT (
     TYPE_OF_COST_FORMATION varchar(50),
     IS_ACTIVE boolean,
     TASK_TYPE varchar(50),
+    DELAY integer,
     POINT_ID uuid,
     COMPANY_ID uuid,
     TYPE_OF_PERIODICITY varchar(50),
@@ -185,7 +193,7 @@ create table KSENA_COORDINATES (
     UPDATED_BY varchar(50),
     DELETE_TS timestamp,
     DELETED_BY varchar(50),
-    DTYPE varchar(31),
+    DTYPE varchar(100),
     --
     LATITUDE double precision,
     LONGITUDE double precision,
@@ -221,6 +229,9 @@ create table KSENA_INVENTORY (
     DECOMMISSIONING_DATE date,
     AVAILABLE_FOR_USE boolean,
     REASON_FOR_DECOMMISSIONING varchar(255),
+    QUANTITY_INVENTORY integer,
+    NOTE_INVENTORY varchar(255),
+    VISIBLE boolean,
     --
     primary key (ID)
 )^
