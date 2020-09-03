@@ -1,6 +1,6 @@
 package com.company.ksena.service.google_api_service;
 
-import com.planarry.erp.api.models.google_api.GeocodeResponse;
+import com.company.ksena.entity.api.google_api.GeocodeResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

@@ -1,9 +1,8 @@
 package com.company.ksena.service.google_api_service;
 
-
 import com.company.ksena.entity.api.google_api.GeocodeResponse;
 import com.company.ksena.entity.server_constants.ServerConstants;
-import com.company.ksena.service.GoogleApiService;
+import com.company.ksena.service.RepoService;
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
 import org.slf4j.Logger;
@@ -28,9 +27,10 @@ public class GoogleApiServiceBean implements GoogleApiService {
     @Inject
     private RepoService repository;
 
+
     public void init() {
         ServerConstants constants = repository.getServerConstants();
-        String baseApiUrl = constants.getGoogleServerUrl();
+        String baseApiUrl = constants.getGoogleUrl();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseApiUrl)
@@ -83,7 +83,16 @@ public class GoogleApiServiceBean implements GoogleApiService {
 
     public GeocodeResponse getGeocodeByAddress(String apiKey, String address) {
         LOG.info(address);
+        ServerConstants constants = repository.getServerConstants();
+        String baseApiUrl = constants.getGoogleUrl();
 
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(baseApiUrl)
+                .client(createClient())
+//                            .addConverterFactory(JacksonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        api = retrofit.create(IGoogleApi.class);
         Call<GeocodeResponse> call = api.getGeocodeByAddress(apiKey, address);
 
         GeocodeResponse geocode = null;
@@ -104,4 +113,5 @@ public class GoogleApiServiceBean implements GoogleApiService {
 
         return geocode;
     }
+
 }

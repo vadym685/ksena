@@ -1,13 +1,18 @@
 buildscript {
     ext.cubaVersion = '7.2.5'
     repositories {
+        mavenCentral()
+        jcenter()
         maven {
             url 'https://dl.bintray.com/cuba-platform/main'
-
         }
-        jcenter()
-
-
+        maven {
+            url 'https://repo.cuba-platform.com/content/groups/work'
+            credentials {
+                username(rootProject.hasProperty('repoUser') ? rootProject['repoUser'] : 'cuba')
+                password(rootProject.hasProperty('repoPass') ? rootProject['repoPass'] : 'cuba123')
+            }
+        }
     }
     dependencies {
         classpath "com.haulmont.gradle:cuba-plugin:$cubaVersion"
@@ -19,6 +24,7 @@ def modulePrefix = 'app'
 def globalModule = project(":${modulePrefix}-global")
 def coreModule = project(":${modulePrefix}-core")
 def webModule = project(":${modulePrefix}-web")
+def webToolkitModule = project(":${modulePrefix}-web-toolkit")
 
 def servletApi = 'javax.servlet:javax.servlet-api:3.1.0'
 
@@ -26,20 +32,28 @@ apply(plugin: 'cuba')
 
 cuba {
     artifact {
-        group = 'com.company.ksena'
+        group = 'com.planarry.erp'
         version = '0.1'
         isSnapshot = true
+    }
+    tomcat {
+        dir = "$project.rootDir/deploy/tomcat"
     }
 }
 
 dependencies {
     appComponent("com.haulmont.cuba:cuba-global:$cubaVersion")
     appComponent("com.haulmont.reports:reports-global:$cubaVersion")
+    appComponent("com.haulmont.charts:charts-global:$cubaVersion")
+    appComponent('de.diedavids.cuba.dataimport:dataimport-global:0.14.0')
+    appComponent('com.haulmont.addon.cubajm:cuba-jm-global:0.7.1')
+    appComponent('com.haulmont.addon.globalevents:cubaglevt-global:0.6.1')
+    appComponent('com.haulmont.addon.restapi:restapi-global:7.2.1')
 }
 
 def postgres = 'org.postgresql:postgresql:42.2.9'
 
-configure([globalModule, coreModule, webModule]) {
+configure([globalModule, coreModule, webModule, webToolkitModule]) {
     apply(plugin: 'java')
     apply(plugin: 'maven')
     apply(plugin: 'cuba')
@@ -48,6 +62,24 @@ configure([globalModule, coreModule, webModule]) {
         testCompile('org.junit.jupiter:junit-jupiter-api:5.5.2')
         testCompile('org.junit.jupiter:junit-jupiter-engine:5.5.2')
         testCompile('org.junit.vintage:junit-vintage-engine:5.5.2')
+
+        // Network
+        implementation 'com.squareup.retrofit2:retrofit:2.6.2'
+        implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+        implementation 'com.squareup.retrofit2:converter-jackson:2.6.2'
+        implementation 'com.squareup.retrofit2:retrofit-converters:2.6.2'
+//    implementation 'com.squareup.retrofit2:converter-simplexml:2.1.0'
+        implementation('com.squareup.retrofit2:converter-simplexml:2.1.0') {
+            exclude module: 'stax'
+            exclude module: 'stax-restRestApi'
+            exclude module: 'xpp3'
+        }
+        implementation 'com.squareup.okhttp3:okhttp:3.12.0'
+        implementation 'com.google.code.gson:gson:2.8.6'
+        implementation 'com.fasterxml.jackson.core:jackson-core:2.10.0'
+
+
+        implementation 'org.webjars.bower:jrcarousel:1.0.0'
     }
 
     task sourceJar(type: Jar) {
@@ -57,9 +89,6 @@ configure([globalModule, coreModule, webModule]) {
 
     artifacts {
         archives sourceJar
-    }
-    test {
-        useJUnitPlatform()
     }
 }
 
@@ -90,7 +119,6 @@ configure(coreModule) {
         compile(globalModule)
         compileOnly(servletApi)
         jdbc(postgres)
-        testRuntime(postgres)
     }
 
     task cleanConf(description: 'Cleans up conf directory', type: Delete) {
@@ -117,6 +145,7 @@ configure(webModule) {
     dependencies {
         compileOnly(servletApi)
         compile(globalModule)
+        compile 'org.vaadin.addon:v-leaflet:3.0.0'
     }
 
     task webArchive(type: Zip) {
@@ -148,6 +177,42 @@ configure(webModule) {
         appName = "${modulePrefix}"
         appJars(modulePrefix + '-global', modulePrefix + '-web')
     }
+
+    task buildScssThemes(type: CubaWebScssThemeCreation)
+
+    task deployThemes(type: CubaDeployThemeTask, dependsOn: buildScssThemes)
+}
+
+configure(webToolkitModule) {
+    dependencies {
+        compile(webModule)
+    }
+
+    jar {
+        from sourceSets.main.allJava
+    }
+
+    task buildWidgetSet(type: CubaWidgetSetBuilding) {
+        widgetSetClass = 'com.company.web.web.toolkit.ui.AppWidgetSet'
+    }
+
+    task debugWidgetSet(type: CubaWidgetSetDebug) {
+        widgetSetClass = 'com.company.web.web.toolkit.ui.AppWidgetSet'
+    }
+
+    task webArchive(dependsOn: buildWidgetSet, type: Jar) {
+        from file("$buildDir/web")
+        classifier = 'client'
+    }
+
+    artifacts {
+        archives webArchive
+    }
+
+    task deploy(dependsOn: webArchive, type: Copy) {
+        from webArchive
+        into "$cuba.tomcat.dir/webapps/${modulePrefix}/WEB-INF/lib"
+    }
 }
 
 task undeploy(type: Delete, dependsOn: ":${modulePrefix}-web:cleanConf") {
@@ -165,7 +230,6 @@ task restart(dependsOn: ['stop', ":${modulePrefix}-core:deploy", ":${modulePrefi
         }
     }
 }
-restart.finalizedBy start
 
 task buildUberJar(type: CubaUberJarBuilding) {
     logbackConfigurationFile = 'etc/uber-jar-logback.xml'

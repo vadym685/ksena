@@ -45,6 +45,11 @@
                 <column id="street"/>
                 <column id="houseNumber"/>
                 <column id="coment"/>
+                <column id="lat"/>
+                <column id="lon"/>
+                <column id="isCleaningBook"/>
+                <column id="area"/>
+                <column id="getToObject"/>
             </columns>
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"
