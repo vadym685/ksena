@@ -3,16 +3,19 @@
 
 
     <view entity="ksena_CleaningPosition" name="cleaningPosition-view">
+
         <property name="name"/>
         <property name="room" view="_minimal"/>
         <property name="description"/>
         <property name="needTime"/>
         <property name="price"/>
+        <property name="priorityCleaningPosition"/>
+        <property name="noteCleaningPosition"/>
+        <property name="visible"/>
         <property name="expendableMaterials" view="_minimal">
             <property name="description"/>
             <property name="standartAmount"/>
         </property>
-
     </view>
     <view entity="ksena_TaskDocument" name="taskDocument-view" extends="_local">
         <property name="point" view="_minimal"/>
@@ -21,6 +24,8 @@
             <property name="description"/>
             <property name="serialNumber"/>
             <property name="colour"/>
+            <property name="quantityInventory"/>
+            <property name="noteInventory"/>
         </property>
         <property name="cleaningDay" view="_minimal">
             <property name="numberDay"/>
@@ -31,6 +36,8 @@
             <property name="description"/>
             <property name="needTime"/>
             <property name="price"/>
+            <property name="priorityCleaningPosition"/>
+            <property name="noteCleaningPosition"/>
         </property>
     </view>
     <view entity="ksena_Employee" name="employee-view">

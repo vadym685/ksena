@@ -21,26 +21,11 @@ public class Inventory extends StandardEntity {
     @Column(name = "DESCRIPTION")
     protected String description;
 
-    @JoinTable(name = "KSENA_TASK_DOCUMENT_INVENTORY_LINK",
-            joinColumns = @JoinColumn(name = "INVENTORY_ID"),
-            inverseJoinColumns = @JoinColumn(name = "TASK_DOCUMENT_ID"))
-    @ManyToMany
-    protected List<TaskDocument> taskDocuments;
-
-    @JoinTable(name = "KSENA_TASK_INVENTORY_LINK",
-            joinColumns = @JoinColumn(name = "INVENTORY_ID"),
-            inverseJoinColumns = @JoinColumn(name = "TASK_ID"))
-    @ManyToMany
-    protected List<Task> tasks;
-
     @Column(name = "SERIAL_NUMBER")
     protected String serialNumber;
 
     @Column(name = "COLOUR")
     protected String colour;
-
-    @OneToMany(mappedBy = "inventory")
-    protected List<Breakage> breakage;
 
     @Column(name = "COMMISSIONING_DATE")
     protected LocalDate commissioningDate;
@@ -53,6 +38,54 @@ public class Inventory extends StandardEntity {
 
     @Column(name = "REASON_FOR_DECOMMISSIONING")
     protected String reasonForDecommissioning;
+
+    @Column(name = "QUANTITY_INVENTORY")
+    protected Integer quantityInventory;
+
+    @Column(name = "NOTE_INVENTORY")
+    protected String noteInventory;
+
+    @Column(name = "VISIBLE")
+    protected Boolean visible;
+
+    @JoinTable(name = "KSENA_TASK_INVENTORY_LINK",
+            joinColumns = @JoinColumn(name = "INVENTORY_ID"),
+            inverseJoinColumns = @JoinColumn(name = "TASK_ID"))
+    @ManyToMany
+    protected List<Task> tasks;
+
+    @JoinTable(name = "KSENA_TASK_DOCUMENT_INVENTORY_LINK",
+            joinColumns = @JoinColumn(name = "INVENTORY_ID"),
+            inverseJoinColumns = @JoinColumn(name = "TASK_DOCUMENT_ID"))
+    @ManyToMany
+    protected List<TaskDocument> taskDocuments;
+
+    @OneToMany(mappedBy = "inventory")
+    protected List<Breakage> breakage;
+
+    public Boolean getVisible() {
+        return visible;
+    }
+
+    public void setVisible(Boolean Visible) {
+        this.visible = Visible;
+    }
+
+    public String getNoteInventory() {
+        return noteInventory;
+    }
+
+    public void setNoteInventory(String noteInventory) {
+        this.noteInventory = noteInventory;
+    }
+
+    public Integer getQuantityInventory() {
+        return quantityInventory;
+    }
+
+    public void setQuantityInventory(Integer quantityInventory) {
+        this.quantityInventory = quantityInventory;
+    }
 
     public void setBreakage(List<Breakage> breakage) {
         this.breakage = breakage;

@@ -21,6 +21,8 @@
                 <textField id="descriptionField" property="description"/>
                 <timeField id="needTimeField" property="needTime"/>
                 <textField id="priceField" property="price"/>
+                <checkBox id="visibleField" property="visible" visible="false"/>
+                <textField id="noteCleaningPositionField" property="noteCleaningPosition" visible="false"/>
             </column>
         </form>
         <groupBox id="expendableMaterialsBox"

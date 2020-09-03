@@ -71,6 +71,9 @@ create table KSENA_INVENTORY (
     DECOMMISSIONING_DATE date,
     AVAILABLE_FOR_USE boolean,
     REASON_FOR_DECOMMISSIONING varchar(255),
+    QUANTITY_INVENTORY integer,
+    NOTE_INVENTORY varchar(255),
+    VISIBLE boolean,
     --
     primary key (ID)
 )^
@@ -99,6 +102,9 @@ create table KSENA_CLEANING_POSITION (
     DESCRIPTION varchar(255),
     NEED_TIME time,
     PRICE double precision,
+    PRIORITY_CLEANING_POSITION integer,
+    NOTE_CLEANING_POSITION varchar(255),
+    VISIBLE boolean,
     --
     primary key (ID)
 )^
@@ -394,20 +400,3 @@ create table KSENA_COMPANY_CATEGORY (
     primary key (ID)
 )^
 -- end KSENA_COMPANY_CATEGORY
--- begin KSENA_QUANTITY_POSITION
-create table KSENA_QUANTITY_POSITION (
-    ID varchar(36) not null,
-    VERSION integer not null,
-    CREATE_TS timestamp,
-    CREATED_BY varchar(50),
-    UPDATE_TS timestamp,
-    UPDATED_BY varchar(50),
-    DELETE_TS timestamp,
-    DELETED_BY varchar(50),
-    --
-    QUANTITY integer,
-    CLEANING_POSITION_ID varchar(36),
-    --
-    primary key (ID)
-)^
--- end KSENA_QUANTITY_POSITION

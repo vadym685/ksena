@@ -1,7 +1,9 @@
 package com.company.ksena.web.screens.taskdocument;
 
 import com.company.ksena.entity.cleaning_map.CleaningPosition;
+import com.company.ksena.entity.inventory.Inventory;
 import com.company.ksena.entity.task.*;
+
 import com.haulmont.cuba.core.global.CommitContext;
 import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.Metadata;
@@ -14,6 +16,7 @@ import com.haulmont.cuba.gui.screen.*;
 
 import javax.inject.Inject;
 import java.time.LocalDate;
+import java.util.UUID;
 
 @UiController("ksena_TaskDocument.edit")
 @UiDescriptor("task-document-edit.xml")
@@ -37,18 +40,18 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
     private Table<DayInterval> cleaningDayTable;
     @Inject
     private TextField<Double> fullCostField;
-    @Inject
-    private GroupBoxLayout cleaningMapBox;
-    @Inject
-    private Table<CleaningPosition> cleaningMapTable;
+
     @Inject
     private Metadata metadata;
     @Inject
     private DataContext dataContext;
     @Inject
-    private CollectionPropertyContainer<CleaningPosition> cleaningMapDc;
-    @Inject
     private DataManager dataManager;
+    @Inject
+    private CollectionPropertyContainer<Inventory> inventoryDc;
+    @Inject
+    private CollectionPropertyContainer<CleaningPosition> cleaningMapDc;
+
 
     @Subscribe("taskTypeField")
     public void onTaskTypeFieldValueChange(HasValue.ValueChangeEvent<Boolean> event) {
@@ -112,15 +115,52 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
 
     }
 
+    @Subscribe(id = "inventoryDc", target = Target.DATA_CONTAINER)
+    public void onInventoryDcCollectionChange(CollectionContainer.CollectionChangeEvent<Inventory> event) {
+        if (event.getChangeType().name() == "ADD_ITEMS"){
+
+                for (Inventory changeInventory : event.getChanges()) {
+
+                    Inventory newInventory = metadata.getTools().deepCopy(changeInventory);
+
+                    CommitContext cc = new CommitContext();
+
+                    newInventory.setId(UUID.randomUUID());
+                    newInventory.setVisible(true);
+
+                    changeInventory.setVisible(false);
+
+                    cc.addInstanceToCommit(newInventory);
+
+                    dataManager.commit(cc);
+
+                }
+        }
+    }
+
     @Subscribe(id = "cleaningMapDc", target = Target.DATA_CONTAINER)
     public void onCleaningMapDcCollectionChange(CollectionContainer.CollectionChangeEvent<CleaningPosition> event) {
         if (event.getChangeType().name() == "ADD_ITEMS"){
 
+            for (CleaningPosition changeCleaningPosition : event.getChanges()) {
+
+                CleaningPosition newCleaningPosition = metadata.getTools().deepCopy(changeCleaningPosition);
+
+                CommitContext cc = new CommitContext();
+
+                newCleaningPosition.setId(UUID.randomUUID());
+                newCleaningPosition.setVisible(true);
+                int size = cleaningMapDc.getMutableItems().size();
+
+                changeCleaningPosition.setVisible(false);
+                changeCleaningPosition.setPriorityCleaningPosition(size);
+
+                cc.addInstanceToCommit(newCleaningPosition);
+
+                dataManager.commit(cc);
 
 
+            }
         }
     }
-
-
-
 }

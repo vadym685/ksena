@@ -32,6 +32,15 @@ public class CleaningPosition extends StandardEntity {
     @Column(name = "PRICE")
     protected Double price;
 
+    @Column(name = "PRIORITY_CLEANING_POSITION")
+    protected Integer priorityCleaningPosition;
+
+    @Column(name = "NOTE_CLEANING_POSITION")
+    protected String noteCleaningPosition;
+
+    @Column(name = "VISIBLE")
+    protected Boolean visible;
+
     @JoinTable(name = "KSENA_CLEANING_POSITION_EXPENDABLE_MATERIAL_LINK",
             joinColumns = @JoinColumn(name = "CLEANING_POSITION_ID"),
             inverseJoinColumns = @JoinColumn(name = "EXPENDABLE_MATERIAL_ID"))
@@ -49,6 +58,30 @@ public class CleaningPosition extends StandardEntity {
             inverseJoinColumns = @JoinColumn(name = "TASK_ID"))
     @ManyToMany
     protected List<Task> tasks;
+
+    public Integer getPriorityCleaningPosition() {
+        return priorityCleaningPosition;
+    }
+
+    public void setPriorityCleaningPosition(Integer priorityCleaningPosition) {
+        this.priorityCleaningPosition = priorityCleaningPosition;
+    }
+
+    public String getNoteCleaningPosition() {
+        return noteCleaningPosition;
+    }
+
+    public void setNoteCleaningPosition(String noteCleaningPosition) {
+        this.noteCleaningPosition = noteCleaningPosition;
+    }
+
+    public Boolean getVisible() {
+        return visible;
+    }
+
+    public void setVisible(Boolean visible) {
+        this.visible = visible;
+    }
 
     public Room getRoom() {
         return room;

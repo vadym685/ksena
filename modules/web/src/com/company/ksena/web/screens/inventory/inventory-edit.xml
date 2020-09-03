@@ -31,6 +31,9 @@
                 <dateField id="commissioningDateField" property="commissioningDate"/>
                 <dateField id="decommissioningDateField" property="decommissioningDate"/>
                 <textField id="reasonForDecommissioningField" property="reasonForDecommissioning"/>
+                <checkBox id="visibleField" property="visible" visible="false"/>
+                <textField id="noteInventoryField" property="noteInventory" visible="false"/>
+                <textField id="quantityInventoryField" property="quantityInventory" visible="false"/>
 
             </column>
 
