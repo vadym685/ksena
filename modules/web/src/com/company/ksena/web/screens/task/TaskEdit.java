@@ -44,6 +44,7 @@ public class TaskEdit extends StandardEditor<Task> {
             getEditedEntity().setCompany(document.getCompany());
             getEditedEntity().setCleaningMap(document.getCleaningMap());
             getEditedEntity().setInventory(document.getInventory());
+            getEditedEntity().setDelay(document.getDelay());
         } else {
             getEditedEntity().setPoint(null);
             getEditedEntity().setCompany(null);
