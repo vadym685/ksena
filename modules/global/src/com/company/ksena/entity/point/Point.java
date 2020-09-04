@@ -4,6 +4,7 @@ import com.company.ksena.entity.company.Company;
 import com.company.ksena.entity.people.ClientEmployee;
 import com.company.ksena.entity.task.Task;
 import com.haulmont.chile.core.annotations.NamePattern;
+import com.haulmont.chile.core.annotations.NumberFormat;
 
 import javax.persistence.*;
 import java.util.List;
@@ -32,8 +33,8 @@ public class Point extends Coordinates {
     @Column(name = "HOUSE_NUMBER")
     protected String houseNumber;
 
-    @Column(name = "COMENT")
-    protected String coment;
+    @Column(name = "COMMENT")
+    protected String comment;
 
     @OneToMany(mappedBy = "point")
     protected List<Task> point;
@@ -43,6 +44,51 @@ public class Point extends Coordinates {
             inverseJoinColumns = @JoinColumn(name = "CLIENT_EMPLOYEE_ID"))
     @ManyToMany
     protected List<ClientEmployee> clientEmployees;
+
+    @Column(name = "OBJECT_ACCESS")
+    protected String objectAccess;
+
+    @NumberFormat(pattern = "#,##0")
+    @Column(name = "POINT_AREA")
+    protected Double area;
+
+    @Column(name = "GET_TO_OBJECT")
+    protected String getToObject;
+
+    @Column(name = "IS_CLEANING_BOOK")
+    protected Boolean isCleaningBook;
+
+    public Boolean getIsCleaningBook() {
+        return isCleaningBook;
+    }
+
+    public void setIsCleaningBook(Boolean isCleaningBook) {
+        this.isCleaningBook = isCleaningBook;
+    }
+
+    public String getGetToObject() {
+        return getToObject;
+    }
+
+    public void setGetToObject(String getToObject) {
+        this.getToObject = getToObject;
+    }
+
+    public Double getArea() {
+        return area;
+    }
+
+    public void setArea(Double area) {
+        this.area = area;
+    }
+
+    public String getObjectAccess() {
+        return objectAccess;
+    }
+
+    public void setObjectAccess(String objectAccess) {
+        this.objectAccess = objectAccess;
+    }
 
     public String getHouseNumber() {
         return houseNumber;
@@ -100,12 +146,12 @@ public class Point extends Coordinates {
         this.name = name;
     }
 
-    public String getComent() {
-        return coment;
+    public String getComment() {
+        return comment;
     }
 
-    public void setComent(String coment) {
-        this.coment = coment;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public String getCity() {

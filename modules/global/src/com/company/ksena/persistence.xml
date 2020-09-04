@@ -18,5 +18,6 @@
         <class>com.company.ksena.entity.company.CompanyType</class>
         <class>com.company.ksena.entity.cleaning_map.Room</class>
         <class>com.company.ksena.entity.company.CompanyCategory</class>
+        <class>com.company.ksena.entity.server_constants.ServerConstants</class>
     </persistence-unit>
 </persistence>

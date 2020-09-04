@@ -109,5 +109,11 @@
         <property name="lastName"/>
         <property name="middleName"/>
     </view>
+    <view entity="ksena_Point" name="point-view" extends="_local">
+        <property name="company" view="_minimal"/>
+        <property name="point" view="_minimal"/>
+        <property name="clientEmployees" view="_minimal"/>
+    </view>
+    <view entity="ksena_ServerConstants" name="serverConstants-view" extends="_local"/>
 
 </views>

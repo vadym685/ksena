@@ -1,0 +1,44 @@
+<div id="slider_app">
+    <v-app id="inspire" style="padding: 40px 40px 40px 40px ;">
+        <v-card flat color="transparent">
+            <v-card-text>
+                <v-row>
+                    <v-col class="px-4">
+                        <v-range-slider
+                                v-model="settings.range"
+                                :max="settings.max"
+                                :min="settings.min"
+                                hide-details
+                                class="align-center"
+                        >
+                            <template v-slot:prepend>
+                                <v-text-field
+                                        :value="changeMin(settings.range[0])"
+                                        class="mt-0 pt-0"
+                                        hide-details
+                                        single-line
+                                        outlined
+                                        type="string"
+                                        style="width: 180px"
+                                        @change="$set(settings.range, 0, stringToValue( 0, $event,settings.range[0]))"
+                                ></v-text-field>
+                            </template>
+                            <template v-slot:append>
+                                <v-text-field
+                                        :value="changeMax(settings.range[1])"
+                                        class="mt-0 pt-0"
+                                        hide-details
+                                        single-line
+                                        outlined
+                                        type="string"
+                                        style="width: 180px"
+                                        @change="$set(settings.range, 1, stringToValue( 1, $event,settings.range[1]))"
+                                ></v-text-field>
+                            </template>
+                        </v-range-slider>
+                    </v-col>
+                </v-row>
+            </v-card-text>
+        </v-card>
+    </v-app>
+</div>

@@ -1,0 +1,1511 @@
+{
+  "data": [
+    {
+      "date": "2020-05-22T10:30:00",
+      "driverId": "000000118",
+      "id": "00014817",
+      "operationType": 1,
+      "positions": [
+        {
+          "allPrice": 28254.87,
+          "balance": 17.761,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000002636",
+          "measurementType": "000004110",
+          "number": 1,
+          "pricePerPart": 13410,
+          "valueInVolume": 4001,
+          "valueInWeight": 2.107
+        },
+        {
+          "allPrice": 39979.8,
+          "balance": 15.423,
+          "date": "2020-05-23T12:00:00",
+          "finisWayPointId": "000002012",
+          "measurementType": "000004110",
+          "number": 2,
+          "pricePerPart": 17100,
+          "valueInVolume": 4400,
+          "valueInWeight": 2.338
+        },
+        {
+          "allPrice": 41668.23,
+          "balance": 11.809,
+          "date": "2020-05-23T12:00:00",
+          "finisWayPointId": "000003340",
+          "measurementType": "000004110",
+          "number": 3,
+          "pricePerPart": 11529.67,
+          "valueInVolume": 6800,
+          "valueInWeight": 3.614
+        },
+        {
+          "allPrice": 34014.69,
+          "balance": 9.307,
+          "date": "2020-05-23T12:00:00",
+          "finisWayPointId": "000002640",
+          "measurementType": "000004110",
+          "number": 4,
+          "pricePerPart": 13595,
+          "valueInVolume": 4700,
+          "valueInWeight": 2.502
+        },
+        {
+          "allPrice": 54002.7,
+          "balance": 6.121,
+          "date": "2020-05-23T12:00:00",
+          "finisWayPointId": "000002312",
+          "measurementType": "000004110",
+          "number": 5,
+          "pricePerPart": 16950,
+          "valueInVolume": 6000,
+          "valueInWeight": 3.186
+        },
+        {
+          "allPrice": 74681.7,
+          "balance": 1.715,
+          "date": "2020-05-23T12:00:00",
+          "finisWayPointId": "000002395",
+          "measurementType": "000004110",
+          "number": 6,
+          "pricePerPart": 16950,
+          "valueInVolume": 8302,
+          "valueInWeight": 4.406
+        }
+      ],
+      "tankCarId": "000000514",
+      "transportId": "000000515",
+      "warehouseId": "000001772"
+    },
+    {
+      "date": "2020-05-22T05:33:19",
+      "driverId": "000000113",
+      "id": "00014815",
+      "operationType": 2,
+      "positions": [
+        {
+          "allPrice": 0,
+          "balance": 18.814,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000000620",
+          "measurementType": "000000769",
+          "number": 1,
+          "pricePerPart": 0,
+          "valueInVolume": 0,
+          "valueInWeight": -18.74
+        },
+        {
+          "allPrice": 30387.11,
+          "balance": 16.609,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000004402",
+          "measurementType": "000000769",
+          "number": 2,
+          "pricePerPart": 13781,
+          "valueInVolume": 4068,
+          "valueInWeight": 2.205
+        },
+        {
+          "allPrice": 38595.8,
+          "balance": 13.812,
+          "date": "2020-05-23T12:00:00",
+          "finisWayPointId": "000004403",
+          "measurementType": "000000769",
+          "number": 3,
+          "pricePerPart": 13799,
+          "valueInVolume": 5146,
+          "valueInWeight": 2.797
+        },
+        {
+          "allPrice": 33848.31,
+          "balance": 11.361,
+          "date": "2020-05-23T12:00:00",
+          "finisWayPointId": "000004404",
+          "measurementType": "000000769",
+          "number": 4,
+          "pricePerPart": 13810,
+          "valueInVolume": 4503,
+          "valueInWeight": 2.451
+        },
+        {
+          "allPrice": 36842.78,
+          "balance": 8.686,
+          "date": "2020-05-23T12:00:00",
+          "finisWayPointId": "000004401",
+          "measurementType": "000000769",
+          "number": 5,
+          "pricePerPart": 13773,
+          "valueInVolume": 4902,
+          "valueInWeight": 2.675
+        },
+        {
+          "allPrice": 10792.87,
+          "balance": 7.903,
+          "date": "2020-05-23T12:00:00",
+          "finisWayPointId": "000004405",
+          "measurementType": "000000769",
+          "number": 6,
+          "pricePerPart": 13784,
+          "valueInVolume": 1434,
+          "valueInWeight": 0.783
+        }
+      ],
+      "tankCarId": "000000643",
+      "transportId": "000000517",
+      "warehouseId": "000002386"
+    },
+    {
+      "date": "2020-05-22T05:31:52",
+      "driverId": "000000016",
+      "id": "00014814",
+      "operationType": 1,
+      "positions": [
+        {
+          "allPrice": 0,
+          "balance": 1.252,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000000643",
+          "measurementType": "000000769",
+          "number": 1,
+          "pricePerPart": 0,
+          "valueInVolume": 0,
+          "valueInWeight": 18.74
+        }
+      ],
+      "tankCarId": "000000620",
+      "transportId": "000000457",
+      "warehouseId": "000002386"
+    },
+    {
+      "date": "2020-05-22T04:51:45",
+      "driverId": "000000186",
+      "id": "00014812",
+      "operationType": 1,
+      "positions": [
+        {
+          "allPrice": 14698.4,
+          "balance": 17.747,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000004407",
+          "measurementType": "000002324",
+          "number": 1,
+          "pricePerPart": 13724,
+          "valueInVolume": 2005,
+          "valueInWeight": 1.071
+        },
+        {
+          "allPrice": 29518.9,
+          "balance": 15.605,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000004402",
+          "measurementType": "000002324",
+          "number": 2,
+          "pricePerPart": 13781,
+          "valueInVolume": 4004,
+          "valueInWeight": 2.142
+        },
+        {
+          "allPrice": 53928,
+          "balance": 12.395,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000004926",
+          "measurementType": "000002324",
+          "number": 3,
+          "pricePerPart": 16800,
+          "valueInVolume": 6001,
+          "valueInWeight": 3.21
+        },
+        {
+          "allPrice": 40898.3,
+          "balance": 9.946,
+          "date": "2020-05-23T12:00:00",
+          "finisWayPointId": "000002156",
+          "measurementType": "000002324",
+          "number": 4,
+          "pricePerPart": 16700,
+          "valueInVolume": 4552,
+          "valueInWeight": 2.449
+        },
+        {
+          "allPrice": 35971.8,
+          "balance": 7.792,
+          "date": "2020-05-23T12:00:00",
+          "finisWayPointId": "000002158",
+          "measurementType": "000002324",
+          "number": 5,
+          "pricePerPart": 16700,
+          "valueInVolume": 4002,
+          "valueInWeight": 2.154
+        },
+        {
+          "allPrice": 42159.18,
+          "balance": 4.903,
+          "date": "2020-05-24T12:00:00",
+          "finisWayPointId": "000002369",
+          "measurementType": "000002324",
+          "number": 6,
+          "pricePerPart": 14593,
+          "valueInVolume": 5353,
+          "valueInWeight": 2.889
+        },
+        {
+          "allPrice": 48820.95,
+          "balance": 1.453,
+          "date": "2020-05-24T12:00:00",
+          "finisWayPointId": "000002368",
+          "measurementType": "000002324",
+          "number": 7,
+          "pricePerPart": 14151,
+          "valueInVolume": 6451,
+          "valueInWeight": 3.45
+        },
+        {
+          "allPrice": 19485.93,
+          "balance": 0.076,
+          "date": "2020-05-24T12:00:00",
+          "finisWayPointId": "000002367",
+          "measurementType": "000002324",
+          "number": 8,
+          "pricePerPart": 14151,
+          "valueInVolume": 2581,
+          "valueInWeight": 1.377
+        }
+      ],
+      "tankCarId": "000000991",
+      "transportId": "000000450",
+      "warehouseId": "000002755"
+    },
+    {
+      "date": "2020-05-22T03:21:34",
+      "driverId": "000000760",
+      "id": "00014811",
+      "operationType": 1,
+      "positions": [
+        {
+          "allPrice": 27636.62,
+          "balance": 16.762,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000003775",
+          "measurementType": "000004110",
+          "number": 1,
+          "pricePerPart": 11529.67,
+          "valueInVolume": 4502,
+          "valueInWeight": 2.397
+        },
+        {
+          "allPrice": 30103.97,
+          "balance": 14.151,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000003874",
+          "measurementType": "000004110",
+          "number": 2,
+          "pricePerPart": 11529.67,
+          "valueInVolume": 4902,
+          "valueInWeight": 2.611
+        },
+        {
+          "allPrice": 24891.61,
+          "balance": 12.392,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000002367",
+          "measurementType": "000004110",
+          "number": 3,
+          "pricePerPart": 14151,
+          "valueInVolume": 3302,
+          "valueInWeight": 1.759
+        },
+        {
+          "allPrice": 55127.46,
+          "balance": 8.49,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000002371",
+          "measurementType": "000004110",
+          "number": 4,
+          "pricePerPart": 14128,
+          "valueInVolume": 7300,
+          "valueInWeight": 3.902
+        },
+        {
+          "allPrice": 43316.21,
+          "balance": 5.429,
+          "date": "2020-05-23T12:00:00",
+          "finisWayPointId": "000002368",
+          "measurementType": "000004110",
+          "number": 5,
+          "pricePerPart": 14151,
+          "valueInVolume": 5702,
+          "valueInWeight": 3.061
+        },
+        {
+          "allPrice": 49698.06,
+          "balance": 1.889,
+          "date": "2020-05-23T12:00:00",
+          "finisWayPointId": "000002366",
+          "measurementType": "000004110",
+          "number": 6,
+          "pricePerPart": 14039,
+          "valueInVolume": 6600,
+          "valueInWeight": 3.54
+        },
+        {
+          "allPrice": 10826.36,
+          "balance": 0.95,
+          "date": "2020-05-23T12:00:00",
+          "finisWayPointId": "000003874",
+          "measurementType": "000004110",
+          "number": 7,
+          "pricePerPart": 11529.67,
+          "valueInVolume": 1752,
+          "valueInWeight": 0.939
+        },
+        {
+          "allPrice": 10849.42,
+          "balance": 0.009,
+          "date": "2020-05-23T12:00:00",
+          "finisWayPointId": "000003775",
+          "measurementType": "000004110",
+          "number": 8,
+          "pricePerPart": 11529.67,
+          "valueInVolume": 1753,
+          "valueInWeight": 0.941
+        }
+      ],
+      "tankCarId": "000005033",
+      "transportId": "000005038",
+      "warehouseId": "000001772"
+    },
+    {
+      "date": "2020-05-22T12:22:00",
+      "driverId": "000000111",
+      "id": "00014818",
+      "operationType": 1,
+      "positions": [
+        {
+          "allPrice": 24500.92,
+          "balance": 16.581,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000004411",
+          "measurementType": "000004110",
+          "number": 1,
+          "pricePerPart": 11427.67,
+          "valueInVolume": 4001,
+          "valueInWeight": 2.144
+        },
+        {
+          "allPrice": 24203.81,
+          "balance": 14.463,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000004412",
+          "measurementType": "000004110",
+          "number": 2,
+          "pricePerPart": 11427.67,
+          "valueInVolume": 3951,
+          "valueInWeight": 2.118
+        },
+        {
+          "allPrice": 44533.63,
+          "balance": 10.566,
+          "date": "2020-05-23T12:00:00",
+          "finisWayPointId": "000004413",
+          "measurementType": "000004110",
+          "number": 3,
+          "pricePerPart": 11427.67,
+          "valueInVolume": 7201,
+          "valueInWeight": 3.897
+        },
+        {
+          "allPrice": 44842.18,
+          "balance": 6.642,
+          "date": "2020-05-23T12:00:00",
+          "finisWayPointId": "000004411",
+          "measurementType": "000004110",
+          "number": 4,
+          "pricePerPart": 11427.67,
+          "valueInVolume": 7307,
+          "valueInWeight": 3.924
+        },
+        {
+          "allPrice": 35242.93,
+          "balance": 3.558,
+          "date": "2020-05-23T12:00:00",
+          "finisWayPointId": "000004412",
+          "measurementType": "000004110",
+          "number": 5,
+          "pricePerPart": 11427.67,
+          "valueInVolume": 5732,
+          "valueInWeight": 3.084
+        },
+        {
+          "allPrice": 38339.83,
+          "balance": 0.203,
+          "date": "2020-05-23T12:00:00",
+          "finisWayPointId": "000004410",
+          "measurementType": "000004110",
+          "number": 6,
+          "pricePerPart": 11427.67,
+          "valueInVolume": 6209,
+          "valueInWeight": 3.355
+        }
+      ],
+      "tankCarId": "000001569",
+      "transportId": "000001511",
+      "warehouseId": "000001772"
+    },
+    {
+      "date": "2020-05-22T03:41:00",
+      "driverId": "000000120",
+      "id": "00014819",
+      "operationType": 1,
+      "positions": [
+        {
+          "allPrice": 103299.01,
+          "balance": 11.057,
+          "date": "2020-05-22T08:00:00",
+          "finisWayPointId": "000002155",
+          "measurementType": "000004110",
+          "number": 1,
+          "pricePerPart": 13119,
+          "valueInVolume": 14500,
+          "valueInWeight": 7.874
+        },
+        {
+          "allPrice": 17172.77,
+          "balance": 9.748,
+          "date": "2020-05-22T10:00:00",
+          "finisWayPointId": "000002134",
+          "measurementType": "000004110",
+          "number": 2,
+          "pricePerPart": 13119,
+          "valueInVolume": 2402,
+          "valueInWeight": 1.309
+        },
+        {
+          "allPrice": 52266.1,
+          "balance": 5.764,
+          "date": "2020-05-23T12:05:00",
+          "finisWayPointId": "000002134",
+          "measurementType": "000004110",
+          "number": 3,
+          "pricePerPart": 13119,
+          "valueInVolume": 7300,
+          "valueInWeight": 3.984
+        },
+        {
+          "allPrice": 61173.9,
+          "balance": 1.101,
+          "date": "2020-05-22T11:00:00",
+          "finisWayPointId": "000002103",
+          "measurementType": "000004110",
+          "number": 4,
+          "pricePerPart": 13119,
+          "valueInVolume": 8500,
+          "valueInWeight": 4.663
+        },
+        {
+          "allPrice": 9799.89,
+          "balance": 0.354,
+          "date": "2020-05-23T12:30:00",
+          "finisWayPointId": "000002357",
+          "measurementType": "000004110",
+          "number": 5,
+          "pricePerPart": 13119,
+          "valueInVolume": 1351,
+          "valueInWeight": 0.747
+        }
+      ],
+      "tankCarId": "000000369",
+      "transportId": "000000368",
+      "warehouseId": "000001772"
+    },
+    {
+      "date": "2020-05-22T02:51:00",
+      "driverId": "000000290",
+      "id": "00014822",
+      "operationType": 1,
+      "positions": [
+        {
+          "allPrice": 55703.27,
+          "balance": 15.961,
+          "date": "2020-05-22T09:22:00",
+          "finisWayPointId": "000001460",
+          "measurementType": "000004110",
+          "number": 1,
+          "pricePerPart": 13119,
+          "valueInVolume": 7801,
+          "valueInWeight": 4.246
+        },
+        {
+          "allPrice": 111249.12,
+          "balance": 7.481,
+          "date": "2020-05-23T12:21:00",
+          "finisWayPointId": "000001461",
+          "measurementType": "000004110",
+          "number": 2,
+          "pricePerPart": 13119,
+          "valueInVolume": 15507,
+          "valueInWeight": 8.48
+        },
+        {
+          "allPrice": 13630.64,
+          "balance": 6.442,
+          "date": "2020-05-22T10:22:00",
+          "finisWayPointId": "000001461",
+          "measurementType": "000004110",
+          "number": 3,
+          "pricePerPart": 13119,
+          "valueInVolume": 1902,
+          "valueInWeight": 1.039
+        },
+        {
+          "allPrice": 50613.1,
+          "balance": 2.584,
+          "date": "2020-05-23T01:22:00",
+          "finisWayPointId": "000001462",
+          "measurementType": "000004110",
+          "number": 4,
+          "pricePerPart": 13119,
+          "valueInVolume": 7000,
+          "valueInWeight": 3.858
+        },
+        {
+          "allPrice": 32548.24,
+          "balance": 0.103,
+          "date": "2020-05-23T02:22:00",
+          "finisWayPointId": "000002049",
+          "measurementType": "000004110",
+          "number": 5,
+          "pricePerPart": 13119,
+          "valueInVolume": 4476,
+          "valueInWeight": 2.481
+        }
+      ],
+      "tankCarId": "000002467",
+      "transportId": "000002468",
+      "warehouseId": "000001772"
+    },
+    {
+      "date": "2020-05-22T01:33:00",
+      "driverId": "000000287",
+      "id": "00014820",
+      "operationType": 1,
+      "positions": [
+        {
+          "allPrice": 59638.97,
+          "balance": 7.864,
+          "date": "2020-05-22T07:30:00",
+          "finisWayPointId": "000001463",
+          "measurementType": "000004110",
+          "number": 1,
+          "pricePerPart": 13119,
+          "valueInVolume": 8300,
+          "valueInWeight": 4.546
+        },
+        {
+          "allPrice": 46939.78,
+          "balance": 4.286,
+          "date": "2020-05-22T08:30:00",
+          "finisWayPointId": "000001471",
+          "measurementType": "000004110",
+          "number": 2,
+          "pricePerPart": 13119,
+          "valueInVolume": 6501,
+          "valueInWeight": 3.578
+        },
+        {
+          "allPrice": 43843.7,
+          "balance": 0.944,
+          "date": "2020-05-23T12:07:00",
+          "finisWayPointId": "000001471",
+          "measurementType": "000004110",
+          "number": 3,
+          "pricePerPart": 13119,
+          "valueInVolume": 6048,
+          "valueInWeight": 3.342
+        }
+      ],
+      "tankCarId": "000002546",
+      "transportId": "000002583",
+      "warehouseId": "000001772"
+    },
+    {
+      "date": "2020-05-21T10:13:22",
+      "driverId": "000000117",
+      "id": "00014810",
+      "operationType": 1,
+      "positions": [
+        {
+          "allPrice": 38001.79,
+          "balance": 15.741,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000003340",
+          "measurementType": "000004110",
+          "number": 1,
+          "pricePerPart": 11529.67,
+          "valueInVolume": 6201,
+          "valueInWeight": 3.296
+        },
+        {
+          "allPrice": 26795.75,
+          "balance": 13.77,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000002640",
+          "measurementType": "000004110",
+          "number": 2,
+          "pricePerPart": 13595,
+          "valueInVolume": 3699,
+          "valueInWeight": 1.971
+        },
+        {
+          "allPrice": 18470.53,
+          "balance": 12.168,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000003340",
+          "measurementType": "000004110",
+          "number": 3,
+          "pricePerPart": 11529.67,
+          "valueInVolume": 2999,
+          "valueInWeight": 1.602
+        },
+        {
+          "allPrice": 30795.75,
+          "balance": 9.497,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000004408",
+          "measurementType": "000004110",
+          "number": 4,
+          "pricePerPart": 11529.67,
+          "valueInVolume": 5002,
+          "valueInWeight": 2.671
+        },
+        {
+          "allPrice": 53839.5,
+          "balance": 6.234,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000004016",
+          "measurementType": "000004110",
+          "number": 5,
+          "pricePerPart": 16500,
+          "valueInVolume": 6100,
+          "valueInWeight": 3.263
+        },
+        {
+          "allPrice": 25389.4,
+          "balance": 4.384,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000004391",
+          "measurementType": "000004110",
+          "number": 6,
+          "pricePerPart": 13724,
+          "valueInVolume": 3451,
+          "valueInWeight": 1.85
+        },
+        {
+          "allPrice": 28940.76,
+          "balance": 2.274,
+          "date": "2020-05-23T12:00:00",
+          "finisWayPointId": "000004406",
+          "measurementType": "000004110",
+          "number": 7,
+          "pricePerPart": 13716,
+          "valueInVolume": 3899,
+          "valueInWeight": 2.11
+        },
+        {
+          "allPrice": 29520.32,
+          "balance": 0.123,
+          "date": "2020-05-23T12:00:00",
+          "finisWayPointId": "000004407",
+          "measurementType": "000004110",
+          "number": 8,
+          "pricePerPart": 13724,
+          "valueInVolume": 3965,
+          "valueInWeight": 2.151
+        }
+      ],
+      "tankCarId": "000001517",
+      "transportId": "000001513",
+      "warehouseId": "000001772"
+    },
+    {
+      "date": "2020-05-21T04:59:00",
+      "driverId": "000000111",
+      "id": "00014802",
+      "operationType": 1,
+      "positions": [
+        {
+          "allPrice": 96600.43,
+          "balance": 11.167,
+          "date": "2020-05-21T12:00:00",
+          "finisWayPointId": "000002635",
+          "measurementType": "000004110",
+          "number": 1,
+          "pricePerPart": 13413,
+          "valueInVolume": 13700,
+          "valueInWeight": 7.202
+        },
+        {
+          "allPrice": 59151.33,
+          "balance": 6.757,
+          "date": "2020-05-21T12:00:00",
+          "finisWayPointId": "000002637",
+          "measurementType": "000004110",
+          "number": 2,
+          "pricePerPart": 13413,
+          "valueInVolume": 8363,
+          "valueInWeight": 4.41
+        },
+        {
+          "allPrice": 32795.52,
+          "balance": 4.325,
+          "date": "2020-05-21T12:00:00",
+          "finisWayPointId": "000002639",
+          "measurementType": "000004110",
+          "number": 3,
+          "pricePerPart": 13485,
+          "valueInVolume": 4591,
+          "valueInWeight": 2.432
+        },
+        {
+          "allPrice": 46497.27,
+          "balance": 0.861,
+          "date": "2020-05-21T12:00:00",
+          "finisWayPointId": "000002638",
+          "measurementType": "000004110",
+          "number": 4,
+          "pricePerPart": 13423,
+          "valueInVolume": 6501,
+          "valueInWeight": 3.464
+        },
+        {
+          "allPrice": 8796.96,
+          "balance": 0.205,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000002636",
+          "measurementType": "000004110",
+          "number": 5,
+          "pricePerPart": 13410,
+          "valueInVolume": 1224,
+          "valueInWeight": 0.656
+        }
+      ],
+      "tankCarId": "000001569",
+      "transportId": "000001511",
+      "warehouseId": "000001772"
+    },
+    {
+      "date": "2020-05-21T12:33:00",
+      "driverId": "000000143",
+      "id": "00014816",
+      "operationType": 1,
+      "positions": [
+        {
+          "allPrice": 34717.26,
+          "balance": 15.751,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000004415",
+          "measurementType": "000004110",
+          "number": 1,
+          "pricePerPart": 11427.67,
+          "valueInVolume": 5700,
+          "valueInWeight": 3.038
+        },
+        {
+          "allPrice": 15187.37,
+          "balance": 14.422,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000004416",
+          "measurementType": "000004110",
+          "number": 2,
+          "pricePerPart": 11427.67,
+          "valueInVolume": 2501,
+          "valueInWeight": 1.329
+        },
+        {
+          "allPrice": 31997.48,
+          "balance": 11.622,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000004414",
+          "measurementType": "000004110",
+          "number": 3,
+          "pricePerPart": 11427.67,
+          "valueInVolume": 5273,
+          "valueInWeight": 2.8
+        },
+        {
+          "allPrice": 36317.14,
+          "balance": 8.444,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000003418",
+          "measurementType": "000004110",
+          "number": 4,
+          "pricePerPart": 11427.67,
+          "valueInVolume": 6001,
+          "valueInWeight": 3.178
+        },
+        {
+          "allPrice": 41679.76,
+          "balance": 4.829,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000003981",
+          "measurementType": "000004110",
+          "number": 5,
+          "pricePerPart": 11529.67,
+          "valueInVolume": 6801,
+          "valueInWeight": 3.615
+        },
+        {
+          "allPrice": 37974.15,
+          "balance": 1.506,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000003983",
+          "measurementType": "000004110",
+          "number": 6,
+          "pricePerPart": 11427.67,
+          "valueInVolume": 6201,
+          "valueInWeight": 3.323
+        },
+        {
+          "allPrice": 16707.25,
+          "balance": 0.044,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000004409",
+          "measurementType": "000004110",
+          "number": 7,
+          "pricePerPart": 11427.67,
+          "valueInVolume": 2716,
+          "valueInWeight": 1.462
+        }
+      ],
+      "tankCarId": "000001516",
+      "transportId": "000001514",
+      "warehouseId": "000001772"
+    },
+    {
+      "date": "2020-05-21T12:13:22",
+      "driverId": "000000064",
+      "id": "00014806",
+      "operationType": 1,
+      "positions": [
+        {
+          "allPrice": 55120.8,
+          "balance": 16.174,
+          "date": "2020-05-21T12:00:00",
+          "finisWayPointId": "000002628",
+          "measurementType": "000000769",
+          "number": 1,
+          "pricePerPart": 16800,
+          "valueInVolume": 6000,
+          "valueInWeight": 3.281
+        },
+        {
+          "allPrice": 46788,
+          "balance": 13.389,
+          "date": "2020-05-21T12:00:00",
+          "finisWayPointId": "000002649",
+          "measurementType": "000000769",
+          "number": 2,
+          "pricePerPart": 16800,
+          "valueInVolume": 5100,
+          "valueInWeight": 2.785
+        },
+        {
+          "allPrice": 63013.5,
+          "balance": 9.57,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000002125",
+          "measurementType": "000000769",
+          "number": 3,
+          "pricePerPart": 16500,
+          "valueInVolume": 7001,
+          "valueInWeight": 3.819
+        },
+        {
+          "allPrice": 71937.6,
+          "balance": 5.288,
+          "date": "2020-05-21T12:00:00",
+          "finisWayPointId": "000003893",
+          "measurementType": "000000769",
+          "number": 4,
+          "pricePerPart": 16800,
+          "valueInVolume": 7820,
+          "valueInWeight": 4.282
+        },
+        {
+          "allPrice": 19424,
+          "balance": 4.074,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000002372",
+          "measurementType": "000000769",
+          "number": 5,
+          "pricePerPart": 16000,
+          "valueInVolume": 2200,
+          "valueInWeight": 1.214
+        },
+        {
+          "allPrice": 38304,
+          "balance": 1.68,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000004151",
+          "measurementType": "000000769",
+          "number": 6,
+          "pricePerPart": 16000,
+          "valueInVolume": 4300,
+          "valueInWeight": 2.394
+        },
+        {
+          "allPrice": 17181,
+          "balance": 0.645,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000001949",
+          "measurementType": "000000769",
+          "number": 7,
+          "pricePerPart": 16600,
+          "valueInVolume": 1870,
+          "valueInWeight": 1.035
+        }
+      ],
+      "tankCarId": "000000532",
+      "transportId": "000000516",
+      "warehouseId": "000002386"
+    },
+    {
+      "date": "2020-05-21T12:13:22",
+      "driverId": "000000122",
+      "id": "00014809",
+      "operationType": 1,
+      "positions": [
+        {
+          "allPrice": 29646.35,
+          "balance": 16.837,
+          "date": "2020-05-21T12:00:00",
+          "finisWayPointId": "000002368",
+          "measurementType": "000002324",
+          "number": 1,
+          "pricePerPart": 14151,
+          "valueInVolume": 3964,
+          "valueInWeight": 2.095
+        },
+        {
+          "allPrice": 23886.89,
+          "balance": 15.149,
+          "date": "2020-05-21T12:00:00",
+          "finisWayPointId": "000002367",
+          "measurementType": "000002324",
+          "number": 2,
+          "pricePerPart": 14151,
+          "valueInVolume": 3200,
+          "valueInWeight": 1.688
+        },
+        {
+          "allPrice": 66148.5,
+          "balance": 11.14,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000003904",
+          "measurementType": "000002324",
+          "number": 3,
+          "pricePerPart": 16500,
+          "valueInVolume": 7602,
+          "valueInWeight": 4.009
+        },
+        {
+          "allPrice": 29343.01,
+          "balance": 8.595,
+          "date": "2020-05-21T12:00:00",
+          "finisWayPointId": "000003874",
+          "measurementType": "000002324",
+          "number": 4,
+          "pricePerPart": 11529.67,
+          "valueInVolume": 4801,
+          "valueInWeight": 2.545
+        },
+        {
+          "allPrice": 42936.49,
+          "balance": 4.871,
+          "date": "2020-05-21T12:00:00",
+          "finisWayPointId": "000003775",
+          "measurementType": "000002324",
+          "number": 5,
+          "pricePerPart": 11529.67,
+          "valueInVolume": 7000,
+          "valueInWeight": 3.724
+        },
+        {
+          "allPrice": 42028.47,
+          "balance": 1.901,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000002368",
+          "measurementType": "000002324",
+          "number": 6,
+          "pricePerPart": 14151,
+          "valueInVolume": 5602,
+          "valueInWeight": 2.97
+        }
+      ],
+      "tankCarId": "000001518",
+      "transportId": "000001510",
+      "warehouseId": "000001473"
+    },
+    {
+      "date": "2020-05-21T06:59:00",
+      "driverId": "000000120",
+      "id": "00014807",
+      "operationType": 1,
+      "positions": [
+        {
+          "allPrice": 41218.63,
+          "balance": 15.85,
+          "date": "2020-05-21T09:00:00",
+          "finisWayPointId": "000002155",
+          "measurementType": "000004110",
+          "number": 1,
+          "pricePerPart": 12636,
+          "valueInVolume": 6000,
+          "valueInWeight": 3.262
+        },
+        {
+          "allPrice": 55067.69,
+          "balance": 11.492,
+          "date": "2020-05-21T10:00:00",
+          "finisWayPointId": "000002103",
+          "measurementType": "000004110",
+          "number": 2,
+          "pricePerPart": 12636,
+          "valueInVolume": 8000,
+          "valueInWeight": 4.358
+        },
+        {
+          "allPrice": 57382.51,
+          "balance": 7.118,
+          "date": "2020-05-22T12:40:00",
+          "finisWayPointId": "000001467",
+          "measurementType": "000004110",
+          "number": 3,
+          "pricePerPart": 13119,
+          "valueInVolume": 8000,
+          "valueInWeight": 4.374
+        },
+        {
+          "allPrice": 43135.27,
+          "balance": 3.83,
+          "date": "2020-05-22T12:50:00",
+          "finisWayPointId": "000001467",
+          "measurementType": "000004110",
+          "number": 4,
+          "pricePerPart": 13119,
+          "valueInVolume": 6000,
+          "valueInWeight": 3.288
+        },
+        {
+          "allPrice": 45378.62,
+          "balance": 0.371,
+          "date": "2020-05-22T01:50:00",
+          "finisWayPointId": "000001469",
+          "measurementType": "000004110",
+          "number": 5,
+          "pricePerPart": 13119,
+          "valueInVolume": 6283,
+          "valueInWeight": 3.459
+        }
+      ],
+      "tankCarId": "000000369",
+      "transportId": "000000368",
+      "warehouseId": "000001772"
+    },
+    {
+      "date": "2020-05-21T06:55:00",
+      "driverId": "000000290",
+      "id": "00014808",
+      "operationType": 1,
+      "positions": [
+        {
+          "allPrice": 25095.1,
+          "balance": 18.45,
+          "date": "2020-05-21T07:30:00",
+          "finisWayPointId": "000002134",
+          "measurementType": "000004110",
+          "number": 1,
+          "pricePerPart": 12636,
+          "valueInVolume": 3652,
+          "valueInWeight": 1.986
+        },
+        {
+          "allPrice": 60727.85,
+          "balance": 13.821,
+          "date": "2020-05-22T12:15:00",
+          "finisWayPointId": "000002134",
+          "measurementType": "000004110",
+          "number": 2,
+          "pricePerPart": 13119,
+          "valueInVolume": 8501,
+          "valueInWeight": 4.629
+        },
+        {
+          "allPrice": 53791.45,
+          "balance": 9.564,
+          "date": "2020-05-21T08:45:00",
+          "finisWayPointId": "000001463",
+          "measurementType": "000004110",
+          "number": 3,
+          "pricePerPart": 12636,
+          "valueInVolume": 7799,
+          "valueInWeight": 4.257
+        },
+        {
+          "allPrice": 40144.57,
+          "balance": 6.387,
+          "date": "2020-05-21T11:30:00",
+          "finisWayPointId": "000001462",
+          "measurementType": "000004110",
+          "number": 4,
+          "pricePerPart": 12636,
+          "valueInVolume": 5800,
+          "valueInWeight": 3.177
+        },
+        {
+          "allPrice": 62708.82,
+          "balance": 1.607,
+          "date": "2020-05-22T01:15:00",
+          "finisWayPointId": "000002049",
+          "measurementType": "000004110",
+          "number": 5,
+          "pricePerPart": 13119,
+          "valueInVolume": 8698,
+          "valueInWeight": 4.78
+        }
+      ],
+      "tankCarId": "000002467",
+      "transportId": "000002468",
+      "warehouseId": "000001772"
+    },
+    {
+      "date": "2020-05-21T01:20:00",
+      "driverId": "000000287",
+      "id": "00014805",
+      "operationType": 1,
+      "positions": [
+        {
+          "allPrice": 31653.18,
+          "balance": 9.93,
+          "date": "2020-05-21T09:00:00",
+          "finisWayPointId": "000001471",
+          "measurementType": "000004110",
+          "number": 1,
+          "pricePerPart": 12636,
+          "valueInVolume": 4600,
+          "valueInWeight": 2.505
+        },
+        {
+          "allPrice": 44368.46,
+          "balance": 6.548,
+          "date": "2020-05-22T12:05:00",
+          "finisWayPointId": "000001471",
+          "measurementType": "000004110",
+          "number": 2,
+          "pricePerPart": 13119,
+          "valueInVolume": 6201,
+          "valueInWeight": 3.382
+        },
+        {
+          "allPrice": 23515.6,
+          "balance": 4.687,
+          "date": "2020-05-21T10:03:00",
+          "finisWayPointId": "000002164",
+          "measurementType": "000004110",
+          "number": 3,
+          "pricePerPart": 12636,
+          "valueInVolume": 3402,
+          "valueInWeight": 1.861
+        },
+        {
+          "allPrice": 41062.47,
+          "balance": 1.557,
+          "date": "2020-05-22T12:09:00",
+          "finisWayPointId": "000002164",
+          "measurementType": "000004110",
+          "number": 4,
+          "pricePerPart": 13119,
+          "valueInVolume": 5701,
+          "valueInWeight": 3.13
+        },
+        {
+          "allPrice": 8428.21,
+          "balance": 0.89,
+          "date": "2020-05-21T11:15:00",
+          "finisWayPointId": "000002357",
+          "measurementType": "000004110",
+          "number": 5,
+          "pricePerPart": 12636,
+          "valueInVolume": 1207,
+          "valueInWeight": 0.667
+        }
+      ],
+      "tankCarId": "000002546",
+      "transportId": "000002583",
+      "warehouseId": "000001772"
+    },
+    {
+      "date": "2020-05-21T01:11:00",
+      "driverId": "000000147",
+      "id": "00014804",
+      "operationType": 1,
+      "positions": [
+        {
+          "allPrice": 36614.25,
+          "balance": 15.998,
+          "date": "2020-05-21T12:00:00",
+          "finisWayPointId": "000004411",
+          "measurementType": "000004110",
+          "number": 1,
+          "pricePerPart": 11427.67,
+          "valueInVolume": 6001,
+          "valueInWeight": 3.204
+        },
+        {
+          "allPrice": 34134.45,
+          "balance": 13.011,
+          "date": "2020-05-21T12:00:00",
+          "finisWayPointId": "000004412",
+          "measurementType": "000004110",
+          "number": 2,
+          "pricePerPart": 11427.67,
+          "valueInVolume": 5600,
+          "valueInWeight": 2.987
+        },
+        {
+          "allPrice": 37814.16,
+          "balance": 9.702,
+          "date": "2020-05-21T12:00:00",
+          "finisWayPointId": "000004413",
+          "measurementType": "000004110",
+          "number": 3,
+          "pricePerPart": 11427.67,
+          "valueInVolume": 6201,
+          "valueInWeight": 3.309
+        },
+        {
+          "allPrice": 37448.47,
+          "balance": 6.425,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000004410",
+          "measurementType": "000004110",
+          "number": 4,
+          "pricePerPart": 11427.67,
+          "valueInVolume": 6101,
+          "valueInWeight": 3.277
+        },
+        {
+          "allPrice": 37974.15,
+          "balance": 3.102,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000004411",
+          "measurementType": "000004110",
+          "number": 5,
+          "pricePerPart": 11427.67,
+          "valueInVolume": 6201,
+          "valueInWeight": 3.323
+        },
+        {
+          "allPrice": 31826.06,
+          "balance": 0.317,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000004412",
+          "measurementType": "000004110",
+          "number": 6,
+          "pricePerPart": 11427.67,
+          "valueInVolume": 5192,
+          "valueInWeight": 2.785
+        }
+      ],
+      "tankCarId": "000001570",
+      "transportId": "000001512",
+      "warehouseId": "000001772"
+    },
+    {
+      "date": "2020-05-20T07:45:00",
+      "driverId": "000000118",
+      "id": "00014803",
+      "operationType": 1,
+      "positions": [
+        {
+          "allPrice": 34589.01,
+          "balance": 16.805,
+          "date": "2020-05-21T12:00:00",
+          "finisWayPointId": "000003981",
+          "measurementType": "000004110",
+          "number": 1,
+          "pricePerPart": 11529.67,
+          "valueInVolume": 5600,
+          "valueInWeight": 3
+        },
+        {
+          "allPrice": 41471.01,
+          "balance": 13.176,
+          "date": "2020-05-21T12:00:00",
+          "finisWayPointId": "000003418",
+          "measurementType": "000004110",
+          "number": 2,
+          "pricePerPart": 11427.67,
+          "valueInVolume": 6800,
+          "valueInWeight": 3.629
+        },
+        {
+          "allPrice": 23186.74,
+          "balance": 11.147,
+          "date": "2020-05-21T12:00:00",
+          "finisWayPointId": "000003982",
+          "measurementType": "000004110",
+          "number": 3,
+          "pricePerPart": 11427.67,
+          "valueInVolume": 3800,
+          "valueInWeight": 2.029
+        },
+        {
+          "allPrice": 35448.63,
+          "balance": 8.045,
+          "date": "2020-05-21T12:00:00",
+          "finisWayPointId": "000004409",
+          "measurementType": "000004110",
+          "number": 4,
+          "pricePerPart": 11427.67,
+          "valueInVolume": 5800,
+          "valueInWeight": 3.102
+        },
+        {
+          "allPrice": 38042.71,
+          "balance": 4.716,
+          "date": "2020-05-21T12:00:00",
+          "finisWayPointId": "000003983",
+          "measurementType": "000004110",
+          "number": 5,
+          "pricePerPart": 11427.67,
+          "valueInVolume": 6200,
+          "valueInWeight": 3.329
+        },
+        {
+          "allPrice": 20569.81,
+          "balance": 2.916,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000003418",
+          "measurementType": "000004110",
+          "number": 6,
+          "pricePerPart": 11427.67,
+          "valueInVolume": 3338,
+          "valueInWeight": 1.8
+        },
+        {
+          "allPrice": 20845.64,
+          "balance": 1.108,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000003981",
+          "measurementType": "000004110",
+          "number": 7,
+          "pricePerPart": 11529.67,
+          "valueInVolume": 3364,
+          "valueInWeight": 1.808
+        }
+      ],
+      "tankCarId": "000000514",
+      "transportId": "000000515",
+      "warehouseId": "000001772"
+    },
+    {
+      "date": "2020-05-18T12:00:00",
+      "driverId": "000000563",
+      "id": "00014791",
+      "operationType": 1,
+      "positions": [
+        {
+          "allPrice": 33695.2,
+          "balance": 18.398,
+          "date": "2020-05-19T12:00:00",
+          "finisWayPointId": "000002147",
+          "measurementType": "000002324",
+          "number": 1,
+          "pricePerPart": 15400,
+          "valueInVolume": 0,
+          "valueInWeight": 2.188
+        },
+        {
+          "allPrice": 42596.4,
+          "balance": 15.632,
+          "date": "2020-05-19T12:00:00",
+          "finisWayPointId": "000002050",
+          "measurementType": "000002324",
+          "number": 2,
+          "pricePerPart": 15400,
+          "valueInVolume": 0,
+          "valueInWeight": 2.766
+        },
+        {
+          "allPrice": 8023.4,
+          "balance": 15.111,
+          "date": "2020-05-19T12:00:00",
+          "finisWayPointId": "000002099",
+          "measurementType": "000002324",
+          "number": 3,
+          "pricePerPart": 15400,
+          "valueInVolume": 0,
+          "valueInWeight": 0.521
+        },
+        {
+          "allPrice": 48926,
+          "balance": 12.233,
+          "date": "2020-05-21T12:00:00",
+          "finisWayPointId": "000002588",
+          "measurementType": "000002324",
+          "number": 4,
+          "pricePerPart": 17000,
+          "valueInVolume": 5400,
+          "valueInWeight": 2.878
+        },
+        {
+          "allPrice": 82620,
+          "balance": 7.373,
+          "date": "2020-05-21T12:00:00",
+          "finisWayPointId": "000001539",
+          "measurementType": "000002324",
+          "number": 5,
+          "pricePerPart": 17000,
+          "valueInVolume": 9000,
+          "valueInWeight": 4.86
+        },
+        {
+          "allPrice": 18122,
+          "balance": 6.307,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000002194",
+          "measurementType": "000002324",
+          "number": 6,
+          "pricePerPart": 17000,
+          "valueInVolume": 2000,
+          "valueInWeight": 1.066
+        },
+        {
+          "allPrice": 44795,
+          "balance": 3.672,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000001664",
+          "measurementType": "000002324",
+          "number": 7,
+          "pricePerPart": 17000,
+          "valueInVolume": 5000,
+          "valueInWeight": 2.635
+        },
+        {
+          "allPrice": 35615,
+          "balance": 1.577,
+          "date": "2020-05-22T12:00:00",
+          "finisWayPointId": "000000349",
+          "measurementType": "000002324",
+          "number": 8,
+          "pricePerPart": 17000,
+          "valueInVolume": 3975,
+          "valueInWeight": 2.095
+        }
+      ],
+      "tankCarId": "000000102",
+      "transportId": "000000518",
+      "warehouseId": "000003838"
+    }
+  ]
+}

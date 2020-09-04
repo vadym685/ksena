@@ -1,0 +1,30 @@
+<div id="app">
+    <v-app id="inspire">
+        <v-container>
+            <v-row dense>
+                <v-col cols="12">
+                    <v-col
+                            v-for="(item, i) in items"
+                            :key="i"
+                            cols="12"
+                    >
+                        <v-card
+                                :color="item.color"
+                                dark
+                        >
+                            <div class="d-flex flex-no-wrap justify-space-between">
+                                <div>
+                                    <v-card-title
+                                            class="headline"
+                                            v-text="item.title"
+                                    ></v-card-title>
+                                    <v-card-subtitle v-text="item.time"></v-card-subtitle>
+                                    <v-card-subtitle v-text="item.description"></v-card-subtitle>
+                                </div>
+                            </div>
+                        </v-card>
+                    </v-col>
+            </v-row>
+        </v-container>
+    </v-app>
+</div>

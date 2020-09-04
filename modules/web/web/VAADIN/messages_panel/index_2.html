@@ -1,0 +1,37 @@
+<div id="app">
+    <v-app id="inspire">
+
+        <div v-for="item in items" style="padding: 3px;">
+            <!--            <v-card width="100%" :color=item.cardColor style="padding: 8px;">-->
+            <v-card width="100%">
+
+                <v-card-title v-text="item.title"></v-card-title>
+                <v-card-subtitle>{{changeTimeFormate(item.time)}}</v-card-subtitle>
+                <v-card-actions>
+                    <v-btn
+                            icon
+                            @click=" item.show = ! item.show"
+                    >
+                        <v-icon>{{ item.show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+                    </v-btn>
+                    <v-spacer></v-spacer>
+                    <v-btn text style="font-size: 22px ; background-color: #afe034; color: white"
+                           @click=onOkBtnClick(item)
+                           v-show="!item.isWatched"
+                    >
+                        OK
+                    </v-btn>
+                </v-card-actions>
+                <v-expand-transition>
+                    <div v-show="item.show">
+                        <v-divider></v-divider>
+
+                        <v-card-text v-text="item.description" style="font-size: 16px"></v-card-text>
+                    </div>
+                </v-expand-transition>
+            </v-card>
+            <!--            </v-card>-->
+        </div>
+
+    </v-app>
+</div>

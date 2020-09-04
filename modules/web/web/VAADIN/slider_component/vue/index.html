@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no"/>
+
+    <script src="https://momentjs.com/downloads/moment.min.js"></script>
+    <script src="https://momentjs.com/downloads/moment.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/babel-polyfill/dist/polyfill.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.2.22/dist/vuetify.min.css" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+</head>
+<body style="width: 100%; height: 100%; padding: 0; margin: 0;">
+
+<div id="slider_app">
+    <v-app id="inspire">
+        <v-container>
+            <v-range-slider
+                    v-model="settings.range"
+                    :max="settings.max"
+                    :min="settings.min"
+                    hide-details
+                    class="align-center"
+            >
+                <template v-slot:prepend>
+                    <v-text-field
+                            :value="changeValue(settings.range,0)"
+                            class="mt-0 pt-0"
+                            hide-details
+                            single-line
+                            outlined
+                            type="string"
+                            style="width: 180px"
+                            @change="$set(settings.range, 0, stringToValue( 0, $event,settings.range[0]))"
+                    ></v-text-field>
+                </template>
+                <template v-slot:append>
+                    <v-text-field
+                            :value="changeValue(settings.range,1)"
+                            class="mt-0 pt-0"
+                            hide-details
+                            single-line
+                            outlined
+                            type="string"
+                            style="width: 180px"
+                            @change="$set(settings.range, 1, stringToValue( 1, $event,settings.range[1]))"
+                    ></v-text-field>
+                </template>
+            </v-range-slider>
+        </v-container>
+    </v-app>
+</div>
+
+<script src="index.js"></script>
+</body>
+</html>
