@@ -41,6 +41,7 @@
                             <textField id="area" property="area"/>
                             <checkBox id="isCleaningBook" property="isCleaningBook"/>
                             <textArea id="getToObject" property="getToObject"/>
+                            <textArea id="objectAccess" property="objectAccess"/>
                         </column>
                     </form>
                 </groupBox>

@@ -171,7 +171,7 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
 
     public void cleaningMapPositionUp() {
         if(cleaningMapTable.getSelected().isEmpty()) {
-            notifications.create().withCaption("Greeting").withDescription("Hello World!").show();
+            notifications.create().withDescription("SetPosition").show();
         }
         else
             {
@@ -194,7 +194,7 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
 
     public void cleaningMapPositionDown() {
         if(cleaningMapTable.getSelected().isEmpty()) {
-            notifications.create().withCaption("Greeting").withDescription("Hello World!").show();
+            notifications.create().withDescription("SetPosition").show();
         }
         else
         {
