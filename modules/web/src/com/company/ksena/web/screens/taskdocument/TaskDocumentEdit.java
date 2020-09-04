@@ -7,6 +7,7 @@ import com.company.ksena.entity.task.*;
 import com.haulmont.cuba.core.global.CommitContext;
 import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.Metadata;
+import com.haulmont.cuba.gui.Notifications;
 import com.haulmont.cuba.gui.components.*;
 import com.haulmont.cuba.gui.components.TextField;
 import com.haulmont.cuba.gui.model.CollectionContainer;
@@ -51,6 +52,10 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
     private CollectionPropertyContainer<Inventory> inventoryDc;
     @Inject
     private CollectionPropertyContainer<CleaningPosition> cleaningMapDc;
+    @Inject
+    private Table<CleaningPosition> cleaningMapTable;
+    @Inject
+    private Notifications notifications;
 
 
     @Subscribe("taskTypeField")
@@ -161,6 +166,28 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
 
 
             }
+        }
+    }
+
+    public void cleaningMapPositionUp() {
+        if(cleaningMapTable.getSelected().isEmpty()) {
+            //notifications.create().withCaption("Greeting").withDescription("Hello World!").show();
+        }
+        else
+            {
+
+                for (CleaningPosition CleaningPosition :  cleaningMapTable.getSelected()) {
+                    CleaningPosition.getId();
+                    int nowPriority =  CleaningPosition.getPriorityCleaningPosition();
+                    int newPriority = cleaningMapDc.getMutableItems().get(nowPriority-2).getPriorityCleaningPosition();
+                }
+            }
+        }
+
+
+    public void cleaningMapPositionDown() {
+        if(cleaningMapTable.getSelected().isEmpty()){
+//            notifications.create().withCaption("Greeting").withDescription("Hello World!").show();
         }
     }
 }

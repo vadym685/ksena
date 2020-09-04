@@ -28,7 +28,7 @@
                 <textField id="actualStreet" property="actualStreet"/>
                 <textField id="actualHouseNumber" property="actualHouseNumber"/>
                 <textField id="fieldOfActivity" property="fieldOfActivity"/>
-                <textField id="fieldOfActivityFull" property="fieldOfActivityFull"/>
+                <textArea id="fieldOfActivityFull" property="fieldOfActivityFull"/>
                 <lookupField id="billSendType" property="billSendType"/>
                 <textField id="emailField" property="email"/>
                 <maskedField id="contactPhoneField" property="contactPhone" mask="~##(###)###-##-##" valueMode="masked"/>

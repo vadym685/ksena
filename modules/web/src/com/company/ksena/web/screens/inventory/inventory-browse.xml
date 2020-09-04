@@ -10,7 +10,8 @@
                     view="_local">
             <loader id="inventoriesDl">
                 <query>
-                    <![CDATA[select e from ksena_Inventory e where e.visible = true]]>
+<!--                    <![CDATA[select e from ksena_Inventory e where e.visible = true]]>-->
+                    <![CDATA[select e from ksena_Inventory e]]>
                 </query>
             </loader>
         </collection>
