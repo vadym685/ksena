@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   x="0px"
+   y="0px"
+   width="32.0px"
+   height="32.0px"
+   viewBox="0 0 100 100"
+   style="enable-background:new 0 0 100 100;"
+   id="svg12">
+  <defs
+     id="defs16" />
+  <rect
+     ry="12.14399"
+     rx="12.14399"
+     y="1.1956079"
+     x="1.2205762"
+     height="97.151917"
+     width="97.151917"
+     id="rectSfondo"
+     style="fill:#0063b3;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.24287978" />
+  <text
+     id="textP"
+     y="84.503365"
+     x="16.036242"
+     style="font-style:normal;font-weight:bold;font-size:97.1519165px;line-height:0%;font-family:Arial;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.24287978px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     xml:space="preserve">P</text>
+</svg>

@@ -740,8 +740,8 @@ public class MapHelper {
         marker.setZIndexOffset(-1);
         Point iconAnchor = new Point(7.0, 7.0);// x - shift to left , y - shift to up
         marker.setIconAnchor(iconAnchor);
-//        val icon = ROUTE_ITEM_ICON
-//        marker.setDivIcon(icon)
+        String icon = ROUTE_ITEM_ICON;
+        marker.setDivIcon(icon);
         marker.setId(id);
 //        marker.setPopup(point.time)
         waypointMarkersLayout.addComponent(marker);

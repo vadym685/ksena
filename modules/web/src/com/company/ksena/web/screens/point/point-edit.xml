@@ -19,44 +19,47 @@
     <dialogMode height="600"
                 width="800"/>
     <layout spacing="true">
-        <split height="100%" width="100%">
+        <hbox height="100%" width="100%">
             <vbox spacing="true">
-                    <groupBox id="pointDataBox" caption="msg://com.company.ksena.entity.point.Point" spacing="true">
-                        <form id="form" dataContainer="pointDc">
-                            <column width="250px">
-                                <textField id="nameField" property="name"/>
-                                <pickerField id="companyField" property="company"/>
-                                <textField id="postcodeField" property="postcode"/>
-                                <textField id="cityField" property="city"/>
-                                <textField id="streetField" property="street"/>
-                                <textField id="houseNumberField" property="houseNumber"/>
-                                <textArea id="commentField" property="comment"/>
-                                <textField id="latitudeField" property="latitude"/>
-                                <textField id="longitudeField" property="longitude"/>
-                            </column>
-                        </form>
-                    </groupBox>
-                    <groupBox id="clientEmployeesBox"
-                              caption="msg://com.company.ksena.entity.entity.point.pointEmploees">
-                        <table id="clientEmployeesTable" dataContainer="clientEmployeesDc" width="500px" height="282px">
-                            <actions>
-                                <action id="add" type="add"/>
-                                <action id="exclude" type="exclude"/>
-                            </actions>
-                            <buttonsPanel>
-                                <button action="clientEmployeesTable.add"/>
-                                <button action="clientEmployeesTable.exclude"/>
-                            </buttonsPanel>
-                            <columns>
-                                <column id="fullName"/>
-                                <column id="position"/>
-                            </columns>
-                        </table>
-                    </groupBox>
-                    <hbox id="editActions" spacing="true">
-                        <button action="windowCommitAndClose"/>
-                        <button action="windowClose"/>
-                    </hbox>
+                <hbox id="editActions" spacing="true">
+                    <button action="windowCommitAndClose"/>
+                    <button action="windowClose"/>
+                </hbox>
+                <groupBox id="pointDataBox" caption="msg://com.company.ksena.entity.point.Point" spacing="true">
+                    <form id="form" dataContainer="pointDc">
+                        <column width="250px">
+                            <textField id="nameField" property="name"/>
+                            <pickerField id="companyField" property="company"/>
+                            <textField id="postcodeField" property="postcode"/>
+                            <textField id="cityField" property="city"/>
+                            <textField id="streetField" property="street"/>
+                            <textField id="houseNumberField" property="houseNumber"/>
+                            <textArea id="commentField" property="comment"/>
+                            <textField id="latitudeField" property="latitude"/>
+                            <textField id="longitudeField" property="longitude"/>
+                            <textField id="area" property="area"/>
+                            <checkBox id="isCleaningBook" property="isCleaningBook"/>
+                            <textArea id="getToObject" property="getToObject"/>
+                        </column>
+                    </form>
+                </groupBox>
+                <groupBox id="clientEmployeesBox"
+                          caption="msg://com.company.ksena.entity.entity.point.pointEmploees">
+                    <table id="clientEmployeesTable" dataContainer="clientEmployeesDc" width="500px" height="282px">
+                        <actions>
+                            <action id="add" type="add"/>
+                            <action id="exclude" type="exclude"/>
+                        </actions>
+                        <buttonsPanel>
+                            <button action="clientEmployeesTable.add"/>
+                            <button action="clientEmployeesTable.exclude"/>
+                        </buttonsPanel>
+                        <columns>
+                            <column id="fullName"/>
+                            <column id="position"/>
+                        </columns>
+                    </table>
+                </groupBox>
             </vbox>
             <vbox
                     width="100%"
@@ -65,6 +68,6 @@
             >
                 <vbox id="mapBox" width="100%" height="100%"/>
             </vbox>
-        </split>
+        </hbox>
     </layout>
 </window>

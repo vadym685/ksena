@@ -1,4 +1,5 @@
-package com.company.ksena.service;
+
+package com.company.ksena.service.google_api_service;
 
 import com.company.ksena.entity.point.Point;
 import com.company.ksena.entity.server_constants.ServerConstants;
@@ -9,7 +10,8 @@ import java.util.List;
 import java.util.UUID;
 
 public interface RepoService {
-    String NAME = "erp_RepoService";
+    String NAME = "ksena_RepoService";
+
 
     Point loadWayPointByExtraID(String pointID);
 

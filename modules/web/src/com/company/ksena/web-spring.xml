@@ -7,5 +7,14 @@
     <context:component-scan base-package="com.company.ksena"/>
     
     <gui:screens base-packages="com.company.ksena.web"/>
+    <bean id="ksena_proxyCreator" class="com.haulmont.cuba.web.sys.remoting.WebRemoteProxyBeanCreator">
+        <property name="serverSelector" ref="cuba_ServerSelector"/>
+        <property name="remoteServices">
+            <map>
+                <entry key="ksena_GoogleApiService" value="com.company.ksena.service.google_api_service.GoogleApiService"/>
+                <entry key="ksena_RepoService" value="com.company.ksena.service.google_api_service.RepoService"/>
+            </map>
+        </property>
+    </bean>
 
 </beans>

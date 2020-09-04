@@ -2,6 +2,7 @@ package com.company.ksena.service;
 
 import com.company.ksena.entity.point.Point;
 import com.company.ksena.entity.server_constants.ServerConstants;
+import com.company.ksena.service.google_api_service.RepoService;
 import com.haulmont.cuba.core.entity.FileDescriptor;
 import com.haulmont.cuba.core.entity.StandardEntity;
 import com.haulmont.cuba.core.global.DataManager;
@@ -18,7 +19,6 @@ import java.util.UUID;
 
 @Service(RepoService.NAME)
 public class RepoServiceBean implements RepoService {
-
     private Logger LOG = LoggerFactory.getLogger(RepoService.class);
 
     @Inject

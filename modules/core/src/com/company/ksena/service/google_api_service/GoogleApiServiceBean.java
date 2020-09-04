@@ -2,7 +2,6 @@ package com.company.ksena.service.google_api_service;
 
 import com.company.ksena.entity.api.google_api.GeocodeResponse;
 import com.company.ksena.entity.server_constants.ServerConstants;
-import com.company.ksena.service.RepoService;
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
 import org.slf4j.Logger;
@@ -18,7 +17,6 @@ import java.util.concurrent.TimeUnit;
 
 @Service(GoogleApiService.NAME)
 public class GoogleApiServiceBean implements GoogleApiService {
-
     private Logger LOG = LoggerFactory.getLogger(GoogleApiServiceBean.class);
 
     private IGoogleApi api = null;

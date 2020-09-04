@@ -150,8 +150,8 @@ public class Point extends Coordinates {
         return comment;
     }
 
-    public void setComment(String coment) {
-        this.comment = coment;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public String getCity() {
