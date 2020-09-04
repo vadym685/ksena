@@ -38,6 +38,10 @@
                     <lookupField id="typeOfCostFormationField" property="typeOfCostFormation"/>
                     <textField id="costPerHourField" property="costPerHour" visible="false"/>
                     <textField id="fullCostField" property="fullCost" visible="false"/>
+                    <textField id="salaryElementaryField" property="salaryElementary"/>
+                    <textField id="salaryHighField" property="salaryHigh"/>
+                    <textField id="salaryMediumField" property="salaryMedium"/>
+
                 </column>
             </form>
             </groupBox>

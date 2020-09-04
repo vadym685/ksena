@@ -36,6 +36,17 @@ public class TaskDocument extends StandardEntity {
     @Column(name = "FULL_COST")
     protected Double fullCost;
 
+
+    @Column(name = "SALARY_ELEMENTARY")
+    protected Long salaryElementary;
+
+    @Column(name = "SALARY_MEDIUM")
+    protected Long salaryMedium;
+
+    @Column(name = "SALARY_HIGH")
+    protected Long salaryHigh;
+
+
     @Column(name = "TYPE_OF_COST_FORMATION")
     protected String typeOfCostFormation;
 
@@ -123,6 +134,30 @@ public class TaskDocument extends StandardEntity {
 
     public List<DayInterval> getCleaningDay() {
         return cleaningDay;
+    }
+
+    public Long getSalaryElementary() {
+        return salaryElementary;
+    }
+
+    public void setSalaryElementary(Long salaryElementary) {
+        this.salaryElementary = salaryElementary;
+    }
+
+    public Long getSalaryMedium() {
+        return salaryMedium;
+    }
+
+    public void setSalaryMedium(Long salaryMedium) {
+        this.salaryMedium = salaryMedium;
+    }
+
+    public Long getSalaryHigh() {
+        return salaryHigh;
+    }
+
+    public void setSalaryHigh(Long salaryHigh) {
+        this.salaryHigh = salaryHigh;
     }
 
     public void setCleaningDay(List<DayInterval> cleaningDay) {
