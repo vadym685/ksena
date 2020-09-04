@@ -96,18 +96,18 @@ public class PointEdit extends StandardEditor<Point> implements IWayPointMarkerD
 
     private void getCoordinatesAndDrawMarker() {
         ServerConstants serverConstants = repoService.getServerConstants();
-        GeocodeResponse response = googleApiService.getGeocodeByAddress(serverConstants.getGoogleToken(), getEditedEntity().getCity()
+        GeocodeResponse response = googleApiService.getGeocodeByAddress(serverConstants.getGoogleToken(), cityField.getRawValue()
                 + " "
-                + getEditedEntity().getStreet()
+                + streetField.getRawValue()
                 + " "
-                + getEditedEntity().getHouseNumber());
+                + houseNumberField.getRawValue());
         Geometry responseGeo = Objects.requireNonNull(response)
                 .getResults()
                 .get(0)
                 .getGeometry();
         pointDc.getItem().setLatitude(responseGeo.getLocation().getLat());
         pointDc.getItem().setLongitude(responseGeo.getLocation().getLng());
-        addWayPointMarker(latitudeField.getValue().doubleValue(), longitudeField.getValue().doubleValue());
+        addWayPointMarker(responseGeo.getLocation().getLat(), responseGeo.getLocation().getLng());
     }
 
     @Subscribe
