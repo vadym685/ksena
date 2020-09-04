@@ -171,23 +171,47 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
 
     public void cleaningMapPositionUp() {
         if(cleaningMapTable.getSelected().isEmpty()) {
-            //notifications.create().withCaption("Greeting").withDescription("Hello World!").show();
+            notifications.create().withCaption("Greeting").withDescription("Hello World!").show();
         }
         else
             {
 
                 for (CleaningPosition CleaningPosition :  cleaningMapTable.getSelected()) {
-                    CleaningPosition.getId();
+
                     int nowPriority =  CleaningPosition.getPriorityCleaningPosition();
-                    int newPriority = cleaningMapDc.getMutableItems().get(nowPriority-2).getPriorityCleaningPosition();
+                    if (nowPriority != 1)
+                    {
+                        int newPriority = cleaningMapDc.getMutableItems().get(nowPriority - 2).getPriorityCleaningPosition();
+
+                        CleaningPosition.setPriorityCleaningPosition(newPriority);
+                        cleaningMapDc.getMutableItems().get(nowPriority - 2).setPriorityCleaningPosition(nowPriority);
+                    }
                 }
+                cleaningMapTable.sort("priorityCleaningPosition", Table.SortDirection.ASCENDING);
             }
         }
 
 
     public void cleaningMapPositionDown() {
-        if(cleaningMapTable.getSelected().isEmpty()){
-//            notifications.create().withCaption("Greeting").withDescription("Hello World!").show();
+        if(cleaningMapTable.getSelected().isEmpty()) {
+            notifications.create().withCaption("Greeting").withDescription("Hello World!").show();
+        }
+        else
+        {
+
+            for (CleaningPosition CleaningPosition :  cleaningMapTable.getSelected()) {
+
+                int nowPriority =  CleaningPosition.getPriorityCleaningPosition();
+              int size = cleaningMapTable.getItems().size();
+                if (nowPriority != size)
+                {
+                    int newPriority = cleaningMapDc.getMutableItems().get(nowPriority).getPriorityCleaningPosition();
+
+                    CleaningPosition.setPriorityCleaningPosition(newPriority);
+                    cleaningMapDc.getMutableItems().get(nowPriority).setPriorityCleaningPosition(nowPriority);
+                }
+            }
+            cleaningMapTable.sort("priorityCleaningPosition", Table.SortDirection.ASCENDING);
         }
     }
 }

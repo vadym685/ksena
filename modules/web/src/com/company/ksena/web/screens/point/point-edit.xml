@@ -45,7 +45,7 @@
                 </groupBox>
                 <groupBox id="clientEmployeesBox"
                           caption="msg://com.company.ksena.entity.entity.point.pointEmploees">
-                    <table id="clientEmployeesTable" dataContainer="clientEmployeesDc" width="500px" height="282px">
+                    <table id="clientEmployeesTable" dataContainer="clientEmployeesDc" height="100%" width="100%">
                         <actions>
                             <action id="add" type="add"/>
                             <action id="exclude" type="exclude"/>

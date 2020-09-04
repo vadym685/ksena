@@ -20,7 +20,11 @@ create table KSENA_COORDINATES (
     CITY varchar(255),
     STREET varchar(255),
     HOUSE_NUMBER varchar(255),
-    COMENT varchar(255),
+    COMMENT varchar(255),
+    OBJECT_ACCESS varchar(255),
+    POINT_AREA double precision,
+    GET_TO_OBJECT varchar(255),
+    IS_CLEANING_BOOK boolean,
     --
     primary key (ID)
 )^
@@ -41,6 +45,9 @@ create table KSENA_TASK_DOCUMENT (
     DATE_OF_COMPLETION date,
     COST_PER_HOUR double precision,
     FULL_COST double precision,
+    SALARY_ELEMENTARY bigint,
+    SALARY_MEDIUM bigint,
+    SALARY_HIGH bigint,
     TYPE_OF_COST_FORMATION varchar(50),
     IS_ACTIVE boolean,
     TASK_TYPE varchar(50),
@@ -413,3 +420,20 @@ create table KSENA_COMPANY_CATEGORY (
     primary key (ID)
 )^
 -- end KSENA_COMPANY_CATEGORY
+-- begin KSENA_SERVER_CONSTANTS
+create table KSENA_SERVER_CONSTANTS (
+    ID varchar(36) not null,
+    VERSION integer not null,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    --
+    GOOGLE_URL varchar(255),
+    GOOGLE_TOKEN varchar(255),
+    --
+    primary key (ID)
+)^
+-- end KSENA_SERVER_CONSTANTS
