@@ -21,6 +21,7 @@ import com.company.ksena.entity.point.Point;
 import com.vaadin.ui.MenuBar;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.vaadin.addon.leaflet.LMarker;
 
 import javax.inject.Inject;
 import java.util.HashMap;
@@ -74,7 +75,6 @@ public class PointEdit extends StandardEditor<Point> implements IWayPointMarkerD
         mapHelper = new MapHelper();
         mapHelper.setWaypointDraggingListener(this);
         mapHelper.attachToContainer(mapBox);
-
         googleApiService.init();
 
         cityField.addTextChangeListener(listener -> {
@@ -92,23 +92,6 @@ public class PointEdit extends StandardEditor<Point> implements IWayPointMarkerD
                 getCoordinatesAndDrawMarker();
             }
         });
-    }
-
-    @Subscribe
-    public void onBeforeShow(BeforeShowEvent event) {
-        if (Objects.nonNull(getEditedEntity().getLongitude()) && Objects.nonNull(getEditedEntity().getLatitude())) {
-            addWayPointMarker(getEditedEntity().getLatitude(), getEditedEntity().getLongitude());
-        } else {
-            if (Objects.nonNull(getEditedEntity().getCity()) && Objects.nonNull(getEditedEntity().getStreet()) && Objects.nonNull(getEditedEntity().getHouseNumber())) {
-                try {
-                    getCoordinatesAndDrawMarker();
-                } catch (Exception e) {
-                    LOG.error("");
-                }
-            } else {
-                addMarkerToCenterOfMap();
-            }
-        }
     }
 
     private void getCoordinatesAndDrawMarker() {
@@ -129,6 +112,19 @@ public class PointEdit extends StandardEditor<Point> implements IWayPointMarkerD
 
     @Subscribe
     public void onAfterShow(AfterShowEvent event) {
+        if (Objects.nonNull(getEditedEntity().getLongitude()) && Objects.nonNull(getEditedEntity().getLatitude())) {
+            addWayPointMarker(getEditedEntity().getLatitude(), getEditedEntity().getLongitude());
+        } else {
+            if (Objects.nonNull(getEditedEntity().getCity()) && Objects.nonNull(getEditedEntity().getStreet()) && Objects.nonNull(getEditedEntity().getHouseNumber())) {
+                try {
+                    getCoordinatesAndDrawMarker();
+                } catch (Exception e) {
+                    LOG.error("");
+                }
+            } else {
+                addMarkerToCenterOfMap();
+            }
+        }
         latitudeField.setValue(pointDc.getItem().getLatitude());
         longitudeField.setValue(pointDc.getItem().getLongitude());
     }
@@ -151,8 +147,7 @@ public class PointEdit extends StandardEditor<Point> implements IWayPointMarkerD
             mapHelper.addPointMarker(
                     lat,
                     lon,
-                    getEditedEntity().getId().toString()
-            );
+                    getEditedEntity().getId().toString());
         } catch (Exception ex) {
             LOG.error("", ex);
         }
