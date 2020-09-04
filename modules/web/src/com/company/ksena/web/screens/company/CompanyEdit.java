@@ -6,6 +6,7 @@ import com.company.ksena.entity.task.Task;
 import com.company.ksena.entity.task.TaskDocument;
 import com.company.ksena.web.screens.task.TaskEdit;
 import com.haulmont.cuba.core.global.Metadata;
+import com.haulmont.cuba.gui.ScreenBuilders;
 import com.haulmont.cuba.gui.components.PickerField;
 import com.haulmont.cuba.gui.components.TextField;
 import com.haulmont.cuba.gui.model.DataContext;
@@ -35,6 +36,8 @@ public class CompanyEdit extends StandardEditor<Company> {
     private final Logger LOG = LoggerFactory.getLogger(TaskEdit.class);
     @Inject
     private DataContext dataContext;
+    @Inject
+    private ScreenBuilders screenBuilders;
 
 
     @Subscribe

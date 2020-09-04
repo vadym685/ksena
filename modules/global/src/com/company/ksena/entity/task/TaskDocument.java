@@ -24,6 +24,9 @@ public class TaskDocument extends StandardEntity {
     @Column(name = "DOC_NUMBER", unique = true)
     protected String docNumber;
 
+    @Column(name = "ADD_PRISE_EXPENDABLE_MATERIAL")
+    protected Boolean addPriseExpendableMaterial;
+
     @Column(name = "CREATE_DATE")
     protected LocalDate createDate;
 
@@ -91,6 +94,14 @@ public class TaskDocument extends StandardEntity {
 
     @OneToMany(mappedBy = "taskDocument")
     protected List<Task> task;
+
+    public Boolean getAddPriseExpendableMaterial() {
+        return addPriseExpendableMaterial;
+    }
+
+    public void setAddPriseExpendableMaterial(Boolean addPriseExpendableMaterial) {
+        this.addPriseExpendableMaterial = addPriseExpendableMaterial;
+    }
 
     public Double getFullCost() {
         return fullCost;

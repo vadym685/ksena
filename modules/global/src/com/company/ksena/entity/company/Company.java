@@ -1,7 +1,6 @@
 package com.company.ksena.entity.company;
 
 import com.company.ksena.entity.people.ClientEmployee;
-import com.company.ksena.entity.people.Sex;
 import com.company.ksena.entity.point.Point;
 import com.company.ksena.entity.task.TaskDocument;
 import com.haulmont.chile.core.annotations.NamePattern;
@@ -32,6 +31,9 @@ public class Company extends StandardEntity {
     @Column(name = "LEGAL_HOUSE_NUMBER")
     protected String legalHouseNumber;
 
+    @Column(name = "LEGAL_INDEX")
+    protected Integer legalIndex;
+
     @Column(name = "ACTUAL_CITY")
     protected String actualCity;
 
@@ -40,6 +42,9 @@ public class Company extends StandardEntity {
 
     @Column(name = "ACTUAL_HOUSE_NUMBER")
     protected String actualHouseNumber;
+
+    @Column(name = "ACTUAL_INDEX")
+    protected Integer actualIndex;
 
     @Column(name = "FIELD_OF_ACTIVITY")
     protected String fieldOfActivity;
@@ -76,6 +81,22 @@ public class Company extends StandardEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "COMPANY_CATEGORY_ID")
     protected CompanyCategory companyCategory;
+
+    public Integer getLegalIndex() {
+        return legalIndex;
+    }
+
+    public void setLegalIndex(Integer legalIndex) {
+        this.legalIndex = legalIndex;
+    }
+
+    public Integer getActualIndex() {
+        return actualIndex;
+    }
+
+    public void setActualIndex(Integer actualIndex) {
+        this.actualIndex = actualIndex;
+    }
 
     public CompanyCategory getCompanyCategory() {
         return companyCategory;

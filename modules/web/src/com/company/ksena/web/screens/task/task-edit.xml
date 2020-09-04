@@ -58,9 +58,11 @@
                 <textField id="salaryElementary" property="salaryElementary"/>
                 <textField id="salaryMedium" property="salaryMedium"/>
                 <textField id="salaryHigh" property="salaryHigh"/>
+                <checkBox id="addPriseExpendableMaterialField" property="addPriseExpendableMaterial"/>
                 <textField id="costField" property="cost"/>
                 <timeField id="taskTimePlaneField" property="taskTimePlane"/>
                 <timeField id="taskTimeFactualField" property="taskTimeFactual"/>
+
 
 
             </column>

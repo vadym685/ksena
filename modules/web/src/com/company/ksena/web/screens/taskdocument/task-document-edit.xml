@@ -37,6 +37,7 @@
                     <textField id="periodicityField" property="periodicity" visible="false"/>
                     <lookupField id="typeOfCostFormationField" property="typeOfCostFormation"/>
                     <textField id="costPerHourField" property="costPerHour" visible="false"/>
+                    <checkBox id="addPriseExpendableMaterialField" property="addPriseExpendableMaterial"/>
                     <textField id="fullCostField" property="fullCost" visible="false"/>
                     <textField id="salaryElementaryField" property="salaryElementary"/>
                     <textField id="salaryHighField" property="salaryHigh"/>
@@ -94,7 +95,7 @@
 <!--                    <action id="list" type="listPrintForm" caption="Print"/>-->
                 </actions>
                 <columns>
-                    <column id="priorityCleaningPosition"/>
+                    <column id="priorityCleaningPosition" editable="true"/>
                     <column id="name"/>
                     <column id="room" sort="ASCENDING"/>
                     <column id="description"/>

@@ -21,9 +21,11 @@
                 <textField id="nameField" property="name"/>
                 <pickerField id="companyTypeField" property="companyType"/>
                 <textField id="fullNameField" property="fullName" editable="false"/>
+                <textField id="legalIndexField" property="legalIndex"/>
                 <textField id="legalCity" property="legalCity"/>
                 <textField id="legalStreet" property="legalStreet"/>
                 <textField id="legalHouseNumber" property="legalHouseNumber"/>
+                <textField id="actualIndex" property="actualIndex"/>
                 <textField id="actualCity" property="actualCity"/>
                 <textField id="actualStreet" property="actualStreet"/>
                 <textField id="actualHouseNumber" property="actualHouseNumber"/>
@@ -34,6 +36,7 @@
                 <maskedField id="contactPhoneField" property="contactPhone" mask="~##(###)###-##-##" valueMode="masked"/>
                 <pickerField id="companyCategoryField" property="companyCategory"/>
                 <textField id="individualTaxpayerNumberField" property="individualTaxpayerNumber"/>
+
             </column>
         </form>
 

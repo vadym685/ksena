@@ -27,6 +27,9 @@ public class Task extends StandardEntity {
     @Column(name = "TASK_NUMBER", unique = true)
     protected String taskNumber;
 
+    @Column(name = "ADD_PRISE_EXPENDABLE_MATERIAL")
+    protected Boolean addPriseExpendableMaterial;
+
     @Lookup(type = LookupType.DROPDOWN, actions = {"lookup", "open", "clear"})
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TASK_DOCUMENT_ID")
@@ -87,6 +90,14 @@ public class Task extends StandardEntity {
             inverseJoinColumns = @JoinColumn(name = "INVENTORY_ID"))
     @ManyToMany
     protected List<Inventory> inventory;
+
+    public Boolean getAddPriseExpendableMaterial() {
+        return addPriseExpendableMaterial;
+    }
+
+    public void setAddPriseExpendableMaterial(Boolean addPriseExpendableMaterial) {
+        this.addPriseExpendableMaterial = addPriseExpendableMaterial;
+    }
 
     public String getTaskNumber() {
         return taskNumber;

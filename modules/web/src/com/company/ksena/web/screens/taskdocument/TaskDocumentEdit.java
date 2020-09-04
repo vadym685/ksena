@@ -1,6 +1,7 @@
 package com.company.ksena.web.screens.taskdocument;
 
 import com.company.ksena.entity.cleaning_map.CleaningPosition;
+import com.company.ksena.entity.cleaning_map.Room;
 import com.company.ksena.entity.inventory.Inventory;
 import com.company.ksena.entity.task.*;
 
@@ -17,7 +18,10 @@ import com.haulmont.cuba.gui.screen.*;
 
 import javax.inject.Inject;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @UiController("ksena_TaskDocument.edit")
 @UiDescriptor("task-document-edit.xml")
@@ -132,6 +136,7 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
 
                     newInventory.setId(UUID.randomUUID());
                     newInventory.setVisible(true);
+                    newInventory.setQuantityInventory(1);
 
                     changeInventory.setVisible(false);
 
@@ -140,6 +145,8 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                     dataManager.commit(cc);
 
                 }
+
+
         }
     }
 
@@ -158,7 +165,13 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                 int size = cleaningMapDc.getMutableItems().size();
 
                 changeCleaningPosition.setVisible(false);
-                changeCleaningPosition.setPriorityCleaningPosition(size);
+
+//                Room room = changeCleaningPosition.getRoom();//
+//                changeCleaningPosition.setPriorityCleaningPosition(size);
+//                List roomList = cleaningMapDc.getItems().stream().filter(cleaningPosition -> cleaningPosition.getRoom().equals(room)).collect(Collectors.toList());
+//                Object roomListObject =  roomList.get(roomList.size()-1);
+//
+
 
                 cc.addInstanceToCommit(newCleaningPosition);
 
