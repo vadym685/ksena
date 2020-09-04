@@ -130,7 +130,7 @@ public class MapHelper {
     private HashMap<String, MarkerSettings> markerSettingsRepo = new HashMap<>();
 
 
-    private LMarker.DragEndListener wayPointDragging = new LMarker.DragEndListener() {
+    public LMarker.DragEndListener wayPointDragging = new LMarker.DragEndListener() {
         @Override
         public void dragEnd(LMarker.DragEndEvent event) {
             LMarker marker = (LMarker) event.getComponent();
@@ -183,9 +183,9 @@ public class MapHelper {
         map.addLayer(new LOpenStreetMapLayer());
         map.setCenter(new Point(DEFAULT_LATITUDE, DEFAULT_LONGITUDE));
 
-//        for (LLayerGroup layer : allLayers) {
-//            map.addComponent(layer);
-//        }
+        for (LLayerGroup layer : allLayers) {
+            map.addComponent(layer);
+        }
 
         mapContainer.unwrap(Layout.class)
                 .addComponent(map);
@@ -740,11 +740,12 @@ public class MapHelper {
         marker.setZIndexOffset(-1);
         Point iconAnchor = new Point(7.0, 7.0);// x - shift to left , y - shift to up
         marker.setIconAnchor(iconAnchor);
-        String icon = ROUTE_ITEM_ICON;
-        marker.setDivIcon(icon);
+//        String icon = ROUTE_ITEM_ICON;
+//        marker.setDivIcon(icon);
         marker.setId(id);
 //        marker.setPopup(point.time)
         waypointMarkersLayout.addComponent(marker);
+        waypointMarkersLayout.setVisible(true);
     }
 
     public void addSimpleMarker(Double lat, Double lon) {

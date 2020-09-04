@@ -6,7 +6,7 @@
         messagesPack="com.company.ksena.web.screens.serverconstants">
     <data readOnly="true">
         <collection id="serverConstantsesDc"
-                    class="com.company.ksena.entity.ServerConstants"
+                    class="com.company.ksena.entity.server_constants.ServerConstants"
                     view="_local">
             <loader id="serverConstantsesDl">
                 <query>
