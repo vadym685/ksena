@@ -56,9 +56,11 @@ create table KSENA_COMPANY (
     LEGAL_CITY varchar(255),
     LEGAL_STREET varchar(255),
     LEGAL_HOUSE_NUMBER varchar(255),
+    LEGAL_INDEX integer,
     ACTUAL_CITY varchar(255),
     ACTUAL_STREET varchar(255),
     ACTUAL_HOUSE_NUMBER varchar(255),
+    ACTUAL_INDEX integer,
     FIELD_OF_ACTIVITY varchar(255),
     FIELD_OF_ACTIVITY_FULL varchar(255),
     BILL_SEND_TYPE varchar(50),
@@ -83,6 +85,7 @@ create table KSENA_TASK (
     DELETED_BY varchar(50),
     --
     TASK_NUMBER varchar(255),
+    ADD_PRISE_EXPENDABLE_MATERIAL boolean,
     TASK_DOCUMENT_ID uuid,
     COMPANY_ID uuid,
     POINT_ID uuid,
@@ -112,6 +115,7 @@ create table KSENA_TASK_DOCUMENT (
     DELETED_BY varchar(50),
     --
     DOC_NUMBER varchar(255),
+    ADD_PRISE_EXPENDABLE_MATERIAL boolean,
     CREATE_DATE date,
     DATE_OF_COMPLETION date,
     COST_PER_HOUR double precision,
