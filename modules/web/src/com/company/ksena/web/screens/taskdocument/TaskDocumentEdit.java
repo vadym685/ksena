@@ -166,11 +166,10 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
 
                 changeCleaningPosition.setVisible(false);
 
-//                Room room = changeCleaningPosition.getRoom();//
-//                changeCleaningPosition.setPriorityCleaningPosition(size);
-//                List roomList = cleaningMapDc.getItems().stream().filter(cleaningPosition -> cleaningPosition.getRoom().equals(room)).collect(Collectors.toList());
-//                Object roomListObject =  roomList.get(roomList.size()-1);
-//
+                Room room = changeCleaningPosition.getRoom();//
+
+                List roomList = cleaningMapDc.getItems().stream().filter(cleaningPosition -> cleaningPosition.getRoom().equals(room)).collect(Collectors.toList());
+                changeCleaningPosition.setPriorityCleaningPosition(roomList.size());
 
 
                 cc.addInstanceToCommit(newCleaningPosition);
