@@ -55,6 +55,9 @@ public class Company extends StandardEntity {
     @Column(name = "BILL_SEND_TYPE")
     protected String billSendType;
 
+    @Column(name = "VAT")
+    protected Integer vat;
+
     @Email
     @Column(name = "EMAIL")
     protected String email;
@@ -81,6 +84,14 @@ public class Company extends StandardEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "COMPANY_CATEGORY_ID")
     protected CompanyCategory companyCategory;
+
+    public Vat getVat() {
+        return vat == null ? null : Vat.fromId(vat);
+    }
+
+    public void setVat(Vat vat) {
+        this.vat = vat == null ? null : vat.getId();
+    }
 
     public Integer getLegalIndex() {
         return legalIndex;

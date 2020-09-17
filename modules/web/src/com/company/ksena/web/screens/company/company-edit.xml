@@ -32,11 +32,11 @@
                 <textField id="fieldOfActivity" property="fieldOfActivity"/>
                 <textArea id="fieldOfActivityFull" property="fieldOfActivityFull"/>
                 <lookupField id="billSendType" property="billSendType"/>
+                <lookupField id="vatField" property="vat"/>
                 <textField id="emailField" property="email"/>
                 <maskedField id="contactPhoneField" property="contactPhone" mask="~##(###)###-##-##" valueMode="masked"/>
                 <pickerField id="companyCategoryField" property="companyCategory"/>
                 <textField id="individualTaxpayerNumberField" property="individualTaxpayerNumber"/>
-
             </column>
         </form>
 

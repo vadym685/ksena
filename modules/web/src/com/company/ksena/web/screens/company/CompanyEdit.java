@@ -42,34 +42,42 @@ public class CompanyEdit extends StandardEditor<Company> {
 
     @Subscribe
     public void onAfterShow(AfterShowEvent event) {
-       if (Objects.nonNull(nameField.getValue()) && Objects.nonNull(companyTypeField.getValue().getName())){
-           fullNameField.setValue(nameField.getValue() + " " + companyTypeField.getValue().getName());
+        try {
+
+
+            if (Objects.nonNull(nameField.getValue()) && Objects.nonNull(companyTypeField.getValue().getName())) {
+                fullNameField.setValue(nameField.getValue() + " " + companyTypeField.getValue().getName());
+            }
+        } catch (Exception e) {
+
         }
+        ;
     }
 
     public void createTaskDoc() {
         LOG.info("");
 
-        TaskDocument newTaskDocument =metadata.create(TaskDocument.class);
+        TaskDocument newTaskDocument = metadata.create(TaskDocument.class);
         newTaskDocument.setCompany(this.getEditedEntity());
         newTaskDocument.setCreateDate(LocalDate.now());
         newTaskDocument.setDateOfCompletion(LocalDate.now());
         newTaskDocument.setIsActive(true);
 
-        dataContext.merge(newTaskDocument);
-        dataContext.commit();
-
-            }
+        screenBuilders.editor(TaskDocument.class, this)
+                .editEntity(newTaskDocument)
+                .show();
+    }
 
 
     public void createTask() {
         LOG.info("");
 
-        Task newTask =metadata.create(Task.class);
+        Task newTask = metadata.create(Task.class);
         newTask.setCompany(this.getEditedEntity());
 
-        dataContext.merge(newTask);
-        dataContext.commit();
+        screenBuilders.editor(Task.class, this)
+                .editEntity(newTask)
+                .show();
 
     }
 }

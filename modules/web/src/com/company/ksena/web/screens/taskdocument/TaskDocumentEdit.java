@@ -79,19 +79,20 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
             typeOfPeriodicityField.clear();
         }
     }
+
     @Subscribe("typeOfCostFormationField")
     public void onTypeOfCostFormationFieldValueChange(HasValue.ValueChangeEvent<Boolean> event) {
 
-        TypeOfCostFormation type =   this.getEditedEntity().getTypeOfCostFormation();
+        TypeOfCostFormation type = this.getEditedEntity().getTypeOfCostFormation();
 
-        if ( type.equals(TypeOfCostFormation.FOR_TIME)) {
+        if (type.equals(TypeOfCostFormation.FOR_TIME)) {
             costPerHourField.setVisible(true);
             fullCostField.setVisible(false);
         } else if (type.equals(TypeOfCostFormation.FOR_CLEANING_MAP)) {
             costPerHourField.setVisible(false);
             fullCostField.setVisible(false);
             costPerHourField.clear();
-        }else if (type.equals(TypeOfCostFormation.FIXED_PRICE)) {
+        } else if (type.equals(TypeOfCostFormation.FIXED_PRICE)) {
             costPerHourField.setVisible(false);
             fullCostField.setVisible(true);
             costPerHourField.clear();
@@ -126,25 +127,25 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
 
     @Subscribe(id = "inventoryDc", target = Target.DATA_CONTAINER)
     public void onInventoryDcCollectionChange(CollectionContainer.CollectionChangeEvent<Inventory> event) {
-        if (event.getChangeType().name() == "ADD_ITEMS"){
+        if (event.getChangeType().name() == "ADD_ITEMS") {
 
-                for (Inventory changeInventory : event.getChanges()) {
+            for (Inventory changeInventory : event.getChanges()) {
 
-                    Inventory newInventory = metadata.getTools().deepCopy(changeInventory);
+                Inventory newInventory = metadata.getTools().deepCopy(changeInventory);
 
-                    CommitContext cc = new CommitContext();
+                CommitContext cc = new CommitContext();
 
-                    newInventory.setId(UUID.randomUUID());
-                    newInventory.setVisible(true);
-                    newInventory.setQuantityInventory(1);
+                newInventory.setId(UUID.randomUUID());
+                newInventory.setVisible(true);
+                newInventory.setQuantityInventory(1);
 
-                    changeInventory.setVisible(false);
+                changeInventory.setVisible(false);
 
-                    cc.addInstanceToCommit(newInventory);
+                cc.addInstanceToCommit(newInventory);
 
-                    dataManager.commit(cc);
+                dataManager.commit(cc);
 
-                }
+            }
 
 
         }
@@ -152,7 +153,7 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
 
     @Subscribe(id = "cleaningMapDc", target = Target.DATA_CONTAINER)
     public void onCleaningMapDcCollectionChange(CollectionContainer.CollectionChangeEvent<CleaningPosition> event) {
-        if (event.getChangeType().name() == "ADD_ITEMS"){
+        if (event.getChangeType().name() == "ADD_ITEMS") {
 
             for (CleaningPosition changeCleaningPosition : event.getChanges()) {
 
@@ -182,41 +183,35 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
     }
 
     public void cleaningMapPositionUp() {
-        if(cleaningMapTable.getSelected().isEmpty()) {
+        if (cleaningMapTable.getSelected().isEmpty()) {
             notifications.create().withDescription("SetPosition").show();
-        }
-        else
-            {
+        } else {
 
-                for (CleaningPosition CleaningPosition :  cleaningMapTable.getSelected()) {
+            for (CleaningPosition CleaningPosition : cleaningMapTable.getSelected()) {
 
-                    int nowPriority =  CleaningPosition.getPriorityCleaningPosition();
-                    if (nowPriority != 1)
-                    {
-                        int newPriority = cleaningMapDc.getMutableItems().get(nowPriority - 2).getPriorityCleaningPosition();
+                int nowPriority = CleaningPosition.getPriorityCleaningPosition();
+                if (nowPriority != 1) {
+                    int newPriority = cleaningMapDc.getMutableItems().get(nowPriority - 2).getPriorityCleaningPosition();
 
-                        CleaningPosition.setPriorityCleaningPosition(newPriority);
-                        cleaningMapDc.getMutableItems().get(nowPriority - 2).setPriorityCleaningPosition(nowPriority);
-                    }
+                    CleaningPosition.setPriorityCleaningPosition(newPriority);
+                    cleaningMapDc.getMutableItems().get(nowPriority - 2).setPriorityCleaningPosition(nowPriority);
                 }
-                cleaningMapTable.sort("priorityCleaningPosition", Table.SortDirection.ASCENDING);
             }
+            cleaningMapTable.sort("priorityCleaningPosition", Table.SortDirection.ASCENDING);
         }
+    }
 
 
     public void cleaningMapPositionDown() {
-        if(cleaningMapTable.getSelected().isEmpty()) {
+        if (cleaningMapTable.getSelected().isEmpty()) {
             notifications.create().withDescription("SetPosition").show();
-        }
-        else
-        {
+        } else {
 
-            for (CleaningPosition CleaningPosition :  cleaningMapTable.getSelected()) {
+            for (CleaningPosition CleaningPosition : cleaningMapTable.getSelected()) {
 
-                int nowPriority =  CleaningPosition.getPriorityCleaningPosition();
-              int size = cleaningMapTable.getItems().size();
-                if (nowPriority != size)
-                {
+                int nowPriority = CleaningPosition.getPriorityCleaningPosition();
+                int size = cleaningMapTable.getItems().size();
+                if (nowPriority != size) {
                     int newPriority = cleaningMapDc.getMutableItems().get(nowPriority).getPriorityCleaningPosition();
 
                     CleaningPosition.setPriorityCleaningPosition(newPriority);

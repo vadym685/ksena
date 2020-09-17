@@ -1,0 +1,1 @@
+alter table KSENA_TASK_DOCUMENT add column ADD_PRISE_EXPENDABLE_MATERIAL boolean ;

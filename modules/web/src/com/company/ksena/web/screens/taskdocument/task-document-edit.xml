@@ -19,32 +19,32 @@
         <hbox width="100%">
             <groupBox id="dataBox" caption="msg://TaskDocumentData" spacing="true" width="100%">
                 <form id="form" dataContainer="taskDocumentDc">
-                <column width="250px">
-                    <textField id="docNumberField" property="docNumber"/>
-                    <dateField id="createDateField" property="createDate"/>
-                    <dateField id="dateOfCompletionField" property="dateOfCompletion"/>
-                    <checkBox id="isActiveField" property="isActive"/>
-                    <pickerField id="companyField" property="company"/>
-                    <textField id="delay" property="delay"/>
-                    <pickerField id="pointField" property="point">
-                        <actions>
-                            <action id="lookup" type="picker_lookup"/>
-                            <action id="clear" type="picker_clear"/>
-                        </actions>
-                    </pickerField>
-                    <lookupField id="taskTypeField" property="taskType"/>
-                    <lookupField id="typeOfPeriodicityField" property="typeOfPeriodicity" visible="false"/>
-                    <textField id="periodicityField" property="periodicity" visible="false"/>
-                    <lookupField id="typeOfCostFormationField" property="typeOfCostFormation"/>
-                    <textField id="costPerHourField" property="costPerHour" visible="false"/>
-                    <checkBox id="addPriseExpendableMaterialField" property="addPriseExpendableMaterial"/>
-                    <textField id="fullCostField" property="fullCost" visible="false"/>
-                    <textField id="salaryElementaryField" property="salaryElementary"/>
-                    <textField id="salaryHighField" property="salaryHigh"/>
-                    <textField id="salaryMediumField" property="salaryMedium"/>
+                    <column width="250px">
+                        <textField id="docNumberField" property="docNumber"/>
+                        <dateField id="createDateField" property="createDate"/>
+                        <dateField id="dateOfCompletionField" property="dateOfCompletion"/>
+                        <checkBox id="isActiveField" property="isActive"/>
+                        <pickerField id="companyField" property="company"/>
+                        <textField id="delay" property="delay"/>
+                        <pickerField id="pointField" property="point">
+                            <actions>
+                                <action id="lookup" type="picker_lookup"/>
+                                <action id="clear" type="picker_clear"/>
+                            </actions>
+                        </pickerField>
+                        <lookupField id="taskTypeField" property="taskType"/>
+                        <lookupField id="typeOfPeriodicityField" property="typeOfPeriodicity" visible="false"/>
+                        <textField id="periodicityField" property="periodicity" visible="false"/>
+                        <lookupField id="typeOfCostFormationField" property="typeOfCostFormation"/>
+                        <textField id="costPerHourField" property="costPerHour" visible="false"/>
+                        <checkBox id="addPriseExpendableMaterialField" property="addPriseExpendableMaterial"/>
+                        <textField id="fullCostField" property="fullCost" visible="false"/>
+                        <textField id="salaryElementaryField" property="salaryElementary"/>
+                        <textField id="salaryHighField" property="salaryHigh"/>
+                        <textField id="salaryMediumField" property="salaryMedium"/>
 
-                </column>
-            </form>
+                    </column>
+                </form>
             </groupBox>
             <groupBox id="cleaningDayBox" caption="msg://com.company.ksena.entity.task/TaskDocument.cleaningDay"
                       align="TOP_LEFT" width="100%" visible="false">
@@ -65,7 +65,7 @@
         </hbox>
 
         <groupBox id="inventoryBox" caption="msg://com.company.ksena.entity.task/TaskDocument.inventory">
-            <table id="inventoryTable" dataContainer="inventoryDc" width="100%"  align="TOP_RIGHT"
+            <table id="inventoryTable" dataContainer="inventoryDc" width="100%" align="TOP_RIGHT"
                    editable="true">
                 <actions>
                     <action id="add" type="add"/>
@@ -86,13 +86,13 @@
             </table>
         </groupBox>
         <groupBox id="cleaningMapBox" caption="msg://com.company.ksena.entity.task/TaskDocument.cleaningMap">
-            <table id="cleaningMapTable" dataContainer="cleaningMapDc" width="100%"  align="TOP_CENTER"
+            <table id="cleaningMapTable" dataContainer="cleaningMapDc" width="100%" align="TOP_CENTER"
                    editable="true">
                 <actions>
                     <action id="add" type="add"/>
                     <action id="exclude" type="exclude"/>
                     <action id="excel" type="excel"/>
-<!--                    <action id="list" type="listPrintForm" caption="Print"/>-->
+                    <!--                    <action id="list" type="listPrintForm" caption="Print"/>-->
                 </actions>
                 <columns>
                     <column id="priorityCleaningPosition" editable="true"/>
