@@ -5,6 +5,7 @@ import com.company.ksena.entity.cleaning_map.Room;
 import com.company.ksena.entity.inventory.Inventory;
 import com.company.ksena.entity.task.*;
 
+import com.haulmont.cuba.core.entity.contracts.Id;
 import com.haulmont.cuba.core.global.CommitContext;
 import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.Metadata;
@@ -14,10 +15,13 @@ import com.haulmont.cuba.gui.components.TextField;
 import com.haulmont.cuba.gui.model.CollectionContainer;
 import com.haulmont.cuba.gui.model.CollectionPropertyContainer;
 import com.haulmont.cuba.gui.model.DataContext;
+import com.haulmont.cuba.gui.model.InstanceContainer;
 import com.haulmont.cuba.gui.screen.*;
+import net.bull.javamelody.internal.common.LOG;
 
 import javax.inject.Inject;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -60,6 +64,8 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
     private Table<CleaningPosition> cleaningMapTable;
     @Inject
     private Notifications notifications;
+    @Inject
+    private InstanceContainer<TaskDocument> taskDocumentDc;
 
 
     @Subscribe("taskTypeField")
@@ -144,10 +150,7 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                 cc.addInstanceToCommit(newInventory);
 
                 dataManager.commit(cc);
-
             }
-
-
         }
     }
 
@@ -166,21 +169,36 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                 int size = cleaningMapDc.getMutableItems().size();
 
                 changeCleaningPosition.setVisible(false);
-
-                Room room = changeCleaningPosition.getRoom();//
-
-                List roomList = cleaningMapDc.getItems().stream().filter(cleaningPosition -> cleaningPosition.getRoom().equals(room)).collect(Collectors.toList());
-                changeCleaningPosition.setPriorityCleaningPosition(roomList.size());
-
+                changeCleaningPosition.setPriorityCleaningPosition(size);
 
                 cc.addInstanceToCommit(newCleaningPosition);
+                cc.addInstanceToCommit(changeCleaningPosition);
 
                 dataManager.commit(cc);
-
-
             }
         }
     }
+
+    @Subscribe(id = "cleaningMapDc", target = Target.DATA_CONTAINER)
+    public void onCleaningMapDcItemPropertyChange(InstanceContainer.ItemPropertyChangeEvent<CleaningPosition> event) {
+        if (event.getProperty().equals("noteCleaningPosition")) {
+            CommitContext cc = new CommitContext();
+            CleaningPosition changeCleaningPosition = event.getItem();
+
+            cc.addInstanceToCommit(changeCleaningPosition);
+            dataManager.commit(cc);
+        }
+    }
+
+    @Subscribe
+    public void onBeforeCommitChanges(BeforeCommitChangesEvent event) {
+
+        for (CleaningPosition CleaningPosition : cleaningMapDc.getItems()) {
+            com.company.ksena.entity.cleaning_map.CleaningPosition reloadCleaningPosition = dataManager.load(Id.of(CleaningPosition)).one();
+            cleaningMapDc.setItem(dataContext.merge(reloadCleaningPosition));
+        }
+    }
+
 
     public void cleaningMapPositionUp() {
         if (cleaningMapTable.getSelected().isEmpty()) {

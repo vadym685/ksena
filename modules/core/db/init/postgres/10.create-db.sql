@@ -64,6 +64,7 @@ create table KSENA_COMPANY (
     FIELD_OF_ACTIVITY varchar(255),
     FIELD_OF_ACTIVITY_FULL varchar(255),
     BILL_SEND_TYPE varchar(50),
+    VAT integer,
     EMAIL varchar(255),
     CONTACT_PHONE varchar(255),
     INDIVIDUAL_TAXPAYER_NUMBER varchar(255),

@@ -95,7 +95,7 @@
                     <!--                    <action id="list" type="listPrintForm" caption="Print"/>-->
                 </actions>
                 <columns>
-                    <column id="priorityCleaningPosition" editable="true"/>
+                    <column id="priorityCleaningPosition"/>
                     <column id="name"/>
                     <column id="room" sort="ASCENDING"/>
                     <column id="description"/>

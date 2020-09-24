@@ -13,8 +13,8 @@
             </view>
             <loader id="cleaningPositionsDl">
                 <query>
-<!--                    <![CDATA[select e from ksena_CleaningPosition e where e.visible = true]]>-->
-                    <![CDATA[select e from ksena_CleaningPosition e ]]>
+                    <![CDATA[select e from ksena_CleaningPosition e where e.visible = true]]>
+<!--                    <![CDATA[select e from ksena_CleaningPosition e ]]>-->
                 </query>
             </loader>
         </collection>
@@ -44,7 +44,7 @@
                 <column id="price"/>
                 <column id="priorityCleaningPosition" visible="false"/>
                 <column id="noteCleaningPosition" visible="false"/>
-                <column id="visible" visible="false"/>
+                <column id="visible" visible="true"/>
             </columns>
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"
