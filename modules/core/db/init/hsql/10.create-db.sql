@@ -405,6 +405,7 @@ create table KSENA_ROOM (
     --
     NAME varchar(255),
     COMENT varchar(255),
+    COLOR varchar(255),
     --
     primary key (ID)
 )^

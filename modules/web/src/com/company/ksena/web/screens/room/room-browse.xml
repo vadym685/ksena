@@ -35,6 +35,7 @@
             <columns>
                 <column id="name"/>
                 <column id="coment"/>
+                <column id="color"/>
             </columns>
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"

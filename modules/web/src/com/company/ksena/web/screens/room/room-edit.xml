@@ -19,6 +19,7 @@
             <column width="250px">
                 <textField id="nameField" property="name"/>
                 <textArea id="comentField" property="coment"/>
+                <colorPicker id="colorField" property="color" width="30"/>
             </column>
         </form>
         <hbox id="editActions" spacing="true">

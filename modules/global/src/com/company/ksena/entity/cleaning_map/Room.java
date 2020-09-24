@@ -16,8 +16,20 @@ public class Room extends StandardEntity {
 
     @Column(name = "COMENT")
     protected String coment;
+
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "room")
     protected CleaningPosition cleaningPosition;
+
+    @Column(name = "COLOR")
+    protected String color;
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
 
     public CleaningPosition getCleaningPosition() {
         return cleaningPosition;
