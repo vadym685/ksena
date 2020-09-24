@@ -15,7 +15,6 @@ import javax.inject.Inject;
 import java.util.UUID;
 
 
-
 @UiController("ksena_Room.browse")
 @UiDescriptor("room-browse.xml")
 @LookupComponent("roomsTable")
@@ -36,29 +35,13 @@ public class RoomBrowse extends StandardLookup<Room> {
             @Nullable
             @Override
             public String getStyleName(@NonNull Room entity, @Nullable String property) {
-                if(property != null && property.equals("color")){
+                if (property != null && property.equals("color")) {
                     return "colored-cell-" + entity.getId() + "-" + entity.getColor();
                 }
                 return null;
             }
         });
     }
-
-    @Subscribe(id = "roomsDc", target = Target.DATA_CONTAINER)
-    public void onRoomsDcItemPropertyChange(InstanceContainer.ItemPropertyChangeEvent<Room> event) {
-        if (event.getItem() != null) {
-            injectColorCss(event.getItem().getColor(), event.getItem().getId());
-        }
-    }
-
-    @Subscribe(id = "roomsDc", target = Target.DATA_CONTAINER)
-    public void onRoomsDcItemChange(InstanceContainer.ItemChangeEvent<Room> event) {
-        if (event.getItem() != null) {
-            injectColorCss(event.getItem().getColor(), event.getItem().getId());
-        }
-    }
-
-
 
     private void injectColorCss(String color, UUID id) {
         Page.Styles styles = Page.getCurrent().getStyles();
@@ -70,5 +53,20 @@ public class RoomBrowse extends StandardLookup<Room> {
                 id.toString(), color, color));
     }
 
+
+    @Subscribe(id = "roomsDc", target = Target.DATA_CONTAINER)
+    public void onRoomsDcItemPropertyChange(InstanceContainer.ItemPropertyChangeEvent<Room> event) {
+
+        injectColorCss(event.getItem().getColor(), event.getItem().getId());
+
+    }
+
+    @Subscribe(id = "roomsDc", target = Target.DATA_CONTAINER)
+    public void onRoomsDcItemChange(InstanceContainer.ItemChangeEvent<Room> event) {
+        if (event.getItem() != null) {
+            injectColorCss(event.getItem().getColor(), event.getItem().getId());
+
+        }
+    }
 
 }

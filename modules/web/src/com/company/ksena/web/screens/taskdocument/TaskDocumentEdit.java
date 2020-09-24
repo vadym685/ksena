@@ -17,8 +17,11 @@ import com.haulmont.cuba.gui.model.CollectionPropertyContainer;
 import com.haulmont.cuba.gui.model.DataContext;
 import com.haulmont.cuba.gui.model.InstanceContainer;
 import com.haulmont.cuba.gui.screen.*;
+import com.vaadin.server.Page;
 import net.bull.javamelody.internal.common.LOG;
+import org.springframework.lang.NonNull;
 
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -131,6 +134,8 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
 
     }
 
+
+
     @Subscribe(id = "inventoryDc", target = Target.DATA_CONTAINER)
     public void onInventoryDcCollectionChange(CollectionContainer.CollectionChangeEvent<Inventory> event) {
         if (event.getChangeType().name() == "ADD_ITEMS") {
@@ -199,6 +204,31 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
         }
     }
 
+    @Subscribe
+    public void onAfterShow(AfterShowEvent event) {
+        cleaningMapDc.getItems().forEach(cleaningPosition -> {
+            Room room = cleaningPosition.getRoom();
+
+            if (room != null) {
+                Room reloadRoom = dataManager.load(Id.of(room)).one();
+                if (reloadRoom.getColor() != null) {
+                    injectColorCss(reloadRoom.getColor(), cleaningPosition.getId());
+                }
+            }
+        });
+
+        cleaningMapTable.setStyleProvider(new GroupTable.StyleProvider<CleaningPosition>() {
+            @Nullable
+            @Override
+            public String getStyleName(CleaningPosition entity, @Nullable String property) {
+                if (property != null && property.equals("room") && entity.getRoom() != null) {
+
+                    return "colored-cell-" + entity.getId() + "-" + entity.getRoom().getColor();
+                }
+                return null;
+            }
+        });
+    }
 
     public void cleaningMapPositionUp() {
         if (cleaningMapTable.getSelected().isEmpty()) {
@@ -213,12 +243,18 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
 
                     CleaningPosition.setPriorityCleaningPosition(newPriority);
                     cleaningMapDc.getMutableItems().get(nowPriority - 2).setPriorityCleaningPosition(nowPriority);
+
+//                    CleaningPosition nowPriorityCleaningPosition = cleaningMapDc.getMutableItems().get(nowPriority);
+//                    CommitContext cc = new CommitContext();
+//                    cc.addInstanceToCommit(CleaningPosition);
+//                    cc.addInstanceToCommit(nowPriorityCleaningPosition);
+//                    dataManager.commit(cc);
+
                 }
             }
             cleaningMapTable.sort("priorityCleaningPosition", Table.SortDirection.ASCENDING);
         }
     }
-
 
     public void cleaningMapPositionDown() {
         if (cleaningMapTable.getSelected().isEmpty()) {
@@ -238,5 +274,15 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
             }
             cleaningMapTable.sort("priorityCleaningPosition", Table.SortDirection.ASCENDING);
         }
+    }
+
+    private void injectColorCss(String color, UUID id) {
+        Page.Styles styles = Page.getCurrent().getStyles();
+        if (color.contains("#")) {
+            color = color.replace("#", "");
+        }
+        styles.add(String.format(
+                ".colored-cell-%s-%s{background-color:#%s;}",
+                id.toString(), color, color));
     }
 }
