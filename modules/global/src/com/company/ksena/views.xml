@@ -12,6 +12,7 @@
         <property name="priorityCleaningPosition"/>
         <property name="noteCleaningPosition"/>
         <property name="visible"/>
+        <property name="standartPosition"/>
         <property name="expendableMaterials" view="_minimal">
             <property name="description"/>
             <property name="standartAmount"/>

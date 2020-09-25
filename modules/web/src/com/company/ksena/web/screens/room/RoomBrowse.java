@@ -69,4 +69,8 @@ public class RoomBrowse extends StandardLookup<Room> {
         }
     }
 
+    public Room getSelectedRoom(){
+        return roomsTable.getSingleSelected();
+    }
+
 }

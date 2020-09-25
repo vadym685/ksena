@@ -108,6 +108,7 @@
                     <button action="cleaningMapTable.exclude"/>
                     <button invoke="cleaningMapPositionUp" caption="msg://cleaningMapPositionUp"/>
                     <button invoke="cleaningMapPositionDown" caption="msg://cleaningMapPositionDown"/>
+                    <button invoke="cleaningMapPositionAddRoom" caption="msg://cleaningMapPositionAddRoom"/>
                 </buttonsPanel>
             </table>
         </groupBox>

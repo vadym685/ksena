@@ -41,6 +41,9 @@ public class CleaningPosition extends StandardEntity {
     @Column(name = "VISIBLE")
     protected Boolean visible;
 
+    @Column(name = "STANDART_POSITION")
+    protected Boolean standartPosition;
+
     @JoinTable(name = "KSENA_CLEANING_POSITION_EXPENDABLE_MATERIAL_LINK",
             joinColumns = @JoinColumn(name = "CLEANING_POSITION_ID"),
             inverseJoinColumns = @JoinColumn(name = "EXPENDABLE_MATERIAL_ID"))
@@ -58,6 +61,14 @@ public class CleaningPosition extends StandardEntity {
             inverseJoinColumns = @JoinColumn(name = "TASK_ID"))
     @ManyToMany
     protected List<Task> tasks;
+
+    public Boolean getStandartPosition() {
+        return standartPosition;
+    }
+
+    public void setStandartPosition(Boolean standartPosition) {
+        this.standartPosition = standartPosition;
+    }
 
     public Integer getPriorityCleaningPosition() {
         return priorityCleaningPosition;

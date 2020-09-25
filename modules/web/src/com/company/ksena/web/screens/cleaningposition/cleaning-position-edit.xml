@@ -23,6 +23,7 @@
                 <textField id="priceField" property="price"/>
                 <checkBox id="visibleField" property="visible" visible="false"/>
                 <textField id="noteCleaningPositionField" property="noteCleaningPosition" visible="false"/>
+                <checkBox id="standartPositionField" property="standartPosition"/>
             </column>
         </form>
         <groupBox id="expendableMaterialsBox"
