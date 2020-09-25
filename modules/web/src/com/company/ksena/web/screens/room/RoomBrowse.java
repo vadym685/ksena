@@ -45,13 +45,14 @@ public class RoomBrowse extends StandardLookup<Room> {
 
     private void injectColorCss(String color, UUID id) {
         Page.Styles styles = Page.getCurrent().getStyles();
+        if (color != null){
         if (color.contains("#")) {
             color = color.replace("#", "");
         }
         styles.add(String.format(
                 ".colored-cell-%s-%s{background-color:#%s;}",
                 id.toString(), color, color));
-    }
+    }}
 
 
     @Subscribe(id = "roomsDc", target = Target.DATA_CONTAINER)

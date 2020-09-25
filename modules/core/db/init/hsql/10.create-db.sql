@@ -114,6 +114,7 @@ create table KSENA_CLEANING_POSITION (
     PRIORITY_CLEANING_POSITION integer,
     NOTE_CLEANING_POSITION varchar(255),
     VISIBLE boolean,
+    STANDART_POSITION boolean,
     --
     primary key (ID)
 )^

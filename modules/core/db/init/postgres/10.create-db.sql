@@ -17,6 +17,7 @@ create table KSENA_CLEANING_POSITION (
     PRIORITY_CLEANING_POSITION integer,
     NOTE_CLEANING_POSITION varchar(255),
     VISIBLE boolean,
+    STANDART_POSITION boolean,
     --
     primary key (ID)
 )^
@@ -405,6 +406,7 @@ create table KSENA_ROOM (
     --
     NAME varchar(255),
     COMENT varchar(255),
+    COLOR varchar(255),
     --
     primary key (ID)
 )^
