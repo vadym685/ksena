@@ -24,8 +24,10 @@
             <property name="description"/>
             <property name="serialNumber"/>
             <property name="colour"/>
+            <property name="decommissioningDate"/>
             <property name="quantityInventory"/>
             <property name="noteInventory"/>
+            <property name="visible"/>
         </property>
         <property name="cleaningDay" view="_minimal">
             <property name="numberDay"/>
@@ -38,6 +40,8 @@
             <property name="price"/>
             <property name="priorityCleaningPosition"/>
             <property name="noteCleaningPosition"/>
+            <property name="visible"/>
+            <property name="expendableMaterials" view="_minimal"/>
         </property>
     </view>
     <view entity="ksena_Employee" name="employee-view">

@@ -235,21 +235,26 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
             notifications.create().withDescription("SetPosition").show();
         } else {
 
+            for (CleaningPosition CleaningPosition : cleaningMapDc.getItems()) {
+                com.company.ksena.entity.cleaning_map.CleaningPosition reloadCleaningPosition = dataManager.load(Id.of(CleaningPosition)).one();
+                cleaningMapDc.setItem(dataContext.merge(reloadCleaningPosition));
+            }
+
             for (CleaningPosition CleaningPosition : cleaningMapTable.getSelected()) {
 
                 int nowPriority = CleaningPosition.getPriorityCleaningPosition();
                 if (nowPriority != 1) {
                     int newPriority = cleaningMapDc.getMutableItems().get(nowPriority - 2).getPriorityCleaningPosition();
 
+                    com.company.ksena.entity.cleaning_map.CleaningPosition nowCleaningPosition = cleaningMapDc.getMutableItems().get(nowPriority - 2);
+
                     CleaningPosition.setPriorityCleaningPosition(newPriority);
-                    cleaningMapDc.getMutableItems().get(nowPriority - 2).setPriorityCleaningPosition(nowPriority);
+                    nowCleaningPosition.setPriorityCleaningPosition(nowPriority);
 
-//                    CleaningPosition nowPriorityCleaningPosition = cleaningMapDc.getMutableItems().get(nowPriority);
-//                    CommitContext cc = new CommitContext();
-//                    cc.addInstanceToCommit(CleaningPosition);
-//                    cc.addInstanceToCommit(nowPriorityCleaningPosition);
-//                    dataManager.commit(cc);
-
+                    CommitContext cc = new CommitContext();
+                    cc.addInstanceToCommit(CleaningPosition);
+                    cc.addInstanceToCommit(nowCleaningPosition);
+                    dataManager.commit(cc);
                 }
             }
             cleaningMapTable.sort("priorityCleaningPosition", Table.SortDirection.ASCENDING);
@@ -261,6 +266,11 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
             notifications.create().withDescription("SetPosition").show();
         } else {
 
+            for (CleaningPosition CleaningPosition : cleaningMapDc.getItems()) {
+                com.company.ksena.entity.cleaning_map.CleaningPosition reloadCleaningPosition = dataManager.load(Id.of(CleaningPosition)).one();
+                cleaningMapDc.setItem(dataContext.merge(reloadCleaningPosition));
+            }
+
             for (CleaningPosition CleaningPosition : cleaningMapTable.getSelected()) {
 
                 int nowPriority = CleaningPosition.getPriorityCleaningPosition();
@@ -268,8 +278,15 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                 if (nowPriority != size) {
                     int newPriority = cleaningMapDc.getMutableItems().get(nowPriority).getPriorityCleaningPosition();
 
+                    com.company.ksena.entity.cleaning_map.CleaningPosition nowCleaningPosition =  cleaningMapDc.getMutableItems().get(nowPriority);
+
                     CleaningPosition.setPriorityCleaningPosition(newPriority);
-                    cleaningMapDc.getMutableItems().get(nowPriority).setPriorityCleaningPosition(nowPriority);
+                    nowCleaningPosition.setPriorityCleaningPosition(nowPriority);
+
+                    CommitContext cc = new CommitContext();
+                    cc.addInstanceToCommit(CleaningPosition);
+                    cc.addInstanceToCommit(nowCleaningPosition);
+                    dataManager.commit(cc);
                 }
             }
             cleaningMapTable.sort("priorityCleaningPosition", Table.SortDirection.ASCENDING);
