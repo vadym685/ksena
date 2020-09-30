@@ -5,7 +5,7 @@
     <view entity="ksena_CleaningPosition" name="cleaningPosition-view">
 
         <property name="name"/>
-        <property name="room" view="_minimal"/>
+        <property name="room" view="_local"/>
         <property name="description"/>
         <property name="needTime"/>
         <property name="price"/>
@@ -16,6 +16,7 @@
         <property name="expendableMaterials" view="_minimal">
             <property name="description"/>
             <property name="standartAmount"/>
+            <property name="price"/>
         </property>
     </view>
     <view entity="ksena_TaskDocument" name="taskDocument-view" extends="_local">
@@ -42,6 +43,7 @@
             <property name="priorityCleaningPosition"/>
             <property name="noteCleaningPosition"/>
             <property name="visible"/>
+            <property name="standartPosition"/>
             <property name="expendableMaterials" view="_minimal"/>
         </property>
     </view>

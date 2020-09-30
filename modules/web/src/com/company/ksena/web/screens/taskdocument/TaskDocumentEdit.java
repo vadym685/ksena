@@ -158,7 +158,6 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
     @Subscribe(id = "cleaningMapDc", target = Target.DATA_CONTAINER)
     public void onCleaningMapDcCollectionChange(CollectionContainer.CollectionChangeEvent<CleaningPosition> event) {
         if (event.getChangeType().name() == "ADD_ITEMS") {
-
             for (CleaningPosition changeCleaningPosition : event.getChanges()) {
 
                 CleaningPosition newCleaningPosition = metadata.getTools().deepCopy(changeCleaningPosition);
@@ -170,6 +169,7 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                 int size = cleaningMapDc.getMutableItems().size();
 
                 changeCleaningPosition.setVisible(false);
+                changeCleaningPosition.setStandartPosition(false);
                 changeCleaningPosition.setPriorityCleaningPosition(size);
 
                 cc.addInstanceToCommit(newCleaningPosition);
@@ -195,7 +195,7 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
     public void onBeforeCommitChanges(BeforeCommitChangesEvent event) {
 
         for (CleaningPosition CleaningPosition : cleaningMapDc.getItems()) {
-            com.company.ksena.entity.cleaning_map.CleaningPosition reloadCleaningPosition = dataManager.load(Id.of(CleaningPosition)).one();
+            CleaningPosition reloadCleaningPosition = dataManager.load(Id.of(CleaningPosition)).one();
             cleaningMapDc.setItem(dataContext.merge(reloadCleaningPosition));
         }
     }
@@ -232,30 +232,33 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
         } else {
 
             for (CleaningPosition CleaningPosition : cleaningMapDc.getItems()) {
-                com.company.ksena.entity.cleaning_map.CleaningPosition reloadCleaningPosition = dataManager.load(Id.of(CleaningPosition)).one();
+                CleaningPosition reloadCleaningPosition = dataManager.load(Id.of(CleaningPosition)).view("cleaningPosition-view").one();
                 cleaningMapDc.setItem(dataContext.merge(reloadCleaningPosition));
             }
 
-            for (CleaningPosition CleaningPosition : cleaningMapTable.getSelected()) {
+
+            for (CleaningPosition cleaningPosition : cleaningMapTable.getSelected()) {
 
 
-
-                int nowPriority = CleaningPosition.getPriorityCleaningPosition();
+                int nowPriority = cleaningPosition.getPriorityCleaningPosition();
                 if (nowPriority != 1) {
                     int newPriority = cleaningMapDc.getMutableItems().get(nowPriority - 2).getPriorityCleaningPosition();
 
-                    com.company.ksena.entity.cleaning_map.CleaningPosition nowCleaningPosition = cleaningMapDc.getMutableItems().get(nowPriority - 2);
+//                    CleaningPosition nowCleaningPosition = cleaningMapDc.getMutableItems().get(nowPriority - 2);
 
-                    CleaningPosition.setPriorityCleaningPosition(newPriority);
+                    CleaningPosition nowCleaningPosition = Objects.requireNonNull(cleaningMapTable.getItems()).getItem(cleaningMapDc.getMutableItems().get(nowPriority - 2));
+                    cleaningPosition.setPriorityCleaningPosition(newPriority);
+                    assert nowCleaningPosition != null;
                     nowCleaningPosition.setPriorityCleaningPosition(nowPriority);
 
                     CommitContext cc = new CommitContext();
-                    cc.addInstanceToCommit(CleaningPosition);
+                    cc.addInstanceToCommit(cleaningPosition);
                     cc.addInstanceToCommit(nowCleaningPosition);
                     dataManager.commit(cc);
                 }
             }
             cleaningMapTable.sort("priorityCleaningPosition", Table.SortDirection.ASCENDING);
+
         }
     }
 
@@ -265,14 +268,14 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
         } else {
 
             for (CleaningPosition CleaningPosition : cleaningMapDc.getItems()) {
-                com.company.ksena.entity.cleaning_map.CleaningPosition reloadCleaningPosition = dataManager.load(Id.of(CleaningPosition)).one();
+                CleaningPosition reloadCleaningPosition = dataManager.load(Id.of(CleaningPosition)).one();
                 cleaningMapDc.setItem(dataContext.merge(reloadCleaningPosition));
             }
 
             for (CleaningPosition CleaningPosition : cleaningMapTable.getSelected()) {
 
                 int nowPriority = CleaningPosition.getPriorityCleaningPosition();
-                int size = cleaningMapTable.getItems().size();
+                int size = Objects.requireNonNull(cleaningMapTable.getItems()).size();
                 if (nowPriority != size) {
                     int newPriority = cleaningMapDc.getMutableItems().get(nowPriority).getPriorityCleaningPosition();
 
@@ -307,13 +310,19 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                     for (Object Element : newList) {
                         cleaningMapDc.getMutableItems().add(cleaningMapDc.getMutableItems().size(), (CleaningPosition) Element);
                     }
+
+                    for (CleaningPosition CleaningPosition : cleaningMapDc.getItems()) {
+                        CleaningPosition reloadCleaningPosition = dataManager.load(Id.of(CleaningPosition)).one();
+                        cleaningMapDc.setItem(dataContext.merge(reloadCleaningPosition));
+                    }
+
                 })
                 .withSelectHandler(e -> {
                 })
                 .build();
-
-
         selectRoom.show();
+
+
     }
 
 

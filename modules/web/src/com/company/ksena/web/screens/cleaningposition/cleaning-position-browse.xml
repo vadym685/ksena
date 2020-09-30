@@ -13,8 +13,8 @@
             </view>
             <loader id="cleaningPositionsDl">
                 <query>
-                    <![CDATA[select e from ksena_CleaningPosition e where e.visible = true]]>
-<!--                    <![CDATA[select e from ksena_CleaningPosition e where e.room = room && e.visible = true && e.standartPosition = true]]>-->
+                    <![CDATA[select e from ksena_CleaningPosition e ]]>
+<!--                    <![CDATA[select e from ksena_CleaningPosition e where e.visible = true]]>-->
                 </query>
             </loader>
         </collection>
@@ -42,9 +42,9 @@
                 <column id="description"/>
                 <column id="needTime"/>
                 <column id="price"/>
-                <column id="priorityCleaningPosition" visible="false"/>
-                <column id="noteCleaningPosition" visible="false"/>
-                <column id="visible" visible="false"/>
+                <column id="priorityCleaningPosition" visible="true"/>
+                <column id="noteCleaningPosition" visible="true"/>
+                <column id="visible" visible="true"/>
                 <column id="standartPosition"/>
             </columns>
             <rowsCount/>
