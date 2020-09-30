@@ -2,51 +2,7 @@
 <views xmlns="http://schemas.haulmont.com/cuba/view.xsd">
 
 
-    <view entity="ksena_CleaningPosition" name="cleaningPosition-view">
 
-        <property name="name"/>
-        <property name="room" view="_local"/>
-        <property name="description"/>
-        <property name="needTime"/>
-        <property name="price"/>
-        <property name="priorityCleaningPosition"/>
-        <property name="noteCleaningPosition"/>
-        <property name="visible"/>
-        <property name="standartPosition"/>
-        <property name="expendableMaterials" view="_minimal">
-            <property name="description"/>
-            <property name="standartAmount"/>
-            <property name="price"/>
-        </property>
-    </view>
-    <view entity="ksena_TaskDocument" name="taskDocument-view" extends="_local">
-        <property name="point" view="_minimal"/>
-        <property name="company" view="_minimal"/>
-        <property name="inventory" view="_minimal">
-            <property name="description"/>
-            <property name="serialNumber"/>
-            <property name="colour"/>
-            <property name="decommissioningDate"/>
-            <property name="quantityInventory"/>
-            <property name="noteInventory"/>
-            <property name="visible"/>
-        </property>
-        <property name="cleaningDay" view="_minimal">
-            <property name="numberDay"/>
-            <property name="nameDay"/>
-        </property>
-        <property name="cleaningMap" view="_minimal">
-            <property name="room" view="_local"/>
-            <property name="description"/>
-            <property name="needTime"/>
-            <property name="price"/>
-            <property name="priorityCleaningPosition"/>
-            <property name="noteCleaningPosition"/>
-            <property name="visible"/>
-            <property name="standartPosition"/>
-            <property name="expendableMaterials" view="_minimal"/>
-        </property>
-    </view>
     <view entity="ksena_Employee" name="employee-view">
         <property name="employeeType"/>
         <property name="isActive"/>
@@ -122,5 +78,21 @@
         <property name="clientEmployees" view="_minimal"/>
     </view>
     <view entity="ksena_ServerConstants" name="serverConstants-view" extends="_local"/>
+    <view entity="ksena_TaskDocument" name="taskDocument-view" extends="_local">
+        <property name="point" view="_minimal"/>
+        <property name="company" view="_minimal"/>
+        <property name="inventory" view="_local"/>
+        <property name="cleaningDay" view="_local"/>
+        <property name="cleaningMap" view="_local">
+            <property name="position" view="_local">
+                <property name="room" view="_local"/>
+            </property>
+        </property>
+    </view>
+    <view entity="ksena_PositionWrapper" name="positionWrapper-view" extends="_local">
+        <property name="position" view="_local">
+            <property name="room" view="_local"/>
+        </property>
+    </view>
 
 </views>

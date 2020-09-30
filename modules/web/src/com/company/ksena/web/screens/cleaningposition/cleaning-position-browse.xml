@@ -6,10 +6,9 @@
         messagesPack="com.company.ksena.web.screens.cleaningposition">
     <data readOnly="true">
         <collection id="cleaningPositionsDc"
-                    class="com.company.ksena.entity.cleaning_map.CleaningPosition"
-        >
+                    class="com.company.ksena.entity.cleaning_map.CleaningPosition">
             <view extends="_local">
-                <property name="room" view="_minimal"/>
+                <property name="room" view="_local"/>
             </view>
             <loader id="cleaningPositionsDl">
                 <query>
@@ -20,7 +19,7 @@
         </collection>
     </data>
     <dialogMode height="600"
-                width="800"/>
+                width="800" resizable="true"/>
     <layout expand="cleaningPositionsTable"
             spacing="true">
         <filter id="filter"
@@ -42,10 +41,8 @@
                 <column id="description"/>
                 <column id="needTime"/>
                 <column id="price"/>
-                <column id="priorityCleaningPosition" visible="true"/>
-                <column id="noteCleaningPosition" visible="true"/>
-                <column id="visible" visible="true"/>
                 <column id="standartPosition"/>
+
             </columns>
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"

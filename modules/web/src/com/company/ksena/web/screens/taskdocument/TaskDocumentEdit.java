@@ -1,10 +1,12 @@
 package com.company.ksena.web.screens.taskdocument;
 
 import com.company.ksena.entity.cleaning_map.CleaningPosition;
+import com.company.ksena.entity.cleaning_map.PositionWrapper;
 import com.company.ksena.entity.cleaning_map.Room;
 import com.company.ksena.entity.inventory.Inventory;
 import com.company.ksena.entity.task.*;
 
+import com.company.ksena.web.screens.cleaningposition.CleaningPositionBrowse;
 import com.company.ksena.web.screens.room.RoomBrowse;
 import com.haulmont.cuba.core.entity.contracts.Id;
 import com.haulmont.cuba.core.global.CommitContext;
@@ -26,6 +28,7 @@ import javax.inject.Inject;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
 @UiController("ksena_TaskDocument.edit")
 @UiDescriptor("task-document-edit.xml")
@@ -59,9 +62,9 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
     @Inject
     private CollectionPropertyContainer<Inventory> inventoryDc;
     @Inject
-    private CollectionPropertyContainer<CleaningPosition> cleaningMapDc;
+    private CollectionPropertyContainer<PositionWrapper> cleaningMapDc;
     @Inject
-    private Table<CleaningPosition> cleaningMapTable;
+    private Table<PositionWrapper> cleaningMapTable;
     @Inject
     private Notifications notifications;
     @Inject
@@ -155,106 +158,49 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
         }
     }
 
-    @Subscribe(id = "cleaningMapDc", target = Target.DATA_CONTAINER)
-    public void onCleaningMapDcCollectionChange(CollectionContainer.CollectionChangeEvent<CleaningPosition> event) {
-        if (event.getChangeType().name() == "ADD_ITEMS") {
-            for (CleaningPosition changeCleaningPosition : event.getChanges()) {
+    @Subscribe("addPosition")
+    public void onAddPositionClick(Button.ClickEvent event) {
 
-                CleaningPosition newCleaningPosition = metadata.getTools().deepCopy(changeCleaningPosition);
+        CleaningPositionBrowse selectCleaningPosition = screenBuilders.lookup(CleaningPosition.class, this)
+                .withScreenClass(CleaningPositionBrowse.class)
+                .withOpenMode(OpenMode.DIALOG)
+                .withAfterCloseListener(e -> {
 
-                CommitContext cc = new CommitContext();
+                    CleaningPosition cleaningPosition = e.getScreen().getSelectedCleaningPosition();
 
-                newCleaningPosition.setId(UUID.randomUUID());
-                newCleaningPosition.setVisible(true);
-                int size = cleaningMapDc.getMutableItems().size();
+                    if (cleaningPosition != null) {
 
-                changeCleaningPosition.setVisible(false);
-                changeCleaningPosition.setStandartPosition(false);
-                changeCleaningPosition.setPriorityCleaningPosition(size);
+                        PositionWrapper positionWrapper = metadata.create(PositionWrapper.class);
+                        positionWrapper.setPosition(cleaningPosition);
+                        positionWrapper.setPriorityCleaningPosition(cleaningMapDc.getItems().size() + 1);
+                        positionWrapper.setTaskDocuments(this.getEditedEntity());
 
-                cc.addInstanceToCommit(newCleaningPosition);
-                cc.addInstanceToCommit(changeCleaningPosition);
 
-                dataManager.commit(cc);
-            }
-        }
+                        cleaningMapDc.getMutableItems().add(positionWrapper);
+                    }
+                })
+                .withSelectHandler(e -> {
+                })
+                .build();
+        selectCleaningPosition.show();
     }
 
-    @Subscribe(id = "cleaningMapDc", target = Target.DATA_CONTAINER)
-    public void onCleaningMapDcItemPropertyChange(InstanceContainer.ItemPropertyChangeEvent<CleaningPosition> event) {
-        if (event.getProperty().equals("noteCleaningPosition")) {
-            CommitContext cc = new CommitContext();
-            CleaningPosition changeCleaningPosition = event.getItem();
-
-            cc.addInstanceToCommit(changeCleaningPosition);
-            dataManager.commit(cc);
-        }
-    }
-
-    @Subscribe
-    public void onBeforeCommitChanges(BeforeCommitChangesEvent event) {
-
-        for (CleaningPosition CleaningPosition : cleaningMapDc.getItems()) {
-            CleaningPosition reloadCleaningPosition = dataManager.load(Id.of(CleaningPosition)).one();
-            cleaningMapDc.setItem(dataContext.merge(reloadCleaningPosition));
-        }
-    }
-
-    @Subscribe
-    public void onAfterShow(AfterShowEvent event) {
-        cleaningMapDc.getItems().forEach(cleaningPosition -> {
-            Room room = cleaningPosition.getRoom();
-
-            if (room != null) {
-                Room reloadRoom = dataManager.load(Id.of(room)).one();
-                if (reloadRoom.getColor() != null) {
-                    injectColorCss(reloadRoom.getColor(), cleaningPosition.getId());
-                }
-            }
-        });
-
-        cleaningMapTable.setStyleProvider(new GroupTable.StyleProvider<CleaningPosition>() {
-            @Nullable
-            @Override
-            public String getStyleName(CleaningPosition entity, @Nullable String property) {
-                if (property != null && property.equals("room") && entity.getRoom() != null) {
-
-                    return "colored-cell-" + entity.getId() + "-" + entity.getRoom().getColor();
-                }
-                return null;
-            }
-        });
-    }
-
-    public void cleaningMapPositionUp() {
+    @Subscribe("cleaningMapPositionUp")
+    public void onCleaningMapPositionUpClick(Button.ClickEvent event) {
         if (cleaningMapTable.getSelected().isEmpty()) {
             notifications.create().withDescription("SetPosition").show();
         } else {
 
-            for (CleaningPosition CleaningPosition : cleaningMapDc.getItems()) {
-                CleaningPosition reloadCleaningPosition = dataManager.load(Id.of(CleaningPosition)).view("cleaningPosition-view").one();
-                cleaningMapDc.setItem(dataContext.merge(reloadCleaningPosition));
-            }
+            for (PositionWrapper positionWrapper : cleaningMapTable.getSelected()) {
 
-
-            for (CleaningPosition cleaningPosition : cleaningMapTable.getSelected()) {
-
-
-                int nowPriority = cleaningPosition.getPriorityCleaningPosition();
+                int nowPriority = positionWrapper.getPriorityCleaningPosition();
                 if (nowPriority != 1) {
                     int newPriority = cleaningMapDc.getMutableItems().get(nowPriority - 2).getPriorityCleaningPosition();
 
-//                    CleaningPosition nowCleaningPosition = cleaningMapDc.getMutableItems().get(nowPriority - 2);
-
-                    CleaningPosition nowCleaningPosition = Objects.requireNonNull(cleaningMapTable.getItems()).getItem(cleaningMapDc.getMutableItems().get(nowPriority - 2));
-                    cleaningPosition.setPriorityCleaningPosition(newPriority);
+                    PositionWrapper nowCleaningPosition = Objects.requireNonNull(cleaningMapTable.getItems()).getItem(cleaningMapDc.getMutableItems().get(nowPriority - 2));
+                    positionWrapper.setPriorityCleaningPosition(newPriority);
                     assert nowCleaningPosition != null;
                     nowCleaningPosition.setPriorityCleaningPosition(nowPriority);
-
-                    CommitContext cc = new CommitContext();
-                    cc.addInstanceToCommit(cleaningPosition);
-                    cc.addInstanceToCommit(nowCleaningPosition);
-                    dataManager.commit(cc);
                 }
             }
             cleaningMapTable.sort("priorityCleaningPosition", Table.SortDirection.ASCENDING);
@@ -262,69 +208,116 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
         }
     }
 
-    public void cleaningMapPositionDown() {
+    @Subscribe("cleaningMapPositionDown")
+    public void onCleaningMapPositionDownClick(Button.ClickEvent event) {
         if (cleaningMapTable.getSelected().isEmpty()) {
             notifications.create().withDescription("SetPosition").show();
         } else {
 
-            for (CleaningPosition CleaningPosition : cleaningMapDc.getItems()) {
-                CleaningPosition reloadCleaningPosition = dataManager.load(Id.of(CleaningPosition)).one();
-                cleaningMapDc.setItem(dataContext.merge(reloadCleaningPosition));
-            }
+            for (PositionWrapper positionWrapper : cleaningMapTable.getSelected()) {
 
-            for (CleaningPosition CleaningPosition : cleaningMapTable.getSelected()) {
-
-                int nowPriority = CleaningPosition.getPriorityCleaningPosition();
+                int nowPriority = positionWrapper.getPriorityCleaningPosition();
                 int size = Objects.requireNonNull(cleaningMapTable.getItems()).size();
                 if (nowPriority != size) {
                     int newPriority = cleaningMapDc.getMutableItems().get(nowPriority).getPriorityCleaningPosition();
 
-                    com.company.ksena.entity.cleaning_map.CleaningPosition nowCleaningPosition = cleaningMapDc.getMutableItems().get(nowPriority);
+                    PositionWrapper nowPositionWrapper = cleaningMapDc.getMutableItems().get(nowPriority);
 
-                    CleaningPosition.setPriorityCleaningPosition(newPriority);
-                    nowCleaningPosition.setPriorityCleaningPosition(nowPriority);
-
-                    CommitContext cc = new CommitContext();
-                    cc.addInstanceToCommit(CleaningPosition);
-                    cc.addInstanceToCommit(nowCleaningPosition);
-                    dataManager.commit(cc);
+                    positionWrapper.setPriorityCleaningPosition(newPriority);
+                    nowPositionWrapper.setPriorityCleaningPosition(nowPriority);
                 }
             }
             cleaningMapTable.sort("priorityCleaningPosition", Table.SortDirection.ASCENDING);
         }
     }
 
-    public void cleaningMapPositionAddRoom() {
-
-        RoomBrowse selectRoom = (RoomBrowse) screenBuilders.lookup(Room.class, this)
+    @Subscribe("cleaningMapPositionAddRoom")
+    public void onCleaningMapPositionAddRoomClick(Button.ClickEvent event) {
+        RoomBrowse selectRoom = screenBuilders.lookup(Room.class, this)
                 .withScreenClass(RoomBrowse.class)
-                .withOpenMode(OpenMode.NEW_TAB)
+                .withOpenMode(OpenMode.DIALOG)
                 .withAfterCloseListener(e -> {
                     Room room = e.getScreen().getSelectedRoom();
 
-                    List newList = dataManager.load(CleaningPosition.class)
-                            .query("select e from ksena_CleaningPosition e where e.room = :room and e.visible = true and e.standartPosition = true")
-                            .parameter("room", room)
-                            .view("cleaningPosition-view")
-                            .list();
+                    List newList = room.getCleaningPosition()
+                            .stream()
+                            .filter(cleaningPosition -> cleaningPosition.getStandartPosition())
+                            .collect(Collectors.toList());
                     for (Object Element : newList) {
-                        cleaningMapDc.getMutableItems().add(cleaningMapDc.getMutableItems().size(), (CleaningPosition) Element);
-                    }
 
-                    for (CleaningPosition CleaningPosition : cleaningMapDc.getItems()) {
-                        CleaningPosition reloadCleaningPosition = dataManager.load(Id.of(CleaningPosition)).one();
-                        cleaningMapDc.setItem(dataContext.merge(reloadCleaningPosition));
-                    }
+                        PositionWrapper positionWrapper = metadata.create(PositionWrapper.class);
+                        positionWrapper.setPosition((CleaningPosition) Element);
+                        positionWrapper.setPriorityCleaningPosition(cleaningMapDc.getItems().size() + 1);
+                        positionWrapper.setTaskDocuments(this.getEditedEntity());
 
+                        cleaningMapDc.getMutableItems().add(positionWrapper);
+                    }
                 })
                 .withSelectHandler(e -> {
                 })
                 .build();
         selectRoom.show();
 
-
     }
 
+    @Subscribe
+    public void onAfterShow(AfterShowEvent event) {
+        cleaningMapDc.getItems().forEach(positionWrapper ->  {
+            Room room = positionWrapper.getPosition().getRoom();
+
+            if (room != null) {
+                Room reloadRoom = dataManager.load(Id.of(room)).one();
+                if (reloadRoom.getColor() != null) {
+                    injectColorCss(reloadRoom.getColor(), positionWrapper.getId());
+                }
+            }
+        });
+
+        cleaningMapTable.setStyleProvider(new GroupTable.StyleProvider<PositionWrapper>() {
+            @Nullable
+            @Override
+            public String getStyleName(PositionWrapper entity, @Nullable String property) {
+                if (property != null && property.equals("position.room") && entity.getPosition().getRoom() != null) {
+
+                    return "colored-cell-" + entity.getId() + "-" + entity.getPosition().getRoom().getColor();
+                }
+                return null;
+            }
+        });
+    }
+
+    @Subscribe(id = "cleaningMapDc", target = Target.DATA_CONTAINER)
+    public void onCleaningMapDcCollectionChange(CollectionContainer.CollectionChangeEvent<PositionWrapper> event) {
+        cleaningMapDc.getItems().forEach(positionWrapper ->  {
+            Room room = positionWrapper.getPosition().getRoom();
+
+            if (room != null) {
+                Room reloadRoom = dataManager.load(Id.of(room)).one();
+                if (reloadRoom.getColor() != null) {
+                    injectColorCss(reloadRoom.getColor(), positionWrapper.getId());
+                }
+            }
+        });
+
+        cleaningMapTable.setStyleProvider(new GroupTable.StyleProvider<PositionWrapper>() {
+            @Nullable
+            @Override
+            public String getStyleName(PositionWrapper entity, @Nullable String property) {
+                if (property != null && property.equals("position.room") && entity.getPosition().getRoom() != null) {
+
+                    return "colored-cell-" + entity.getId() + "-" + entity.getPosition().getRoom().getColor();
+                }
+                return null;
+            }
+        });
+    }
+
+    @Subscribe
+    public void onBeforeCommitChanges(BeforeCommitChangesEvent event) {
+        cleaningMapDc.getItems().forEach(wrapper -> {
+            event.getDataContext().merge(wrapper);
+        });
+    }
 
     private void injectColorCss(String color, UUID id) {
         Page.Styles styles = Page.getCurrent().getStyles();
@@ -335,4 +328,8 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                 ".colored-cell-%s-%s{background-color:#%s;}",
                 id.toString(), color, color));
     }
+//    @Subscribe
+//    public void onBeforeClose(BeforeCloseEvent event) {
+//        event.preventWindowClose();
+//    }
 }

@@ -7,10 +7,7 @@
     <data readOnly="true">
         <collection id="taskDocumentsDc"
                     class="com.company.ksena.entity.task.TaskDocument"
-        >
-            <view extends="_local">
-                <property name="company" view="_minimal"/>
-            </view>
+                    view="taskDocument-view">
             <loader id="taskDocumentsDl">
                 <query>
                     <![CDATA[select e from ksena_TaskDocument e]]>

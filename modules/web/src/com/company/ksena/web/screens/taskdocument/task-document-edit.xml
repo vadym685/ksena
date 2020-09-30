@@ -96,19 +96,29 @@
                 </actions>
                 <columns>
                     <column id="priorityCleaningPosition"/>
-                    <column id="name"/>
-                    <column id="room" sort="ASCENDING"/>
-                    <column id="description"/>
-                    <column id="needTime"/>
-                    <column id="price"/>
+<!--                    <column id="position.name"/>-->
+<!--                    <column id="position.room.name" sort="ASCENDING"/>-->
+<!--                    <column id="position.price"/>-->
+<!--                    <column id="position.description"/>-->
+<!--                    <column id="position.needTime"/>-->
+                    <column id="position.name"/>
+                    <column id="position.needTime"/>
+                    <column id="position.description"/>
+                    <column id="position.price"/>
+                    <column id="position.room"/>
                     <column id="noteCleaningPosition" editable="true"/>
+
                 </columns>
                 <buttonsPanel>
-                    <button action="cleaningMapTable.add"/>
+<!--                    <button action="cleaningMapTable.add"/>-->
+
+
+                    <button id="addPosition" caption="mainMsg://cleaningMapPositionAddPosition"/>
                     <button action="cleaningMapTable.exclude"/>
-                    <button invoke="cleaningMapPositionUp" caption="msg://cleaningMapPositionUp"/>
-                    <button invoke="cleaningMapPositionDown" caption="msg://cleaningMapPositionDown"/>
-                    <button invoke="cleaningMapPositionAddRoom" caption="msg://cleaningMapPositionAddRoom"/>
+                    <button id="cleaningMapPositionUp" caption="msg://cleaningMapPositionUp"/>
+                    <button id="cleaningMapPositionDown" caption="msg://cleaningMapPositionDown"/>
+                    <button id="cleaningMapPositionAddRoom" caption="msg://cleaningMapPositionAddRoom"/>
+
                 </buttonsPanel>
             </table>
         </groupBox>

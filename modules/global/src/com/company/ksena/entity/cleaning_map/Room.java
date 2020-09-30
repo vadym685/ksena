@@ -3,7 +3,11 @@ package com.company.ksena.entity.cleaning_map;
 import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import java.util.List;
 
 @NamePattern("%s|name")
 @Table(name = "KSENA_ROOM")
@@ -17,11 +21,19 @@ public class Room extends StandardEntity {
     @Column(name = "COMENT")
     protected String coment;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "room")
-    protected CleaningPosition cleaningPosition;
+    @OneToMany(mappedBy = "room")
+    protected List<CleaningPosition> cleaningPosition;
 
     @Column(name = "COLOR")
     protected String color;
+
+    public void setCleaningPosition(List<CleaningPosition> cleaningPosition) {
+        this.cleaningPosition = cleaningPosition;
+    }
+
+    public List<CleaningPosition> getCleaningPosition() {
+        return cleaningPosition;
+    }
 
     public String getColor() {
         return color;
@@ -29,14 +41,6 @@ public class Room extends StandardEntity {
 
     public void setColor(String color) {
         this.color = color;
-    }
-
-    public CleaningPosition getCleaningPosition() {
-        return cleaningPosition;
-    }
-
-    public void setCleaningPosition(CleaningPosition cleaningPosition) {
-        this.cleaningPosition = cleaningPosition;
     }
 
     public String getComent() {

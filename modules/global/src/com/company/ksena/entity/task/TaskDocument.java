@@ -1,6 +1,6 @@
 package com.company.ksena.entity.task;
 
-import com.company.ksena.entity.cleaning_map.CleaningPosition;
+import com.company.ksena.entity.cleaning_map.PositionWrapper;
 import com.company.ksena.entity.company.Company;
 import com.company.ksena.entity.inventory.Inventory;
 import com.company.ksena.entity.point.Point;
@@ -88,12 +88,19 @@ public class TaskDocument extends StandardEntity {
     @ManyToMany
     protected List<DayInterval> cleaningDay;
 
-    @JoinTable(name = "KSENA_TASK_DOCUMENT_CLEANING_POSITION_LINK", joinColumns = @JoinColumn(name = "TASK_DOCUMENT_ID"), inverseJoinColumns = @JoinColumn(name = "CLEANING_POSITION_ID"))
-    @ManyToMany
-    protected List<CleaningPosition> cleaningMap;
+    @OneToMany(mappedBy = "taskDocuments")
+    protected List<PositionWrapper> cleaningMap;
 
     @OneToMany(mappedBy = "taskDocument")
     protected List<Task> task;
+
+    public List<PositionWrapper> getCleaningMap() {
+        return cleaningMap;
+    }
+
+    public void setCleaningMap(List<PositionWrapper> cleaningMap) {
+        this.cleaningMap = cleaningMap;
+    }
 
     public Boolean getAddPriseExpendableMaterial() {
         return addPriseExpendableMaterial;
@@ -213,14 +220,6 @@ public class TaskDocument extends StandardEntity {
 
     public void setDateOfCompletion(LocalDate dateOfCompletion) {
         this.dateOfCompletion = dateOfCompletion;
-    }
-
-    public void setCleaningMap(List<CleaningPosition> cleaningMap) {
-        this.cleaningMap = cleaningMap;
-    }
-
-    public List<CleaningPosition> getCleaningMap() {
-        return cleaningMap;
     }
 
     public List<Inventory> getInventory() {

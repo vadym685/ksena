@@ -5,7 +5,7 @@
         <item screen="ksena_TaskDocument.browse"/>
         <item screen="ksena_Task.browse"/>
         <item screen="ksena_ServerConstants.browse"/>
-
+        <item screen="ksena_PositionWrapper.browse"/>
     </menu>
 
     <menu id="Resource-ksena" insertBefore="administration" description="mainMsg://menu-config.Resource-ksena">

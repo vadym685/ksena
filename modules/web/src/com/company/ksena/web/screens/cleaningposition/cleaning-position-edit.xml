@@ -6,7 +6,11 @@
     <data>
         <instance id="cleaningPositionDc"
                   class="com.company.ksena.entity.cleaning_map.CleaningPosition"
-                  view="cleaningPosition-view">
+        >
+            <view extends="_local">
+                <property name="room" view="_local"/>
+                <property name="expendableMaterials" view="_local"/>
+            </view>
             <loader/>
             <collection id="expendableMaterialsDc" property="expendableMaterials"/>
         </instance>
@@ -21,8 +25,6 @@
                 <textField id="descriptionField" property="description"/>
                 <timeField id="needTimeField" property="needTime"/>
                 <textField id="priceField" property="price"/>
-                <checkBox id="visibleField" property="visible" visible="false"/>
-                <textField id="noteCleaningPositionField" property="noteCleaningPosition" visible="false"/>
                 <checkBox id="standartPositionField" property="standartPosition"/>
             </column>
         </form>

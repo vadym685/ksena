@@ -11,11 +11,5 @@ import javax.inject.Inject;
 @EditedEntityContainer("cleaningPositionDc")
 @LoadDataBeforeShow
 public class CleaningPositionEdit extends StandardEditor<CleaningPosition> {
-    @Inject
-    private CheckBox visibleField;
 
-    @Subscribe
-    public void onAfterShow(AfterShowEvent event) {
-        visibleField.setValue(true);
-    }
 }
