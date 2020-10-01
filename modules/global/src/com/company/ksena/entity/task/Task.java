@@ -1,8 +1,8 @@
 package com.company.ksena.entity.task;
 
-import com.company.ksena.entity.cleaning_map.CleaningPosition;
+import com.company.ksena.entity.cleaning_map.PositionWrapper;
 import com.company.ksena.entity.company.Company;
-import com.company.ksena.entity.inventory.Inventory;
+import com.company.ksena.entity.inventory.InventoryWrapper;
 import com.company.ksena.entity.people.Employee;
 import com.company.ksena.entity.point.Point;
 import com.haulmont.chile.core.annotations.NamePattern;
@@ -12,6 +12,7 @@ import com.haulmont.cuba.core.entity.annotation.LookupType;
 import com.haulmont.cuba.core.entity.annotation.PublishEntityChangedEvents;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -24,6 +25,7 @@ import java.util.List;
 public class Task extends StandardEntity {
     private static final long serialVersionUID = -2730506669836310740L;
 
+    @NotNull
     @Column(name = "TASK_NUMBER", unique = true)
     protected String taskNumber;
 
@@ -79,17 +81,27 @@ public class Task extends StandardEntity {
     @ManyToMany
     protected List<Employee> employees;
 
-    @JoinTable(name = "KSENA_TASK_CLEANING_POSITION_LINK",
-            joinColumns = @JoinColumn(name = "TASK_ID"),
-            inverseJoinColumns = @JoinColumn(name = "CLEANING_POSITION_ID"))
-    @ManyToMany
-    protected List<CleaningPosition> cleaningMap;
+    @OneToMany(mappedBy = "task")
+    protected List<PositionWrapper> cleaningMap;
 
-    @JoinTable(name = "KSENA_TASK_INVENTORY_LINK",
-            joinColumns = @JoinColumn(name = "TASK_ID"),
-            inverseJoinColumns = @JoinColumn(name = "INVENTORY_ID"))
-    @ManyToMany
-    protected List<Inventory> inventory;
+    @OneToMany(mappedBy = "task")
+    protected List<InventoryWrapper> inventoryMap;
+
+    public List<InventoryWrapper> getInventoryMap() {
+        return inventoryMap;
+    }
+
+    public void setInventoryMap(List<InventoryWrapper> inventoryMap) {
+        this.inventoryMap = inventoryMap;
+    }
+
+    public List<PositionWrapper> getCleaningMap() {
+        return cleaningMap;
+    }
+
+    public void setCleaningMap(List<PositionWrapper> cleaningMap) {
+        this.cleaningMap = cleaningMap;
+    }
 
     public Boolean getAddPriseExpendableMaterial() {
         return addPriseExpendableMaterial;
@@ -177,22 +189,6 @@ public class Task extends StandardEntity {
 
     public void setCost(Double cost) {
         this.cost = cost;
-    }
-
-    public List<Inventory> getInventory() {
-        return inventory;
-    }
-
-    public void setInventory(List<Inventory> inventory) {
-        this.inventory = inventory;
-    }
-
-    public List<CleaningPosition> getCleaningMap() {
-        return cleaningMap;
-    }
-
-    public void setCleaningMap(List<CleaningPosition> cleaningMap) {
-        this.cleaningMap = cleaningMap;
     }
 
     public void setEmployees(List<Employee> employees) {

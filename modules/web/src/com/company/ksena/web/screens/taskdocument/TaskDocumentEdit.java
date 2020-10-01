@@ -4,9 +4,11 @@ import com.company.ksena.entity.cleaning_map.CleaningPosition;
 import com.company.ksena.entity.cleaning_map.PositionWrapper;
 import com.company.ksena.entity.cleaning_map.Room;
 import com.company.ksena.entity.inventory.Inventory;
+import com.company.ksena.entity.inventory.InventoryWrapper;
 import com.company.ksena.entity.task.*;
 
 import com.company.ksena.web.screens.cleaningposition.CleaningPositionBrowse;
+import com.company.ksena.web.screens.inventory.InventoryBrowse;
 import com.company.ksena.web.screens.room.RoomBrowse;
 import com.haulmont.cuba.core.entity.contracts.Id;
 import com.haulmont.cuba.core.global.CommitContext;
@@ -60,7 +62,7 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
     @Inject
     private DataManager dataManager;
     @Inject
-    private CollectionPropertyContainer<Inventory> inventoryDc;
+    private CollectionPropertyContainer<InventoryWrapper> inventoryDc;
     @Inject
     private CollectionPropertyContainer<PositionWrapper> cleaningMapDc;
     @Inject
@@ -71,6 +73,8 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
     private InstanceContainer<TaskDocument> taskDocumentDc;
     @Inject
     private ScreenBuilders screenBuilders;
+    @Inject
+    private Table<InventoryWrapper> inventoryTable;
 
     @Subscribe("taskTypeField")
     public void onTaskTypeFieldValueChange(HasValue.ValueChangeEvent<Boolean> event) {
@@ -136,26 +140,40 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
     }
 
     @Subscribe(id = "inventoryDc", target = Target.DATA_CONTAINER)
-    public void onInventoryDcCollectionChange(CollectionContainer.CollectionChangeEvent<Inventory> event) {
-        if (event.getChangeType().name() == "ADD_ITEMS") {
+    public void onInventoryDcItemPropertyChange(InstanceContainer.ItemPropertyChangeEvent<InventoryWrapper> event) {
+        if (event.getProperty() == "quantityInventory"){
 
-            for (Inventory changeInventory : event.getChanges()) {
-
-                Inventory newInventory = metadata.getTools().deepCopy(changeInventory);
-
-                CommitContext cc = new CommitContext();
-
-                newInventory.setId(UUID.randomUUID());
-                newInventory.setVisible(true);
-                newInventory.setQuantityInventory(1);
-
-                changeInventory.setVisible(false);
-
-                cc.addInstanceToCommit(newInventory);
-
-                dataManager.commit(cc);
+            if (event.getItem().getInventory().getSerialNumber() != null){
+                notifications.create().withDescription("You cannot set the quantity to unique inventory").show();
+                event.getItem().setQuantityInventory(1);
             }
         }
+    }
+
+    @Subscribe("addInventory")
+    public void onAddInventoryClick(Button.ClickEvent event) {
+        InventoryBrowse selectInventory = screenBuilders.lookup(Inventory.class, this)
+                .withScreenClass(InventoryBrowse.class)
+                .withOpenMode(OpenMode.DIALOG)
+                .withAfterCloseListener(e -> {
+
+                    Inventory inventory = e.getScreen().getSelectedInventory();
+
+                    if (inventory != null) {
+
+                        InventoryWrapper inventoryWrapper = metadata.create(InventoryWrapper.class);
+                        inventoryWrapper.setInventory(inventory);
+                        inventoryWrapper.setQuantityInventory(1);
+                        inventoryWrapper.setTaskDocument(this.getEditedEntity());
+
+
+                        inventoryDc.getMutableItems().add(inventoryWrapper);
+                    }
+                })
+                .withSelectHandler(e  -> {
+                })
+                .build();
+        selectInventory.show();
     }
 
     @Subscribe("addPosition")
@@ -317,6 +335,10 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
         cleaningMapDc.getItems().forEach(wrapper -> {
             event.getDataContext().merge(wrapper);
         });
+
+        inventoryDc.getItems().forEach(wrapper -> {
+            event.getDataContext().merge(wrapper);
+        });
     }
 
     private void injectColorCss(String color, UUID id) {
@@ -328,8 +350,5 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                 ".colored-cell-%s-%s{background-color:#%s;}",
                 id.toString(), color, color));
     }
-//    @Subscribe
-//    public void onBeforeClose(BeforeCloseEvent event) {
-//        event.preventWindowClose();
-//    }
+
 }

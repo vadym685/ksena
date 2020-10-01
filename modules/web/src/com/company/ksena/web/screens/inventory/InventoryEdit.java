@@ -13,13 +13,5 @@ import java.time.LocalDate;
 @EditedEntityContainer("inventoryDc")
 @LoadDataBeforeShow
 public class InventoryEdit extends StandardEditor<Inventory> {
-    @Inject
-    private CheckBox visibleField;
-
-    @Subscribe
-    public void onAfterShow(AfterShowEvent event) {
-        visibleField.setValue(true);
-    }
-
 
 }

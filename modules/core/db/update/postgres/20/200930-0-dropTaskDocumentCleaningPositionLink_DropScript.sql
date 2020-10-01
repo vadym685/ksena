@@ -1,0 +1,1 @@
+drop table if exists KSENA_TASK_DOCUMENT_CLEANING_POSITION_LINK__U76059 cascade ;

@@ -2,7 +2,7 @@ package com.company.ksena.entity.task;
 
 import com.company.ksena.entity.cleaning_map.PositionWrapper;
 import com.company.ksena.entity.company.Company;
-import com.company.ksena.entity.inventory.Inventory;
+import com.company.ksena.entity.inventory.InventoryWrapper;
 import com.company.ksena.entity.point.Point;
 import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
@@ -76,23 +76,28 @@ public class TaskDocument extends StandardEntity {
     @Column(name = "INTERVAL")
     protected Integer periodicity;
 
-    @JoinTable(name = "KSENA_TASK_DOCUMENT_INVENTORY_LINK",
-            joinColumns = @JoinColumn(name = "TASK_DOCUMENT_ID"),
-            inverseJoinColumns = @JoinColumn(name = "INVENTORY_ID"))
-    @ManyToMany
-    protected List<Inventory> inventory;
-
     @JoinTable(name = "KSENA_TASK_DOCUMENT_DAY_INTERVAL_LINK",
             joinColumns = @JoinColumn(name = "TASK_DOCUMENT_ID"),
             inverseJoinColumns = @JoinColumn(name = "DAY_INTERVAL_ID"))
     @ManyToMany
     protected List<DayInterval> cleaningDay;
 
+    @OneToMany(mappedBy = "taskDocument")
+    protected List<Task> task;
+
     @OneToMany(mappedBy = "taskDocuments")
     protected List<PositionWrapper> cleaningMap;
 
-    @OneToMany(mappedBy = "taskDocument")
-    protected List<Task> task;
+    @OneToMany(mappedBy = "taskDocuments")
+    protected List<InventoryWrapper> inventoryMap;
+
+    public void setInventoryMap(List<InventoryWrapper> inventoryMap) {
+        this.inventoryMap = inventoryMap;
+    }
+
+    public List<InventoryWrapper> getInventoryMap() {
+        return inventoryMap;
+    }
 
     public List<PositionWrapper> getCleaningMap() {
         return cleaningMap;
@@ -220,14 +225,6 @@ public class TaskDocument extends StandardEntity {
 
     public void setDateOfCompletion(LocalDate dateOfCompletion) {
         this.dateOfCompletion = dateOfCompletion;
-    }
-
-    public List<Inventory> getInventory() {
-        return inventory;
-    }
-
-    public void setInventory(List<Inventory> inventory) {
-        this.inventory = inventory;
     }
 
     public Boolean getIsActive() {

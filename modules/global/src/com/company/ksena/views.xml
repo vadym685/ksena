@@ -43,21 +43,16 @@
     </view>
     <view entity="ksena_Task" name="task-view" extends="_local">
         <property name="taskDocument" view="taskDocument-view"/>
-        <property name="company" view="_minimal"/>
-        <property name="point" view="_minimal"/>
-        <property name="employees" view="_minimal">
-            <property name="phoneNumber"/>
-            <property name="sex"/>
+        <property name="company" view="_local"/>
+        <property name="point" view="_local"/>
+        <property name="employees" view="_local"/>
+        <property name="cleaningMap" view="_local">
+            <property name="position" view="_local">
+                <property name="room" view="_local"/>
+            </property>
         </property>
-        <property name="cleaningMap" view="_minimal">
-            <property name="description"/>
-            <property name="needTime"/>
-            <property name="price"/>
-        </property>
-        <property name="inventory" view="_minimal">
-            <property name="description"/>
-            <property name="serialNumber"/>
-            <property name="colour"/>
+        <property name="inventoryMap" view="_local">
+            <property name="inventory" view="_local"/>
         </property>
     </view>
     <view entity="ksena_ClientEmployee" name="clientEmployee-view" extends="_local">
@@ -79,19 +74,16 @@
     </view>
     <view entity="ksena_ServerConstants" name="serverConstants-view" extends="_local"/>
     <view entity="ksena_TaskDocument" name="taskDocument-view" extends="_local">
-        <property name="point" view="_minimal"/>
-        <property name="company" view="_minimal"/>
-        <property name="inventory" view="_local"/>
+        <property name="point" view="_local"/>
+        <property name="company" view="_local"/>
         <property name="cleaningDay" view="_local"/>
         <property name="cleaningMap" view="_local">
             <property name="position" view="_local">
                 <property name="room" view="_local"/>
             </property>
         </property>
-    </view>
-    <view entity="ksena_PositionWrapper" name="positionWrapper-view" extends="_local">
-        <property name="position" view="_local">
-            <property name="room" view="_local"/>
+        <property name="inventoryMap" view="_local">
+            <property name="inventory" view="_local"/>
         </property>
     </view>
 

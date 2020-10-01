@@ -111,9 +111,6 @@ create table KSENA_CLEANING_POSITION (
     DESCRIPTION varchar(255),
     NEED_TIME time,
     PRICE double precision,
-    PRIORITY_CLEANING_POSITION integer,
-    NOTE_CLEANING_POSITION varchar(255),
-    VISIBLE boolean,
     STANDART_POSITION boolean,
     --
     primary key (ID)
@@ -145,13 +142,7 @@ create table KSENA_CLEANING_POSITION_EXPENDABLE_MATERIAL_LINK (
     primary key (EXPENDABLE_MATERIAL_ID, CLEANING_POSITION_ID)
 )^
 -- end KSENA_CLEANING_POSITION_EXPENDABLE_MATERIAL_LINK
--- begin KSENA_TASK_DOCUMENT_CLEANING_POSITION_LINK
-create table KSENA_TASK_DOCUMENT_CLEANING_POSITION_LINK (
-    TASK_DOCUMENT_ID varchar(36) not null,
-    CLEANING_POSITION_ID varchar(36) not null,
-    primary key (TASK_DOCUMENT_ID, CLEANING_POSITION_ID)
-)^
--- end KSENA_TASK_DOCUMENT_CLEANING_POSITION_LINK
+
 -- begin KSENA_MOBILE_PHONE
 create table KSENA_MOBILE_PHONE (
     ID varchar(36) not null,
@@ -444,3 +435,22 @@ create table KSENA_SERVER_CONSTANTS (
     primary key (ID)
 )^
 -- end KSENA_SERVER_CONSTANTS
+-- begin KSENA_POSITION_WRAPPER
+create table KSENA_POSITION_WRAPPER (
+    ID varchar(36) not null,
+    VERSION integer not null,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    --
+    POSITION_ID varchar(36),
+    PRIORITY_CLEANING_POSITION integer,
+    NOTE_CLEANING_POSITION varchar(255),
+    TASK_DOCUMENTS_ID varchar(36),
+    --
+    primary key (ID)
+)^
+-- end KSENA_POSITION_WRAPPER

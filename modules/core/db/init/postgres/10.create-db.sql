@@ -14,9 +14,6 @@ create table KSENA_CLEANING_POSITION (
     DESCRIPTION varchar(255),
     NEED_TIME time,
     PRICE double precision,
-    PRIORITY_CLEANING_POSITION integer,
-    NOTE_CLEANING_POSITION varchar(255),
-    VISIBLE boolean,
     STANDART_POSITION boolean,
     --
     primary key (ID)
@@ -242,9 +239,6 @@ create table KSENA_INVENTORY (
     DECOMMISSIONING_DATE date,
     AVAILABLE_FOR_USE boolean,
     REASON_FOR_DECOMMISSIONING varchar(255),
-    QUANTITY_INVENTORY integer,
-    NOTE_INVENTORY varchar(255),
-    VISIBLE boolean,
     --
     primary key (ID)
 )^
@@ -256,13 +250,7 @@ create table KSENA_TASK_DOCUMENT_DAY_INTERVAL_LINK (
     primary key (DAY_INTERVAL_ID, TASK_DOCUMENT_ID)
 )^
 -- end KSENA_TASK_DOCUMENT_DAY_INTERVAL_LINK
--- begin KSENA_TASK_DOCUMENT_CLEANING_POSITION_LINK
-create table KSENA_TASK_DOCUMENT_CLEANING_POSITION_LINK (
-    TASK_DOCUMENT_ID uuid,
-    CLEANING_POSITION_ID uuid,
-    primary key (TASK_DOCUMENT_ID, CLEANING_POSITION_ID)
-)^
--- end KSENA_TASK_DOCUMENT_CLEANING_POSITION_LINK
+
 -- begin KSENA_TASK_INVENTORY_LINK
 create table KSENA_TASK_INVENTORY_LINK (
     INVENTORY_ID uuid,
@@ -270,13 +258,7 @@ create table KSENA_TASK_INVENTORY_LINK (
     primary key (INVENTORY_ID, TASK_ID)
 )^
 -- end KSENA_TASK_INVENTORY_LINK
--- begin KSENA_TASK_DOCUMENT_INVENTORY_LINK
-create table KSENA_TASK_DOCUMENT_INVENTORY_LINK (
-    INVENTORY_ID uuid,
-    TASK_DOCUMENT_ID uuid,
-    primary key (INVENTORY_ID, TASK_DOCUMENT_ID)
-)^
--- end KSENA_TASK_DOCUMENT_INVENTORY_LINK
+
 -- begin KSENA_TASK_CLEANING_POSITION_LINK
 create table KSENA_TASK_CLEANING_POSITION_LINK (
     TASK_ID uuid,
@@ -444,3 +426,43 @@ create table KSENA_SERVER_CONSTANTS (
     primary key (ID)
 )^
 -- end KSENA_SERVER_CONSTANTS
+-- begin KSENA_POSITION_WRAPPER
+create table KSENA_POSITION_WRAPPER (
+    ID uuid,
+    VERSION integer not null,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    --
+    POSITION_ID uuid,
+    PRIORITY_CLEANING_POSITION integer,
+    NOTE_CLEANING_POSITION varchar(255),
+    TASK_DOCUMENTS_ID uuid,
+    TASK_ID uuid,
+    --
+    primary key (ID)
+)^
+-- end KSENA_POSITION_WRAPPER
+-- begin KSENA_INVENTORY_WRAPPER
+create table KSENA_INVENTORY_WRAPPER (
+    ID uuid,
+    VERSION integer not null,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    --
+    INVENTORY_ID uuid,
+    NOTE_INVENTORY varchar(255),
+    QUANTITY_INVENTORY integer,
+    TASK_DOCUMENTS_ID uuid,
+    TASK_ID uuid,
+    --
+    primary key (ID)
+)^
+-- end KSENA_INVENTORY_WRAPPER

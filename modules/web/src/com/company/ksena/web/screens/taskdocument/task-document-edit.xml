@@ -8,7 +8,7 @@
                   class="com.company.ksena.entity.task.TaskDocument"
                   view="taskDocument-view">
             <loader/>
-            <collection id="inventoryDc" property="inventory"/>
+            <collection id="inventoryDc" property="inventoryMap"/>
             <collection id="cleaningMapDc" property="cleaningMap"/>
             <collection id="cleaningDayDc" property="cleaningDay"/>
         </instance>
@@ -64,23 +64,24 @@
             </groupBox>
         </hbox>
 
-        <groupBox id="inventoryBox" caption="msg://com.company.ksena.entity.task/TaskDocument.inventory">
+        <groupBox id="inventoryBox" caption="msg://com.company.ksena.entity.task/TaskDocument.inventoryMap">
             <table id="inventoryTable" dataContainer="inventoryDc" width="100%" align="TOP_RIGHT"
                    editable="true">
                 <actions>
                     <action id="add" type="add"/>
                     <action id="exclude" type="exclude"/>
+                    <action id="view" type="view"/>
                 </actions>
                 <columns>
-                    <column id="name"/>
-                    <column id="description"/>
-                    <column id="serialNumber"/>
-                    <column id="colour"/>
+                    <column id="inventory.name"/>
+                    <column id="inventory.description"/>
+                    <column id="inventory.serialNumber"/>
+                    <column id="inventory.colour"/>
                     <column id="quantityInventory" editable="true"/>
                     <column id="noteInventory" editable="true"/>
                 </columns>
                 <buttonsPanel>
-                    <button id="inventoryTableAdd" action="inventoryTable.add"/>
+                    <button id="addInventory" caption="mainMsg://inventoryMapAddInventory"/>
                     <button action="inventoryTable.exclude"/>
                 </buttonsPanel>
             </table>
@@ -92,15 +93,10 @@
                     <action id="add" type="add"/>
                     <action id="exclude" type="exclude"/>
                     <action id="excel" type="excel"/>
-                    <!--                    <action id="list" type="listPrintForm" caption="Print"/>-->
+                    <action id="view" type="view"/>
                 </actions>
                 <columns>
                     <column id="priorityCleaningPosition"/>
-<!--                    <column id="position.name"/>-->
-<!--                    <column id="position.room.name" sort="ASCENDING"/>-->
-<!--                    <column id="position.price"/>-->
-<!--                    <column id="position.description"/>-->
-<!--                    <column id="position.needTime"/>-->
                     <column id="position.name"/>
                     <column id="position.needTime"/>
                     <column id="position.description"/>

@@ -1,7 +1,6 @@
 package com.company.ksena.entity.inventory;
 
 import com.company.ksena.entity.task.Task;
-import com.company.ksena.entity.task.TaskDocument;
 import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
 
@@ -39,52 +38,24 @@ public class Inventory extends StandardEntity {
     @Column(name = "REASON_FOR_DECOMMISSIONING")
     protected String reasonForDecommissioning;
 
-    @Column(name = "QUANTITY_INVENTORY")
-    protected Integer quantityInventory;
-
-    @Column(name = "NOTE_INVENTORY")
-    protected String noteInventory;
-
-    @Column(name = "VISIBLE")
-    protected Boolean visible;
-
     @JoinTable(name = "KSENA_TASK_INVENTORY_LINK",
             joinColumns = @JoinColumn(name = "INVENTORY_ID"),
             inverseJoinColumns = @JoinColumn(name = "TASK_ID"))
     @ManyToMany
     protected List<Task> tasks;
 
-    @JoinTable(name = "KSENA_TASK_DOCUMENT_INVENTORY_LINK",
-            joinColumns = @JoinColumn(name = "INVENTORY_ID"),
-            inverseJoinColumns = @JoinColumn(name = "TASK_DOCUMENT_ID"))
-    @ManyToMany
-    protected List<TaskDocument> taskDocuments;
-
     @OneToMany(mappedBy = "inventory")
     protected List<Breakage> breakage;
 
-    public Boolean getVisible() {
-        return visible;
+    @OneToMany(mappedBy = "inventory")
+    protected List<InventoryWrapper> inventoryWrapper;
+
+    public List<InventoryWrapper> getInventoryWrapper() {
+        return inventoryWrapper;
     }
 
-    public void setVisible(Boolean Visible) {
-        this.visible = Visible;
-    }
-
-    public String getNoteInventory() {
-        return noteInventory;
-    }
-
-    public void setNoteInventory(String noteInventory) {
-        this.noteInventory = noteInventory;
-    }
-
-    public Integer getQuantityInventory() {
-        return quantityInventory;
-    }
-
-    public void setQuantityInventory(Integer quantityInventory) {
-        this.quantityInventory = quantityInventory;
+    public void setInventoryWrapper(List<InventoryWrapper> inventoryWrapper) {
+        this.inventoryWrapper = inventoryWrapper;
     }
 
     public void setBreakage(List<Breakage> breakage) {
@@ -149,14 +120,6 @@ public class Inventory extends StandardEntity {
 
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
-    }
-
-    public List<TaskDocument> getTaskDocuments() {
-        return taskDocuments;
-    }
-
-    public void setTaskDocuments(List<TaskDocument> taskDocuments) {
-        this.taskDocuments = taskDocuments;
     }
 
     public String getDescription() {

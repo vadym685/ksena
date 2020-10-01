@@ -1,5 +1,6 @@
 package com.company.ksena.entity.cleaning_map;
 
+import com.company.ksena.entity.task.Task;
 import com.company.ksena.entity.task.TaskDocument;
 import com.haulmont.cuba.core.entity.StandardEntity;
 
@@ -20,9 +21,20 @@ public class PositionWrapper extends StandardEntity {
     @Column(name = "NOTE_CLEANING_POSITION")
     protected String noteCleaningPosition;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "TASK_DOCUMENTS_ID")
     protected TaskDocument taskDocuments;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "TASK_ID")
+    protected Task task;
+
+    public Task getTask() {
+        return task;
+    }
+
+    public void setTask(Task task) {
+        this.task = task;
+    }
 
     public void setTaskDocuments(TaskDocument taskDocuments) {
         this.taskDocuments = taskDocuments;

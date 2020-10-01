@@ -1,0 +1,1 @@
+alter table ksena_task_document_inventory_link rename to KSENA_TASK_DOCUMENT_INVENTORY_LINK__U36700 ;

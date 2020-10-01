@@ -20,5 +20,6 @@
         <class>com.company.ksena.entity.company.CompanyCategory</class>
         <class>com.company.ksena.entity.server_constants.ServerConstants</class>
         <class>com.company.ksena.entity.cleaning_map.PositionWrapper</class>
+        <class>com.company.ksena.entity.inventory.InventoryWrapper</class>
     </persistence-unit>
 </persistence>
