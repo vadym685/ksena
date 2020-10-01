@@ -1,1 +1,0 @@
-alter table ksena_task_document_cleaning_position_link rename to KSENA_TASK_DOCUMENT_CLEANING_POSITION_LINK__U76059 ;
