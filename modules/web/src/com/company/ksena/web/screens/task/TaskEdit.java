@@ -114,6 +114,7 @@ public class TaskEdit extends StandardEditor<Task> {
             getEditedEntity().setSalaryElementary(null);
             getEditedEntity().setSalaryHigh(null);
             getEditedEntity().setSalaryMedium(null);
+
         }
     }
 
