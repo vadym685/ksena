@@ -2,13 +2,17 @@ package com.company.ksena.web.screens.company;
 
 import com.company.ksena.entity.company.Company;
 import com.company.ksena.entity.company.CompanyType;
+import com.company.ksena.entity.people.ClientEmployee;
 import com.company.ksena.entity.task.Task;
 import com.company.ksena.entity.task.TaskDocument;
+import com.company.ksena.web.screens.clientemployee.ClientEmployeeBrowse;
 import com.company.ksena.web.screens.task.TaskEdit;
 import com.haulmont.cuba.core.global.Metadata;
 import com.haulmont.cuba.gui.ScreenBuilders;
+import com.haulmont.cuba.gui.components.Button;
 import com.haulmont.cuba.gui.components.PickerField;
 import com.haulmont.cuba.gui.components.TextField;
+import com.haulmont.cuba.gui.model.CollectionPropertyContainer;
 import com.haulmont.cuba.gui.model.DataContext;
 import com.haulmont.cuba.gui.screen.*;
 import org.slf4j.Logger;
@@ -38,20 +42,19 @@ public class CompanyEdit extends StandardEditor<Company> {
     private DataContext dataContext;
     @Inject
     private ScreenBuilders screenBuilders;
+    @Inject
+    private CollectionPropertyContainer<ClientEmployee> responsibleEmployeeDc;
 
 
     @Subscribe
     public void onAfterShow(AfterShowEvent event) {
         try {
-
-
             if (Objects.nonNull(nameField.getValue()) && Objects.nonNull(companyTypeField.getValue().getName())) {
                 fullNameField.setValue(nameField.getValue() + " " + companyTypeField.getValue().getName());
             }
         } catch (Exception e) {
 
         }
-        ;
     }
 
     public void createTaskDoc() {
@@ -68,6 +71,29 @@ public class CompanyEdit extends StandardEditor<Company> {
                 .show();
     }
 
+//    @Subscribe("addResponsibleEmployee")
+//    public void onAddResponsibleEmployeeClick(Button.ClickEvent event) {
+//        ClientEmployeeBrowse selectClientEmployee = screenBuilders.lookup(ClientEmployee.class, this)
+//                .withScreenClass(ClientEmployeeBrowse.class)
+//                .withOpenMode(OpenMode.DIALOG)
+//                .withAfterCloseListener(e -> {
+//
+//                    ClientEmployee clientEmployee  = e.getScreen().getSelectedClientEmployees();
+//
+//                    StandardCloseAction closeAction = (StandardCloseAction) e.getCloseAction();
+//
+//                    if (clientEmployee != null && closeAction.getActionId().equals("select")) {
+//
+//                        responsibleEmployeeDc.getMutableItems().add(clientEmployee);
+//                    }
+//                })
+//                .withSelectHandler(e -> {
+//                })
+//                .build();
+//        selectClientEmployee.getScreenData().getLoader("clientEmployeesDl").setParameter("company",this);
+//        selectClientEmployee.show();
+//    }
+
 
     public void createTask() {
         LOG.info("");
@@ -78,6 +104,27 @@ public class CompanyEdit extends StandardEditor<Company> {
         screenBuilders.editor(Task.class, this)
                 .editEntity(newTask)
                 .show();
-
     }
+//
+//    @Subscribe("addResponsibleEmployee")
+//    public void addResponsibleEmployee(Button.ClickEvent event) {
+//        ClientEmployee selectClientEmployee = screenBuilders.lookup(ClientEmployee.class, this)
+//                .withScreenClass(ClientEmployeeBrowse.class)
+//                .withOpenMode(OpenMode.DIALOG)
+//                .withAfterCloseListener(e -> {
+//
+//                    ClientEmployee clientEmployee  = e.getScreen().getSelectedInventory();
+//
+//                    StandardCloseAction closeAction = (StandardCloseAction) e.getCloseAction();
+//
+//                    if (clientEmployee != null && closeAction.getActionId().equals("select")) {
+//
+//                        responsibleEmployeeDc.getMutableItems().add();
+//                    }
+//                })
+//                .withSelectHandler(e  -> {
+//                })
+//                .build();
+//        selectClientEmployee.show();
+//    }
 }

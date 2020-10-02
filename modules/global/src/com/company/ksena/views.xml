@@ -29,11 +29,9 @@
         <property name="sex"/>
     </view>
     <view entity="ksena_Company" name="company-view" extends="_local">
-        <property name="companyType" view="_minimal"/>
         <property name="responsibleEmployee" view="_local"/>
-        <property name="points" view="_minimal">
-            <property name="city"/>
-        </property>
+        <property name="points" view="_local"/>
+        <property name="companyType" view="_minimal"/>
         <property name="companyCategory" view="_minimal"/>
     </view>
     <view entity="ksena_Inventory" name="inventory-view" extends="_local">

@@ -6,9 +6,11 @@ import com.company.ksena.entity.cleaning_map.Room;
 import com.company.ksena.entity.company.Company;
 import com.company.ksena.entity.inventory.Inventory;
 import com.company.ksena.entity.inventory.InventoryWrapper;
+import com.company.ksena.entity.point.Point;
 import com.company.ksena.entity.task.TaskDocument;
 import com.company.ksena.entity.task.TaskStatus;
 import com.company.ksena.web.screens.cleaningposition.CleaningPositionBrowse;
+import com.company.ksena.web.screens.inventory.AvaibleInventoryBrowse;
 import com.company.ksena.web.screens.inventory.InventoryBrowse;
 import com.company.ksena.web.screens.room.RoomBrowse;
 import com.haulmont.cuba.core.entity.contracts.Id;
@@ -16,8 +18,10 @@ import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.Metadata;
 import com.haulmont.cuba.gui.Notifications;
 import com.haulmont.cuba.gui.ScreenBuilders;
+import com.haulmont.cuba.gui.builders.AfterScreenCloseEvent;
 import com.haulmont.cuba.gui.components.*;
 import com.haulmont.cuba.gui.model.CollectionContainer;
+import com.haulmont.cuba.gui.model.CollectionLoader;
 import com.haulmont.cuba.gui.model.CollectionPropertyContainer;
 import com.haulmont.cuba.gui.model.InstanceContainer;
 import com.haulmont.cuba.gui.screen.*;
@@ -56,13 +60,22 @@ public class TaskEdit extends StandardEditor<Task> {
     @Inject
     private DataManager dataManager;
 
-
-
     private final Logger LOG = LoggerFactory.getLogger(TaskEdit.class);
 
     @Inject
     private PickerField<Company> companyField;
+    @Inject
+    private CollectionLoader<Point> pointsForCompanyLc;
 
+    @Subscribe("companyField")
+    public void onCompanyFieldValueChange(HasValue.ValueChangeEvent<Company> event) {
+        if (event.getValue() != null) {
+            pointsForCompanyLc.setParameter("company", event.getValue());
+        } else {
+            pointsForCompanyLc.removeParameter("company");
+        }
+        pointsForCompanyLc.load();
+    }
 
     @Subscribe("taskDocumentField")
     public void onTaskDocumentFieldValueChange(HasValue.ValueChangeEvent<TaskDocument> event) {
@@ -118,8 +131,6 @@ public class TaskEdit extends StandardEditor<Task> {
         }
     }
 
-
-
     @Subscribe(id = "inventoryDc", target = Target.DATA_CONTAINER)
     public void onInventoryDcItemPropertyChange(InstanceContainer.ItemPropertyChangeEvent<InventoryWrapper> event) {
         if (event.getProperty() == "quantityInventory"){
@@ -133,15 +144,17 @@ public class TaskEdit extends StandardEditor<Task> {
 
     @Subscribe("addInventory")
     public void onAddInventoryClick(Button.ClickEvent event) {
-        InventoryBrowse selectInventory = screenBuilders.lookup(Inventory.class, this)
-                .withScreenClass(InventoryBrowse.class)
+        AvaibleInventoryBrowse selectInventory = screenBuilders.lookup(Inventory.class, this)
+                .withScreenClass(AvaibleInventoryBrowse.class)
                 .withOpenMode(OpenMode.DIALOG)
                 .withAfterCloseListener(e -> {
 
                     Inventory inventory = e.getScreen().getSelectedInventory();
 
-                    if (inventory != null) {
+                    StandardCloseAction closeAction = (StandardCloseAction) e.getCloseAction();
 
+
+                    if (inventory != null && closeAction.getActionId().equals("select")) {
                         InventoryWrapper inventoryWrapper = metadata.create(InventoryWrapper.class);
                         inventoryWrapper.setInventory(inventory);
                         inventoryWrapper.setQuantityInventory(1);
@@ -151,11 +164,13 @@ public class TaskEdit extends StandardEditor<Task> {
                         inventoryDc.getMutableItems().add(inventoryWrapper);
                     }
                 })
-                .withSelectHandler(e  -> {
+                .withSelectHandler(e -> {
                 })
                 .build();
+
         selectInventory.show();
     }
+
 
     @Subscribe("addPosition")
     public void onAddPositionClick(Button.ClickEvent event) {
@@ -167,7 +182,9 @@ public class TaskEdit extends StandardEditor<Task> {
 
                     CleaningPosition cleaningPosition = e.getScreen().getSelectedCleaningPosition();
 
-                    if (cleaningPosition != null) {
+                    StandardCloseAction closeAction = (StandardCloseAction) e.getCloseAction();
+
+                    if (cleaningPosition != null && closeAction.getActionId().equals("select")) {
 
                         PositionWrapper positionWrapper = metadata.create(PositionWrapper.class);
                         positionWrapper.setPosition(cleaningPosition);
@@ -237,19 +254,20 @@ public class TaskEdit extends StandardEditor<Task> {
                 .withOpenMode(OpenMode.DIALOG)
                 .withAfterCloseListener(e -> {
                     Room room = e.getScreen().getSelectedRoom();
+                    if (room != null) {
+                        List newList = room.getCleaningPosition()
+                                .stream()
+                                .filter(cleaningPosition -> cleaningPosition.getStandartPosition() != null && cleaningPosition.getStandartPosition())
+                                .collect(Collectors.toList());
+                        for (Object Element : newList) {
 
-                    List newList = room.getCleaningPosition()
-                            .stream()
-                            .filter(cleaningPosition -> cleaningPosition.getStandartPosition())
-                            .collect(Collectors.toList());
-                    for (Object Element : newList) {
+                            PositionWrapper positionWrapper = metadata.create(PositionWrapper.class);
+                            positionWrapper.setPosition((CleaningPosition) Element);
+                            positionWrapper.setPriorityCleaningPosition(cleaningMapDc.getItems().size() + 1);
+                            positionWrapper.setTask(this.getEditedEntity());
 
-                        PositionWrapper positionWrapper = metadata.create(PositionWrapper.class);
-                        positionWrapper.setPosition((CleaningPosition) Element);
-                        positionWrapper.setPriorityCleaningPosition(cleaningMapDc.getItems().size() + 1);
-                        positionWrapper.setTask(this.getEditedEntity());
-
-                        cleaningMapDc.getMutableItems().add(positionWrapper);
+                            cleaningMapDc.getMutableItems().add(positionWrapper);
+                        }
                     }
                 })
                 .withSelectHandler(e -> {
@@ -264,7 +282,7 @@ public class TaskEdit extends StandardEditor<Task> {
 
         taskStatusField.setValue(TaskStatus.CREATE);
 
-        cleaningMapDc.getItems().forEach(positionWrapper ->  {
+        cleaningMapDc.getItems().forEach(positionWrapper -> {
             Room room = positionWrapper.getPosition().getRoom();
 
             if (room != null) {
@@ -334,5 +352,6 @@ public class TaskEdit extends StandardEditor<Task> {
                 ".colored-cell-%s-%s{background-color:#%s;}",
                 id.toString(), color, color));
     }
+
 
 }

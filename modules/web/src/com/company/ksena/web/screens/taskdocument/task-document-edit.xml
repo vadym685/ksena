@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
         caption="msg://editorCaption"
         focusComponent="form"
         messagesPack="com.company.ksena.web.screens.taskdocument">
@@ -12,6 +13,18 @@
             <collection id="cleaningMapDc" property="cleaningMap"/>
             <collection id="cleaningDayDc" property="cleaningDay"/>
         </instance>
+        <collection id="pointsDc" class="com.company.ksena.entity.point.Point" view="_local">
+            <loader id="pointsForCompanyLc">
+                <query>
+                    <![CDATA[select e from ksena_Point e ]]>
+                    <condition>
+                        <c:jpql>
+                            <c:where>e.company = :company</c:where>
+                        </c:jpql>
+                    </condition>
+                </query>
+            </loader>
+        </collection>
     </data>
     <dialogMode height="600"
                 width="800"/>
@@ -26,12 +39,16 @@
                         <checkBox id="isActiveField" property="isActive"/>
                         <pickerField id="companyField" property="company"/>
                         <textField id="delay" property="delay"/>
-                        <pickerField id="pointField" property="point">
+                        <lookupPickerField id="pointField" optionsContainer="pointsDc" property="point">
                             <actions>
-                                <action id="lookup" type="picker_lookup"/>
+                                <action id="open" type="picker_open">
+                                    <properties>
+                                        <property name="openMode" value="DIALOG"/>
+                                    </properties>
+                                </action>
                                 <action id="clear" type="picker_clear"/>
                             </actions>
-                        </pickerField>
+                        </lookupPickerField>
                         <lookupField id="taskTypeField" property="taskType"/>
                         <lookupField id="typeOfPeriodicityField" property="typeOfPeriodicity" visible="false"/>
                         <textField id="periodicityField" property="periodicity" visible="false"/>
@@ -42,7 +59,6 @@
                         <textField id="salaryElementaryField" property="salaryElementary"/>
                         <textField id="salaryHighField" property="salaryHigh"/>
                         <textField id="salaryMediumField" property="salaryMedium"/>
-
                     </column>
                 </form>
             </groupBox>

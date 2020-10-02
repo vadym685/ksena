@@ -3,11 +3,14 @@ package com.company.ksena.web.screens.taskdocument;
 import com.company.ksena.entity.cleaning_map.CleaningPosition;
 import com.company.ksena.entity.cleaning_map.PositionWrapper;
 import com.company.ksena.entity.cleaning_map.Room;
+import com.company.ksena.entity.company.Company;
 import com.company.ksena.entity.inventory.Inventory;
 import com.company.ksena.entity.inventory.InventoryWrapper;
+import com.company.ksena.entity.point.Point;
 import com.company.ksena.entity.task.*;
 
 import com.company.ksena.web.screens.cleaningposition.CleaningPositionBrowse;
+import com.company.ksena.web.screens.inventory.AvaibleInventoryBrowse;
 import com.company.ksena.web.screens.inventory.InventoryBrowse;
 import com.company.ksena.web.screens.room.RoomBrowse;
 import com.haulmont.cuba.core.entity.contracts.Id;
@@ -18,10 +21,7 @@ import com.haulmont.cuba.gui.Notifications;
 import com.haulmont.cuba.gui.ScreenBuilders;
 import com.haulmont.cuba.gui.components.*;
 import com.haulmont.cuba.gui.components.TextField;
-import com.haulmont.cuba.gui.model.CollectionContainer;
-import com.haulmont.cuba.gui.model.CollectionPropertyContainer;
-import com.haulmont.cuba.gui.model.DataContext;
-import com.haulmont.cuba.gui.model.InstanceContainer;
+import com.haulmont.cuba.gui.model.*;
 import com.haulmont.cuba.gui.screen.*;
 import com.vaadin.server.Page;
 
@@ -75,6 +75,18 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
     private ScreenBuilders screenBuilders;
     @Inject
     private Table<InventoryWrapper> inventoryTable;
+    @Inject
+    private CollectionLoader<Point> pointsForCompanyLc;
+
+    @Subscribe("companyField")
+    public void onCompanyFieldValueChange(HasValue.ValueChangeEvent<Company> event) {
+        if (event.getValue() != null) {
+            pointsForCompanyLc.setParameter("company", event.getValue());
+        } else {
+            pointsForCompanyLc.removeParameter("company");
+        }
+        pointsForCompanyLc.load();
+    }
 
     @Subscribe("taskTypeField")
     public void onTaskTypeFieldValueChange(HasValue.ValueChangeEvent<Boolean> event) {
@@ -152,14 +164,16 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
 
     @Subscribe("addInventory")
     public void onAddInventoryClick(Button.ClickEvent event) {
-        InventoryBrowse selectInventory = screenBuilders.lookup(Inventory.class, this)
-                .withScreenClass(InventoryBrowse.class)
+        AvaibleInventoryBrowse selectInventory = screenBuilders.lookup(Inventory.class, this)
+                .withScreenClass(AvaibleInventoryBrowse.class)
                 .withOpenMode(OpenMode.DIALOG)
                 .withAfterCloseListener(e -> {
 
                     Inventory inventory = e.getScreen().getSelectedInventory();
 
-                    if (inventory != null) {
+                    StandardCloseAction closeAction = (StandardCloseAction) e.getCloseAction();
+
+                    if (inventory != null && closeAction.getActionId().equals("select")) {
 
                         InventoryWrapper inventoryWrapper = metadata.create(InventoryWrapper.class);
                         inventoryWrapper.setInventory(inventory);
@@ -186,7 +200,9 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
 
                     CleaningPosition cleaningPosition = e.getScreen().getSelectedCleaningPosition();
 
-                    if (cleaningPosition != null) {
+                    StandardCloseAction closeAction = (StandardCloseAction) e.getCloseAction();
+
+                    if (cleaningPosition != null && closeAction.getActionId().equals("select")) {
 
                         PositionWrapper positionWrapper = metadata.create(PositionWrapper.class);
                         positionWrapper.setPosition(cleaningPosition);
@@ -259,7 +275,7 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
 
                     List newList = room.getCleaningPosition()
                             .stream()
-                            .filter(cleaningPosition -> cleaningPosition.getStandartPosition())
+                            .filter(cleaningPosition -> cleaningPosition.getStandartPosition() != null && cleaningPosition.getStandartPosition())
                             .collect(Collectors.toList());
                     for (Object Element : newList) {
 

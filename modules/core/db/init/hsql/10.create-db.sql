@@ -80,21 +80,11 @@ create table KSENA_INVENTORY (
     DECOMMISSIONING_DATE date,
     AVAILABLE_FOR_USE boolean,
     REASON_FOR_DECOMMISSIONING varchar(255),
-    QUANTITY_INVENTORY integer,
-    NOTE_INVENTORY varchar(255),
-    VISIBLE boolean,
     --
     primary key (ID)
 )^
 -- end KSENA_INVENTORY
 
--- begin KSENA_TASK_DOCUMENT_INVENTORY_LINK
-create table KSENA_TASK_DOCUMENT_INVENTORY_LINK (
-    INVENTORY_ID varchar(36) not null,
-    TASK_DOCUMENT_ID varchar(36) not null,
-    primary key (INVENTORY_ID, TASK_DOCUMENT_ID)
-)^
--- end KSENA_TASK_DOCUMENT_INVENTORY_LINK
 -- begin KSENA_CLEANING_POSITION
 create table KSENA_CLEANING_POSITION (
     ID varchar(36) not null,
@@ -450,7 +440,28 @@ create table KSENA_POSITION_WRAPPER (
     PRIORITY_CLEANING_POSITION integer,
     NOTE_CLEANING_POSITION varchar(255),
     TASK_DOCUMENTS_ID varchar(36),
+    TASK_ID varchar(36),
     --
     primary key (ID)
 )^
 -- end KSENA_POSITION_WRAPPER
+-- begin KSENA_INVENTORY_WRAPPER
+create table KSENA_INVENTORY_WRAPPER (
+    ID varchar(36) not null,
+    VERSION integer not null,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    --
+    INVENTORY_ID varchar(36),
+    NOTE_INVENTORY varchar(255),
+    QUANTITY_INVENTORY integer,
+    TASK_DOCUMENTS_ID varchar(36),
+    TASK_ID varchar(36),
+    --
+    primary key (ID)
+)^
+-- end KSENA_INVENTORY_WRAPPER

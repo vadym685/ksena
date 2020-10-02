@@ -1,5 +1,6 @@
 package com.company.ksena.web.screens.company;
 
+import com.company.ksena.entity.people.ClientEmployee;
 import com.haulmont.cuba.gui.screen.*;
 import com.company.ksena.entity.company.Company;
 
@@ -8,4 +9,5 @@ import com.company.ksena.entity.company.Company;
 @LookupComponent("companiesTable")
 @LoadDataBeforeShow
 public class CompanyBrowse extends StandardLookup<Company> {
+
 }

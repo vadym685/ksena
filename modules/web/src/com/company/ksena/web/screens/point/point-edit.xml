@@ -18,7 +18,7 @@
         </instance>
     </data>
     <dialogMode height="600"
-                width="800"/>
+                width="800"  maximized="true"/>
     <layout spacing="true">
         <hbox height="100%" width="100%">
             <vbox spacing="true">

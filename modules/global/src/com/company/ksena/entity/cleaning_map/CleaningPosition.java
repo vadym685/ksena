@@ -58,12 +58,16 @@ public class CleaningPosition extends StandardEntity {
         this.positionWrapper = positionWrapper;
     }
 
-    public Boolean getStandartPosition() {
-        return Objects.isNull(standartPosition) ? false : true;
-    }
+//    public Boolean getStandartPosition() {
+//        return Objects.isNull(standartPosition) ? false : true;
+//    }
 
+    public Boolean getStandartPosition() {
+        return standartPosition;
+    }
     public void setStandartPosition(Boolean standartPosition) {
         this.standartPosition = standartPosition;
+
     }
 
     public Room getRoom() {

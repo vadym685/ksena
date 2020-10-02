@@ -14,8 +14,16 @@
             <loader id="clientEmployeesDl">
                 <query>
                     <![CDATA[select e from ksena_ClientEmployee e]]>
+
+<!--                    <condition>-->
+<!--                        <c:jpql>-->
+<!--                            <c:where>e.company = :company</c:where>-->
+<!--                        </c:jpql>-->
+<!--                    </condition>-->
+
                 </query>
             </loader>
+
         </collection>
     </data>
     <dialogMode height="600"

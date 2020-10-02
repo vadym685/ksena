@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
         caption="msg://editorCaption"
         focusComponent="form"
         messagesPack="com.company.ksena.web.screens.task">
@@ -19,10 +20,15 @@
                 </query>
             </loader>
         </collection>
-        <collection id="pointsDc" class="com.company.ksena.entity.point.Point" view="_minimal">
-            <loader id="pointsLc">
+        <collection id="pointsDc" class="com.company.ksena.entity.point.Point" view="_local">
+            <loader id="pointsForCompanyLc">
                 <query>
-                    <![CDATA[select e from ksena_Point e]]>
+                    <![CDATA[select e from ksena_Point e ]]>
+                    <condition>
+                        <c:jpql>
+                            <c:where>e.company = :company</c:where>
+                        </c:jpql>
+                    </condition>
                 </query>
             </loader>
         </collection>
@@ -40,15 +46,19 @@
                         <action id="clear" type="picker_clear"/>
                     </actions>
                 </lookupPickerField>
-                <pickerField id="companyField" property="company" editable="false">
+                <pickerField id="companyField" property="company">
                     <actions>
                         <action id="open" type="picker_open"/>
                         <action id="clear" type="picker_clear"/>
                     </actions>
                 </pickerField>
-                <lookupPickerField id="pointField" optionsContainer="pointsDc" property="point" editable="false">
+                <lookupPickerField id="pointField" optionsContainer="pointsDc" property="point">
                     <actions>
-                        <action id="open" type="picker_open"/>
+                        <action id="open" type="picker_open">
+                            <properties>
+                                <property name="openMode" value="DIALOG"/>
+                            </properties>
+                        </action>
                         <action id="clear" type="picker_clear"/>
                     </actions>
                 </lookupPickerField>

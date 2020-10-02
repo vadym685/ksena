@@ -29,7 +29,7 @@
         </filter>
         <groupTable id="cleaningPositionsTable"
                     width="100%"
-                    dataContainer="cleaningPositionsDc">
+                    dataContainer="cleaningPositionsDc" editable="true">
             <actions>
                 <action id="create" type="create"/>
                 <action id="edit" type="edit"/>
@@ -41,8 +41,7 @@
                 <column id="description"/>
                 <column id="needTime"/>
                 <column id="price"/>
-                <column id="standartPosition"/>
-
+                <column id="standartPosition" editable="true"/>
             </columns>
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"

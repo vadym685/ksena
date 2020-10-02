@@ -7,11 +7,10 @@
     <data readOnly="true">
         <collection id="inventoriesDc"
                     class="com.company.ksena.entity.inventory.Inventory"
-                    view="_local">
+                    view="inventory-view">
             <loader id="inventoriesDl">
                 <query>
-<!--                    <![CDATA[select e from ksena_Inventory e where e.visible = true]]>-->
-                    <![CDATA[select e from ksena_Inventory e]]>
+                    <![CDATA[select e from ksena_Inventory e where e.availableForUse = true]]>
                 </query>
             </loader>
         </collection>
@@ -27,7 +26,7 @@
         </filter>
         <groupTable id="inventoriesTable"
                     width="100%"
-                    dataContainer="inventoriesDc" editable="true">
+                    dataContainer="inventoriesDc">
             <actions>
                 <action id="create" type="create"/>
                 <action id="edit" type="edit"/>
@@ -40,7 +39,7 @@
                 <column id="colour"/>
                 <column id="commissioningDate"/>
                 <column id="decommissioningDate"/>
-                <column id="availableForUse" editable="true"/>
+                <column id="availableForUse"/>
                 <column id="reasonForDecommissioning"/>
             </columns>
             <rowsCount/>
