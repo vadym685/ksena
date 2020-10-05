@@ -37,7 +37,6 @@ public class Task extends StandardEntity {
     @JoinColumn(name = "TASK_DOCUMENT_ID")
     protected TaskDocument taskDocument;
 
-    @Lookup(type = LookupType.DROPDOWN, actions = {"open", "clear"})
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "COMPANY_ID")
     protected Company company;

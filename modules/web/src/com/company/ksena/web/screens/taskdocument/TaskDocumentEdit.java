@@ -77,12 +77,16 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
     private Table<InventoryWrapper> inventoryTable;
     @Inject
     private CollectionLoader<Point> pointsForCompanyLc;
+    @Inject
+    private LookupPickerField<Point> pointField;
 
     @Subscribe("companyField")
     public void onCompanyFieldValueChange(HasValue.ValueChangeEvent<Company> event) {
         if (event.getValue() != null) {
+            pointField.clear();
             pointsForCompanyLc.setParameter("company", event.getValue());
         } else {
+            pointField.clear();
             pointsForCompanyLc.removeParameter("company");
         }
         pointsForCompanyLc.load();
