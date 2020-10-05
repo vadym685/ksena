@@ -59,6 +59,9 @@ public class Employee extends PasportData {
     @Column(name = "RESIDENCE_NUMBER")
     protected String residenceNumber;
 
+    @Column(name = "NATIONALITY")
+    protected String nationality;
+
     @Column(name = "RESIDENCE_PERMANENT")
     protected Boolean residencePermanent;
 
@@ -70,6 +73,14 @@ public class Employee extends PasportData {
 
     @Column(name = "RESIDENCE_PLACE")
     protected String residencePlace;
+
+    public String getNationality() {
+        return nationality;
+    }
+
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
+    }
 
     public String getFullNamePronunciation() {
         return fullNamePronunciation;

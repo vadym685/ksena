@@ -8,7 +8,8 @@ import javax.annotation.Nullable;
 public enum Vat implements EnumClass<Integer> {
 
     TEN_PERSENT(10),
-    TWENTY_PERCENT(20);
+    FIFTEEN_PERCENT(15),
+    TWENTY_ONE_PERCENT(21);
 
     private Integer id;
 

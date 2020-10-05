@@ -10,6 +10,7 @@ import com.company.ksena.web.screens.task.TaskEdit;
 import com.haulmont.cuba.core.global.Metadata;
 import com.haulmont.cuba.gui.ScreenBuilders;
 import com.haulmont.cuba.gui.components.Button;
+import com.haulmont.cuba.gui.components.HasValue;
 import com.haulmont.cuba.gui.components.PickerField;
 import com.haulmont.cuba.gui.components.TextField;
 import com.haulmont.cuba.gui.model.CollectionPropertyContainer;
@@ -71,30 +72,6 @@ public class CompanyEdit extends StandardEditor<Company> {
                 .show();
     }
 
-//    @Subscribe("addResponsibleEmployee")
-//    public void onAddResponsibleEmployeeClick(Button.ClickEvent event) {
-//        ClientEmployeeBrowse selectClientEmployee = screenBuilders.lookup(ClientEmployee.class, this)
-//                .withScreenClass(ClientEmployeeBrowse.class)
-//                .withOpenMode(OpenMode.DIALOG)
-//                .withAfterCloseListener(e -> {
-//
-//                    ClientEmployee clientEmployee  = e.getScreen().getSelectedClientEmployees();
-//
-//                    StandardCloseAction closeAction = (StandardCloseAction) e.getCloseAction();
-//
-//                    if (clientEmployee != null && closeAction.getActionId().equals("select")) {
-//
-//                        responsibleEmployeeDc.getMutableItems().add(clientEmployee);
-//                    }
-//                })
-//                .withSelectHandler(e -> {
-//                })
-//                .build();
-//        selectClientEmployee.getScreenData().getLoader("clientEmployeesDl").setParameter("company",this);
-//        selectClientEmployee.show();
-//    }
-
-
     public void createTask() {
         LOG.info("");
 
@@ -104,6 +81,40 @@ public class CompanyEdit extends StandardEditor<Company> {
         screenBuilders.editor(Task.class, this)
                 .editEntity(newTask)
                 .show();
+    }
+
+    @Subscribe("companyTypeField")
+    public void onCompanyTypeFieldFieldValueChange(PickerField.ValueChangeEvent<CompanyType> event) {
+        if (companyTypeField.getValue() != null) {
+            if (nameField.getValue() != null) {
+                if (Objects.nonNull(nameField.getValue()) && Objects.nonNull(companyTypeField.getValue().getName())) {
+                    fullNameField.setValue(nameField.getValue() + " " + companyTypeField.getValue().getName());
+                } else {
+                    fullNameField.setValue(null);
+                }
+            } else {
+                fullNameField.setValue(null);
+            }
+        } else {
+            fullNameField.setValue(null);
+        }
+    }
+
+    @Subscribe("nameField")
+    public void onNameFieldValueChange(HasValue.ValueChangeEvent<String> event) {
+        if (companyTypeField.getValue() != null) {
+            if (nameField.getValue() != null) {
+                if (Objects.nonNull(nameField.getValue()) && Objects.nonNull(companyTypeField.getValue().getName())) {
+                    fullNameField.setValue(nameField.getValue() + " " + companyTypeField.getValue().getName());
+                } else {
+                    fullNameField.setValue(null);
+                }
+            } else {
+                fullNameField.setValue(null);
+            }
+        } else {
+            fullNameField.setValue(null);
+        }
     }
 //
 //    @Subscribe("addResponsibleEmployee")

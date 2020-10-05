@@ -101,6 +101,7 @@ public class TaskEdit extends StandardEditor<Task> {
             getEditedEntity().setSalaryElementary(document.getSalaryElementary());
             getEditedEntity().setSalaryHigh(document.getSalaryHigh());
             getEditedEntity().setSalaryMedium(document.getSalaryMedium());
+            getEditedEntity().setAddPriseExpendableMaterial(document.getAddPriseExpendableMaterial());
 
             List<PositionWrapper> cleaningMapList = document.getCleaningMap();
             List<InventoryWrapper> inventoryWrapperList = document.getInventoryMap();
@@ -108,6 +109,7 @@ public class TaskEdit extends StandardEditor<Task> {
             for (PositionWrapper positionWrapper : cleaningMapList) {
                 PositionWrapper newPositionWrapper = metadata.create(PositionWrapper.class);
                 newPositionWrapper.setPosition(positionWrapper.getPosition());
+                newPositionWrapper.setNoteCleaningPosition(positionWrapper.getNoteCleaningPosition());
                 newPositionWrapper.setPriorityCleaningPosition(cleaningMapDc.getItems().size() + 1);
                 newPositionWrapper.setTask(this.getEditedEntity());
 
@@ -131,6 +133,7 @@ public class TaskEdit extends StandardEditor<Task> {
             getEditedEntity().setSalaryElementary(null);
             getEditedEntity().setSalaryHigh(null);
             getEditedEntity().setSalaryMedium(null);
+            getEditedEntity().setAddPriseExpendableMaterial(null);
 
         }
     }
@@ -312,6 +315,19 @@ public class TaskEdit extends StandardEditor<Task> {
 
     @Subscribe(id = "cleaningMapDc", target = Target.DATA_CONTAINER)
     public void onCleaningMapDcCollectionChange(CollectionContainer.CollectionChangeEvent<PositionWrapper> event) {
+
+        if (event.getChangeType().toString().equals("REMOVE_ITEMS")){
+
+            int index = 0;
+
+            for (PositionWrapper wrappers:cleaningMapDc.getItems()) {
+                wrappers.setPriorityCleaningPosition(index + 1);
+                cleaningMapDc.replaceItem(wrappers);
+                index = index+1;
+            }
+
+        }
+
         cleaningMapDc.getItems().forEach(positionWrapper ->  {
             Room room = positionWrapper.getPosition().getRoom();
 

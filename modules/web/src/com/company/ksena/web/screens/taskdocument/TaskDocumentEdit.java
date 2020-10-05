@@ -326,6 +326,18 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
 
     @Subscribe(id = "cleaningMapDc", target = Target.DATA_CONTAINER)
     public void onCleaningMapDcCollectionChange(CollectionContainer.CollectionChangeEvent<PositionWrapper> event) {
+       if (event.getChangeType().toString().equals("REMOVE_ITEMS")){
+
+           int index = 0;
+
+           for (PositionWrapper wrappers:cleaningMapDc.getItems()) {
+               wrappers.setPriorityCleaningPosition(index + 1);
+               cleaningMapDc.replaceItem(wrappers);
+               index = index+1;
+           }
+
+       }
+
         cleaningMapDc.getItems().forEach(positionWrapper ->  {
             Room room = positionWrapper.getPosition().getRoom();
 
@@ -348,6 +360,8 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                 return null;
             }
         });
+
+
     }
 
     @Subscribe
@@ -370,5 +384,4 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                 ".colored-cell-%s-%s{background-color:#%s;}",
                 id.toString(), color, color));
     }
-
 }

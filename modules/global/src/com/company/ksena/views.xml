@@ -59,8 +59,9 @@
         </property>
         <property name="companies" view="_minimal"/>
     </view>
-    <view entity="ksena_Employee" name="employee-view_1" extends="employee-view">
+    <view entity="ksena_Employee" name="employee-view" extends="employee-view">
         <property name="fullNamePronunciation"/>
+        <property name="nationality"/>
         <property name="firstName"/>
         <property name="lastName"/>
         <property name="middleName"/>

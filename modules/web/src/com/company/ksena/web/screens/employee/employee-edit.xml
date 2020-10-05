@@ -6,7 +6,7 @@
     <data>
         <instance id="employeeDc"
                   class="com.company.ksena.entity.people.Employee"
-                  view="employee-view_1">
+                  view="employee-view">
             <loader/>
             <instance id="imageFileDc" property="imageFile"/>
         </instance>
@@ -22,6 +22,7 @@
              <textField id="middleNameField" property="middleName"/>
              <textField id="fullNameField" property="fullName"/>
              <textField id = "fullNamePronunciationField" property="fullNamePronunciation"/>
+             <textField id="nationalityField" property="nationality"/>
              <checkBox id="isActiveField" property="isActive"/>
              <lookupField id="qualificationField" property="qualification"/>
              <textField id="emailField" property="email"/>
