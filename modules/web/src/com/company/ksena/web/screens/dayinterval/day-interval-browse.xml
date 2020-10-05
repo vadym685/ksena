@@ -26,7 +26,7 @@
         </filter>
         <groupTable id="dayIntervalsTable"
                     width="100%"
-                    dataContainer="dayIntervalsDc">
+                    dataContainer="dayIntervalsDc" multiselect="true">
             <actions>
                 <action id="create" type="create"/>
                 <action id="edit" type="edit"/>
