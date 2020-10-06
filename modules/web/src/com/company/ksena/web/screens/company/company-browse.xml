@@ -7,7 +7,7 @@
     <data readOnly="true">
         <collection id="companiesDc"
                     class="com.company.ksena.entity.company.Company"
-                    view="_local">
+                    view="company-view">
             <loader id="companiesDl">
                 <query>
                     <![CDATA[select e from ksena_Company e]]>
@@ -31,12 +31,26 @@
                 <action id="create" type="create"/>
                 <action id="edit" type="edit"/>
                 <action id="remove" type="remove"/>
+                <action id="excel" type="excel"/>
             </actions>
             <columns>
                 <column id="name"/>
-                <column id="fullName"/>
+<!--                <column id="fullName"/>-->
                 <column id="email"/>
                 <column id="contactPhone"/>
+                <column id="legalCity"/>
+                <column id="legalStreet"/>
+                <column id="legalHouseNumber"/>
+                <column id="legalIndex"/>
+                <column id="actualCity"/>
+                <column id="actualStreet"/>
+                <column id="actualHouseNumber"/>
+                <column id="actualIndex"/>
+                <column id="fieldOfActivity"/>
+                <column id="fieldOfActivityFull"/>
+                <column id="billSendType"/>
+                <column id="vat"/>
+                <column id="individualTaxpayerNumber"/>
             </columns>
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"
@@ -44,6 +58,7 @@
                 <button id="createBtn" action="companiesTable.create"/>
                 <button id="editBtn" action="companiesTable.edit"/>
                 <button id="removeBtn" action="companiesTable.remove"/>
+                <button id="excelBtn" action="companiesTable.excel"/>
             </buttonsPanel>
         </groupTable>
         <hbox id="lookupActions" spacing="true" visible="false">

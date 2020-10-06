@@ -34,6 +34,7 @@
                 <action id="create" type="create"/>
                 <action id="edit" type="edit"/>
                 <action id="remove" type="remove"/>
+                <action id="excel" type="excel"/>
             </actions>
             <columns>
                 <group/>
@@ -48,6 +49,8 @@
                 <column id="isCleaningBook"/>
                 <column id="area"/>
                 <column id="getToObject"/>
+                <column id="objectAccess"/>
+                <column id="company.name"/>
             </columns>
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"
@@ -55,6 +58,7 @@
                 <button id="createBtn" action="pointsTable.create"/>
                 <button id="editBtn" action="pointsTable.edit"/>
                 <button id="removeBtn" action="pointsTable.remove"/>
+                <button id="excelBtn" action="pointsTable.excel"/>
             </buttonsPanel>
         </groupTable>
         <hbox id="lookupActions" spacing="true" visible="false">

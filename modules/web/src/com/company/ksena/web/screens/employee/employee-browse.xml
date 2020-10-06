@@ -31,6 +31,7 @@
                 <action id="create" type="create"/>
                 <action id="edit" type="edit"/>
                 <action id="remove" type="remove"/>
+                <action id="excel" type="excel"/>
             </actions>
             <columns>
                 <column id="firstName"/>
@@ -40,6 +41,25 @@
                 <column id="phoneNumber"/>
                 <column id="employeeType"/>
                 <column id="isActive"/>
+                <column id="fullNamePronunciation"/>
+                <column id="qualification"/>
+                <column id="dateOfEmployment"/>
+                <column id="dateOfDismissal"/>
+                <column id="coment"/>
+                <column id="personalPhoneNumber"/>
+                <column id="relativesPhoneNumber"/>
+                <column id="residenceNumber"/>
+                <column id="nationality"/>
+                <column id="residencePermanent"/>
+                <column id="residenceEndTime"/>
+                <column id="residenceAddress"/>
+                <column id="residencePlace"/>
+                <column id="email"/>
+                <column id="pasportNumber"/>
+                <column id="authority"/>
+                <column id="dateOfIssue"/>
+                <column id="individualTaxpayerNumber"/>
+                <column id="sex"/>
             </columns>
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"
@@ -47,6 +67,7 @@
                 <button id="createBtn" action="employeesTable.create"/>
                 <button id="editBtn" action="employeesTable.edit"/>
                 <button id="removeBtn" action="employeesTable.remove"/>
+                <button id="excelBtn" action="employeesTable.excel"/>
             </buttonsPanel>
         </groupTable>
         <hbox id="lookupActions" spacing="true" visible="false">

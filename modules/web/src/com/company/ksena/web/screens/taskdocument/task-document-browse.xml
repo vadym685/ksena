@@ -32,6 +32,7 @@
                 <action id="edit" type="edit"/>
                 <action id="remove" type="remove"/>
                 <action id="list" type="listPrintForm" caption="msg://printDetails"/>
+                <action id="excel" type="excel"/>
             </actions>
             <columns>
                 <column id="docNumber"/>
@@ -39,6 +40,20 @@
                 <column id="company"/>
                 <column id="isActive"/>
                 <column id="taskType"/>
+                <column id="company.name"/>
+                <column id="dateOfCompletion"/>
+                <column id="typeOfPeriodicity"/>
+                <column id="periodicity"/>
+                <column id="addPriseExpendableMaterial"/>
+                <column id="fullCost"/>
+                <column id="salaryElementary"/>
+                <column id="costPerHour"/>
+                <column id="delay"/>
+                <column id="typeOfCostFormation"/>
+                <column id="salaryMedium"/>
+                <column id="point"/>
+                <column id="salaryHigh"/>
+                <column id="point.name"/>
             </columns>
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"
@@ -47,6 +62,7 @@
                 <button id="editBtn" action="taskDocumentsTable.edit"/>
                 <button id="removeBtn" action="taskDocumentsTable.remove"/>
                 <button id="listBtn" action="taskDocumentsTable.list"/>
+                <button id="excelBtn" action="taskDocumentsTable.excel"/>
             </buttonsPanel>
         </groupTable>
         <hbox id="lookupActions" spacing="true" visible="false">

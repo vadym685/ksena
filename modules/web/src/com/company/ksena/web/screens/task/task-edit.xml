@@ -128,10 +128,10 @@
                 </columns>
                 <buttonsPanel>
                     <button id="addPosition" caption="mainMsg://cleaningMapPositionAddPosition"/>
+                    <button id="cleaningMapPositionAddRoom" caption="msg://cleaningMapPositionAddRoom"/>
                     <button action="cleaningMapTable.exclude"/>
                     <button id="cleaningMapPositionUp" caption="msg://cleaningMapPositionUp"/>
                     <button id="cleaningMapPositionDown" caption="msg://cleaningMapPositionDown"/>
-                    <button id="cleaningMapPositionAddRoom" caption="msg://cleaningMapPositionAddRoom"/>
                 </buttonsPanel>
             </table>
         </groupBox>

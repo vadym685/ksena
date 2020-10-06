@@ -211,6 +211,7 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                         PositionWrapper positionWrapper = metadata.create(PositionWrapper.class);
                         positionWrapper.setPosition(cleaningPosition);
                         positionWrapper.setPriorityCleaningPosition(cleaningMapDc.getItems().size() + 1);
+                        positionWrapper.setRoomName(cleaningPosition.getRoom().getName());
                         positionWrapper.setTaskDocuments(this.getEditedEntity());
 
 
@@ -286,6 +287,7 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                         PositionWrapper positionWrapper = metadata.create(PositionWrapper.class);
                         positionWrapper.setPosition((CleaningPosition) Element);
                         positionWrapper.setPriorityCleaningPosition(cleaningMapDc.getItems().size() + 1);
+                        positionWrapper.setRoomName(((CleaningPosition) Element).getRoom().getName());
                         positionWrapper.setTaskDocuments(this.getEditedEntity());
 
                         cleaningMapDc.getMutableItems().add(positionWrapper);

@@ -112,6 +112,7 @@ public class TaskEdit extends StandardEditor<Task> {
             for (PositionWrapper positionWrapper : cleaningMapList) {
                 PositionWrapper newPositionWrapper = metadata.create(PositionWrapper.class);
                 newPositionWrapper.setPosition(positionWrapper.getPosition());
+                newPositionWrapper.setRoomName(positionWrapper.getRoomName());
                 newPositionWrapper.setNoteCleaningPosition(positionWrapper.getNoteCleaningPosition());
                 newPositionWrapper.setPriorityCleaningPosition(cleaningMapDc.getItems().size() + 1);
                 newPositionWrapper.setTask(this.getEditedEntity());
@@ -199,6 +200,7 @@ public class TaskEdit extends StandardEditor<Task> {
 
                         PositionWrapper positionWrapper = metadata.create(PositionWrapper.class);
                         positionWrapper.setPosition(cleaningPosition);
+                        positionWrapper.setRoomName(cleaningPosition.getRoom().getName());
                         positionWrapper.setPriorityCleaningPosition(cleaningMapDc.getItems().size() + 1);
                         positionWrapper.setTask(this.getEditedEntity());
 
@@ -274,6 +276,7 @@ public class TaskEdit extends StandardEditor<Task> {
 
                             PositionWrapper positionWrapper = metadata.create(PositionWrapper.class);
                             positionWrapper.setPosition((CleaningPosition) Element);
+                            positionWrapper.setRoomName(((CleaningPosition) Element).getRoom().getName());
                             positionWrapper.setPriorityCleaningPosition(cleaningMapDc.getItems().size() + 1);
                             positionWrapper.setTask(this.getEditedEntity());
 

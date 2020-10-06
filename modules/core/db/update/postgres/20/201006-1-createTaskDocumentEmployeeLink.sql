@@ -1,0 +1,5 @@
+create table KSENA_TASK_DOCUMENT_EMPLOYEE_LINK (
+    EMPLOYEE_ID uuid,
+    TASK_DOCUMENT_ID uuid,
+    primary key (EMPLOYEE_ID, TASK_DOCUMENT_ID)
+);
