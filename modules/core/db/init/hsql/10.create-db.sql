@@ -466,3 +466,10 @@ create table KSENA_INVENTORY_WRAPPER (
     primary key (ID)
 )^
 -- end KSENA_INVENTORY_WRAPPER
+-- begin KSENA_TASK_DOCUMENT_EMPLOYEE_LINK
+create table KSENA_TASK_DOCUMENT_EMPLOYEE_LINK (
+    EMPLOYEE_ID varchar(36) not null,
+    TASK_DOCUMENT_ID varchar(36) not null,
+    primary key (EMPLOYEE_ID, TASK_DOCUMENT_ID)
+)^
+-- end KSENA_TASK_DOCUMENT_EMPLOYEE_LINK

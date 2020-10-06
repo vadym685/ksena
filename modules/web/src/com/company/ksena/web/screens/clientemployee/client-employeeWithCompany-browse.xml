@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://browseCaption"
+        focusComponent="clientEmployeesTable"
+        messagesPack="com.company.ksena.web.screens.clientemployee">
+    <data readOnly="true">
+        <collection id="clientEmployeesDc"
+                    class="com.company.ksena.entity.people.ClientEmployee"
+                    view="_local">
+            <loader id="clientEmployeesDl">
+                <query>
+                    <![CDATA[select e from ksena_ClientEmployee e]]>
+                    <condition>
+                        <c:jpql>
+                            <c:where>e.companies = :companies</c:where>
+                        </c:jpql>
+                    </condition>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="clientEmployeesTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="clientEmployeesTable"
+                dataLoader="clientEmployeesDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="clientEmployeesTable"
+                    width="100%"
+                    dataContainer="clientEmployeesDc"
+                    multiselect="true">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="firstName"/>
+                <column id="lastName"/>
+                <column id="middleName"/>
+                <column id="fullName"/>
+                <column id="email"/>
+                <column id="phoneNumber"/>
+                <column id="pasportNumber"/>
+                <column id="authority"/>
+                <column id="dateOfIssue"/>
+                <column id="individualTaxpayerNumber"/>
+                <column id="sex"/>
+                <column id="position"/>
+                <column id="isPayingBills"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="clientEmployeesTable.create"/>
+                <button id="editBtn" action="clientEmployeesTable.edit"/>
+                <button id="removeBtn" action="clientEmployeesTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

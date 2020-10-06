@@ -94,6 +94,8 @@ public class TaskEdit extends StandardEditor<Task> {
             getEditedEntity().setSalaryElementary(null);
             getEditedEntity().setSalaryHigh(null);
             getEditedEntity().setSalaryMedium(null);
+            getEditedEntity().setAddPriseExpendableMaterial(null);
+            getEditedEntity().setEmployees(null);
 
             getEditedEntity().setPoint(document.getPoint());
             getEditedEntity().setCompany(document.getCompany());
@@ -102,6 +104,7 @@ public class TaskEdit extends StandardEditor<Task> {
             getEditedEntity().setSalaryHigh(document.getSalaryHigh());
             getEditedEntity().setSalaryMedium(document.getSalaryMedium());
             getEditedEntity().setAddPriseExpendableMaterial(document.getAddPriseExpendableMaterial());
+            getEditedEntity().setEmployees(document.getEmployeesMap());
 
             List<PositionWrapper> cleaningMapList = document.getCleaningMap();
             List<InventoryWrapper> inventoryWrapperList = document.getInventoryMap();
@@ -134,6 +137,7 @@ public class TaskEdit extends StandardEditor<Task> {
             getEditedEntity().setSalaryHigh(null);
             getEditedEntity().setSalaryMedium(null);
             getEditedEntity().setAddPriseExpendableMaterial(null);
+            getEditedEntity().setEmployees(null);
 
         }
     }

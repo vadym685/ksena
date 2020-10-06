@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://browseCaption"
+        focusComponent="inventoryWrappersTable"
+        messagesPack="com.company.ksena.web.screens.inventorywrapper">
+    <data readOnly="true">
+        <collection id="inventoryWrappersDc"
+                    class="com.company.ksena.entity.inventory.InventoryWrapper"
+                    view="_local">
+            <loader id="inventoryWrappersDl">
+                <query>
+                    <![CDATA[select e from ksena_InventoryWrapper e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="inventoryWrappersTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="inventoryWrappersTable"
+                dataLoader="inventoryWrappersDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="inventoryWrappersTable"
+                    width="100%"
+                    dataContainer="inventoryWrappersDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="noteInventory"/>
+                <column id="quantityInventory"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="inventoryWrappersTable.create"/>
+                <button id="editBtn" action="inventoryWrappersTable.edit"/>
+                <button id="removeBtn" action="inventoryWrappersTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

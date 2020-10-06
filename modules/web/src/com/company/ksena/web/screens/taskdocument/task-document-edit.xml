@@ -12,6 +12,7 @@
             <collection id="inventoryDc" property="inventoryMap"/>
             <collection id="cleaningMapDc" property="cleaningMap"/>
             <collection id="cleaningDayDc" property="cleaningDay"/>
+            <collection id="employeesMapDc" property="employeesMap"/>
         </instance>
         <collection id="pointsDc" class="com.company.ksena.entity.point.Point" view="_local">
             <loader id="pointsForCompanyLc">
@@ -79,28 +80,48 @@
                 </table>
             </groupBox>
         </hbox>
+        <groupBox width="100%" orientation="horizontal" spacing="true">
+            <groupBox id="inventoryBox" caption="msg://com.company.ksena.entity.task/TaskDocument.inventoryMap">
+                <table id="inventoryTable" dataContainer="inventoryDc" width="100%" align="TOP_RIGHT"
+                       editable="true">
+                    <actions>
+                        <action id="add" type="add"/>
+                        <action id="exclude" type="exclude"/>
+                        <action id="view" type="view" />
+                    </actions>
+                    <columns>
+                        <column id="inventory.name"/>
+                        <column id="inventory.description"/>
+                        <column id="inventory.serialNumber"/>
+                        <column id="inventory.colour"/>
+                        <column id="quantityInventory" editable="true"/>
+                        <column id="noteInventory" editable="true"/>
+                    </columns>
+                    <buttonsPanel>
+                        <button id="addInventory" caption="mainMsg://inventoryMapAddInventory"/>
+                        <button action="inventoryTable.exclude"/>
+                    </buttonsPanel>
+                </table>
+            </groupBox>
 
-        <groupBox id="inventoryBox" caption="msg://com.company.ksena.entity.task/TaskDocument.inventoryMap">
-            <table id="inventoryTable" dataContainer="inventoryDc" width="100%" align="TOP_RIGHT"
-                   editable="true">
-                <actions>
-                    <action id="add" type="add"/>
-                    <action id="exclude" type="exclude"/>
-                    <action id="view" type="view"/>
-                </actions>
-                <columns>
-                    <column id="inventory.name"/>
-                    <column id="inventory.description"/>
-                    <column id="inventory.serialNumber"/>
-                    <column id="inventory.colour"/>
-                    <column id="quantityInventory" editable="true"/>
-                    <column id="noteInventory" editable="true"/>
-                </columns>
-                <buttonsPanel>
-                    <button id="addInventory" caption="mainMsg://inventoryMapAddInventory"/>
-                    <button action="inventoryTable.exclude"/>
-                </buttonsPanel>
-            </table>
+            <groupBox id="employeesBox" caption="msg://com.company.ksena.entity.task/TaskDocument.employeesMap">
+                <table id="employeesTable" dataContainer="employeesMapDc" width="100%" align="TOP_RIGHT"
+                       editable="true">
+                    <actions>
+                        <action id="add" type="add"/>
+                        <action id="exclude" type="exclude"/>
+                        <action id="view" type="view" />
+                    </actions>
+                    <columns>
+                        <column id="fullName"/>
+                        <column id="phoneNumber"/>
+                    </columns>
+                    <buttonsPanel>
+                        <button action="employeesTable.add"/>
+                        <button action="employeesTable.exclude"/>
+                    </buttonsPanel>
+                </table>
+            </groupBox>
         </groupBox>
         <groupBox id="cleaningMapBox" caption="msg://com.company.ksena.entity.task/TaskDocument.cleaningMap">
             <table id="cleaningMapTable" dataContainer="cleaningMapDc" width="100%" align="TOP_CENTER"
@@ -122,7 +143,7 @@
 
                 </columns>
                 <buttonsPanel>
-<!--                    <button action="cleaningMapTable.add"/>-->
+                    <!--                    <button action="cleaningMapTable.add"/>-->
 
 
                     <button id="addPosition" caption="mainMsg://cleaningMapPositionAddPosition"/>

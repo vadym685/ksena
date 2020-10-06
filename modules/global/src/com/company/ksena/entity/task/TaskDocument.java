@@ -3,6 +3,7 @@ package com.company.ksena.entity.task;
 import com.company.ksena.entity.cleaning_map.PositionWrapper;
 import com.company.ksena.entity.company.Company;
 import com.company.ksena.entity.inventory.InventoryWrapper;
+import com.company.ksena.entity.people.Employee;
 import com.company.ksena.entity.point.Point;
 import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
@@ -90,6 +91,20 @@ public class TaskDocument extends StandardEntity {
 
     @OneToMany(mappedBy = "taskDocuments")
     protected List<InventoryWrapper> inventoryMap;
+
+    @JoinTable(name = "KSENA_TASK_DOCUMENT_EMPLOYEE_LINK",
+            joinColumns = @JoinColumn(name = "TASK_DOCUMENT_ID"),
+            inverseJoinColumns = @JoinColumn(name = "EMPLOYEE_ID"))
+    @ManyToMany
+    protected List<Employee> employeesMap;
+
+    public List<Employee> getEmployeesMap() {
+        return employeesMap;
+    }
+
+    public void setEmployeesMap(List<Employee> employeesMap) {
+        this.employeesMap = employeesMap;
+    }
 
     public void setInventoryMap(List<InventoryWrapper> inventoryMap) {
         this.inventoryMap = inventoryMap;

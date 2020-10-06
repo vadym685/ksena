@@ -84,6 +84,7 @@
         <property name="inventoryMap" view="_local">
             <property name="inventory" view="_local"/>
         </property>
+        <property name="employeesMap" view="_local"/>
     </view>
 
 </views>

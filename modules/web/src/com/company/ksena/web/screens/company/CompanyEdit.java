@@ -6,9 +6,14 @@ import com.company.ksena.entity.people.ClientEmployee;
 import com.company.ksena.entity.task.Task;
 import com.company.ksena.entity.task.TaskDocument;
 import com.company.ksena.web.screens.clientemployee.ClientEmployeeBrowse;
+import com.company.ksena.web.screens.clientemployee.ClientEmployeeWithCompanyBrowse;
 import com.company.ksena.web.screens.task.TaskEdit;
+import com.haulmont.cuba.core.entity.contracts.Id;
+import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.Metadata;
+import com.haulmont.cuba.gui.Notifications;
 import com.haulmont.cuba.gui.ScreenBuilders;
+import com.haulmont.cuba.gui.UiComponents;
 import com.haulmont.cuba.gui.components.Button;
 import com.haulmont.cuba.gui.components.HasValue;
 import com.haulmont.cuba.gui.components.PickerField;
@@ -45,6 +50,10 @@ public class CompanyEdit extends StandardEditor<Company> {
     private ScreenBuilders screenBuilders;
     @Inject
     private CollectionPropertyContainer<ClientEmployee> responsibleEmployeeDc;
+    @Inject
+    private DataManager dataManager;
+    @Inject
+    private Notifications notifications;
 
 
     @Subscribe
@@ -117,25 +126,39 @@ public class CompanyEdit extends StandardEditor<Company> {
         }
     }
 //
-//    @Subscribe("addResponsibleEmployee")
-//    public void addResponsibleEmployee(Button.ClickEvent event) {
-//        ClientEmployee selectClientEmployee = screenBuilders.lookup(ClientEmployee.class, this)
-//                .withScreenClass(ClientEmployeeBrowse.class)
-//                .withOpenMode(OpenMode.DIALOG)
-//                .withAfterCloseListener(e -> {
-//
-//                    ClientEmployee clientEmployee  = e.getScreen().getSelectedInventory();
-//
-//                    StandardCloseAction closeAction = (StandardCloseAction) e.getCloseAction();
-//
-//                    if (clientEmployee != null && closeAction.getActionId().equals("select")) {
-//
-//                        responsibleEmployeeDc.getMutableItems().add();
-//                    }
-//                })
-//                .withSelectHandler(e  -> {
-//                })
-//                .build();
-//        selectClientEmployee.show();
-//    }
+    @Subscribe("addResponsibleEmployee")
+    public void addResponsibleEmployee(Button.ClickEvent event) {
+
+        if (this.nameField.getRawValue() == "") {
+            notifications.create().withDescription("Before adding employees, save the company").show();
+        } else {
+            Company company = dataManager.load(Company.class)
+                    .query("select e from ksena_Company e where e.name = :name")
+                    .parameter("name", this.nameField.getRawValue())
+                    .view("company-view")
+                    .one();
+
+            ClientEmployeeWithCompanyBrowse selectClientEmployee = screenBuilders.lookup(ClientEmployee.class, this)
+                    .withScreenClass(ClientEmployeeWithCompanyBrowse.class)
+                    .withOpenMode(OpenMode.DIALOG)
+                    .withAfterCloseListener(e -> {
+
+                        ClientEmployee clientEmployee = e.getScreen().getSelectedClientEmployee();
+
+                        StandardCloseAction closeAction = (StandardCloseAction) e.getCloseAction();
+
+                        if (clientEmployee != null && closeAction.getActionId().equals("select")) {
+
+                            responsibleEmployeeDc.getMutableItems().add(clientEmployee);
+                        }
+                    })
+                    .withSelectHandler(e -> {
+
+                    })
+                    .build();
+
+            selectClientEmployee.setQueryParametr(company);
+            selectClientEmployee.show();
+        }
+    }
 }

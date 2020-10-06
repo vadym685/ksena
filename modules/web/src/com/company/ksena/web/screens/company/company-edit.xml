@@ -16,77 +16,85 @@
     <dialogMode height="600"
                 width="800"/>
     <layout expand="editActions" spacing="true">
-        <form id="form" dataContainer="companyDc">
-            <column width="250px">
-                <textField id="nameField" property="name"/>
-                <pickerField id="companyTypeField" property="companyType"/>
-                <textField id="fullNameField" property="fullName" editable="false"/>
-                <textField id="legalIndexField" property="legalIndex"/>
-                <textField id="legalCity" property="legalCity"/>
-                <textField id="legalStreet" property="legalStreet"/>
-                <textField id="legalHouseNumber" property="legalHouseNumber"/>
-                <textField id="actualIndex" property="actualIndex"/>
-                <textField id="actualCity" property="actualCity"/>
-                <textField id="actualStreet" property="actualStreet"/>
-                <textField id="actualHouseNumber" property="actualHouseNumber"/>
-                <textField id="fieldOfActivity" property="fieldOfActivity"/>
-                <textArea id="fieldOfActivityFull" property="fieldOfActivityFull"/>
-                <lookupField id="billSendType" property="billSendType"/>
-                <lookupField id="vatField" property="vat"/>
-                <textField id="emailField" property="email"/>
-                <maskedField id="contactPhoneField" property="contactPhone" mask="~##(###)###-##-##" valueMode="masked"/>
-                <pickerField id="companyCategoryField" property="companyCategory"/>
-                <textField id="individualTaxpayerNumberField" property="individualTaxpayerNumber"/>
-            </column>
-        </form>
 
-        <buttonsPanel>
-            <button invoke="createTaskDoc" caption="msg://createTaskDoc"/>
-            <button invoke="createTask" caption="msg://createTask"/>
-        </buttonsPanel>
+        <groupBox width="100%" orientation="horizontal" spacing="true">
+            <groupBox width="100%" spacing="true">
+                <form id="form" dataContainer="companyDc">
+                    <column width="250px">
+                        <textField id="nameField" property="name"/>
+                        <pickerField id="companyTypeField" property="companyType"/>
+                        <textField id="fullNameField" property="fullName" editable="false"/>
+                        <textField id="legalIndexField" property="legalIndex"/>
+                        <textField id="legalCity" property="legalCity"/>
+                        <textField id="legalStreet" property="legalStreet"/>
+                        <textField id="legalHouseNumber" property="legalHouseNumber"/>
+                        <textField id="actualIndex" property="actualIndex"/>
+                        <textField id="actualCity" property="actualCity"/>
+                        <textField id="actualStreet" property="actualStreet"/>
+                        <textField id="actualHouseNumber" property="actualHouseNumber"/>
+                        <textField id="fieldOfActivity" property="fieldOfActivity"/>
+                        <textArea id="fieldOfActivityFull" property="fieldOfActivityFull"/>
+                        <lookupField id="billSendType" property="billSendType"/>
+                        <lookupField id="vatField" property="vat"/>
+                        <textField id="emailField" property="email"/>
+                        <maskedField id="contactPhoneField" property="contactPhone" mask="~##(###)###-##-##"
+                                     valueMode="masked"/>
+                        <pickerField id="companyCategoryField" property="companyCategory"/>
+                        <textField id="individualTaxpayerNumberField" property="individualTaxpayerNumber"/>
+                    </column>
+                </form>
+                <buttonsPanel>
+                    <button invoke="createTaskDoc" caption="msg://createTaskDoc"/>
+                    <button invoke="createTask" caption="msg://createTask"/>
+                </buttonsPanel>
+            </groupBox>
+            <groupBox width="100%" spacing="true">
+                <groupBox id="responsibleEmployeeBox"
+                          caption="msg://com.company.ksena.entity.company/Company.responsibleEmployee">
+                    <table id="responsibleEmployeeTable" dataContainer="responsibleEmployeeDc" width="100%"
+                           height="200px">
+                        <actions>
+                            <action id="add" type="add"/>
+                            <action id="exclude" type="exclude"/>
+                        </actions>
+                        <buttonsPanel>
+                            <button id="addResponsibleEmployee" caption="Add"/>
+                            <!--                    <button action="responsibleEmployeeTable.add"/>-->
+                            <button action="responsibleEmployeeTable.exclude"/>
+                        </buttonsPanel>
+                        <columns>
+                            <column id="fullName"/>
+                            <column id="position"/>
+                            <column id="email"/>
+                            <column id="phoneNumber"/>
+                            <column id="pasportNumber"/>
+                            <column id="authority"/>
+                            <column id="dateOfIssue"/>
+                            <column id="individualTaxpayerNumber"/>
+                            <column id="sex"/>
+                            <column id="companies"/>
+                        </columns>
+                    </table>
+                </groupBox>
 
-        <groupBox id="responsibleEmployeeBox"
-                  caption="msg://com.company.ksena.entity.company/Company.responsibleEmployee">
-            <table id="responsibleEmployeeTable" dataContainer="responsibleEmployeeDc" width="100%" height="200px">
-                <actions>
-                    <action id="add" type="add"/>
-                    <action id="exclude" type="exclude"/>
-                </actions>
-                <buttonsPanel>
-<!--                    <button id="addResponsibleEmployee" caption="Add"/>-->
-                    <button action="responsibleEmployeeTable.add"/>
-                    <button action="responsibleEmployeeTable.exclude"/>
-                </buttonsPanel>
-                <columns>
-                    <column id="fullName"/>
-                    <column id="position"/>
-                    <column id="email"/>
-                    <column id="phoneNumber"/>
-                    <column id="pasportNumber"/>
-                    <column id="authority"/>
-                    <column id="dateOfIssue"/>
-                    <column id="individualTaxpayerNumber"/>
-                    <column id="sex"/>
-                    <column id="companies"/>
-                </columns>
-            </table>
-        </groupBox>
-        <groupBox id="pointsBox"
-                  caption="msg://com.company.ksena.entity.company/Company.points">
-            <table id="pointsTable" dataContainer="pointsDc" width="100%" height="200px">
-                <actions>
-                    <action id="add" type="add"/>
-                    <action id="exclude" type="exclude"/>
-                </actions>
-                <buttonsPanel>
-                    <button action="pointsTable.add"/>
-                    <button action="pointsTable.exclude"/>
-                </buttonsPanel>
-                <columns>
-                    <column id="name"/>
-                    <column id="city"/>
-                </columns>
-            </table>
+                <groupBox id="pointsBox"
+                          caption="msg://com.company.ksena.entity.company/Company.points">
+                    <table id="pointsTable" dataContainer="pointsDc" width="100%" height="200px">
+                        <!--                <actions>-->
+                        <!--                    <action id="add" type="add"/>-->
+                        <!--                    <action id="exclude" type="exclude"/>-->
+                        <!--                </actions>-->
+                        <!--                <buttonsPanel>-->
+                        <!--                    <button action="pointsTable.add"/>-->
+                        <!--                    <button action="pointsTable.exclude"/>-->
+                        <!--                </buttonsPanel>-->
+                        <columns>
+                            <column id="name"/>
+                            <column id="city"/>
+                        </columns>
+                    </table>
+                </groupBox>
+            </groupBox>
         </groupBox>
         <hbox id="editActions" spacing="true">
             <button action="windowCommitAndClose"/>
