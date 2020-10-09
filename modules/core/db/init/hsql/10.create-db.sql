@@ -439,6 +439,7 @@ create table KSENA_POSITION_WRAPPER (
     --
     POSITION_ID varchar(36),
     PRIORITY_CLEANING_POSITION integer,
+    ROOM_NAME varchar(255),
     NOTE_CLEANING_POSITION varchar(255),
     TASK_DOCUMENTS_ID varchar(36),
     TASK_ID varchar(36),

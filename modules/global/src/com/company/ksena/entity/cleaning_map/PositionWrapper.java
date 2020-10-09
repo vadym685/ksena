@@ -28,7 +28,7 @@ public class PositionWrapper extends StandardEntity {
     @JoinColumn(name = "TASK_DOCUMENTS_ID")
     protected TaskDocument taskDocuments;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "TASK_ID")
     protected Task task;
 
