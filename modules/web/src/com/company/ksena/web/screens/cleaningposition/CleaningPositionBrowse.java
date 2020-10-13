@@ -41,23 +41,23 @@ public class CleaningPositionBrowse extends StandardLookup<CleaningPosition> {
         cleaningPositionsDl.load();
     }
 
-    @Subscribe
-    public void onAfterShow(AfterShowEvent event) {
-        cleaningPositionsDc.getItems().forEach(cleaningPosition -> {
-            injectColorCss(cleaningPosition.getRoom().getColor(), cleaningPosition.getId());
-        });
-
-        cleaningPositionsTable.setStyleProvider(new GroupTable.StyleProvider<CleaningPosition>() {
-            @Nullable
-            @Override
-            public String getStyleName(CleaningPosition entity, @Nullable String property) {
-                if (property != null && property.equals("room")) {
-                    return "colored-cell-" + entity.getId() + "-" + entity.getRoom().getColor();
-                }
-                return null;
-            }
-        });
-    }
+//    @Subscribe
+//    public void onAfterShow(AfterShowEvent event) {
+//        cleaningPositionsDc.getItems().forEach(cleaningPosition -> {
+//            injectColorCss(cleaningPosition.getRoom().getColor(), cleaningPosition.getId());
+//        });
+//
+//        cleaningPositionsTable.setStyleProvider(new GroupTable.StyleProvider<CleaningPosition>() {
+//            @Nullable
+//            @Override
+//            public String getStyleName(CleaningPosition entity, @Nullable String property) {
+//                if (property != null && property.equals("room")) {
+//                    return "colored-cell-" + entity.getId() + "-" + entity.getRoom().getColor();
+//                }
+//                return null;
+//            }
+//        });
+//    }
 
     private void injectColorCss(String color, UUID id) {
         Page.Styles styles = Page.getCurrent().getStyles();
@@ -70,20 +70,20 @@ public class CleaningPositionBrowse extends StandardLookup<CleaningPosition> {
                     id.toString(), color, color));
         }}
 
-
-    @Subscribe(id = "cleaningPositionsDc", target = Target.DATA_CONTAINER)
-    public void cleaningPositionsDcItemPropertyChange(InstanceContainer.ItemPropertyChangeEvent<CleaningPosition> event) {
-
-        injectColorCss(event.getItem().getRoom().getColor(), event.getItem().getId());
-
-    }
-
-    @Subscribe(id = "cleaningPositionsDc", target = Target.DATA_CONTAINER)
-    public void cleaningPositionsDcItemChange(InstanceContainer.ItemChangeEvent<CleaningPosition> event) {
-        if (event.getItem() != null) {
-            injectColorCss(event.getItem().getRoom().getColor(), event.getItem().getId());
-
-        }
-    }
+//
+//    @Subscribe(id = "cleaningPositionsDc", target = Target.DATA_CONTAINER)
+//    public void cleaningPositionsDcItemPropertyChange(InstanceContainer.ItemPropertyChangeEvent<CleaningPosition> event) {
+//
+//        injectColorCss(event.getItem().getRoom().getColor(), event.getItem().getId());
+//
+//    }
+//
+//    @Subscribe(id = "cleaningPositionsDc", target = Target.DATA_CONTAINER)
+//    public void cleaningPositionsDcItemChange(InstanceContainer.ItemChangeEvent<CleaningPosition> event) {
+//        if (event.getItem() != null) {
+//            injectColorCss(event.getItem().getRoom().getColor(), event.getItem().getId());
+//
+//        }
+//    }
 
 }

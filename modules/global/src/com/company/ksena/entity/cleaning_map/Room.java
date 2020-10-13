@@ -18,21 +18,22 @@ public class Room extends StandardEntity {
     @Column(name = "NAME")
     protected String name;
 
+    @OneToMany(mappedBy = "roomName")
+    protected List<PositionWrapper> positionWrappers;
+
     @Column(name = "COMENT")
     protected String coment;
 
-    @OneToMany(mappedBy = "room")
-    protected List<CleaningPosition> cleaningPosition;
 
     @Column(name = "COLOR")
     protected String color;
 
-    public void setCleaningPosition(List<CleaningPosition> cleaningPosition) {
-        this.cleaningPosition = cleaningPosition;
+    public List<PositionWrapper> getPositionWrappers() {
+        return positionWrappers;
     }
 
-    public List<CleaningPosition> getCleaningPosition() {
-        return cleaningPosition;
+    public void setPositionWrappers(List<PositionWrapper> positionWrappers) {
+        this.positionWrappers = positionWrappers;
     }
 
     public String getColor() {

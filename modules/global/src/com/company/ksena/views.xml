@@ -46,7 +46,7 @@
         <property name="employees" view="_local"/>
         <property name="cleaningMap" view="_local">
             <property name="position" view="_local">
-                <property name="room" view="_local"/>
+<!--                <property name="room" view="_local"/>-->
             </property>
         </property>
         <property name="inventoryMap" view="_local">
@@ -77,14 +77,16 @@
         <property name="company" view="_local"/>
         <property name="cleaningDay" view="_local"/>
         <property name="cleaningMap" view="_local">
-            <property name="position" view="_local">
-                <property name="room" view="_local"/>
-            </property>
+            <property name="position" view="_local"/>
+            <property name="roomName" view="_local"/>
         </property>
         <property name="inventoryMap" view="_local">
             <property name="inventory" view="_local"/>
         </property>
         <property name="employeesMap" view="_local"/>
+    </view>
+    <view entity="ksena_CleaningPosition" name="cleaningPosition-view" extends="_local">
+        <property name="name"/>
     </view>
 
 </views>

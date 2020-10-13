@@ -19,9 +19,9 @@ public class CleaningPosition extends StandardEntity {
     @Column(name = "NAME")
     protected String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ROOM_ID")
-    protected Room room;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "ROOM_ID")
+//    protected Room room;
 
     @Column(name = "DESCRIPTION")
     protected String description;
@@ -58,25 +58,22 @@ public class CleaningPosition extends StandardEntity {
         this.positionWrapper = positionWrapper;
     }
 
-//    public Boolean getStandartPosition() {
-//        return Objects.isNull(standartPosition) ? false : true;
-//    }
-
     public Boolean getStandartPosition() {
-        return standartPosition;
+        return Objects.isNull(standartPosition) ? false : true;
     }
+
     public void setStandartPosition(Boolean standartPosition) {
         this.standartPosition = standartPosition;
 
     }
-
-    public Room getRoom() {
-        return room;
-    }
-
-    public void setRoom(Room room) {
-        this.room = room;
-    }
+//
+//    public Room getRoom() {
+//        return room;
+//    }
+//
+//    public void setRoom(Room room) {
+//        this.room = room;
+//    }
 
     public void setNeedTime(LocalTime needTime) {
         this.needTime = needTime;

@@ -26,6 +26,15 @@
                 </query>
             </loader>
         </collection>
+
+        <collection id="possitionDc" class="com.company.ksena.entity.cleaning_map.CleaningPosition" view="_local">
+            <loader id="possitionLc">
+                <query>
+                    <![CDATA[select e from ksena_CleaningPosition e ]]>
+                </query>
+            </loader>
+        </collection>
+
     </data>
     <dialogMode height="600"
                 width="800"/>
@@ -124,7 +133,8 @@
             </groupBox>
         </groupBox>
         <groupBox id="cleaningMapBox" caption="msg://com.company.ksena.entity.task/TaskDocument.cleaningMap">
-            <table id="cleaningMapTable" dataContainer="cleaningMapDc" width="100%" align="TOP_CENTER"
+            <split orientation="horizontal" width="100%">
+            <groupTable id="cleaningMapTable" dataContainer="cleaningMapDc" width="100%" align="TOP_CENTER"
                    editable="true">
                 <actions>
                     <action id="add" type="add"/>
@@ -132,29 +142,39 @@
                     <action id="excel" type="excel"/>
                     <action id="view" type="view"/>
                 </actions>
+
                 <columns>
+                    <group>
+                        <column id="roomName"/>
+                    </group>
                     <column id="priorityCleaningPosition"/>
                     <column id="position.name"/>
                     <column id="position.needTime"/>
                     <column id="position.description"/>
                     <column id="position.price"/>
-                    <column id="position.room"/>
+<!--                    <column id="position.room"/>-->
                     <column id="noteCleaningPosition" editable="true"/>
 
                 </columns>
                 <buttonsPanel>
-                    <!--                    <button action="cleaningMapTable.add"/>-->
-
-
-                    <button id="addPosition" caption="mainMsg://cleaningMapPositionAddPosition"/>
-                    <button id="cleaningMapPositionAddRoom" caption="msg://cleaningMapPositionAddRoom"/>
+<!--                    <button id="addPosition" caption="mainMsg://cleaningMapPositionAddPosition"/>-->
+                                        <button id="cleaningMapPositionAddRoom" caption="msg://cleaningMapPositionAddRoom"/>
                     <button id="excludePosition" action="cleaningMapTable.exclude"/>
-                    <button id="cleaningMapPositionUp" caption="msg://cleaningMapPositionUp"/>
-                    <button id="cleaningMapPositionDown" caption="msg://cleaningMapPositionDown"/>
-
-
+                    <!--                    <button id="cleaningMapPositionUp" caption="msg://cleaningMapPositionUp"/>-->
+                    <!--                    <button id="cleaningMapPositionDown" caption="msg://cleaningMapPositionDown"/>-->
                 </buttonsPanel>
-            </table>
+            </groupTable>
+
+                <table id="possitionTable" dataContainer="possitionDc" width="100%" align="TOP_CENTER">
+                    <columns>
+                        <column id="name"/>
+                        <column id="description"/>
+                    </columns>
+                    <buttonsPanel>
+
+                    </buttonsPanel>
+                </table>
+            </split>
         </groupBox>
 
         <hbox id="editActions" spacing="true">

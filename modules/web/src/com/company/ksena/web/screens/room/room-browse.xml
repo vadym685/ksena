@@ -9,9 +9,7 @@
                     class="com.company.ksena.entity.cleaning_map.Room"
         >
             <view extends="_local">
-                <property name="cleaningPosition" view="_local">
-                    <property name="room" view="_local"/>
-                </property>
+
             </view>
             <loader id="roomsDl">
                 <query>

@@ -97,7 +97,6 @@ create table KSENA_CLEANING_POSITION (
     DELETED_BY varchar(50),
     --
     NAME varchar(255),
-    ROOM_ID varchar(36),
     DESCRIPTION varchar(255),
     NEED_TIME time,
     PRICE double precision,
@@ -439,10 +438,10 @@ create table KSENA_POSITION_WRAPPER (
     --
     POSITION_ID varchar(36),
     PRIORITY_CLEANING_POSITION integer,
-    ROOM_NAME varchar(255),
     NOTE_CLEANING_POSITION varchar(255),
     TASK_DOCUMENTS_ID varchar(36),
     TASK_ID varchar(36),
+    ROOM_NAME_ID varchar(36),
     --
     primary key (ID)
 )^

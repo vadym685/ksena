@@ -6,10 +6,7 @@
         messagesPack="com.company.ksena.web.screens.cleaningposition">
     <data readOnly="true">
         <collection id="cleaningPositionsDc"
-                    class="com.company.ksena.entity.cleaning_map.CleaningPosition">
-            <view extends="_local">
-                <property name="room" view="_local"/>
-            </view>
+                    class="com.company.ksena.entity.cleaning_map.CleaningPosition" view="cleaningPosition-view">
             <loader id="cleaningPositionsDl">
                 <query>
                     <![CDATA[select e from ksena_CleaningPosition e ]]>
@@ -37,7 +34,6 @@
             </actions>
             <columns>
                 <column id="name"/>
-                <column id="room" sort="ASCENDING"/>
                 <column id="description"/>
                 <column id="needTime"/>
                 <column id="price"/>

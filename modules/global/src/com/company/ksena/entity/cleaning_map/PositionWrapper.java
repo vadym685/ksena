@@ -18,9 +18,6 @@ public class PositionWrapper extends StandardEntity {
     @Column(name = "PRIORITY_CLEANING_POSITION")
     protected Integer priorityCleaningPosition;
 
-    @Column(name = "ROOM_NAME")
-    protected String roomName;
-
     @Column(name = "NOTE_CLEANING_POSITION")
     protected String noteCleaningPosition;
 
@@ -32,12 +29,16 @@ public class PositionWrapper extends StandardEntity {
     @JoinColumn(name = "TASK_ID")
     protected Task task;
 
-    public String getRoomName() {
-        return roomName;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ROOM_NAME_ID")
+    protected Room roomName;
+
+    public void setRoomName(Room roomName) {
+        this.roomName = roomName;
     }
 
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
+    public Room getRoomName() {
+        return roomName;
     }
 
     public Task getTask() {

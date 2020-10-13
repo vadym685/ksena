@@ -8,7 +8,7 @@
                   class="com.company.ksena.entity.cleaning_map.CleaningPosition"
         >
             <view extends="_local">
-                <property name="room" view="_local"/>
+<!--                <property name="room" view="_local"/>-->
                 <property name="expendableMaterials" view="_local"/>
             </view>
             <loader/>
@@ -21,7 +21,7 @@
         <form id="form" dataContainer="cleaningPositionDc">
             <column width="250px">
                 <textArea id="nameField" property="name" width="300"/>
-                <pickerField id="roomField" property="room"/>
+<!--                <pickerField id="roomField" property="room"/>-->
                 <textField id="descriptionField" property="description"/>
                 <timeField id="needTimeField" property="needTime"/>
                 <textField id="priceField" property="price"/>
