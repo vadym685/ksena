@@ -45,9 +45,8 @@
         <property name="point" view="_local"/>
         <property name="employees" view="_local"/>
         <property name="cleaningMap" view="_local">
-            <property name="position" view="_local">
-<!--                <property name="room" view="_local"/>-->
-            </property>
+            <property name="position" view="_local"/>
+            <property name="roomName" view="_local"/>
         </property>
         <property name="inventoryMap" view="_local">
             <property name="inventory" view="_local"/>
@@ -86,7 +85,16 @@
         <property name="employeesMap" view="_local"/>
     </view>
     <view entity="ksena_CleaningPosition" name="cleaningPosition-view" extends="_local">
-        <property name="name"/>
+    </view>
+    <view entity="ksena_Template" name="template-editView" extends="_local">
+        <property name="cleaningMap" view="_local">
+            <property name="position" view="_local"/>
+            <property name="taskDocuments" view="_local"/>
+            <property name="task" view="_local"/>
+            <property name="roomName" view="_local"/>
+            <property name="updateTs"/>
+            <property name="createTs"/>
+        </property>
     </view>
 
 </views>

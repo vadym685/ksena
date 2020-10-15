@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://templateBrowse.caption"
+        focusComponent="templatesTable"
+        messagesPack="com.company.ksena.web.screens.template">
+    <data readOnly="true">
+        <collection id="templatesDc"
+                    class="com.company.ksena.entity.template.Template">
+            <view extends="template-editView">
+                <property name="cleaningMap" view="_local">
+                    <property name="position" view="_local"/>
+                    <property name="taskDocuments" view="_local"/>
+                    <property name="task" view="_local"/>
+                    <property name="roomName" view="_local"/>
+                </property>
+            </view>
+            <loader id="templatesDl">
+                <query>
+                    <![CDATA[select e from ksena_Template e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="templatesTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="templatesTable"
+                dataLoader="templatesDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="templatesTable"
+                    width="100%"
+                    dataContainer="templatesDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="name"/>
+                <column id="dateOfCreation"/>
+                <column id="dateOfUpdate"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="templatesTable.create"/>
+                <button id="editBtn" action="templatesTable.edit"/>
+                <button id="removeBtn" action="templatesTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

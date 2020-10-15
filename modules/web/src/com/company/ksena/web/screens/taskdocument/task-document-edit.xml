@@ -27,7 +27,8 @@
             </loader>
         </collection>
 
-        <collection id="possitionDc" class="com.company.ksena.entity.cleaning_map.CleaningPosition" view="_local">
+        <collection id="possitionDc" class="com.company.ksena.entity.cleaning_map.CleaningPosition"
+                    view="cleaningPosition-view">
             <loader id="possitionLc">
                 <query>
                     <![CDATA[select e from ksena_CleaningPosition e ]]>
@@ -38,148 +39,155 @@
     </data>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="editActions" spacing="true">
-        <hbox width="100%">
-            <groupBox id="dataBox" caption="msg://TaskDocumentData" spacing="true" width="100%">
-                <form id="form" dataContainer="taskDocumentDc">
-                    <column width="250px">
-                        <textField id="docNumberField" property="docNumber"/>
-                        <dateField id="createDateField" property="createDate"/>
-                        <dateField id="dateOfCompletionField" property="dateOfCompletion"/>
-                        <checkBox id="isActiveField" property="isActive"/>
-                        <pickerField id="companyField" property="company"/>
-                        <textField id="delay" property="delay"/>
-                        <lookupPickerField id="pointField" optionsContainer="pointsDc" property="point">
+    <layout spacing="true" expand="mainSplit" width="100%" height="100%">
+        <split id="mainSplit" orientation="horizontal" pos="100" locked="true" enable="false" settingsEnabled="false"
+               width="100%">
+            <vbox id="mainBox" width="100%">
+                <hbox width="100%">
+                    <groupBox id="dataBox" caption="msg://TaskDocumentData" spacing="true" width="AUTO">
+                        <form id="form" dataContainer="taskDocumentDc">
+                            <column width="250px">
+                                <textField id="docNumberField" property="docNumber"/>
+                                <dateField id="createDateField" property="createDate"/>
+                                <dateField id="dateOfCompletionField" property="dateOfCompletion"/>
+                                <checkBox id="isActiveField" property="isActive"/>
+                                <pickerField id="companyField" property="company"/>
+                                <textField id="delay" property="delay"/>
+                                <lookupPickerField id="pointField" optionsContainer="pointsDc" property="point">
+                                    <actions>
+                                        <action id="open" type="picker_open">
+                                            <properties>
+                                                <property name="openMode" value="DIALOG"/>
+                                            </properties>
+                                        </action>
+                                        <action id="clear" type="picker_clear"/>
+                                    </actions>
+                                </lookupPickerField>
+                                <lookupField id="taskTypeField" property="taskType"/>
+                                <lookupField id="typeOfPeriodicityField" property="typeOfPeriodicity" visible="false"/>
+                                <textField id="periodicityField" property="periodicity" visible="false"/>
+                                <lookupField id="typeOfCostFormationField" property="typeOfCostFormation"/>
+                                <textField id="costPerHourField" property="costPerHour" visible="false"/>
+                                <checkBox id="addPriseExpendableMaterialField" property="addPriseExpendableMaterial"/>
+                                <textField id="fullCostField" property="fullCost" visible="false"/>
+                                <textField id="salaryElementaryField" property="salaryElementary"/>
+                                <textField id="salaryHighField" property="salaryHigh"/>
+                                <textField id="salaryMediumField" property="salaryMedium"/>
+                            </column>
+                        </form>
+                    </groupBox>
+                    <groupBox id="cleaningDayBox" caption="msg://com.company.ksena.entity.task/TaskDocument.cleaningDay"
+                              align="TOP_LEFT" width="100%" visible="false" height="AUTO">
+                        <table id="cleaningDayTable" dataContainer="cleaningDayDc" width="100%" height="100%">
                             <actions>
-                                <action id="open" type="picker_open">
-                                    <properties>
-                                        <property name="openMode" value="DIALOG"/>
-                                    </properties>
-                                </action>
-                                <action id="clear" type="picker_clear"/>
+                                <action id="add" type="add"/>
+                                <action id="exclude" type="exclude"/>
                             </actions>
-                        </lookupPickerField>
-                        <lookupField id="taskTypeField" property="taskType"/>
-                        <lookupField id="typeOfPeriodicityField" property="typeOfPeriodicity" visible="false"/>
-                        <textField id="periodicityField" property="periodicity" visible="false"/>
-                        <lookupField id="typeOfCostFormationField" property="typeOfCostFormation"/>
-                        <textField id="costPerHourField" property="costPerHour" visible="false"/>
-                        <checkBox id="addPriseExpendableMaterialField" property="addPriseExpendableMaterial"/>
-                        <textField id="fullCostField" property="fullCost" visible="false"/>
-                        <textField id="salaryElementaryField" property="salaryElementary"/>
-                        <textField id="salaryHighField" property="salaryHigh"/>
-                        <textField id="salaryMediumField" property="salaryMedium"/>
-                    </column>
-                </form>
-            </groupBox>
-            <groupBox id="cleaningDayBox" caption="msg://com.company.ksena.entity.task/TaskDocument.cleaningDay"
-                      align="TOP_LEFT" width="100%" visible="false">
-                <table id="cleaningDayTable" dataContainer="cleaningDayDc" width="100%">
-                    <actions>
-                        <action id="add" type="add"/>
-                        <action id="exclude" type="exclude"/>
-                    </actions>
-                    <buttonsPanel>
-                        <button action="cleaningDayTable.add"/>
-                        <button action="cleaningDayTable.exclude"/>
-                    </buttonsPanel>
-                    <columns>
-                        <column id="nameDay"/>
-                    </columns>
-                </table>
-            </groupBox>
-        </hbox>
-        <groupBox width="100%" orientation="horizontal" spacing="true">
-            <groupBox id="inventoryBox" caption="msg://com.company.ksena.entity.task/TaskDocument.inventoryMap">
-                <table id="inventoryTable" dataContainer="inventoryDc" width="100%" align="TOP_RIGHT"
-                       editable="true">
-                    <actions>
-                        <action id="add" type="add"/>
-                        <action id="exclude" type="exclude"/>
-                        <action id="view" type="view" />
-                    </actions>
-                    <columns>
-                        <column id="inventory.name"/>
-                        <column id="inventory.description"/>
-                        <column id="inventory.serialNumber"/>
-                        <column id="inventory.colour"/>
-                        <column id="quantityInventory" editable="true"/>
-                        <column id="noteInventory" editable="true"/>
-                    </columns>
-                    <buttonsPanel>
-                        <button id="addInventory" caption="mainMsg://inventoryMapAddInventory"/>
-                        <button action="inventoryTable.exclude"/>
-                    </buttonsPanel>
-                </table>
-            </groupBox>
+                            <buttonsPanel>
+                                <button action="cleaningDayTable.add"/>
+                                <button action="cleaningDayTable.exclude"/>
+                            </buttonsPanel>
+                            <columns>
+                                <column id="nameDay"/>
+                            </columns>
+                        </table>
+                    </groupBox>
+                </hbox>
+                <groupBox width="100%" orientation="horizontal" spacing="true">
+                    <groupBox id="inventoryBox" caption="msg://com.company.ksena.entity.task/TaskDocument.inventoryMap"
+                              expand="inventoryTable">
+                        <table id="inventoryTable" dataContainer="inventoryDc" width="100%" align="TOP_RIGHT"
+                               editable="true">
+                            <actions>
+                                <action id="add" type="add"/>
+                                <action id="exclude" type="exclude"/>
+                                <action id="view" type="view"/>
+                            </actions>
+                            <columns>
+                                <column id="inventory.name"/>
+                                <column id="inventory.description"/>
+                                <column id="inventory.serialNumber"/>
+                                <column id="inventory.colour"/>
+                                <column id="quantityInventory" editable="true"/>
+                                <column id="noteInventory" editable="true"/>
+                            </columns>
+                            <buttonsPanel>
+                                <button id="addInventory" caption="mainMsg://inventoryMapAddInventory"/>
+                                <button action="inventoryTable.exclude"/>
+                            </buttonsPanel>
+                        </table>
+                    </groupBox>
 
-            <groupBox id="employeesBox" caption="msg://com.company.ksena.entity.task/TaskDocument.employeesMap">
-                <table id="employeesTable" dataContainer="employeesMapDc" width="100%" align="TOP_RIGHT"
-                       editable="true">
-                    <actions>
-                        <action id="add" type="add"/>
-                        <action id="exclude" type="exclude"/>
-                        <action id="view" type="view" />
-                    </actions>
-                    <columns>
-                        <column id="fullName"/>
-                        <column id="phoneNumber"/>
-                    </columns>
-                    <buttonsPanel>
-                        <button action="employeesTable.add"/>
-                        <button action="employeesTable.exclude"/>
-                    </buttonsPanel>
-                </table>
-            </groupBox>
-        </groupBox>
-        <groupBox id="cleaningMapBox" caption="msg://com.company.ksena.entity.task/TaskDocument.cleaningMap">
-            <split orientation="horizontal" width="100%">
-            <groupTable id="cleaningMapTable" dataContainer="cleaningMapDc" width="100%" align="TOP_CENTER"
-                   editable="true">
-                <actions>
-                    <action id="add" type="add"/>
-                    <action id="exclude" type="exclude"/>
-                    <action id="excel" type="excel"/>
-                    <action id="view" type="view"/>
-                </actions>
+                    <groupBox id="employeesBox" caption="msg://com.company.ksena.entity.task/TaskDocument.employeesMap"
+                              expand="employeesTable">
+                        <table id="employeesTable" dataContainer="employeesMapDc" width="100%" align="TOP_RIGHT"
+                               editable="true">
+                            <actions>
+                                <action id="add" type="add"/>
+                                <action id="exclude" type="exclude"/>
+                                <action id="view" type="view"/>
+                            </actions>
+                            <columns>
+                                <column id="fullName"/>
+                                <column id="phoneNumber"/>
+                            </columns>
+                            <buttonsPanel>
+                                <button action="employeesTable.add"/>
+                                <button action="employeesTable.exclude"/>
+                            </buttonsPanel>
+                        </table>
+                    </groupBox>
+                </groupBox>
+                <groupBox id="cleaningMapBox" caption="msg://com.company.ksena.entity.task/TaskDocument.cleaningMap">
+                    <groupTable id="cleaningMapTable" dataContainer="cleaningMapDc" width="100%" align="TOP_CENTER"
+                                editable="true">
+                        <actions>
+                            <action id="add" type="add"/>
+                            <action id="excel" type="excel"/>
+                            <action id="view" type="view"/>
+                        </actions>
 
-                <columns>
-                    <group>
-                        <column id="roomName"/>
-                    </group>
-                    <column id="priorityCleaningPosition"/>
-                    <column id="position.name"/>
-                    <column id="position.needTime"/>
-                    <column id="position.description"/>
-                    <column id="position.price"/>
-<!--                    <column id="position.room"/>-->
-                    <column id="noteCleaningPosition" editable="true"/>
+                        <columns>
+                            <group>
+                                <column id="roomName"/>
+                            </group>
+                            <column id="priorityCleaningPosition"/>
+                            <column id="position.name"/>
+                            <column id="position.needTime"/>
+                            <column id="position.description"/>
+                            <column id="position.price"/>
+                            <column id="noteCleaningPosition" editable="true"/>
 
-                </columns>
-                <buttonsPanel>
-<!--                    <button id="addPosition" caption="mainMsg://cleaningMapPositionAddPosition"/>-->
-                                        <button id="cleaningMapPositionAddRoom" caption="msg://cleaningMapPositionAddRoom"/>
-                    <button id="excludePosition" action="cleaningMapTable.exclude"/>
-                    <!--                    <button id="cleaningMapPositionUp" caption="msg://cleaningMapPositionUp"/>-->
-                    <!--                    <button id="cleaningMapPositionDown" caption="msg://cleaningMapPositionDown"/>-->
-                </buttonsPanel>
-            </groupTable>
+                        </columns>
+                        <buttonsPanel>
+                            <button id="cleaningMapPositionAddRoom" caption="msg://cleaningMapPositionAddRoom"/>
+                            <button id="addPosition" caption="msg://addPosition"/>
+                            <button id="ok" caption="msg://ok" visible="false"/>
+                            <button id="addTemplate" caption="msg://addTemplate"/>
+                            <button id="cleaningMapPositionUp" caption="msg://cleaningMapPositionUp" enable="false"/>
+                            <button id="cleaningMapPositionDown" caption="msg://cleaningMapPositionDown"
+                                    enable="false"/>
+                            <button id="excludePosition" caption="msg://delete"/>
+                        </buttonsPanel>
+                    </groupTable>
+                </groupBox>
 
+                <hbox id="editActions" spacing="true">
+                    <button action="windowCommitAndClose"/>
+                    <button action="windowClose"/>
+                </hbox>
+            </vbox>
+            <groupBox expand="possitionTable" height="100%">
+                <filter id="filter" applyTo="possitionTable" dataLoader="possitionLc">
+                    <properties include=".*"/>
+                </filter>
                 <table id="possitionTable" dataContainer="possitionDc" width="100%" align="TOP_CENTER">
                     <columns>
                         <column id="name"/>
                         <column id="description"/>
                     </columns>
-                    <buttonsPanel>
-
-                    </buttonsPanel>
                 </table>
-            </split>
-        </groupBox>
-
-        <hbox id="editActions" spacing="true">
-            <button action="windowCommitAndClose"/>
-            <button action="windowClose"/>
-        </hbox>
+            </groupBox>
+        </split>
     </layout>
 </window>

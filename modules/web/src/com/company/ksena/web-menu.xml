@@ -13,6 +13,7 @@
         <item screen="ksena_ExpendableMaterial.browse"/>
         <item screen="ksena_CleaningPosition.browse"/>
         <item screen="ksena_Room.browse"/>
+        <item screen="ksena_Template.browse" caption="mainMsg://menu_config.ksena_Template.browse"/>
     </menu>
 
     <menu id="Client-ksena" insertBefore="administration" description="mainMsg://menu-config.Client-ksena">

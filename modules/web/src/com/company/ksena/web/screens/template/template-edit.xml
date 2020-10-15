@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://templateEdit.caption"
+        focusComponent="form"
+        messagesPack="com.company.ksena.web.screens.template">
+    <data>
+        <instance id="templateDc"
+                  class="com.company.ksena.entity.template.Template"
+                  view="template-editView">
+            <loader/>
+            <collection id="cleaningMapDc" property="cleaningMap"/>
+        </instance>
+        <collection id="possitionDc" class="com.company.ksena.entity.cleaning_map.CleaningPosition" view="_local">
+            <loader id="possitionLc">
+                <query>
+                    <![CDATA[select e from ksena_CleaningPosition e ]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout spacing="true">
+        <split id="mainSplit" orientation="horizontal" pos="100" locked="true" enable="false" settingsEnabled="false"
+               width="100%">
+            <vbox expand="editActions">
+                <groupBox width="AUTO">
+                    <form id="form" dataContainer="templateDc">
+                        <column width="350px">
+                            <textField id="nameField" property="name"/>
+                            <dateField id="dateOfCreation" property="dateOfCreation" enable="false"/>
+                            <dateField id="dateOfUpdate" property="dateOfUpdate" enable="false"/>
+                        </column>
+                    </form>
+                </groupBox>
+                <groupBox caption="msg://cleaningMap">
+                    <groupTable id="cleaningMapTable" dataContainer="cleaningMapDc" width="100%" align="TOP_CENTER"
+                                editable="true">
+                        <actions>
+                            <action id="add" type="add"/>
+                            <action id="excel" type="excel"/>
+                            <action id="view" type="view"/>
+                        </actions>
+
+                        <columns>
+                            <group>
+                                <column id="roomName"/>
+                            </group>
+                            <column id="priorityCleaningPosition"/>
+                            <column id="position.name"/>
+                            <column id="position.needTime"/>
+                            <column id="position.description"/>
+                            <column id="position.price"/>
+                            <column id="noteCleaningPosition" editable="true"/>
+
+                        </columns>
+                        <buttonsPanel>
+                            <button id="cleaningMapPositionAddRoom" caption="msg://cleaningMapPositionAddRoom"/>
+                            <button id="addPosition" caption="msg://addPosition"/>
+                            <button id="ok" caption="msg://ok" visible="false"/>
+                            <button id="cleaningMapPositionUp" caption="msg://cleaningMapPositionUp" enable="false"/>
+                            <button id="cleaningMapPositionDown" caption="msg://cleaningMapPositionDown"
+                                    enable="false"/>
+                            <button id="excludePosition" caption="msg://delete"/>
+                        </buttonsPanel>
+                    </groupTable>
+                </groupBox>
+                <hbox id="editActions" spacing="true">
+                    <button action="windowCommitAndClose"/>
+                    <button action="windowClose"/>
+                </hbox>
+            </vbox>
+            <groupBox expand="possitionTable" height="100%">
+                <filter id="filter" applyTo="possitionTable" dataLoader="possitionLc">
+                    <properties include=".*"/>
+                </filter>
+                <table id="possitionTable" dataContainer="possitionDc" width="100%" align="TOP_CENTER">
+                    <columns>
+                        <column id="name"/>
+                        <column id="description"/>
+                    </columns>
+                </table>
+            </groupBox>
+        </split>
+    </layout>
+</window>

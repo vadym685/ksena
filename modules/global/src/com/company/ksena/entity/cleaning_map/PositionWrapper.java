@@ -2,6 +2,7 @@ package com.company.ksena.entity.cleaning_map;
 
 import com.company.ksena.entity.task.Task;
 import com.company.ksena.entity.task.TaskDocument;
+import com.company.ksena.entity.template.Template;
 import com.haulmont.cuba.core.entity.StandardEntity;
 
 import javax.persistence.*;
@@ -14,6 +15,10 @@ public class PositionWrapper extends StandardEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "POSITION_ID")
     protected CleaningPosition position;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "TEMPLATE_ID")
+    private Template template;
 
     @Column(name = "PRIORITY_CLEANING_POSITION")
     protected Integer priorityCleaningPosition;
@@ -83,4 +88,11 @@ public class PositionWrapper extends StandardEntity {
         return null;
     }
 
+    public Template getTemplate() {
+        return template;
+    }
+
+    public void setTemplate(Template template) {
+        this.template = template;
+    }
 }
