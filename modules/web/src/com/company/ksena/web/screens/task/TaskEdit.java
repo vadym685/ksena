@@ -354,14 +354,8 @@ public class TaskEdit extends StandardEditor<Task> {
 
     @Subscribe("excludePosition")
     public void onExcludePositionClick(Button.ClickEvent event) {
-        try {
-            if(cleaningMapTable.getSingleSelected() != null) {
-                dataManager.remove(cleaningMapTable.getSingleSelected());
-            }
-        } catch (Exception e){
-            LOG.error("");
-        }
         renumberAllPositions(cleaningMapTable.getSingleSelected());
+        cleaningMapDc.getMutableItems().get(cleaningMapDc.getItems().indexOf(cleaningMapTable.getSingleSelected())).setTemplate(null);
         cleaningMapDc.getMutableItems().remove(cleaningMapTable.getSingleSelected());
     }
 

@@ -146,13 +146,8 @@ public class TemplateEdit extends StandardEditor<Template> {
 
     @Subscribe("excludePosition")
     public void onExcludePositionClick(Button.ClickEvent event) {
-        try {
-            if(cleaningMapTable.getSingleSelected() != null) {
-                dataManager.remove(cleaningMapTable.getSingleSelected());
-            }
-        } catch (Exception ignored){
-        }
         renumberAllPositions(cleaningMapTable.getSingleSelected());
+        cleaningMapDc.getMutableItems().get(cleaningMapDc.getItems().indexOf(cleaningMapTable.getSingleSelected())).setTemplate(null);
         cleaningMapDc.getMutableItems().remove(cleaningMapTable.getSingleSelected());
     }
 
