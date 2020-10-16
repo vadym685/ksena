@@ -81,6 +81,8 @@ public class TemplateEdit extends StandardEditor<Template> {
 
     @Subscribe
     public void onInit(InitEvent event) {
+        cleaningMapTable.sort("priorityCleaningPosition", Table.SortDirection.ASCENDING);
+
         possitionTable.withUnwrapped(com.vaadin.v7.ui.Table.class, table ->
                 table.setDragMode(com.vaadin.v7.ui.Table.TableDragMode.MULTIROW)
         );

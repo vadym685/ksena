@@ -18,6 +18,7 @@ import com.haulmont.cuba.core.entity.contracts.Id;
 import com.haulmont.cuba.core.global.CommitContext;
 import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.Metadata;
+import com.haulmont.cuba.core.global.Sort;
 import com.haulmont.cuba.gui.Dialogs;
 import com.haulmont.cuba.gui.Notifications;
 import com.haulmont.cuba.gui.ScreenBuilders;
@@ -94,6 +95,8 @@ public class TaskEdit extends StandardEditor<Task> {
 
     @Subscribe
     public void onInit(InitEvent event) {
+        cleaningMapTable.sort("priorityCleaningPosition", Table.SortDirection.ASCENDING);
+
         possitionTable.withUnwrapped(com.vaadin.v7.ui.Table.class, table ->
                 table.setDragMode(com.vaadin.v7.ui.Table.TableDragMode.MULTIROW)
         );
@@ -361,7 +364,7 @@ public class TaskEdit extends StandardEditor<Task> {
 
     @Subscribe(id = "inventoryDc", target = Target.DATA_CONTAINER)
     public void onInventoryDcItemPropertyChange(InstanceContainer.ItemPropertyChangeEvent<InventoryWrapper> event) {
-        if (event.getProperty() == "quantityInventory") {
+        if (event.getProperty().equals("quantityInventory")) {
 
             if (event.getItem().getInventory().getSerialNumber() != null) {
                 notifications.create().withDescription("You cannot set the quantity to unique inventory").show();
