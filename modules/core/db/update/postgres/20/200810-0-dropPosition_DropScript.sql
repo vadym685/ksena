@@ -1,1 +1,0 @@
-drop table if exists KSENA_POSITION__U00932 cascade ;

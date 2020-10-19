@@ -1,1 +1,0 @@
-drop table if exists KSENA_TASK_DOCUMENT_INVENTORY_LINK__U80011 cascade ;

@@ -1,1 +1,0 @@
-drop table if exists KSENA_PASPORT_DATA__U86191 cascade ;

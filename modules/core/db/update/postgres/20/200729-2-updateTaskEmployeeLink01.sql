@@ -1,1 +1,0 @@
-alter table KSENA_TASK_EMPLOYEE_LINK add constraint FK_KSENA_TASK_EMPLOYEE_LINK_ON_EMPLOYEE foreign key (EMPLOYEE_ID) references KSENA_EMPLOYEE(ID);

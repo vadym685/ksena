@@ -1,3 +1,0 @@
-alter table KSENA_CLEANING_POSITION drop column NOTE_CLEANING_POSITION__U17211 cascade ;
-alter table KSENA_CLEANING_POSITION drop column PRIORITY_CLEANING_POSITION__U30592 cascade ;
-alter table KSENA_CLEANING_POSITION drop column VISIBLE__U80237 cascade ;
