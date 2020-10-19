@@ -97,6 +97,8 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
     private Button cleaningMapPositionUp;
     @Inject
     private Button cleaningMapPositionDown;
+    @Inject
+    private Button excludePosition;
 
 
     @Subscribe("companyField")
@@ -287,6 +289,8 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                                                 template.getCleaningMap().forEach(wrapper ->
                                                         wrapper.setTaskDocuments(super.getEditedEntity()));
                                                 cleaningMapDc.getMutableItems().addAll(template.getCleaningMap());
+
+                                                cleaningMapDc.getMutableItems().sort(Comparator.comparing(PositionWrapper::getPriorityCleaningPosition));
                                             });
                                         }),
                                         new DialogAction(DialogAction.Type.NO).withHandler(noEvent -> {}
@@ -306,6 +310,8 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                                 clone.setTemplate(null);
                                 clone.setTaskDocuments(this.getEditedEntity());
                                 cleaningMapDc.getMutableItems().add(clone);
+
+                                cleaningMapDc.getMutableItems().sort(Comparator.comparing(PositionWrapper::getPriorityCleaningPosition));
                             });
                         });
                     }
@@ -427,8 +433,11 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
         );
 
         if (wrapper == null) {
+            excludePosition.setEnabled(false);
             cleaningMapPositionUp.setEnabled(false);
             cleaningMapPositionDown.setEnabled(false);
+        } else {
+            excludePosition.setEnabled(true);
         }
     }
 

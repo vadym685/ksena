@@ -64,6 +64,8 @@ public class TemplateEdit extends StandardEditor<Template> {
     private Dialogs dialogs;
     @Inject
     private ScreenBuilders screenBuilders;
+    @Inject
+    private Button excludePosition;
 
     @Subscribe("addPosition")
     public void onAddPositionClick(Button.ClickEvent event) {
@@ -234,8 +236,11 @@ public class TemplateEdit extends StandardEditor<Template> {
         );
 
         if (wrapper == null) {
+            excludePosition.setEnabled(false);
             cleaningMapPositionUp.setEnabled(false);
             cleaningMapPositionDown.setEnabled(false);
+        } else {
+            excludePosition.setEnabled(true);
         }
     }
 

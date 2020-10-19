@@ -167,7 +167,7 @@
                             <button id="cleaningMapPositionUp" caption="msg://cleaningMapPositionUp" enable="false"/>
                             <button id="cleaningMapPositionDown" caption="msg://cleaningMapPositionDown"
                                     enable="false"/>
-                            <button id="excludePosition" caption="msg://delete"/>
+                            <button id="excludePosition" caption="msg://delete" enable="false"/>
                         </buttonsPanel>
                     </groupTable>
                 </groupBox>

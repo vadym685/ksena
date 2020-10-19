@@ -92,6 +92,8 @@ public class TaskEdit extends StandardEditor<Task> {
     private Table<CleaningPosition> possitionTable;
     @Inject
     private InstanceContainer<Task> taskDc;
+    @Inject
+    private Button excludePosition;
 
     @Subscribe
     public void onInit(InitEvent event) {
@@ -182,6 +184,8 @@ public class TaskEdit extends StandardEditor<Task> {
                                                 template.getCleaningMap().forEach(wrapper ->
                                                         wrapper.setTask(super.getEditedEntity()));
                                                 cleaningMapDc.getMutableItems().addAll(template.getCleaningMap());
+
+                                                cleaningMapDc.getMutableItems().sort(Comparator.comparing(PositionWrapper::getPriorityCleaningPosition));
                                             });
                                         }),
                                         new DialogAction(DialogAction.Type.NO).withHandler(noEvent -> {}
@@ -201,6 +205,8 @@ public class TaskEdit extends StandardEditor<Task> {
                                 clone.setTemplate(null);
                                 clone.setTask(this.getEditedEntity());
                                 cleaningMapDc.getMutableItems().add(clone);
+
+                                cleaningMapDc.getMutableItems().sort(Comparator.comparing(PositionWrapper::getPriorityCleaningPosition));
                             });
                         });
                     }
@@ -245,116 +251,18 @@ public class TaskEdit extends StandardEditor<Task> {
     @Subscribe("taskDocumentField")
     public void onTaskDocumentFieldValueChange(HasValue.ValueChangeEvent<TaskDocument> event) {
         TaskDocument document = event.getValue();
-        if (document != null && event.isUserOriginated() == true) {
 
-            if (getEditedEntity().getInventoryMap() != null || getEditedEntity().getCleaningMap() != null) {
-                dialogs.createOptionDialog()
-                        .withCaption("")
-                        .withMessage(messageBundle.getMessage("youSetNewTaskDoc"))
-                        .withActions(
-                                new DialogAction(DialogAction.Type.YES).withHandler(e -> {
-                                    getEditedEntity().setPoint(null);
-                                    getEditedEntity().setCompany(null);
-                                    getEditedEntity().setDelay(null);
-                                    getEditedEntity().setSalaryElementary(null);
-                                    getEditedEntity().setSalaryHigh(null);
-                                    getEditedEntity().setSalaryMedium(null);
-                                    getEditedEntity().setAddPriseExpendableMaterial(null);
-                                    getEditedEntity().setEmployees(null);
+        cleaningMapDc.getMutableItems().clear();
+        if (document != null) {
+            document.getCleaningMap().forEach(wrapper -> {
+                PositionWrapper positionWrapper = metadata.getTools().copy(wrapper);
 
-                                    if (getEditedEntity().getCleaningMap() != null) {
-                                        List<PositionWrapper> clearCleaningMapList = getEditedEntity().getCleaningMap();
+                positionWrapper.setId(UUID.randomUUID());
+                positionWrapper.setTaskDocuments(null);
+                positionWrapper.setTask(getEditedEntity());
 
-                                        for (PositionWrapper clearPositionWrapper : clearCleaningMapList) {
-                                            dataManager.remove(clearPositionWrapper);
-
-                                        }
-                                    }
-                                    if (getEditedEntity().getInventoryMap() != null) {
-                                        List<InventoryWrapper> clearInventoryWrapperList = getEditedEntity().getInventoryMap();
-
-                                        for (InventoryWrapper clearinventoryWrapper : clearInventoryWrapperList) {
-                                            dataManager.remove(clearinventoryWrapper);
-                                        }
-                                    }
-
-                                    getEditedEntity().setInventoryMap(null);
-                                    getEditedEntity().setCleaningMap(null);
-
-                                    getEditedEntity().setPoint(document.getPoint());
-                                    getEditedEntity().setCompany(document.getCompany());
-                                    getEditedEntity().setDelay(document.getDelay());
-                                    getEditedEntity().setSalaryElementary(document.getSalaryElementary());
-                                    getEditedEntity().setSalaryHigh(document.getSalaryHigh());
-                                    getEditedEntity().setSalaryMedium(document.getSalaryMedium());
-                                    getEditedEntity().setAddPriseExpendableMaterial(document.getAddPriseExpendableMaterial());
-                                    getEditedEntity().setEmployees(document.getEmployeesMap());
-
-                                    List<PositionWrapper> cleaningMapList = document.getCleaningMap();
-                                    List<InventoryWrapper> inventoryWrapperList = document.getInventoryMap();
-
-                                    for (PositionWrapper positionWrapper : cleaningMapList) {
-                                        PositionWrapper newPositionWrapper = metadata.create(PositionWrapper.class);
-                                        newPositionWrapper.setPosition(positionWrapper.getPosition());
-                                        newPositionWrapper.setRoomName(positionWrapper.getRoomName());
-                                        newPositionWrapper.setNoteCleaningPosition(positionWrapper.getNoteCleaningPosition());
-                                        newPositionWrapper.setPriorityCleaningPosition(cleaningMapDc.getItems().size() + 1);
-                                        newPositionWrapper.setTask(this.getEditedEntity());
-                                        newPositionWrapper.setTaskDocuments(null);
-
-                                        cleaningMapDc.getMutableItems().add(newPositionWrapper);
-                                    }
-
-                                    for (InventoryWrapper inventoryWrapper : inventoryWrapperList) {
-                                        InventoryWrapper newInventoryWrapper = metadata.create(InventoryWrapper.class);
-                                        newInventoryWrapper.setInventory(inventoryWrapper.getInventory());
-                                        newInventoryWrapper.setQuantityInventory(1);
-                                        newInventoryWrapper.setTask(this.getEditedEntity());
-                                        newInventoryWrapper.setTaskDocuments(null);
-
-                                        inventoryDc.getMutableItems().add(newInventoryWrapper);
-                                    }
-                                }),
-                                new DialogAction(DialogAction.Type.NO).withHandler(e -> {
-
-                                })
-                        ).show();
-
-            } else {
-                getEditedEntity().setPoint(document.getPoint());
-                getEditedEntity().setCompany(document.getCompany());
-                getEditedEntity().setDelay(document.getDelay());
-                getEditedEntity().setSalaryElementary(document.getSalaryElementary());
-                getEditedEntity().setSalaryHigh(document.getSalaryHigh());
-                getEditedEntity().setSalaryMedium(document.getSalaryMedium());
-                getEditedEntity().setAddPriseExpendableMaterial(document.getAddPriseExpendableMaterial());
-                getEditedEntity().setEmployees(document.getEmployeesMap());
-
-                List<PositionWrapper> cleaningMapList = document.getCleaningMap();
-                List<InventoryWrapper> inventoryWrapperList = document.getInventoryMap();
-
-                for (PositionWrapper positionWrapper : cleaningMapList) {
-                    PositionWrapper newPositionWrapper = metadata.create(PositionWrapper.class);
-                    newPositionWrapper.setPosition(positionWrapper.getPosition());
-                    newPositionWrapper.setRoomName(positionWrapper.getRoomName());
-                    newPositionWrapper.setNoteCleaningPosition(positionWrapper.getNoteCleaningPosition());
-                    newPositionWrapper.setPriorityCleaningPosition(cleaningMapDc.getItems().size() + 1);
-                    newPositionWrapper.setTask(this.getEditedEntity());
-                    newPositionWrapper.setTaskDocuments(null);
-
-                    cleaningMapDc.getMutableItems().add(newPositionWrapper);
-                }
-
-                for (InventoryWrapper inventoryWrapper : inventoryWrapperList) {
-                    InventoryWrapper newInventoryWrapper = metadata.create(InventoryWrapper.class);
-                    newInventoryWrapper.setInventory(inventoryWrapper.getInventory());
-                    newInventoryWrapper.setQuantityInventory(1);
-                    newInventoryWrapper.setTask(this.getEditedEntity());
-                    newInventoryWrapper.setTaskDocuments(null);
-
-                    inventoryDc.getMutableItems().add(newInventoryWrapper);
-                }
-            }
+                cleaningMapDc.getMutableItems().add(positionWrapper);
+            });
         }
     }
 
@@ -480,8 +388,11 @@ public class TaskEdit extends StandardEditor<Task> {
         );
 
         if (wrapper == null) {
+            excludePosition.setEnabled(false);
             cleaningMapPositionUp.setEnabled(false);
             cleaningMapPositionDown.setEnabled(false);
+        } else {
+            excludePosition.setEnabled(true);
         }
     }
 
