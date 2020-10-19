@@ -251,18 +251,116 @@ public class TaskEdit extends StandardEditor<Task> {
     @Subscribe("taskDocumentField")
     public void onTaskDocumentFieldValueChange(HasValue.ValueChangeEvent<TaskDocument> event) {
         TaskDocument document = event.getValue();
+        if (document != null && event.isUserOriginated() == true) {
 
-        cleaningMapDc.getMutableItems().clear();
-        if (document != null) {
-            document.getCleaningMap().forEach(wrapper -> {
-                PositionWrapper positionWrapper = metadata.getTools().copy(wrapper);
+            if (getEditedEntity().getInventoryMap() != null || getEditedEntity().getCleaningMap() != null) {
+                dialogs.createOptionDialog()
+                        .withCaption("")
+                        .withMessage(messageBundle.getMessage("youSetNewTaskDoc"))
+                        .withActions(
+                                new DialogAction(DialogAction.Type.YES).withHandler(e -> {
+                                    getEditedEntity().setPoint(null);
+                                    getEditedEntity().setCompany(null);
+                                    getEditedEntity().setDelay(null);
+                                    getEditedEntity().setSalaryElementary(null);
+                                    getEditedEntity().setSalaryHigh(null);
+                                    getEditedEntity().setSalaryMedium(null);
+                                    getEditedEntity().setAddPriseExpendableMaterial(null);
+                                    getEditedEntity().setEmployees(null);
 
-                positionWrapper.setId(UUID.randomUUID());
-                positionWrapper.setTaskDocuments(null);
-                positionWrapper.setTask(getEditedEntity());
+                                    if (getEditedEntity().getCleaningMap() != null) {
+                                        List<PositionWrapper> clearCleaningMapList = getEditedEntity().getCleaningMap();
 
-                cleaningMapDc.getMutableItems().add(positionWrapper);
-            });
+                                        for (PositionWrapper clearPositionWrapper : clearCleaningMapList) {
+                                            dataManager.remove(clearPositionWrapper);
+
+                                        }
+                                    }
+                                    if (getEditedEntity().getInventoryMap() != null) {
+                                        List<InventoryWrapper> clearInventoryWrapperList = getEditedEntity().getInventoryMap();
+
+                                        for (InventoryWrapper clearinventoryWrapper : clearInventoryWrapperList) {
+                                            dataManager.remove(clearinventoryWrapper);
+                                        }
+                                    }
+
+                                    getEditedEntity().setInventoryMap(null);
+                                    getEditedEntity().setCleaningMap(null);
+
+                                    getEditedEntity().setPoint(document.getPoint());
+                                    getEditedEntity().setCompany(document.getCompany());
+                                    getEditedEntity().setDelay(document.getDelay());
+                                    getEditedEntity().setSalaryElementary(document.getSalaryElementary());
+                                    getEditedEntity().setSalaryHigh(document.getSalaryHigh());
+                                    getEditedEntity().setSalaryMedium(document.getSalaryMedium());
+                                    getEditedEntity().setAddPriseExpendableMaterial(document.getAddPriseExpendableMaterial());
+                                    getEditedEntity().setEmployees(document.getEmployeesMap());
+
+                                    List<PositionWrapper> cleaningMapList = document.getCleaningMap();
+                                    List<InventoryWrapper> inventoryWrapperList = document.getInventoryMap();
+
+                                    cleaningMapDc.getMutableItems().clear();
+                                    document.getCleaningMap().forEach(wrapper -> {
+                                        PositionWrapper positionWrapper = metadata.getTools().copy(wrapper);
+
+                                        positionWrapper.setId(UUID.randomUUID());
+                                        positionWrapper.setTaskDocuments(null);
+                                        positionWrapper.setTask(getEditedEntity());
+
+                                        cleaningMapDc.getMutableItems().add(positionWrapper);
+                                        cleaningMapDc.getMutableItems().sort(Comparator.comparing(PositionWrapper::getPriorityCleaningPosition));
+                                    });
+
+                                    for (InventoryWrapper inventoryWrapper : inventoryWrapperList) {
+                                        InventoryWrapper newInventoryWrapper = metadata.create(InventoryWrapper.class);
+                                        newInventoryWrapper.setInventory(inventoryWrapper.getInventory());
+                                        newInventoryWrapper.setQuantityInventory(1);
+                                        newInventoryWrapper.setTask(this.getEditedEntity());
+                                        newInventoryWrapper.setTaskDocuments(null);
+
+                                        inventoryDc.getMutableItems().add(newInventoryWrapper);
+                                    }
+                                }),
+                                new DialogAction(DialogAction.Type.NO).withHandler(e -> {
+
+                                })
+                        ).show();
+
+            } else {
+                getEditedEntity().setPoint(document.getPoint());
+                getEditedEntity().setCompany(document.getCompany());
+                getEditedEntity().setDelay(document.getDelay());
+                getEditedEntity().setSalaryElementary(document.getSalaryElementary());
+                getEditedEntity().setSalaryHigh(document.getSalaryHigh());
+                getEditedEntity().setSalaryMedium(document.getSalaryMedium());
+                getEditedEntity().setAddPriseExpendableMaterial(document.getAddPriseExpendableMaterial());
+                getEditedEntity().setEmployees(document.getEmployeesMap());
+
+                List<PositionWrapper> cleaningMapList = document.getCleaningMap();
+                List<InventoryWrapper> inventoryWrapperList = document.getInventoryMap();
+
+                cleaningMapDc.getMutableItems().clear();
+                document.getCleaningMap().forEach(wrapper -> {
+                    PositionWrapper positionWrapper = metadata.getTools().copy(wrapper);
+
+                    positionWrapper.setId(UUID.randomUUID());
+                    positionWrapper.setTaskDocuments(null);
+                    positionWrapper.setTask(getEditedEntity());
+
+                    cleaningMapDc.getMutableItems().add(positionWrapper);
+                    cleaningMapDc.getMutableItems().sort(Comparator.comparing(PositionWrapper::getPriorityCleaningPosition));
+                });
+
+                for (InventoryWrapper inventoryWrapper : inventoryWrapperList) {
+                    InventoryWrapper newInventoryWrapper = metadata.create(InventoryWrapper.class);
+                    newInventoryWrapper.setInventory(inventoryWrapper.getInventory());
+                    newInventoryWrapper.setQuantityInventory(1);
+                    newInventoryWrapper.setTask(this.getEditedEntity());
+                    newInventoryWrapper.setTaskDocuments(null);
+
+                    inventoryDc.getMutableItems().add(newInventoryWrapper);
+                }
+            }
         }
     }
 
