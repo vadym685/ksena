@@ -43,8 +43,8 @@
         <groupBox id="pointsBox" caption="msg://com.company.ksena.entity.ClientEmployee.ClientEmployeePoints" spacing="true">
             <table id="pointsTable" dataContainer="pointsDc" width="500px" height="345px">
                 <actions>
-                    <action id="add" type="add"/>
-                    <action id="exclude" type="exclude"/>
+                    <action id="add" type="add" caption="mainMsg://add"/>
+                    <action id="exclude" type="exclude" caption="mainMsg://exclude"/>
                 </actions>
                 <buttonsPanel>
                     <button action="pointsTable.add"/>
@@ -58,8 +58,8 @@
         </groupBox>
     </hbox>
         <hbox id="editActions" spacing="true">
-            <button action="windowCommitAndClose"/>
-            <button action="windowClose"/>
+            <button action="windowCommitAndClose" caption="mainMsg://windowCommitAndClose"/>
+            <button action="windowClose" caption="mainMsg://windowClose"/>
         </hbox>
         <groupBox spacing="true"/>
     </layout>

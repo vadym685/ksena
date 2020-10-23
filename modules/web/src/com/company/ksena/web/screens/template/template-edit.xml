@@ -37,9 +37,9 @@
                     <groupTable id="cleaningMapTable" dataContainer="cleaningMapDc" width="100%" align="TOP_CENTER"
                                 editable="true">
                         <actions>
-                            <action id="add" type="add"/>
+                            <action id="add" type="add" caption="mainMsg://add"/>
                             <action id="excel" type="excel"/>
-                            <action id="view" type="view"/>
+                            <action id="view" type="view" caption="mainMsg://view"/>
                         </actions>
 
                         <columns>
@@ -66,8 +66,8 @@
                     </groupTable>
                 </groupBox>
                 <hbox id="editActions" spacing="true">
-                    <button action="windowCommitAndClose"/>
-                    <button action="windowClose"/>
+                    <button action="windowCommitAndClose" caption="mainMsg://windowCommitAndClose"/>
+                    <button action="windowClose" caption="mainMsg://windowClose"/>
                 </hbox>
             </vbox>
             <groupBox expand="possitionTable" height="100%">

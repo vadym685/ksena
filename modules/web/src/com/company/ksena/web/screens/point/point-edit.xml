@@ -23,8 +23,8 @@
         <hbox height="100%" width="100%">
             <vbox spacing="true">
                 <hbox id="editActions" spacing="true">
-                    <button action="windowCommitAndClose"/>
-                    <button action="windowClose"/>
+                    <button action="windowCommitAndClose" caption="mainMsg://windowCommitAndClose"/>
+                    <button action="windowClose" caption="mainMsg://windowClose"/>
                 </hbox>
                 <groupBox id="pointDataBox" caption="msg://com.company.ksena.entity.point.Point" spacing="true">
                     <form id="form" dataContainer="pointDc">
@@ -49,8 +49,8 @@
                           caption="msg://com.company.ksena.entity.entity.point.pointEmploees">
                     <table id="clientEmployeesTable" dataContainer="clientEmployeesDc" height="100%" width="100%">
                         <actions>
-                            <action id="add" type="add"/>
-                            <action id="exclude" type="exclude"/>
+                            <action id="add" type="add" caption="mainMsg://add"/>
+                            <action id="exclude" type="exclude" caption="mainMsg://exclude"/>
                         </actions>
                         <buttonsPanel>
                             <button action="clientEmployeesTable.add"/>

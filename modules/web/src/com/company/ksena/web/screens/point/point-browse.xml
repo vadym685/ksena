@@ -31,9 +31,9 @@
                     width="100%"
                     dataContainer="pointsDc">
             <actions>
-                <action id="create" type="create"/>
-                <action id="edit" type="edit"/>
-                <action id="remove" type="remove"/>
+                <action id="create" type="create" caption="mainMsg://create"/>
+                <action id="edit" type="edit" caption="mainMsg://edit"/>
+                <action id="remove" type="remove" caption="mainMsg://remove"/>
                 <action id="excel" type="excel"/>
             </actions>
             <columns>

@@ -38,13 +38,13 @@
         <groupBox id="breakagesBox" caption="msg://com.company.ksena.entity.inventory.Breakage">
         <table id="breakagesTable" height="200" dataContainer="breakagesDc" width="100%">
             <actions>
-                <action id="create" type="create">
+                <action id="create" type="create" caption="mainMsg://create">
                     <properties>
                         <property name="openMode" value="DIALOG"/>
                     </properties>
                 </action>
-                <action id="remove" type="remove"/>
-                <action id="edit" type="edit"/>
+                <action id="remove" type="remove" caption="mainMsg://remove"/>
+                <action id="edit" type="edit" caption="mainMsg://edit"/>
             </actions>
             <buttonsPanel alwaysVisible="true">
                 <button id="breakagesTableCreateBtn" action="breakagesTable.create"/>
@@ -59,8 +59,8 @@
         </table>
         </groupBox>
         <hbox id="editActions" spacing="true">
-            <button action="windowCommitAndClose"/>
-            <button action="windowClose"/>
+            <button action="windowCommitAndClose" caption="mainMsg://windowCommitAndClose"/>
+            <button action="windowClose" caption="mainMsg://windowClose"/>
         </hbox>
     </layout>
 </window>

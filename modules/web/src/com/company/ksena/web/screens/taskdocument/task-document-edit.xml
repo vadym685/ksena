@@ -80,8 +80,8 @@
                               align="TOP_LEFT" width="100%" visible="false" height="AUTO">
                         <table id="cleaningDayTable" dataContainer="cleaningDayDc" width="100%" height="100%">
                             <actions>
-                                <action id="add" type="add"/>
-                                <action id="exclude" type="exclude"/>
+                                <action id="add" type="add" caption="mainMsg://add"/>
+                                <action id="exclude" type="exclude" caption="mainMsg://exclude"/>
                             </actions>
                             <buttonsPanel>
                                 <button action="cleaningDayTable.add"/>
@@ -99,9 +99,9 @@
                         <table id="inventoryTable" dataContainer="inventoryDc" width="100%" align="TOP_RIGHT"
                                editable="true">
                             <actions>
-                                <action id="add" type="add"/>
-                                <action id="exclude" type="exclude"/>
-                                <action id="view" type="view"/>
+                                <action id="add" type="add" caption="mainMsg://add"/>
+                                <action id="exclude" type="exclude" caption="mainMsg://exclude"/>
+                                <action id="view" type="view" caption="mainMsg://view"/>
                             </actions>
                             <columns>
                                 <column id="inventory.name"/>
@@ -113,7 +113,7 @@
                             </columns>
                             <buttonsPanel>
                                 <button id="addInventory" caption="mainMsg://inventoryMapAddInventory"/>
-                                <button action="inventoryTable.exclude"/>
+                                <button action="inventoryTable.exclude" caption="mainMsg://exclude"/>
                             </buttonsPanel>
                         </table>
                     </groupBox>
@@ -123,9 +123,9 @@
                         <table id="employeesTable" dataContainer="employeesMapDc" width="100%" align="TOP_RIGHT"
                                editable="true">
                             <actions>
-                                <action id="add" type="add"/>
-                                <action id="exclude" type="exclude"/>
-                                <action id="view" type="view"/>
+                                <action id="add" type="add" caption="mainMsg://add"/>
+                                <action id="exclude" type="exclude" caption="mainMsg://exclude"/>
+                                <action id="view" type="view" caption="mainMsg://view"/>
                             </actions>
                             <columns>
                                 <column id="fullName"/>
@@ -142,9 +142,9 @@
                     <groupTable id="cleaningMapTable" dataContainer="cleaningMapDc" width="100%" align="TOP_CENTER"
                                 editable="true">
                         <actions>
-                            <action id="add" type="add"/>
+                            <action id="add" type="add" caption="mainMsg://add"/>
                             <action id="excel" type="excel"/>
-                            <action id="view" type="view"/>
+                            <action id="view" type="view" caption="mainMsg://view"/>
                         </actions>
 
                         <columns>
@@ -173,8 +173,8 @@
                 </groupBox>
 
                 <hbox id="editActions" spacing="true">
-                    <button action="windowCommitAndClose"/>
-                    <button action="windowClose"/>
+                    <button action="windowCommitAndClose" caption="mainMsg://windowCommitAndClose"/>
+                    <button action="windowClose" caption="mainMsg://windowClose"/>
                 </hbox>
             </vbox>
             <groupBox expand="possitionTable" height="100%">
