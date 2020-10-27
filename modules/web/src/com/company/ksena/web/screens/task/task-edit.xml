@@ -30,7 +30,7 @@
         <collection id="pointsDc" class="com.company.ksena.entity.point.Point" view="_local">
             <loader id="pointsForCompanyLc">
                 <query>
-                    <![CDATA[select e from ksena_Point e ]]>
+                    <![CDATA[select e from ksena_Point e]]>
                     <condition>
                         <c:jpql>
                             <c:where>e.company = :company</c:where>
@@ -48,7 +48,6 @@
             <vbox id="mainBox" expand="">
                 <form id="form" dataContainer="taskDc">
                     <column width="250px">
-                        <textField id="taskNumberField" property="taskNumber"/>
                         <lookupPickerField id="taskDocumentField" optionsContainer="taskDocumentsDc"
                                            property="taskDocument">
                             <actions>
@@ -57,6 +56,7 @@
                                 <action id="clear" type="picker_clear"/>
                             </actions>
                         </lookupPickerField>
+                        <textField id="taskNumberField" property="taskNumber"/>
                         <pickerField id="companyField" property="company"/>
                         <lookupPickerField id="pointField" optionsContainer="pointsDc" property="point">
                             <actions>

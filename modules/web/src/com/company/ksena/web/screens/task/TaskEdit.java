@@ -260,6 +260,7 @@ public class TaskEdit extends StandardEditor<Task> {
                         .withActions(
                                 new DialogAction(DialogAction.Type.YES).withHandler(e -> {
                                     getEditedEntity().setPoint(null);
+                                    getEditedEntity().setTaskNumber(null);
                                     getEditedEntity().setCompany(null);
                                     getEditedEntity().setDelay(null);
                                     getEditedEntity().setSalaryElementary(null);
@@ -286,6 +287,22 @@ public class TaskEdit extends StandardEditor<Task> {
 
                                     getEditedEntity().setInventoryMap(null);
                                     getEditedEntity().setCleaningMap(null);
+
+
+                                    String resultString = document.getCreateDate().toString().replaceAll("-", "");
+
+
+                                    List newList = (List) dataManager.load(Task.class)
+                                            .query("select e from ksena_Task e where e.taskDocument.createDate = :createDate")
+                                            .parameter("createDate", document.getCreateDate())
+                                            .list();
+                                    int listSize = 0;
+                                    if (newList.size() == 0) {
+                                        listSize = 1;
+                                    } else {
+                                        listSize = newList.size() + 1;
+                                    }
+                                    getEditedEntity().setTaskNumber(document.getDocNumber() + " - " + listSize);
 
                                     getEditedEntity().setPoint(document.getPoint());
                                     getEditedEntity().setCompany(document.getCompany());
@@ -327,6 +344,21 @@ public class TaskEdit extends StandardEditor<Task> {
                         ).show();
 
             } else {
+
+                String resultString = document.getCreateDate().toString().replaceAll("-", "");
+
+
+                List newList = (List) dataManager.load(Task.class)
+                        .query("select e from ksena_Task e where e.taskDocument.createDate = :createDate")
+                        .parameter("createDate", document.getCreateDate())
+                        .list();
+                int listSize = 0;
+                if (newList.size() == 0) {
+                    listSize = 1;
+                } else {
+                    listSize = newList.size() + 1;
+                }
+                getEditedEntity().setTaskNumber(document.getDocNumber() + " - " + listSize);
                 getEditedEntity().setPoint(document.getPoint());
                 getEditedEntity().setCompany(document.getCompany());
                 getEditedEntity().setDelay(document.getDelay());

@@ -198,7 +198,7 @@ create table KSENA_COORDINATES (
     UPDATED_BY varchar(50),
     DELETE_TS timestamp,
     DELETED_BY varchar(50),
-    DTYPE varchar(31),
+    DTYPE varchar(100),
     --
     LATITUDE double precision,
     LONGITUDE double precision,

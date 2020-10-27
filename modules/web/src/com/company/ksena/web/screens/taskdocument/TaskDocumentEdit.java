@@ -99,6 +99,10 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
     private Button cleaningMapPositionDown;
     @Inject
     private Button excludePosition;
+    @Inject
+    private TextField<String> docNumberField;
+    @Inject
+    private DataComponents dataComponents;
 
 
     @Subscribe("companyField")
@@ -498,5 +502,25 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
         styles.add(String.format(
                 ".colored-cell-%s-%s{background-color:#%s;}",
                 id.toString(), color, color));
+    }
+
+    @Subscribe("createDateField")
+    public void onCreateDateFieldValueChange(HasValue.ValueChangeEvent<LocalDate> event) {
+        if (event.getValue() != null && docNumberField.getValue() == null) {
+            String resultString = event.getValue().toString().replaceAll("-", "");
+
+
+            List newList = (List) dataManager.load(TaskDocument.class)
+                    .query("select e from ksena_TaskDocument e where e.createDate = :createDate")
+                    .parameter("createDate", event.getValue())
+                    .list();
+            int listSize = 0;
+            if (newList.size() == 0) {
+                listSize = 1;
+            } else {
+                listSize = newList.size() + 1;
+            }
+            docNumberField.setValue(resultString + "/" + listSize);
+        }
     }
 }

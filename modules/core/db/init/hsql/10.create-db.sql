@@ -437,6 +437,7 @@ create table KSENA_POSITION_WRAPPER (
     DELETED_BY varchar(50),
     --
     POSITION_ID varchar(36),
+    TEMPLATE_ID varchar(36),
     PRIORITY_CLEANING_POSITION integer,
     NOTE_CLEANING_POSITION varchar(255),
     TASK_DOCUMENTS_ID varchar(36),
@@ -473,3 +474,21 @@ create table KSENA_TASK_DOCUMENT_EMPLOYEE_LINK (
     primary key (EMPLOYEE_ID, TASK_DOCUMENT_ID)
 )^
 -- end KSENA_TASK_DOCUMENT_EMPLOYEE_LINK
+-- begin KSENA_TEMPLATE
+create table KSENA_TEMPLATE (
+    ID varchar(36) not null,
+    VERSION integer not null,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    --
+    NAME varchar(255),
+    DATE_OF_CREATION timestamp,
+    DATE_OF_UPDATE timestamp,
+    --
+    primary key (ID)
+)^
+-- end KSENA_TEMPLATE

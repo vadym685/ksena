@@ -40,7 +40,8 @@
                         <maskedField id="contactPhoneField" property="contactPhone" mask="~##(###)###-##-##"
                                      valueMode="masked"/>
                         <pickerField id="companyCategoryField" property="companyCategory"/>
-                        <textField id="individualTaxpayerNumberField" property="individualTaxpayerNumber"/>
+                        <textField id="individualTaxpayerNumberField" property="individualTaxpayerNumber"
+                                   visible="false"/>
                     </column>
                 </form>
                 <buttonsPanel>
@@ -58,7 +59,7 @@
                             <action id="exclude" type="exclude" caption="mainMsg://exclude"/>
                         </actions>
                         <buttonsPanel>
-                            <button id="addResponsibleEmployee" caption="Add"/>
+                            <button id="addResponsibleEmployee" caption="mainMsg://add"/>
                             <!--                    <button action="responsibleEmployeeTable.add"/>-->
                             <button action="responsibleEmployeeTable.exclude"/>
                         </buttonsPanel>

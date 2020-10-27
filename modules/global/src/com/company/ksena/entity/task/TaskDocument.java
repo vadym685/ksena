@@ -28,6 +28,7 @@ public class TaskDocument extends StandardEntity {
     @Column(name = "ADD_PRISE_EXPENDABLE_MATERIAL")
     protected Boolean addPriseExpendableMaterial;
 
+    @NotNull
     @Column(name = "CREATE_DATE")
     protected LocalDate createDate;
 
