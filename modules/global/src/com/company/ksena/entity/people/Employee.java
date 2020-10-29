@@ -57,11 +57,11 @@ public class Employee extends PasportData {
     @Column(name = "RELATIVES_PHONE_NUMBER")
     protected String relativesPhoneNumber;
 
-    @Column(name = "RESIDENCE_NUMBER")
-    protected String residenceNumber;
-
     @Column(name = "NATIONALITY")
     protected String nationality;
+
+    @Column(name = "RESIDENCE_NUMBER")
+    protected String residenceNumber;
 
     @Column(name = "RESIDENCE_PERMANENT")
     protected Boolean residencePermanent;
@@ -74,6 +74,7 @@ public class Employee extends PasportData {
 
     @Column(name = "RESIDENCE_PLACE")
     protected String residencePlace;
+
     @JoinTable(name = "KSENA_TASK_DOCUMENT_EMPLOYEE_LINK",
             joinColumns = @JoinColumn(name = "EMPLOYEE_ID"),
             inverseJoinColumns = @JoinColumn(name = "TASK_DOCUMENT_ID"))

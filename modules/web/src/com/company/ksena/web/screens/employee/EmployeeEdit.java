@@ -57,6 +57,8 @@ public class EmployeeEdit extends StandardEditor<Employee> {
     private MaskedField<String> personalPhoneNumberField;
     @Inject
     private MaskedField<String> relativesPhoneNumberField;
+    @Inject
+    private MaskedField<String> phoneNumber2Field;
 
     @Subscribe("upload")
     protected void onUploadFileUploadSucceed(FileUploadField.FileUploadSucceedEvent event) {
@@ -78,6 +80,7 @@ public class EmployeeEdit extends StandardEditor<Employee> {
 
         if (phoneNumberField.getValue() == null) {
             phoneNumberField.setValue("+420");
+            phoneNumber2Field.setValue("+420");
         }
         if (personalPhoneNumberField.getValue() == null) {
             personalPhoneNumberField.setValue("+420");

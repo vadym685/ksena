@@ -22,6 +22,9 @@ public class PasportData extends StandardEntity {
     @Column(name = "MIDDLE_NAME")
     protected String middleName;
 
+    @Column(name = "MAIDEN_NAME")
+    protected String maidenName;
+
     @Column(name = "FULL_NAME")
     protected String fullName;
 
@@ -29,8 +32,15 @@ public class PasportData extends StandardEntity {
     @Column(name = "EMAIL")
     protected String email;
 
+    @Email
+    @Column(name = "EMAIL2")
+    protected String email2;
+
     @Column(name = "PHONE_NUMBER")
     protected String phoneNumber;
+
+    @Column(name = "PHONE_NUMBER2")
+    protected String phoneNumber2;
 
     @Column(name = "PASPORT_NUMBER", length = 2)
     protected String pasportNumber;
@@ -46,6 +56,30 @@ public class PasportData extends StandardEntity {
 
     @Column(name = "SEX")
     protected String sex;
+
+    public String getPhoneNumber2() {
+        return phoneNumber2;
+    }
+
+    public void setPhoneNumber2(String phoneNumber2) {
+        this.phoneNumber2 = phoneNumber2;
+    }
+
+    public String getEmail2() {
+        return email2;
+    }
+
+    public void setEmail2(String email2) {
+        this.email2 = email2;
+    }
+
+    public String getMaidenName() {
+        return maidenName;
+    }
+
+    public void setMaidenName(String maidenName) {
+        this.maidenName = maidenName;
+    }
 
     public String getMiddleName() {
         return middleName;

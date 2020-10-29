@@ -15,12 +15,15 @@ public class ClientEmployeeEdit extends StandardEditor<ClientEmployee> {
 
     @Inject
     private MaskedField<String> phoneNumberField;
+    @Inject
+    private MaskedField<String> phoneNumber2Field;
 
     @Subscribe
     public void onAfterShow(AfterShowEvent event) {
 
         if (phoneNumberField.getValue() == null) {
             phoneNumberField.setValue("+420");
+            phoneNumber2Field.setValue("+420");
         }
         ;
     }

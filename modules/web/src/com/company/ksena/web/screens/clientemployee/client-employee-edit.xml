@@ -23,6 +23,7 @@
                         <textField id="middleNameField" property="middleName"/>
                         <textField id="fullNameField" property="fullName"/>
                         <textField id="emailField" property="email"/>
+                        <textField id="email2Field" property="email2"/>
                         <pickerField id="companiesField" property="companies">
                             <actions>
                                 <action id="lookup" type="picker_lookup"/>
@@ -32,6 +33,7 @@
                         <textField id="positionField" property="position"/>
                         <checkBox id="isPayingBills" property="isPayingBills"/>
                         <maskedField id="phoneNumberField" property="phoneNumber" mask="~### ### ### ###" valueMode="masked"/>
+                        <maskedField id="phoneNumber2Field" property="phoneNumber2" mask="~### ### ### ###" valueMode="masked"/>
                         <textField id="pasportNumberField" property="pasportNumber"/>
                         <textField id="authorityField" property="authority"/>
                         <dateField id="dateOfIssueField" property="dateOfIssue"/>
