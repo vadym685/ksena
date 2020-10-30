@@ -44,8 +44,8 @@ public class PointEdit extends StandardEditor<Point> implements IWayPointMarkerD
     private TextField<String> cityField;
     @Inject
     private TextField<String> streetField;
-    @Inject
-    private TextField<String> houseNumberField;
+//    @Inject
+//    private TextField<String> houseNumberField;
     @Inject
     private TextField<Double> latitudeField;
     @Inject
@@ -87,20 +87,20 @@ public class PointEdit extends StandardEditor<Point> implements IWayPointMarkerD
                 getCoordinatesAndDrawMarker();
             }
         });
-        houseNumberField.addTextChangeListener(listener -> {
-            if (isAddressFieldsFilled()) {
-                getCoordinatesAndDrawMarker();
-            }
-        });
+//        houseNumberField.addTextChangeListener(listener -> {
+//            if (isAddressFieldsFilled()) {
+//                getCoordinatesAndDrawMarker();
+//            }
+//        });
     }
 
     private void getCoordinatesAndDrawMarker() {
         ServerConstants serverConstants = repoService.getServerConstants();
         GeocodeResponse response = googleApiService.getGeocodeByAddress(serverConstants.getGoogleToken(), cityField.getRawValue()
                 + " "
-                + streetField.getRawValue()
-                + " "
-                + houseNumberField.getRawValue());
+                + streetField.getRawValue());
+//                + " "
+//                + houseNumberField.getRawValue()
         Geometry responseGeo = Objects.requireNonNull(response)
                 .getResults()
                 .get(0)

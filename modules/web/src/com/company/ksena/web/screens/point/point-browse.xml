@@ -44,7 +44,7 @@
                 <column id="postcode"/>
                 <column id="city"/>
                 <column id="street"/>
-                <column id="houseNumber"/>
+<!--                <column id="houseNumber"/>-->
                 <column id="comment"/>
                 <column id="isCleaningBook"/>
                 <column id="area"/>

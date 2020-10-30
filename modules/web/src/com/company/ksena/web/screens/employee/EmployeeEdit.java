@@ -80,6 +80,9 @@ public class EmployeeEdit extends StandardEditor<Employee> {
 
         if (phoneNumberField.getValue() == null) {
             phoneNumberField.setValue("+420");
+
+        }
+        if (phoneNumber2Field.getValue() == null){
             phoneNumber2Field.setValue("+420");
         }
         if (personalPhoneNumberField.getValue() == null) {

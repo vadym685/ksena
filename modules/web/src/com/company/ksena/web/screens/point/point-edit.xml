@@ -34,7 +34,7 @@
                             <textField id="postcodeField" property="postcode"/>
                             <textField id="cityField" property="city"/>
                             <textField id="streetField" property="street"/>
-                            <textField id="houseNumberField" property="houseNumber"/>
+<!--                            <textField id="houseNumberField" property="houseNumber"/>-->
                             <textField id="latitudeField" property="latitude"/>
                             <textField id="longitudeField" property="longitude"/>
                             <textField id="area" property="area"/>
