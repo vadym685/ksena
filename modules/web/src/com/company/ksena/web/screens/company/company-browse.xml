@@ -23,10 +23,11 @@
                 applyTo="companiesTable"
                 dataLoader="companiesDl">
             <properties include=".*"/>
+
         </filter>
         <groupTable id="companiesTable"
                     width="100%"
-                    dataContainer="companiesDc">
+                    dataContainer="companiesDc" multiselect="true">
             <actions>
                 <action id="create" type="create" caption="mainMsg://create"/>
                 <action id="edit" type="edit" caption="mainMsg://edit"/>

@@ -40,6 +40,10 @@ public class Company extends StandardEntity {
     @Column(name = "ACTUAL_STREET")
     protected String actualStreet;
 
+    @Lob
+    @Column(name = "COMMENT")
+    protected String comment;
+
     @Column(name = "ACTUAL_HOUSE_NUMBER")
     protected String actualHouseNumber;
 
@@ -84,6 +88,14 @@ public class Company extends StandardEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "COMPANY_CATEGORY_ID")
     protected CompanyCategory companyCategory;
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 
     public Vat getVat() {
         return vat == null ? null : Vat.fromId(vat);

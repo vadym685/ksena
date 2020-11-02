@@ -27,11 +27,11 @@
                         <textField id="legalIndexField" property="legalIndex"/>
                         <textField id="legalCity" property="legalCity"/>
                         <textField id="legalStreet" property="legalStreet"/>
-                        <textField id="legalHouseNumber" property="legalHouseNumber"/>
+<!--                        <textField id="legalHouseNumber" property="legalHouseNumber"/>-->
                         <textField id="actualIndex" property="actualIndex"/>
                         <textField id="actualCity" property="actualCity"/>
                         <textField id="actualStreet" property="actualStreet"/>
-                        <textField id="actualHouseNumber" property="actualHouseNumber"/>
+<!--                        <textField id="actualHouseNumber" property="actualHouseNumber"/>-->
                         <textField id="fieldOfActivity" property="fieldOfActivity"/>
                         <textArea id="fieldOfActivityFull" property="fieldOfActivityFull"/>
                         <lookupField id="billSendType" property="billSendType"/>
@@ -49,7 +49,7 @@
                     <button invoke="createTask" caption="msg://createTask"/>
                 </buttonsPanel>
             </groupBox>
-            <groupBox width="100%" spacing="true">
+            <groupBox width="100%" spacing="true" height="100%">
                 <groupBox id="responsibleEmployeeBox"
                           caption="msg://com.company.ksena.entity.company/Company.responsibleEmployee">
                     <table id="responsibleEmployeeTable" dataContainer="responsibleEmployeeDc" width="100%"
@@ -94,6 +94,13 @@
                             <column id="city"/>
                         </columns>
                     </table>
+                </groupBox>
+                <groupBox id="commentBox" caption="mainMsg://comment" spacing="true" width="100%">
+                    <form id="form2" dataContainer="companyDc" width="100%">
+                        <column width="100%" >
+                            <textArea id="comment" property="comment" caption="" width="100%"/>
+                        </column>
+                    </form>
                 </groupBox>
             </groupBox>
         </groupBox>

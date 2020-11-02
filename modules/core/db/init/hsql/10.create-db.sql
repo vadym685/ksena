@@ -245,6 +245,7 @@ create table KSENA_COMPANY (
     LEGAL_INDEX integer,
     ACTUAL_CITY varchar(255),
     ACTUAL_STREET varchar(255),
+    COMMENT longvarchar,
     ACTUAL_HOUSE_NUMBER varchar(255),
     ACTUAL_INDEX integer,
     FIELD_OF_ACTIVITY varchar(255),
