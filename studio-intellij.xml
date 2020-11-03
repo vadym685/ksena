@@ -6,26 +6,26 @@
     <option name="savedDbProperties">
       <list>
         <SavedDbProperties>
-          <option name="databaseName" value="ksena-gwXShM" />
+          <option name="databaseName" value="ksena-gwXh2166M" />
           <option name="dbType" value="hsql" />
           <option name="dbmsVersion" />
           <option name="host" value="localhost" />
           <option name="port" value="9010" />
           <option name="systemPassword" value="" />
           <option name="systemUser" value="" />
-          <option name="url" value="jdbc:hsqldb:hsql://localhost:9010/ksena-gwXShM" />
+          <option name="url" value="jdbc:hsqldb:hsql://localhost:9010/ksena-gwXh2166M" />
           <option name="user" value="sa" />
         </SavedDbProperties>
         <SavedDbProperties>
           <option name="databaseName" value="ksena_db" />
           <option name="dbType" value="postgres" />
           <option name="dbmsVersion" />
-          <option name="host" value="88.99.60.22" />
-          <option name="pass" value="admin" />
-          <option name="port" value="25432" />
+          <option name="host" value="localhost" />
+          <option name="pass" value="postgres" />
+          <option name="port" value="9010" />
           <option name="systemPassword" value="" />
           <option name="systemUser" value="" />
-          <option name="url" value="jdbc:postgresql://88.99.60.22:25432/ksena_db" />
+          <option name="url" value="jdbc:postgresql://localhost:9010/ksena_db" />
           <option name="user" value="postgres" />
         </SavedDbProperties>
       </list>

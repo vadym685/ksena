@@ -37,8 +37,9 @@
                         <lookupField id="billSendType" property="billSendType"/>
                         <lookupField id="vatField" property="vat"/>
                         <textField id="emailField" property="email"/>
-                        <maskedField id="contactPhoneField" property="contactPhone" mask="~##(###)###-##-##"
-                                     valueMode="masked"/>
+<!--                        <maskedField id="contactPhoneField" property="contactPhone" mask="~##(###)###-##-##"-->
+<!--                                     valueMode="masked"/>-->
+                        <textField id="contactPhoneField" property="contactPhone"/>
                         <pickerField id="companyCategoryField" property="companyCategory"/>
                         <textField id="individualTaxpayerNumberField" property="individualTaxpayerNumber"
                                    visible="false"/>

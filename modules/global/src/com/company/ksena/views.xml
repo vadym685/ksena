@@ -102,5 +102,7 @@
             <property name="createTs"/>
         </property>
     </view>
+    <view entity="ksena_CompanyType" name="companyType-view" extends="_local">
+    </view>
 
 </views>

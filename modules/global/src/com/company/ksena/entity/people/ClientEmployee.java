@@ -29,6 +29,17 @@ public class ClientEmployee extends PasportData {
     @JoinColumn(name = "COMPANIES_ID")
     protected Company companies;
 
+    @Column(name = "TEMP_COMPANY_NAME")
+    protected String tempCompanyName;
+
+    public String getTempCompanyName() {
+        return tempCompanyName;
+    }
+
+    public void setTempCompanyName(String tempCompanyName) {
+        this.tempCompanyName = tempCompanyName;
+    }
+
     public List<Point> getPoints() {
         return points;
     }

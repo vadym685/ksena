@@ -28,11 +28,8 @@ public class Company extends StandardEntity {
     @Column(name = "LEGAL_STREET")
     protected String legalStreet;
 
-    @Column(name = "LEGAL_HOUSE_NUMBER")
-    protected String legalHouseNumber;
-
     @Column(name = "LEGAL_INDEX")
-    protected Integer legalIndex;
+    protected String legalIndex;
 
     @Column(name = "ACTUAL_CITY")
     protected String actualCity;
@@ -44,11 +41,8 @@ public class Company extends StandardEntity {
     @Column(name = "COMMENT")
     protected String comment;
 
-    @Column(name = "ACTUAL_HOUSE_NUMBER")
-    protected String actualHouseNumber;
-
     @Column(name = "ACTUAL_INDEX")
-    protected Integer actualIndex;
+    protected String actualIndex;
 
     @Column(name = "FIELD_OF_ACTIVITY")
     protected String fieldOfActivity;
@@ -81,6 +75,12 @@ public class Company extends StandardEntity {
     @OneToMany(mappedBy = "company")
     protected List<Point> points;
 
+    @Column(name = "TEMP_COMPANY_TYPE")
+    protected String tempCompanyType;
+
+    @Column(name = "TEMP_COMPANY_CATEGORY")
+    protected String tempCompanyCategory;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "COMPANY_TYPE_ID")
     protected CompanyType companyType;
@@ -88,6 +88,38 @@ public class Company extends StandardEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "COMPANY_CATEGORY_ID")
     protected CompanyCategory companyCategory;
+
+    public String getTempCompanyCategory() {
+        return tempCompanyCategory;
+    }
+
+    public void setTempCompanyCategory(String tempCompanyCategory) {
+        this.tempCompanyCategory = tempCompanyCategory;
+    }
+
+    public String getTempCompanyType() {
+        return tempCompanyType;
+    }
+
+    public void setTempCompanyType(String tempCompanyType) {
+        this.tempCompanyType = tempCompanyType;
+    }
+
+    public void setLegalIndex(String legalIndex) {
+        this.legalIndex = legalIndex;
+    }
+
+    public String getLegalIndex() {
+        return legalIndex;
+    }
+
+    public void setActualIndex(String actualIndex) {
+        this.actualIndex = actualIndex;
+    }
+
+    public String getActualIndex() {
+        return actualIndex;
+    }
 
     public String getComment() {
         return comment;
@@ -103,22 +135,6 @@ public class Company extends StandardEntity {
 
     public void setVat(Vat vat) {
         this.vat = vat == null ? null : vat.getId();
-    }
-
-    public Integer getLegalIndex() {
-        return legalIndex;
-    }
-
-    public void setLegalIndex(Integer legalIndex) {
-        this.legalIndex = legalIndex;
-    }
-
-    public Integer getActualIndex() {
-        return actualIndex;
-    }
-
-    public void setActualIndex(Integer actualIndex) {
-        this.actualIndex = actualIndex;
     }
 
     public CompanyCategory getCompanyCategory() {
@@ -217,14 +233,6 @@ public class Company extends StandardEntity {
         this.legalStreet = legalStreet;
     }
 
-    public String getLegalHouseNumber() {
-        return legalHouseNumber;
-    }
-
-    public void setLegalHouseNumber(String legalHouseNumber) {
-        this.legalHouseNumber = legalHouseNumber;
-    }
-
     public String getActualCity() {
         return actualCity;
     }
@@ -239,14 +247,6 @@ public class Company extends StandardEntity {
 
     public void setActualStreet(String actualStreet) {
         this.actualStreet = actualStreet;
-    }
-
-    public String getActualHouseNumber() {
-        return actualHouseNumber;
-    }
-
-    public void setActualHouseNumber(String actualHouseNumber) {
-        this.actualHouseNumber = actualHouseNumber;
     }
 
     public String getFullName() {

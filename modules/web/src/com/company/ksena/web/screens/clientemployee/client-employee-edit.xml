@@ -26,16 +26,19 @@
                         <textField id="email2Field" property="email2"/>
                         <pickerField id="companiesField" property="companies">
                             <actions>
+                                <action id="open" type="picker_open"/>
                                 <action id="lookup" type="picker_lookup"/>
                                 <action id="clear" type="picker_clear"/>
                             </actions>
                         </pickerField>
                         <textField id="positionField" property="position"/>
                         <checkBox id="isPayingBills" property="isPayingBills"/>
-                        <maskedField id="phoneNumberField" property="phoneNumber" mask="~### ### ### ###"
-                                     valueMode="masked"/>
-                        <maskedField id="phoneNumber2Field" property="phoneNumber2" mask="~### ### ### ###"
-                                     valueMode="masked"/>
+<!--                        <maskedField id="phoneNumberField" property="phoneNumber" mask="~### ### ### ###"-->
+<!--                                     valueMode="masked"/>-->
+<!--                        <maskedField id="phoneNumber2Field" property="phoneNumber2" mask="~### ### ### ###"-->
+<!--                                     valueMode="masked"/>-->
+                        <textField id="phoneNumberField" property="phoneNumber"/>
+                        <textField id="phoneNumber2Field" property="phoneNumber2"/>
                         <lookupField id="sexField" property="sex"/>
                     </column>
                 </form>

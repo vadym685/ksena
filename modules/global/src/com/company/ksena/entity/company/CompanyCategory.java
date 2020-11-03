@@ -5,9 +5,7 @@ import com.haulmont.cuba.core.entity.StandardEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.List;
 
 @NamePattern("%s|name")
 @Table(name = "KSENA_COMPANY_CATEGORY")
@@ -17,17 +15,6 @@ public class CompanyCategory extends StandardEntity {
 
     @Column(name = "NAME")
     protected String name;
-
-    @OneToMany(mappedBy = "companyCategory")
-    protected List<Company> companies;
-
-    public List<Company> getCompanies() {
-        return companies;
-    }
-
-    public void setCompanies(List<Company> companies) {
-        this.companies = companies;
-    }
 
     public String getName() {
         return name;

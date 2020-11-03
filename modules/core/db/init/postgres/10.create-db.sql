@@ -52,13 +52,11 @@ create table KSENA_COMPANY (
     FULL_NAME varchar(255),
     LEGAL_CITY varchar(255),
     LEGAL_STREET varchar(255),
-    LEGAL_HOUSE_NUMBER varchar(255),
-    LEGAL_INDEX integer,
+    LEGAL_INDEX varchar(255),
     ACTUAL_CITY varchar(255),
     ACTUAL_STREET varchar(255),
     COMMENT text,
-    ACTUAL_HOUSE_NUMBER varchar(255),
-    ACTUAL_INDEX integer,
+    ACTUAL_INDEX varchar(255),
     FIELD_OF_ACTIVITY varchar(255),
     FIELD_OF_ACTIVITY_FULL varchar(255),
     BILL_SEND_TYPE varchar(50),
@@ -66,6 +64,8 @@ create table KSENA_COMPANY (
     EMAIL varchar(255),
     CONTACT_PHONE varchar(255),
     INDIVIDUAL_TAXPAYER_NUMBER varchar(255),
+    TEMP_COMPANY_TYPE varchar(255),
+    TEMP_COMPANY_CATEGORY varchar(255),
     COMPANY_TYPE_ID uuid,
     COMPANY_CATEGORY_ID uuid,
     --
@@ -245,9 +245,9 @@ create table KSENA_INVENTORY (
 -- end KSENA_INVENTORY
 -- begin KSENA_TASK_DOCUMENT_DAY_INTERVAL_LINK
 create table KSENA_TASK_DOCUMENT_DAY_INTERVAL_LINK (
-    DAY_INTERVAL_ID uuid,
     TASK_DOCUMENT_ID uuid,
-    primary key (DAY_INTERVAL_ID, TASK_DOCUMENT_ID)
+    DAY_INTERVAL_ID uuid,
+    primary key (TASK_DOCUMENT_ID, DAY_INTERVAL_ID)
 )^
 -- end KSENA_TASK_DOCUMENT_DAY_INTERVAL_LINK
 
@@ -261,9 +261,9 @@ create table KSENA_TASK_INVENTORY_LINK (
 
 -- begin KSENA_TASK_CLEANING_POSITION_LINK
 create table KSENA_TASK_CLEANING_POSITION_LINK (
-    TASK_ID uuid,
     CLEANING_POSITION_ID uuid,
-    primary key (TASK_ID, CLEANING_POSITION_ID)
+    TASK_ID uuid,
+    primary key (CLEANING_POSITION_ID, TASK_ID)
 )^
 -- end KSENA_TASK_CLEANING_POSITION_LINK
 -- begin KSENA_CLEANING_POSITION_EXPENDABLE_MATERIAL_LINK
@@ -355,6 +355,7 @@ create table KSENA_CLIENT_EMPLOYEE (
     POSITION_ varchar(255),
     PAYING_BILLS boolean,
     COMPANIES_ID uuid,
+    TEMP_COMPANY_NAME varchar(255),
     --
     primary key (ID)
 )^

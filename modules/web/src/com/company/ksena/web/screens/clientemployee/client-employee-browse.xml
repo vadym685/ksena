@@ -30,7 +30,7 @@
         </filter>
         <groupTable id="clientEmployeesTable"
                     width="100%"
-                    dataContainer="clientEmployeesDc">
+                    dataContainer="clientEmployeesDc" multiselect="true">
             <actions>
                 <action id="create" type="create" caption="mainMsg://create"/>
                 <action id="edit" type="edit" caption="mainMsg://edit"/>
