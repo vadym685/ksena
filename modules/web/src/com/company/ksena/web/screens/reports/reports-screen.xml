@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/rest-queries.xsd"
+        caption="msg://caption"
+        messagesPack="com.company.ksena.web.screens.reports">
+    <data>
+        <collection id="companyDc" class="com.company.ksena.entity.company.Company" view="company-view">
+            <loader id="companyLc">
+                <query>
+                    <![CDATA[select e from ksena_Company e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <layout>
+
+        <form>
+            <hbox spacing="true" align="MIDDLE_RIGHT">
+
+                <dateField id="startDate" caption="msg://startDate" datatype="localDate"/>
+                <dateField id="finishDate" caption="msg://finishDate" datatype="localDate"/>
+                <button id="generate" caption="generate" align="BOTTOM_RIGHT"/>
+            </hbox>
+            <lookupPickerField id="companyField" optionsContainer="companyDc" >
+                <actions>
+                    <action id="lookup" type="picker_lookup"/>
+                    <action id="open" type="picker_open"/>
+                    <action id="clear" type="picker_clear"/>
+                </actions>
+            </lookupPickerField>
+
+        </form>
+
+    </layout>
+</window>

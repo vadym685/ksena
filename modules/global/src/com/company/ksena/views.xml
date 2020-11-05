@@ -51,7 +51,9 @@
         <property name="point" view="_local"/>
         <property name="employees" view="_local"/>
         <property name="cleaningMap" view="_local">
-            <property name="position" view="_local"/>
+            <property name="position" view="_local">
+                <property name="expendableMaterials" view="_local"/>
+            </property>
             <property name="roomName" view="_local"/>
         </property>
         <property name="inventoryMap" view="_local">
