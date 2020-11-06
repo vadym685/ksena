@@ -27,8 +27,8 @@ import java.util.Set;
 @EditedEntityContainer("employeeDc")
 @LoadDataBeforeShow
 public class EmployeeEdit extends StandardEditor<Employee> {
-    @Inject
-    private MaskedField<String> phoneNumberField;
+//    @Inject
+//    private MaskedField<String> phoneNumberField;
 
     @Inject
     private Screens screens;
@@ -57,8 +57,12 @@ public class EmployeeEdit extends StandardEditor<Employee> {
     private MaskedField<String> personalPhoneNumberField;
     @Inject
     private MaskedField<String> relativesPhoneNumberField;
+//    @Inject
+//    private MaskedField<String> phoneNumber2Field;
     @Inject
-    private MaskedField<String> phoneNumber2Field;
+    private TextField<String> phoneNumberField;
+    @Inject
+    private TextField<String> phoneNumber2Field;
 
     @Subscribe("upload")
     protected void onUploadFileUploadSucceed(FileUploadField.FileUploadSucceedEvent event) {

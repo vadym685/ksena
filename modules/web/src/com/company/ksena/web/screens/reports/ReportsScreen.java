@@ -34,8 +34,10 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @UiController("ksena_ReportsScreen")
@@ -72,11 +74,15 @@ public class ReportsScreen extends Screen {
         String pointName;
         String taskNumber;
         String taskDocNumber;
+        String taskTimeFactual;
+        String taskTimePlane;
+        String taskDate;
         double fullPrice = 0;
-        double taskCost= 0;
+        double taskCost = 0;
+        String oldPointName = null;
 
         HSSFWorkbook workbook = new HSSFWorkbook(); //создаешь новый файл
-        HSSFSheet sheet = workbook.createSheet("Маршрутный лист"); // создаешь новый лист
+        HSSFSheet sheet = workbook.createSheet(messageBundle.getMessage("sheet")); // создаешь новый лист
         sheet.setMargin(Sheet.LeftMargin, 0.0);
         sheet.setMargin(Sheet.RightMargin, 0.0);
         sheet.getPrintSetup().setLandscape(true);
@@ -113,7 +119,7 @@ public class ReportsScreen extends Screen {
                     .list();
         }
 
-        sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 12));
+        sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 7));
         sheet.setColumnWidth(0, 1000);
         sheet.setColumnWidth(1, 2000);
         sheet.setColumnWidth(2, 6000);
@@ -121,77 +127,113 @@ public class ReportsScreen extends Screen {
         row.setHeightInPoints(15.75f);
         rowNum++;
         cell = row.createCell(0, CellType.STRING);
-        cell.setCellValue("Отчёт по выполненым работам");
+        cell.setCellValue(messageBundle.getMessage("reportName"));
         cell.setCellStyle(createStyle(workbook, true, 12, false, HorizontalAlignment.CENTER));
 
-        sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 12));
+        sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 7));
         row = sheet.createRow(rowNum);
         row.setHeightInPoints(12.75f);
         rowNum += 2;
         cell = row.createCell(0, CellType.STRING);
-        cell.setCellValue("Период: " + startDateValue.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + " - " + finishDateValue.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+        cell.setCellValue(messageBundle.getMessage("timeRange") + startDateValue.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + " - " + finishDateValue.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
         cell.setCellStyle(createStyle(workbook, false, 10, false, HorizontalAlignment.CENTER));
 
+        taskList = taskList.stream().sorted(Comparator.comparing(task -> task.getPoint().getName())).collect(Collectors.toList());
+        taskList = taskList.stream().sorted(Comparator.comparing(Task::getDateOfCompletion)).collect(Collectors.toList());
 
         for (Task task : taskList) {
 
+
             companyName = task.getCompany().getName();
-
             taskNumber = task.getTaskNumber();
-
 
             try {
                 pointName = task.getPoint().getName();
+
             } catch (Exception e) {
                 pointName = "";
             }
+
             try {
                 taskDocNumber = task.getTaskNumber();
             } catch (Exception e) {
                 taskDocNumber = "";
             }
             try {
-                taskCost  = task.getCost();
+                taskDate = task.getDateOfCompletion().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
             } catch (Exception e) {
-                taskCost  = 0;
+                taskDate = "";
+            }
+            try {
+                taskCost = task.getCost();
+            } catch (Exception e) {
+                taskCost = 0;
+            }
+            try {
+                taskTimeFactual = task.getTaskTimeFactual().format(DateTimeFormatter.ofPattern("HH:mm"));
+            } catch (Exception e) {
+                taskTimeFactual = "";
+            }
+            try {
+                taskTimePlane = task.getTaskTimePlane().format(DateTimeFormatter.ofPattern("HH:mm"));
+            } catch (Exception e) {
+                taskTimePlane =  "";
             }
 
-            sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 12));
-            row = sheet.createRow(rowNum);
-            row.setHeightInPoints(12.75f);
-            rowNum++;
-            cell = row.createCell(0, CellType.STRING);
-            cell.setCellValue("Точка: " + pointName);
-            cell.setCellStyle(createStyle(workbook, false, 10, false, HorizontalAlignment.CENTER));
+           
+            if (oldPointName != pointName) {
+                sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 7));
+                row = sheet.createRow(rowNum);
+                row.setHeightInPoints(12.75f);
+                rowNum++;
+                cell = row.createCell(0, CellType.STRING);
+                cell.setCellValue(messageBundle.getMessage("point") + pointName);
+                cell.setCellStyle(createStyle(workbook, false, 10, false, HorizontalAlignment.CENTER));
 
-            sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 12));
-            row = sheet.createRow(rowNum);
-            row.setHeightInPoints(12.75f);
-            rowNum++;
-            cell = row.createCell(0, CellType.STRING);
-            cell.setCellValue("Заказчик: " + companyName);
-            cell.setCellStyle(createStyle(workbook, false, 10, false, HorizontalAlignment.CENTER));
+                sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 7));
+                row = sheet.createRow(rowNum);
+                row.setHeightInPoints(12.75f);
+                rowNum++;
+                cell = row.createCell(0, CellType.STRING);
+                cell.setCellValue(messageBundle.getMessage("client") + companyName);
+                cell.setCellStyle(createStyle(workbook, false, 10, false, HorizontalAlignment.CENTER));
 
 
-            row = sheet.createRow(rowNum);
-            rowNum++;
-            row.setHeightInPoints(32.25f);
-            cell = row.createCell(0, CellType.STRING);
-            cell.setCellValue("№ Задания");
-            cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
-            cell = row.createCell(1, CellType.STRING);
-            cell.setCellValue("№ Договора");
-            cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
-            cell = row.createCell(2, CellType.STRING);
-            cell.setCellValue("Стоимость");
-            cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
-            cell = row.createCell(3, CellType.STRING);
-            cell.setCellValue("Стоимость расходников");
-            cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
-            cell = row.createCell(4, CellType.STRING);
-            cell.setCellValue("Общая стоимость");
-            cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+                row = sheet.createRow(rowNum);
+                rowNum++;
+                row.setHeightInPoints(32.25f);
+                cell = row.createCell(0, CellType.STRING);
+                cell.setCellValue(messageBundle.getMessage("taskNumber"));
+                cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
 
+                cell = row.createCell(1, CellType.STRING);
+                cell.setCellValue(messageBundle.getMessage("taskDocNumber"));
+                cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+                cell = row.createCell(2, CellType.STRING);
+                cell.setCellValue(messageBundle.getMessage("taskDate"));
+                cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+                cell = row.createCell(3, CellType.STRING);
+                cell.setCellValue(messageBundle.getMessage("planedTime"));
+                cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+                cell = row.createCell(4, CellType.STRING);
+                cell.setCellValue(messageBundle.getMessage("factualTime"));
+                cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+                cell = row.createCell(5, CellType.STRING);
+                cell.setCellValue(messageBundle.getMessage("jobCost"));
+                cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+                cell = row.createCell(6, CellType.STRING);
+                cell.setCellValue(messageBundle.getMessage("expendableMaterialsCost"));
+                cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+                cell = row.createCell(7, CellType.STRING);
+                cell.setCellValue(messageBundle.getMessage("fullCost"));
+                cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+            }
 
             for (PositionWrapper position : task.getCleaningMap()) {
                 double fullPriseExpendableMaterial = 0;
@@ -211,27 +253,45 @@ public class ReportsScreen extends Screen {
                 fullPrice = fullPrice + fullPriseExpendableMaterial + pricePosition;
 
 
-
-
             }
 
             row = sheet.createRow(rowNum);
             rowNum++;
+
             cell = row.createCell(0, CellType.STRING);
             cell.setCellValue(taskNumber);
             cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
             cell = row.createCell(1, CellType.STRING);
             cell.setCellValue(taskDocNumber);
             cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
             cell = row.createCell(2, CellType.STRING);
+            cell.setCellValue(taskDate);
+            cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+            cell = row.createCell(3, CellType.STRING);
+            cell.setCellValue(taskTimePlane);
+            cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+            cell = row.createCell(4, CellType.STRING);
+            cell.setCellValue(taskTimeFactual);
+            cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+            cell = row.createCell(5, CellType.STRING);
             cell.setCellValue(taskCost);
             cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
-            cell = row.createCell(3, CellType.STRING);
+
+            cell = row.createCell(6, CellType.STRING);
             cell.setCellValue(fullPrice);
             cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
-            cell = row.createCell(4, CellType.STRING);
-            cell.setCellValue(fullPrice + taskCost);
 
+            cell = row.createCell(7, CellType.STRING);
+            cell.setCellValue(fullPrice + taskCost);
+            cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+            oldPointName = pointName;
+        
         }
         rowNum += 3;
 
@@ -240,7 +300,7 @@ public class ReportsScreen extends Screen {
         outFile.close();
 
         FileDescriptor fileDescriptor = metadata.create(FileDescriptor.class);
-        fileDescriptor.setName("Заключение");
+        fileDescriptor.setName(messageBundle.getMessage("fileName"));
         fileDescriptor.setExtension("xls");
         fileDescriptor.setSize((info.getFile().length()));
         fileDescriptor.setCreateDate(new Date());

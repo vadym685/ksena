@@ -29,10 +29,13 @@
                         <lookupField id="qualificationField" property="qualification"/>
                         <textField id="emailField" property="email"/>
                         <textField id="email2Field" property="email2"/>
-                        <maskedField id="phoneNumberField" property="phoneNumber" mask="~### ### ### ###"
-                                     valueMode="masked"/>
-                        <maskedField id="phoneNumber2Field" property="phoneNumber2" mask="~### ### ### ###"
-                                     valueMode="masked"/>
+<!--                        <maskedField id="phoneNumberField" property="phoneNumber" mask="~### ### ### ###"-->
+<!--                                     valueMode="masked"/>-->
+<!--                        <maskedField id="phoneNumber2Field" property="phoneNumber2" mask="~### ### ### ###"-->
+<!--                                     valueMode="masked"/>-->
+
+                        <textField id="phoneNumberField" property="phoneNumber"/>
+                        <textField id="phoneNumber2Field" property="phoneNumber2"/>
                         <lookupField id="employeeTypeField" property="employeeType"/>
                         <lookupField id="sexField" property="sex"/>
                         <pickerField id="mobilePhoneField" property="mobilePhone">
