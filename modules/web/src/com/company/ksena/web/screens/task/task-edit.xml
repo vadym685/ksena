@@ -113,6 +113,8 @@
                                 <action id="view" type="view" caption="mainMsg://view"/>
                             </actions>
                             <columns>
+                                <column id="firstName"/>
+                                <column id="lastName"/>
                                 <column id="fullName"/>
                                 <column id="phoneNumber"/>
                             </columns>
