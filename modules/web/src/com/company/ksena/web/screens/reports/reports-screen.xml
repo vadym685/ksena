@@ -32,6 +32,15 @@
                 </hbox>
             </groupBox>
 
+            <groupBox caption="msg://employeeReport">
+                <hbox spacing="true" align="MIDDLE_RIGHT">
+
+                    <dateField id="startDateEmployeeReport" caption="msg://startDate" datatype="localDate" required="true"/>
+                    <dateField id="finishDateEmployeeReport" caption="msg://finishDate" datatype="localDate" required="true"/>
+                    <button id="generateEmployeeReport" caption="msg://generate" align="BOTTOM_RIGHT"/>
+                </hbox>
+            </groupBox>
+
         </form>
 
     </layout>

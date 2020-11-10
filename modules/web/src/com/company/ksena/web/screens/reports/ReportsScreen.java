@@ -63,268 +63,277 @@ public class ReportsScreen extends Screen {
     private Notifications notifications;
     @Inject
     private MessageBundle messageBundle;
+    @Inject
+    private DateField<LocalDate> startDateEmployeeReport;
+    @Inject
+    private DateField<LocalDate> finishDateEmployeeReport;
 
     @Subscribe("generate")
     public void onGenerateClick(Button.ClickEvent event) throws FileStorageException, IOException {
         LocalDate startDateValue = startDate.getValue();
         LocalDate finishDateValue = finishDate.getValue();
-        Company company = companyField.getValue();
-        List<Task> taskList;
-        String companyName;
-        String pointName;
-        String taskNumber;
-        String taskDocNumber;
-        String taskTimeFactual;
-        String taskTimePlane;
-        String taskDate;
-        double fullPrice = 0;
-        double taskCost = 0;
-        String oldPointName = null;
+        if (startDateValue != null || finishDateValue != null) {
 
-        HSSFWorkbook workbook = new HSSFWorkbook(); //создаешь новый файл
-        HSSFSheet sheet = workbook.createSheet(messageBundle.getMessage("sheet")); // создаешь новый лист
-        sheet.setMargin(Sheet.LeftMargin, 0.0);
-        sheet.setMargin(Sheet.RightMargin, 0.0);
-        sheet.getPrintSetup().setLandscape(true);
-        int rowNum = 0;
-        Cell cell;
-        Row row;
+            Company company = companyField.getValue();
+            List<Task> taskList;
+            String companyName;
+            String pointName;
+            String taskNumber;
+            String taskDocNumber;
+            String taskTimeFactual;
+            String taskTimePlane;
+            String taskDate;
+            double fullPrice = 0;
+            double taskCost = 0;
+            String oldPointName = null;
 
-        FileUploadingAPI.FileInfo info = fileUploadingAPI.createFile();
-        try {
-            info = fileUploadingAPI.createFile();
-        } catch (FileStorageException e) {
-            e.printStackTrace();
-        }
+            HSSFWorkbook workbook = new HSSFWorkbook(); //создаешь новый файл
+            HSSFSheet sheet = workbook.createSheet(messageBundle.getMessage("sheet")); // создаешь новый лист
+            sheet.setMargin(Sheet.LeftMargin, 0.0);
+            sheet.setMargin(Sheet.RightMargin, 0.0);
+            sheet.getPrintSetup().setLandscape(true);
+            int rowNum = 0;
+            Cell cell;
+            Row row;
 
-
-        assert finishDateValue != null;
-        assert startDateValue != null;
-        if (company != null) {
-            taskList = dataManager.load(Task.class)
-                    .query("select e from ksena_Task e where (e.company = :company) and (e.taskStatus = :taskStatus) and (e.dateOfCompletion >= :startDateValue) and (e.dateOfCompletion <= :finishDateValue)")
-                    .parameter("company", company)
-                    .parameter("taskStatus", TaskStatus.EXECUTED)
-                    .parameter("startDateValue", startDateValue)
-                    .parameter("finishDateValue", finishDateValue)
-                    .view("task-view")
-                    .list();
-        } else {
-            taskList = dataManager.load(Task.class)
-                    .query("select e from ksena_Task e where (e.taskStatus = :taskStatus) and (e.dateOfCompletion >= :startDateValue) and (e.dateOfCompletion <= :finishDateValue)")
-                    .parameter("taskStatus", TaskStatus.EXECUTED)
-                    .parameter("startDateValue", startDateValue)
-                    .parameter("finishDateValue", finishDateValue)
-                    .view("task-view")
-                    .list();
-        }
-
-        sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 7));
-        sheet.setColumnWidth(0, 1000);
-        sheet.setColumnWidth(1, 2000);
-        sheet.setColumnWidth(2, 6000);
-        row = sheet.createRow(rowNum);
-        row.setHeightInPoints(15.75f);
-        rowNum++;
-        cell = row.createCell(0, CellType.STRING);
-        cell.setCellValue(messageBundle.getMessage("reportName"));
-        cell.setCellStyle(createStyle(workbook, true, 12, false, HorizontalAlignment.CENTER));
-
-        sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 7));
-        row = sheet.createRow(rowNum);
-        row.setHeightInPoints(12.75f);
-        rowNum += 2;
-        cell = row.createCell(0, CellType.STRING);
-        cell.setCellValue(messageBundle.getMessage("timeRange") + startDateValue.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + " - " + finishDateValue.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
-        cell.setCellStyle(createStyle(workbook, false, 10, false, HorizontalAlignment.CENTER));
-
-        taskList = taskList.stream().sorted(Comparator.comparing(task -> task.getPoint().getName())).collect(Collectors.toList());
-        taskList = taskList.stream().sorted(Comparator.comparing(Task::getDateOfCompletion)).collect(Collectors.toList());
-
-        for (Task task : taskList) {
-
-
-            companyName = task.getCompany().getName();
-            taskNumber = task.getTaskNumber();
-
+            FileUploadingAPI.FileInfo info = fileUploadingAPI.createFile();
             try {
-                pointName = task.getPoint().getName();
-
-            } catch (Exception e) {
-                pointName = "";
+                info = fileUploadingAPI.createFile();
+            } catch (FileStorageException e) {
+                e.printStackTrace();
             }
 
-            try {
-                taskDocNumber = task.getTaskNumber();
-            } catch (Exception e) {
-                taskDocNumber = "";
-            }
-            try {
-                taskDate = task.getDateOfCompletion().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-            } catch (Exception e) {
-                taskDate = "";
-            }
-            try {
-                taskCost = task.getCost();
-            } catch (Exception e) {
-                taskCost = 0;
-            }
-            try {
-                taskTimeFactual = task.getTaskTimeFactual().format(DateTimeFormatter.ofPattern("HH:mm"));
-            } catch (Exception e) {
-                taskTimeFactual = "";
-            }
-            try {
-                taskTimePlane = task.getTaskTimePlane().format(DateTimeFormatter.ofPattern("HH:mm"));
-            } catch (Exception e) {
-                taskTimePlane =  "";
+
+            assert finishDateValue != null;
+            assert startDateValue != null;
+            if (company != null) {
+                taskList = dataManager.load(Task.class)
+                        .query("select e from ksena_Task e where (e.company = :company) and (e.taskStatus = :taskStatus) and (e.dateOfCompletion >= :startDateValue) and (e.dateOfCompletion <= :finishDateValue)")
+                        .parameter("company", company)
+                        .parameter("taskStatus", TaskStatus.EXECUTED)
+                        .parameter("startDateValue", startDateValue)
+                        .parameter("finishDateValue", finishDateValue)
+                        .view("task-view")
+                        .list();
+            } else {
+                taskList = dataManager.load(Task.class)
+                        .query("select e from ksena_Task e where (e.taskStatus = :taskStatus) and (e.dateOfCompletion >= :startDateValue) and (e.dateOfCompletion <= :finishDateValue)")
+                        .parameter("taskStatus", TaskStatus.EXECUTED)
+                        .parameter("startDateValue", startDateValue)
+                        .parameter("finishDateValue", finishDateValue)
+                        .view("task-view")
+                        .list();
             }
 
-           
-            if (oldPointName != pointName) {
-                sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 7));
+            sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 7));
+            sheet.setColumnWidth(0, 1000);
+            sheet.setColumnWidth(1, 2000);
+            sheet.setColumnWidth(2, 6000);
+            row = sheet.createRow(rowNum);
+            row.setHeightInPoints(15.75f);
+            rowNum++;
+            cell = row.createCell(0, CellType.STRING);
+            cell.setCellValue(messageBundle.getMessage("reportName"));
+            cell.setCellStyle(createStyle(workbook, true, 12, false, HorizontalAlignment.CENTER));
+
+            sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 7));
+            row = sheet.createRow(rowNum);
+            row.setHeightInPoints(12.75f);
+            rowNum += 2;
+            cell = row.createCell(0, CellType.STRING);
+            cell.setCellValue(messageBundle.getMessage("timeRange") + startDateValue.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + " - " + finishDateValue.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+            cell.setCellStyle(createStyle(workbook, false, 10, false, HorizontalAlignment.CENTER));
+
+            taskList = taskList.stream().sorted(Comparator.comparing(task -> task.getPoint().getName())).collect(Collectors.toList());
+            taskList = taskList.stream().sorted(Comparator.comparing(Task::getDateOfCompletion)).collect(Collectors.toList());
+
+            for (Task task : taskList) {
+
+
+                companyName = task.getCompany().getName();
+                taskNumber = task.getTaskNumber();
+
+                try {
+                    pointName = task.getPoint().getName();
+
+                } catch (Exception e) {
+                    pointName = "";
+                }
+
+                try {
+                    taskDocNumber = task.getTaskNumber();
+                } catch (Exception e) {
+                    taskDocNumber = "";
+                }
+                try {
+                    taskDate = task.getDateOfCompletion().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                } catch (Exception e) {
+                    taskDate = "";
+                }
+                try {
+                    taskCost = task.getCost();
+                } catch (Exception e) {
+                    taskCost = 0;
+                }
+                try {
+                    taskTimeFactual = task.getTaskTimeFactual().format(DateTimeFormatter.ofPattern("HH:mm"));
+                } catch (Exception e) {
+                    taskTimeFactual = "";
+                }
+                try {
+                    taskTimePlane = task.getTaskTimePlane().format(DateTimeFormatter.ofPattern("HH:mm"));
+                } catch (Exception e) {
+                    taskTimePlane = "";
+                }
+
+
+                if (oldPointName != pointName) {
+                    sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 7));
+                    row = sheet.createRow(rowNum);
+                    row.setHeightInPoints(12.75f);
+                    rowNum++;
+                    cell = row.createCell(0, CellType.STRING);
+                    cell.setCellValue(messageBundle.getMessage("point") + pointName);
+                    cell.setCellStyle(createStyle(workbook, false, 10, false, HorizontalAlignment.CENTER));
+
+                    sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 7));
+                    row = sheet.createRow(rowNum);
+                    row.setHeightInPoints(12.75f);
+                    rowNum++;
+                    cell = row.createCell(0, CellType.STRING);
+                    cell.setCellValue(messageBundle.getMessage("client") + companyName);
+                    cell.setCellStyle(createStyle(workbook, false, 10, false, HorizontalAlignment.CENTER));
+
+
+                    row = sheet.createRow(rowNum);
+                    rowNum++;
+                    row.setHeightInPoints(32.25f);
+                    cell = row.createCell(0, CellType.STRING);
+                    cell.setCellValue(messageBundle.getMessage("taskNumber"));
+                    cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+                    cell = row.createCell(1, CellType.STRING);
+                    cell.setCellValue(messageBundle.getMessage("taskDocNumber"));
+                    cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+                    cell = row.createCell(2, CellType.STRING);
+                    cell.setCellValue(messageBundle.getMessage("taskDate"));
+                    cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+                    cell = row.createCell(3, CellType.STRING);
+                    cell.setCellValue(messageBundle.getMessage("planedTime"));
+                    cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+                    cell = row.createCell(4, CellType.STRING);
+                    cell.setCellValue(messageBundle.getMessage("factualTime"));
+                    cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+                    cell = row.createCell(5, CellType.STRING);
+                    cell.setCellValue(messageBundle.getMessage("jobCost"));
+                    cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+                    cell = row.createCell(6, CellType.STRING);
+                    cell.setCellValue(messageBundle.getMessage("expendableMaterialsCost"));
+                    cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+                    cell = row.createCell(7, CellType.STRING);
+                    cell.setCellValue(messageBundle.getMessage("fullCost"));
+                    cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+                }
+
+                for (PositionWrapper position : task.getCleaningMap()) {
+                    double fullPriseExpendableMaterial = 0;
+                    if (task.getAddPriseExpendableMaterial() != null) {
+                        if (task.getAddPriseExpendableMaterial()) {
+
+                            for (ExpendableMaterial material : position.getPosition().getExpendableMaterials()) {
+                                fullPriseExpendableMaterial = fullPriseExpendableMaterial + material.getPrice();
+                            }
+                        }
+                    }
+                    double pricePosition = 0;
+                    if (position.getPosition().getPrice() != null) {
+                        pricePosition = position.getPosition().getPrice();
+                    }
+
+                    fullPrice = fullPrice + fullPriseExpendableMaterial + pricePosition;
+
+
+                }
+
                 row = sheet.createRow(rowNum);
-                row.setHeightInPoints(12.75f);
                 rowNum++;
-                cell = row.createCell(0, CellType.STRING);
-                cell.setCellValue(messageBundle.getMessage("point") + pointName);
-                cell.setCellStyle(createStyle(workbook, false, 10, false, HorizontalAlignment.CENTER));
 
-                sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 7));
-                row = sheet.createRow(rowNum);
-                row.setHeightInPoints(12.75f);
-                rowNum++;
                 cell = row.createCell(0, CellType.STRING);
-                cell.setCellValue(messageBundle.getMessage("client") + companyName);
-                cell.setCellStyle(createStyle(workbook, false, 10, false, HorizontalAlignment.CENTER));
-
-
-                row = sheet.createRow(rowNum);
-                rowNum++;
-                row.setHeightInPoints(32.25f);
-                cell = row.createCell(0, CellType.STRING);
-                cell.setCellValue(messageBundle.getMessage("taskNumber"));
+                cell.setCellValue(taskNumber);
                 cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
 
                 cell = row.createCell(1, CellType.STRING);
-                cell.setCellValue(messageBundle.getMessage("taskDocNumber"));
+                cell.setCellValue(taskDocNumber);
                 cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
 
                 cell = row.createCell(2, CellType.STRING);
-                cell.setCellValue(messageBundle.getMessage("taskDate"));
+                cell.setCellValue(taskDate);
                 cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
 
                 cell = row.createCell(3, CellType.STRING);
-                cell.setCellValue(messageBundle.getMessage("planedTime"));
+                cell.setCellValue(taskTimePlane);
                 cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
 
                 cell = row.createCell(4, CellType.STRING);
-                cell.setCellValue(messageBundle.getMessage("factualTime"));
+                cell.setCellValue(taskTimeFactual);
                 cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
 
                 cell = row.createCell(5, CellType.STRING);
-                cell.setCellValue(messageBundle.getMessage("jobCost"));
+                cell.setCellValue(taskCost);
                 cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
 
                 cell = row.createCell(6, CellType.STRING);
-                cell.setCellValue(messageBundle.getMessage("expendableMaterialsCost"));
+                cell.setCellValue(fullPrice);
                 cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
 
                 cell = row.createCell(7, CellType.STRING);
-                cell.setCellValue(messageBundle.getMessage("fullCost"));
+                cell.setCellValue(fullPrice + taskCost);
                 cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
-            }
 
-            for (PositionWrapper position : task.getCleaningMap()) {
-                double fullPriseExpendableMaterial = 0;
-                if (task.getAddPriseExpendableMaterial() != null) {
-                    if (task.getAddPriseExpendableMaterial()) {
-
-                        for (ExpendableMaterial material : position.getPosition().getExpendableMaterials()) {
-                            fullPriseExpendableMaterial = fullPriseExpendableMaterial + material.getPrice();
-                        }
-                    }
-                }
-                double pricePosition = 0;
-                if (position.getPosition().getPrice() != null) {
-                    pricePosition = position.getPosition().getPrice();
-                }
-
-                fullPrice = fullPrice + fullPriseExpendableMaterial + pricePosition;
-
+                oldPointName = pointName;
 
             }
+            rowNum += 3;
 
-            row = sheet.createRow(rowNum);
-            rowNum++;
+            FileOutputStream outFile = new FileOutputStream(info.getFile());
+            workbook.write(outFile);
+            outFile.close();
 
-            cell = row.createCell(0, CellType.STRING);
-            cell.setCellValue(taskNumber);
-            cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+            FileDescriptor fileDescriptor = metadata.create(FileDescriptor.class);
+            fileDescriptor.setName(messageBundle.getMessage("fileName"));
+            fileDescriptor.setExtension("xls");
+            fileDescriptor.setSize((info.getFile().length()));
+            fileDescriptor.setCreateDate(new Date());
 
-            cell = row.createCell(1, CellType.STRING);
-            cell.setCellValue(taskDocNumber);
-            cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+            FileUploadingAPI.FileInfo finalInfo = info;
+            fileLoader.saveStream(fileDescriptor, () -> {
+                try {
+                    return new FileInputStream(finalInfo.getFile());
+                } catch (FileNotFoundException e) {
+                    return null;
+                }
+            });
 
-            cell = row.createCell(2, CellType.STRING);
-            cell.setCellValue(taskDate);
-            cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+            dataManager.commit(fileDescriptor);
 
-            cell = row.createCell(3, CellType.STRING);
-            cell.setCellValue(taskTimePlane);
-            cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+            exportDisplay.show(fileDescriptor, ExportFormat.XLS);
 
-            cell = row.createCell(4, CellType.STRING);
-            cell.setCellValue(taskTimeFactual);
-            cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
-
-            cell = row.createCell(5, CellType.STRING);
-            cell.setCellValue(taskCost);
-            cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
-
-            cell = row.createCell(6, CellType.STRING);
-            cell.setCellValue(fullPrice);
-            cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
-
-            cell = row.createCell(7, CellType.STRING);
-            cell.setCellValue(fullPrice + taskCost);
-            cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
-
-            oldPointName = pointName;
-        
+            notifications.create(Notifications.NotificationType.TRAY)
+                    .withCaption(messageBundle.getMessage("generated"))
+                    .show();
+        }else {
+            notifications.create().withDescription("You cannot set start or finish date").show();
         }
-        rowNum += 3;
 
-        FileOutputStream outFile = new FileOutputStream(info.getFile());
-        workbook.write(outFile);
-        outFile.close();
-
-        FileDescriptor fileDescriptor = metadata.create(FileDescriptor.class);
-        fileDescriptor.setName(messageBundle.getMessage("fileName"));
-        fileDescriptor.setExtension("xls");
-        fileDescriptor.setSize((info.getFile().length()));
-        fileDescriptor.setCreateDate(new Date());
-
-        FileUploadingAPI.FileInfo finalInfo = info;
-        fileLoader.saveStream(fileDescriptor, () -> {
-            try {
-                return new FileInputStream(finalInfo.getFile());
-            } catch (FileNotFoundException e) {
-                return null;
-            }
-        });
-
-        dataManager.commit(fileDescriptor);
-
-        exportDisplay.show(fileDescriptor, ExportFormat.XLS);
-
-        notifications.create(Notifications.NotificationType.TRAY)
-                .withCaption(messageBundle.getMessage("generated"))
-                .show();
     }
 
-    private static HSSFCellStyle createStyle(HSSFWorkbook workbook, boolean bold, int fontHeight, boolean border,
-                                             HorizontalAlignment alignment) {
+    private static HSSFCellStyle createStyle(HSSFWorkbook workbook, boolean bold, int fontHeight, boolean border, HorizontalAlignment alignment) {
         HSSFFont font = workbook.createFont();
         font.setFontHeightInPoints((short) fontHeight);
         font.setBold(bold);
@@ -342,5 +351,132 @@ public class ReportsScreen extends Screen {
         }
 
         return style;
+    }
+
+    @Subscribe("generateEmployeeReport")
+    public void onGenerateEmployeeReportClick(Button.ClickEvent event) {
+        LocalDate startDateValue = startDateEmployeeReport.getValue();
+        LocalDate finishDateValue = finishDateEmployeeReport.getValue();
+        if (startDateValue != null || finishDateValue != null) {
+
+            List<Task> taskList;
+            String companyName;
+            String pointName;
+            String taskNumber;
+            String taskDocNumber;
+            String taskTimeFactual;
+            String taskTimePlane;
+            String taskDate;
+            double fullPrice = 0;
+            double taskCost = 0;
+            String oldPointName = null;
+
+            HSSFWorkbook workbook = new HSSFWorkbook(); //создаешь новый файл
+            HSSFSheet sheet = workbook.createSheet(messageBundle.getMessage("sheet")); // создаешь новый лист
+            sheet.setMargin(Sheet.LeftMargin, 0.0);
+            sheet.setMargin(Sheet.RightMargin, 0.0);
+            sheet.getPrintSetup().setLandscape(true);
+            int rowNum = 0;
+            Cell cell;
+            Row row;
+
+            FileUploadingAPI.FileInfo info = null;
+            try {
+                info = fileUploadingAPI.createFile();
+            } catch (FileStorageException e) {
+                e.printStackTrace();
+            }
+            try {
+                info = fileUploadingAPI.createFile();
+            } catch (FileStorageException e) {
+                e.printStackTrace();
+            }
+
+            assert finishDateValue != null;
+            assert startDateValue != null;
+
+                taskList = dataManager.load(Task.class)
+                        .query("select e from ksena_Task e where (e.taskStatus = :taskStatus) and (e.dateOfCompletion >= :startDateValue) and (e.dateOfCompletion <= :finishDateValue)")
+                        .parameter("taskStatus", TaskStatus.EXECUTED)
+                        .parameter("startDateValue", startDateValue)
+                        .parameter("finishDateValue", finishDateValue)
+                        .view("task-view")
+                        .list();
+
+
+            sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 7));
+            sheet.setColumnWidth(0, 1000);
+            sheet.setColumnWidth(1, 2000);
+            sheet.setColumnWidth(2, 6000);
+            row = sheet.createRow(rowNum);
+            row.setHeightInPoints(15.75f);
+            rowNum++;
+            cell = row.createCell(0, CellType.STRING);
+            cell.setCellValue(messageBundle.getMessage("employeeReport"));
+            cell.setCellStyle(createStyle(workbook, true, 12, false, HorizontalAlignment.CENTER));
+
+            sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 7));
+            row = sheet.createRow(rowNum);
+            row.setHeightInPoints(12.75f);
+            rowNum += 2;
+            cell = row.createCell(0, CellType.STRING);
+            cell.setCellValue(messageBundle.getMessage("timeRange") + startDateValue.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + " - " + finishDateValue.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+            cell.setCellStyle(createStyle(workbook, false, 10, false, HorizontalAlignment.CENTER));
+
+            taskList = taskList.stream().sorted(Comparator.comparing(task -> task.getPoint().getName())).collect(Collectors.toList());
+            taskList = taskList.stream().sorted(Comparator.comparing(Task::getDateOfCompletion)).collect(Collectors.toList());
+
+            for (Task task : taskList) {
+
+            }
+            rowNum += 3;
+
+            FileOutputStream outFile = null;
+            try {
+                outFile = new FileOutputStream(info.getFile());
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            try {
+                workbook.write(outFile);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                outFile.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            FileDescriptor fileDescriptor = metadata.create(FileDescriptor.class);
+            fileDescriptor.setName(messageBundle.getMessage("fileName"));
+            fileDescriptor.setExtension("xls");
+            fileDescriptor.setSize((info.getFile().length()));
+            fileDescriptor.setCreateDate(new Date());
+
+            FileUploadingAPI.FileInfo finalInfo = info;
+            try {
+                fileLoader.saveStream(fileDescriptor, () -> {
+                    try {
+                        return new FileInputStream(finalInfo.getFile());
+                    } catch (FileNotFoundException e) {
+                        return null;
+                    }
+                });
+            } catch (FileStorageException e) {
+                e.printStackTrace();
+            }
+
+            dataManager.commit(fileDescriptor);
+
+            exportDisplay.show(fileDescriptor, ExportFormat.XLS);
+
+            notifications.create(Notifications.NotificationType.TRAY)
+                    .withCaption(messageBundle.getMessage("generated"))
+                    .show();
+        }else {
+            notifications.create().withDescription("You cannot set start or finish date").show();
+        }
+
     }
 }
