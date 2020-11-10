@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/rest-queries.xsd"
         caption="msg://editorCaption"
         focusComponent="form"
         messagesPack="com.company.ksena.web.screens.company">
@@ -11,7 +12,37 @@
             </loader>
             <collection id="responsibleEmployeeDc" property="responsibleEmployee"/>
             <collection id="pointsDc" property="points"/>
+
         </instance>
+
+        <collection id="taskDc"
+                    class="com.company.ksena.entity.task.Task" view="task-view">
+            <loader id="taskDl">
+                <query>
+                    <![CDATA[select e from ksena_Task e ]]>
+                    <condition>
+                        <c:jpql>
+                            <c:where>e.company.name = :name</c:where>
+                        </c:jpql>
+                    </condition>
+                </query>
+            </loader>
+        </collection>
+
+        <collection id="taskDocDc"
+                    class="com.company.ksena.entity.task.TaskDocument" view="taskDocument-view">
+            <loader id="taskDocDl">
+                <query>
+                    <![CDATA[select e from ksena_TaskDocument e ]]>
+                    <condition>
+                        <c:jpql>
+                            <c:where>e.company.name = :name</c:where>
+                        </c:jpql>
+                    </condition>
+                </query>
+            </loader>
+        </collection>
+
     </data>
     <dialogMode height="600"
                 width="800"/>
@@ -27,18 +58,18 @@
                         <textField id="legalIndexField" property="legalIndex"/>
                         <textField id="legalCity" property="legalCity"/>
                         <textField id="legalStreet" property="legalStreet"/>
-<!--                        <textField id="legalHouseNumber" property="legalHouseNumber"/>-->
+                        <!--                        <textField id="legalHouseNumber" property="legalHouseNumber"/>-->
                         <textField id="actualIndex" property="actualIndex"/>
                         <textField id="actualCity" property="actualCity"/>
                         <textField id="actualStreet" property="actualStreet"/>
-<!--                        <textField id="actualHouseNumber" property="actualHouseNumber"/>-->
+                        <!--                        <textField id="actualHouseNumber" property="actualHouseNumber"/>-->
                         <textField id="fieldOfActivity" property="fieldOfActivity"/>
                         <textArea id="fieldOfActivityFull" property="fieldOfActivityFull"/>
                         <lookupField id="billSendType" property="billSendType"/>
                         <lookupField id="vatField" property="vat"/>
                         <textField id="emailField" property="email"/>
-<!--                        <maskedField id="contactPhoneField" property="contactPhone" mask="~##(###)###-##-##"-->
-<!--                                     valueMode="masked"/>-->
+                        <!--                        <maskedField id="contactPhoneField" property="contactPhone" mask="~##(###)###-##-##"-->
+                        <!--                                     valueMode="masked"/>-->
                         <textField id="contactPhoneField" property="contactPhone"/>
                         <pickerField id="companyCategoryField" property="companyCategory"/>
                         <textField id="individualTaxpayerNumberField" property="individualTaxpayerNumber"
@@ -50,60 +81,84 @@
                     <button invoke="createTask" caption="msg://createTask"/>
                 </buttonsPanel>
             </groupBox>
-            <groupBox width="100%" spacing="true" height="100%">
-                <groupBox id="responsibleEmployeeBox"
-                          caption="msg://com.company.ksena.entity.company/Company.responsibleEmployee">
-                    <table id="responsibleEmployeeTable" dataContainer="responsibleEmployeeDc" width="100%"
-                           height="200px">
-                        <actions>
-                            <action id="add" type="add" caption="mainMsg://add"/>
-                            <action id="exclude" type="exclude" caption="mainMsg://exclude"/>
-                        </actions>
-                        <buttonsPanel>
-                            <button id="addResponsibleEmployee" caption="mainMsg://add"/>
-                            <!--                    <button action="responsibleEmployeeTable.add"/>-->
-                            <button action="responsibleEmployeeTable.exclude"/>
-                        </buttonsPanel>
-                        <columns>
-                            <column id="fullName"/>
-                            <column id="position"/>
-                            <column id="email"/>
-                            <column id="phoneNumber"/>
-                            <column id="pasportNumber"/>
-                            <column id="authority"/>
-                            <column id="dateOfIssue"/>
-                            <column id="individualTaxpayerNumber"/>
-                            <column id="sex"/>
-                            <column id="companies"/>
-                        </columns>
-                    </table>
-                </groupBox>
+            <vbox height="100%" spacing="true">
+                <tabSheet>
+                    <tab id="responsibleEmployeeBox"
+                         caption="msg://com.company.ksena.entity.company/Company.responsibleEmployee">
+                        <table id="responsibleEmployeeTable" dataContainer="responsibleEmployeeDc" width="100%"
+                               height="300px">
+                            <actions>
+                                <action id="add" type="add" caption="mainMsg://add"/>
+                                <action id="edit" type="edit" caption="msg://edit"/>
+                                <action id="exclude" type="exclude" caption="mainMsg://exclude"/>
+                            </actions>
+                            <buttonsPanel>
+                                <button id="addResponsibleEmployee" caption="mainMsg://add"/>
+                                <button action="responsibleEmployeeTable.exclude"/>
+                            </buttonsPanel>
+                            <columns>
+                                <column id="fullName"/>
+                                <column id="position"/>
+                                <column id="email"/>
+                                <column id="phoneNumber"/>
+                                <column id="pasportNumber"/>
+                                <column id="authority"/>
+                                <column id="dateOfIssue"/>
+                                <column id="individualTaxpayerNumber"/>
+                                <column id="sex"/>
+                                <column id="companies"/>
+                            </columns>
+                        </table>
+                    </tab>
 
-                <groupBox id="pointsBox"
-                          caption="msg://com.company.ksena.entity.company/Company.points">
-                    <table id="pointsTable" dataContainer="pointsDc" width="100%" height="200px">
-                        <!--                <actions>-->
-                        <!--                    <action id="add" type="add"/>-->
-                        <!--                    <action id="exclude" type="exclude"/>-->
-                        <!--                </actions>-->
-                        <!--                <buttonsPanel>-->
-                        <!--                    <button action="pointsTable.add"/>-->
-                        <!--                    <button action="pointsTable.exclude"/>-->
-                        <!--                </buttonsPanel>-->
-                        <columns>
-                            <column id="name"/>
-                            <column id="city"/>
-                        </columns>
-                    </table>
-                </groupBox>
+                    <tab id="pointsBox"
+                         caption="msg://com.company.ksena.entity.company/Company.points">
+                        <table id="pointsTable" dataContainer="pointsDc" width="100%" height="300px">
+                            <actions>
+                                <action id="edit" type="edit" caption="msg://edit"/>
+                            </actions>
+                            <columns>
+                                <column id="name"/>
+                                <column id="city"/>
+                            </columns>
+                        </table>
+                    </tab>
+                    <tab id="taskBox" caption="msg://menu-config.Task-ksena">
+                        <table id="taskTable" dataContainer="taskDc" width="100%" height="300px">
+                            <actions>
+                                <action id="edit" type="edit" caption="msg://edit"/>
+                            </actions>
+                            <columns>
+                                <column id="taskNumber"/>
+                                <column id="point.name"/>
+                                <column id="dateOfCompletion"/>
+                                <column id="taskStatus"/>
+                            </columns>
+                            <rows/>
+                        </table>
+                    </tab>
+                    <tab id="taskDocBox" caption="msg://menu-config.ksena_TaskDocument.browse">
+                        <table id="taskDocTable" dataContainer="taskDocDc" width="100%" height="300px">
+                            <actions>
+                                <action id="edit" type="edit" caption="msg://edit"/>
+                            </actions>
+                            <columns>
+                                <column id="docNumber"/>
+                                <column id="point.name"/>
+                                <column id="dateOfCompletion"/>
+                            </columns>
+                            <rows/>
+                        </table>
+                    </tab>
+                </tabSheet>
                 <groupBox id="commentBox" caption="mainMsg://comment" spacing="true" width="100%">
                     <form id="form2" dataContainer="companyDc" width="100%">
-                        <column width="100%" >
+                        <column width="100%">
                             <textArea id="comment" property="comment" caption="" width="100%"/>
                         </column>
                     </form>
                 </groupBox>
-            </groupBox>
+            </vbox>
         </groupBox>
         <hbox id="editActions" spacing="true">
             <button action="windowCommitAndClose" caption="mainMsg://windowCommitAndClose"/>

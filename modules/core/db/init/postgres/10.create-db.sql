@@ -303,6 +303,8 @@ create table KSENA_EMPLOYEE (
     PASPORT_NUMBER varchar(2),
     AUTHORITY varchar(255),
     DATE_OF_ISSUE date,
+    BIRTHDATE date,
+    PLACE_OF_BIRTH varchar(255),
     INDIVIDUAL_TAXPAYER_NUMBER varchar(255),
     SEX varchar(50),
     --
@@ -319,7 +321,7 @@ create table KSENA_EMPLOYEE (
     RELATIVES_PHONE_NUMBER varchar(255),
     NATIONALITY varchar(255),
     RESIDENCE_NUMBER varchar(255),
-    RESIDENCE_PERMANENT boolean,
+    RESIDENCE_TYPE varchar(50),
     RESIDENCE_END_TIME date,
     RESIDENCE_ADDRESS varchar(255),
     RESIDENCE_PLACE varchar(255),
@@ -349,6 +351,8 @@ create table KSENA_CLIENT_EMPLOYEE (
     PASPORT_NUMBER varchar(2),
     AUTHORITY varchar(255),
     DATE_OF_ISSUE date,
+    BIRTHDATE date,
+    PLACE_OF_BIRTH varchar(255),
     INDIVIDUAL_TAXPAYER_NUMBER varchar(255),
     SEX varchar(50),
     --

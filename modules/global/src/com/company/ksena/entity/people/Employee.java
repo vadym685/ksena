@@ -63,8 +63,8 @@ public class Employee extends PasportData {
     @Column(name = "RESIDENCE_NUMBER")
     protected String residenceNumber;
 
-    @Column(name = "RESIDENCE_PERMANENT")
-    protected Boolean residencePermanent;
+    @Column(name = "RESIDENCE_TYPE")
+    protected String residenceType;
 
     @Column(name = "RESIDENCE_END_TIME")
     protected LocalDate residenceEndTime;
@@ -80,6 +80,14 @@ public class Employee extends PasportData {
             inverseJoinColumns = @JoinColumn(name = "TASK_DOCUMENT_ID"))
     @ManyToMany
     protected List<TaskDocument> taskDocuments;
+
+    public void setResidenceType(ResidenceType residenceType) {
+        this.residenceType = residenceType == null ? null : residenceType.getId();
+    }
+
+    public ResidenceType getResidenceType() {
+        return residenceType == null ? null : ResidenceType.fromId(residenceType);
+    }
 
     public List<TaskDocument> getTaskDocuments() {
         return taskDocuments;
@@ -159,14 +167,6 @@ public class Employee extends PasportData {
 
     public void setResidenceEndTime(LocalDate residenceEndTime) {
         this.residenceEndTime = residenceEndTime;
-    }
-
-    public Boolean getResidencePermanent() {
-        return residencePermanent;
-    }
-
-    public void setResidencePermanent(Boolean residencePermanent) {
-        this.residencePermanent = residencePermanent;
     }
 
     public String getResidenceNumber() {

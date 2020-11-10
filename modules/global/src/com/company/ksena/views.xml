@@ -5,6 +5,7 @@
 
     <view entity="ksena_Employee" name="employee-view">
         <property name="employeeType"/>
+        <property name="fullNamePronunciation"/>
         <property name="isActive"/>
         <property name="qualification"/>
         <property name="mobilePhone" view="_minimal"/>
@@ -14,8 +15,9 @@
         <property name="coment"/>
         <property name="personalPhoneNumber"/>
         <property name="relativesPhoneNumber"/>
+        <property name="nationality"/>
         <property name="residenceNumber"/>
-        <property name="residencePermanent"/>
+        <property name="residenceType"/>
         <property name="residenceEndTime"/>
         <property name="residenceAddress"/>
         <property name="residencePlace"/>
@@ -31,11 +33,14 @@
         <property name="pasportNumber"/>
         <property name="authority"/>
         <property name="dateOfIssue"/>
+        <property name="birthdate"/>
+        <property name="placeOfBirth"/>
         <property name="individualTaxpayerNumber"/>
         <property name="sex"/>
     </view>
     <view entity="ksena_Company" name="company-view" extends="_local">
         <property name="responsibleEmployee" view="_local"/>
+        <property name="taskDocument" view="taskDocument-view"/>
         <property name="points" view="_local"/>
         <property name="companyType" view="_minimal"/>
         <property name="companyCategory" view="_minimal"/>
@@ -69,9 +74,7 @@
     <view entity="ksena_Employee" name="employee-view" extends="employee-view">
         <property name="fullNamePronunciation"/>
         <property name="nationality"/>
-        <property name="firstName"/>
-        <property name="lastName"/>
-        <property name="middleName"/>
+        <property name="residenceType"/>
     </view>
     <view entity="ksena_Point" name="point-view" extends="_local">
         <property name="company" view="_minimal"/>

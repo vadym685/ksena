@@ -51,11 +51,33 @@ public class PasportData extends StandardEntity {
     @Column(name = "DATE_OF_ISSUE")
     protected LocalDate dateOfIssue;
 
+    @Column(name = "BIRTHDATE")
+    protected LocalDate birthdate;
+
+    @Column(name = "PLACE_OF_BIRTH")
+    protected String placeOfBirth;
+
     @Column(name = "INDIVIDUAL_TAXPAYER_NUMBER")
     protected String individualTaxpayerNumber;
 
     @Column(name = "SEX")
     protected String sex;
+
+    public String getPlaceOfBirth() {
+        return placeOfBirth;
+    }
+
+    public void setPlaceOfBirth(String placeOfBirth) {
+        this.placeOfBirth = placeOfBirth;
+    }
+
+    public LocalDate getBirthdate() {
+        return birthdate;
+    }
+
+    public void setBirthdate(LocalDate birthdate) {
+        this.birthdate = birthdate;
+    }
 
     public String getPhoneNumber2() {
         return phoneNumber2;

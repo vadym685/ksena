@@ -50,7 +50,7 @@
                 <column id="relativesPhoneNumber"/>
                 <column id="residenceNumber"/>
                 <column id="nationality"/>
-                <column id="residencePermanent"/>
+                <column id="residenceType"/>
                 <column id="residenceEndTime"/>
                 <column id="residenceAddress"/>
                 <column id="residencePlace"/>

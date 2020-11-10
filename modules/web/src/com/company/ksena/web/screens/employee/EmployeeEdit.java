@@ -115,13 +115,13 @@ public class EmployeeEdit extends StandardEditor<Employee> {
         return factory.create(file);
     }
 
-    @Subscribe("residencePermanentField")
-    public void onResidencePermanentFieldValueChange(HasValue.ValueChangeEvent<Boolean> event) {
-        if (this.getEditedEntity().getResidencePermanent() == false) {
-            residenceEndTimeField.setVisible(true);
-        } else {
-            residenceEndTimeField.setVisible(false);
-        }
-    }
+//    @Subscribe("residencePermanentField")
+//    public void onResidencePermanentFieldValueChange(HasValue.ValueChangeEvent<Boolean> event) {
+//        if (this.getEditedEntity().getResidencePermanent() == false) {
+//            residenceEndTimeField.setVisible(true);
+//        } else {
+//            residenceEndTimeField.setVisible(false);
+//        }
+//    }
 
 }

@@ -14,11 +14,10 @@ import com.haulmont.cuba.core.global.Metadata;
 import com.haulmont.cuba.gui.Notifications;
 import com.haulmont.cuba.gui.ScreenBuilders;
 import com.haulmont.cuba.gui.UiComponents;
-import com.haulmont.cuba.gui.components.Button;
-import com.haulmont.cuba.gui.components.HasValue;
-import com.haulmont.cuba.gui.components.PickerField;
-import com.haulmont.cuba.gui.components.TextField;
+import com.haulmont.cuba.gui.components.*;
+import com.haulmont.cuba.gui.model.CollectionLoader;
 import com.haulmont.cuba.gui.model.CollectionPropertyContainer;
+import com.haulmont.cuba.gui.model.DataComponents;
 import com.haulmont.cuba.gui.model.DataContext;
 import com.haulmont.cuba.gui.screen.*;
 import org.slf4j.Logger;
@@ -53,8 +52,26 @@ public class CompanyEdit extends StandardEditor<Company> {
     @Inject
     private DataManager dataManager;
     @Inject
+    private CollectionLoader<Task> taskDl;
+    @Inject
     private Notifications notifications;
+    @Inject
+    private DataComponents dataComponents;
+    @Inject
+    private CollectionLoader<TaskDocument> taskDocDl;
 
+    @Subscribe
+    public void onBeforeShow(BeforeShowEvent event) {
+        if (this.getEditedEntity().getName() != null) {
+//            CollectionLoader<Task> loader = dataComponents.createCollectionLoader();
+            taskDl.setParameter("name", this.getEditedEntity().getName());
+            taskDl.load();
+
+//            CollectionLoader<TaskDocument> loader = dataComponents.createCollectionLoader();
+            taskDocDl.setParameter("name", this.getEditedEntity().getName());
+            taskDocDl.load();
+        }
+    }
 
     @Subscribe
     public void onAfterShow(AfterShowEvent event) {
@@ -125,7 +142,8 @@ public class CompanyEdit extends StandardEditor<Company> {
             fullNameField.setValue(null);
         }
     }
-//
+
+    //
     @Subscribe("addResponsibleEmployee")
     public void addResponsibleEmployee(Button.ClickEvent event) {
 
