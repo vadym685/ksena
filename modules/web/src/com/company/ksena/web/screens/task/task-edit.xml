@@ -110,7 +110,7 @@
                             <actions>
                                 <action id="add" type="add" caption="mainMsg://add"/>
                                 <action id="exclude" type="exclude" caption="mainMsg://exclude"/>
-                                <action id="view" type="view" caption="mainMsg://view"/>
+                                <action id="edit" type="edit" caption="mainMsg://edit"/>
                             </actions>
                             <columns>
                                 <column id="firstName"/>

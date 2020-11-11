@@ -4,6 +4,8 @@ import com.company.ksena.entity.cleaning_map.CleaningPosition;
 import com.company.ksena.entity.cleaning_map.PositionWrapper;
 import com.company.ksena.entity.company.Company;
 import com.company.ksena.entity.inventory.ExpendableMaterial;
+import com.company.ksena.entity.people.Employee;
+import com.company.ksena.entity.people.Qualification;
 import com.company.ksena.entity.task.Task;
 import com.company.ksena.entity.task.TaskStatus;
 import com.haulmont.cuba.core.entity.FileDescriptor;
@@ -34,6 +36,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -327,7 +330,7 @@ public class ReportsScreen extends Screen {
             notifications.create(Notifications.NotificationType.TRAY)
                     .withCaption(messageBundle.getMessage("generated"))
                     .show();
-        }else {
+        } else {
             notifications.create().withDescription("You cannot set start or finish date").show();
         }
 
@@ -342,6 +345,7 @@ public class ReportsScreen extends Screen {
         style.setFont(font);
         style.setAlignment(alignment);
         style.setWrapText(true);
+
 
         if (border) {
             style.setBorderBottom(BorderStyle.THIN);
@@ -360,16 +364,6 @@ public class ReportsScreen extends Screen {
         if (startDateValue != null || finishDateValue != null) {
 
             List<Task> taskList;
-            String companyName;
-            String pointName;
-            String taskNumber;
-            String taskDocNumber;
-            String taskTimeFactual;
-            String taskTimePlane;
-            String taskDate;
-            double fullPrice = 0;
-            double taskCost = 0;
-            String oldPointName = null;
 
             HSSFWorkbook workbook = new HSSFWorkbook(); //создаешь новый файл
             HSSFSheet sheet = workbook.createSheet(messageBundle.getMessage("sheet")); // создаешь новый лист
@@ -395,16 +389,16 @@ public class ReportsScreen extends Screen {
             assert finishDateValue != null;
             assert startDateValue != null;
 
-                taskList = dataManager.load(Task.class)
-                        .query("select e from ksena_Task e where (e.taskStatus = :taskStatus) and (e.dateOfCompletion >= :startDateValue) and (e.dateOfCompletion <= :finishDateValue)")
-                        .parameter("taskStatus", TaskStatus.EXECUTED)
-                        .parameter("startDateValue", startDateValue)
-                        .parameter("finishDateValue", finishDateValue)
-                        .view("task-view")
-                        .list();
+            taskList = dataManager.load(Task.class)
+                    .query("select e from ksena_Task e where (e.taskStatus = :taskStatus) and (e.dateOfCompletion >= :startDateValue) and (e.dateOfCompletion <= :finishDateValue)")
+                    .parameter("taskStatus", TaskStatus.EXECUTED)
+                    .parameter("startDateValue", startDateValue)
+                    .parameter("finishDateValue", finishDateValue)
+                    .view("task-view")
+                    .list();
 
 
-            sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 7));
+            sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 5));
             sheet.setColumnWidth(0, 1000);
             sheet.setColumnWidth(1, 2000);
             sheet.setColumnWidth(2, 6000);
@@ -415,7 +409,7 @@ public class ReportsScreen extends Screen {
             cell.setCellValue(messageBundle.getMessage("employeeReport"));
             cell.setCellStyle(createStyle(workbook, true, 12, false, HorizontalAlignment.CENTER));
 
-            sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 7));
+            sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 5));
             row = sheet.createRow(rowNum);
             row.setHeightInPoints(12.75f);
             rowNum += 2;
@@ -426,8 +420,143 @@ public class ReportsScreen extends Screen {
             taskList = taskList.stream().sorted(Comparator.comparing(task -> task.getPoint().getName())).collect(Collectors.toList());
             taskList = taskList.stream().sorted(Comparator.comparing(Task::getDateOfCompletion)).collect(Collectors.toList());
 
-            for (Task task : taskList) {
+            List<Employee> taskEmployeesList = new ArrayList<>();
 
+            for (Task task : taskList) {
+                taskEmployeesList.addAll(task.getEmployees());
+            }
+            taskEmployeesList = taskEmployeesList.stream().distinct().collect(Collectors.toList());
+
+
+            for (Employee employee : taskEmployeesList) {
+
+                sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 5));
+                row = sheet.createRow(rowNum);
+                row.setHeightInPoints(12.75f);
+                rowNum++;
+                cell = row.createCell(0, CellType.STRING);
+                cell.setCellValue(messageBundle.getMessage("employee") + employee.getFirstName() + " " + employee.getLastName());
+                cell.setCellStyle(createStyle(workbook, false, 10, false, HorizontalAlignment.CENTER));
+
+                sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 5));
+                row = sheet.createRow(rowNum);
+                row.setHeightInPoints(12.75f);
+                rowNum++;
+                cell = row.createCell(0, CellType.STRING);
+                cell.setCellValue(messageBundle.getMessage("qualification") + employee.getQualification());
+                cell.setCellStyle(createStyle(workbook, false, 10, false, HorizontalAlignment.CENTER));
+
+                List<Task> taskForEmploee;
+
+                taskForEmploee = dataManager.load(Task.class)
+                        .query("select e from ksena_Task e where (e.taskStatus = :taskStatus) and (e.dateOfCompletion >= :startDateValue) and (e.dateOfCompletion <= :finishDateValue) and (e.employees = :employees)")
+                        .parameter("taskStatus", TaskStatus.EXECUTED)
+                        .parameter("startDateValue", startDateValue)
+                        .parameter("finishDateValue", finishDateValue)
+                        .parameter("employees", employee)
+                        .view("task-view")
+                        .list();
+
+                row = sheet.createRow(rowNum);
+                rowNum++;
+                row.setHeightInPoints(32.25f);
+                cell = row.createCell(0, CellType.STRING);
+                cell.setCellValue(messageBundle.getMessage("taskDocNumber"));
+                cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+                cell = row.createCell(1, CellType.STRING);
+                cell.setCellValue(messageBundle.getMessage("taskNumber"));
+                cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+                cell = row.createCell(2, CellType.STRING);
+                cell.setCellValue(messageBundle.getMessage("companyName"));
+                cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+                cell = row.createCell(3, CellType.STRING);
+                cell.setCellValue(messageBundle.getMessage("pointName"));
+                cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+                cell = row.createCell(4, CellType.STRING);
+                cell.setCellValue(messageBundle.getMessage("dateOfCompletion"));
+                cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+                cell = row.createCell(5, CellType.STRING);
+                cell.setCellValue(messageBundle.getMessage("wage"));
+                cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+                taskForEmploee = taskForEmploee.stream().sorted(Comparator.comparing(Task::getDateOfCompletion)).collect(Collectors.toList());
+
+                for (Task task :taskForEmploee){
+
+                    String taskNumber = task.getTaskNumber();
+
+                    String pointName;
+                    try {
+                        pointName = task.getPoint().getName();
+                    } catch (Exception e) {
+                        pointName = "";
+                    }
+
+                    String taskDocNumber;
+                    try {
+                        taskDocNumber = task.getTaskDocument().getDocNumber();
+                    } catch (Exception e) {
+                        taskDocNumber = "";
+                    }
+                    String dateOfCompletion;
+                    try {
+                        dateOfCompletion = task.getDateOfCompletion().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                    } catch (Exception e) {
+                        dateOfCompletion = "";
+                    }
+
+                    String companyName;
+                    try {
+                        companyName = task.getCompany().getName();
+                    } catch (Exception e) {
+                        companyName = "";
+                    }
+
+                    double wage;
+                    if (employee.getQualification() == Qualification.ELEMENTARY){
+                        wage = task.getSalaryElementary();
+                    }else if (employee.getQualification()==Qualification.MEDIUM){
+                        wage = task.getSalaryMedium();
+                    }else if (employee.getQualification()==Qualification.HIGH){
+                        wage = task.getSalaryHigh();
+                    }else {
+                        wage = 0;
+                    }
+
+                    row = sheet.createRow(rowNum);
+                    rowNum++;
+
+                    cell = row.createCell(0, CellType.STRING);
+                    cell.setCellValue(taskDocNumber);
+                    cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+                    cell = row.createCell(1, CellType.STRING);
+                    cell.setCellValue(task.getTaskNumber());
+                    cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+                    cell = row.createCell(2, CellType.STRING);
+                    cell.setCellValue(companyName);
+                    cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+                    cell = row.createCell(3, CellType.STRING);
+                    cell.setCellValue(pointName);
+                    cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+                    cell = row.createCell(4, CellType.STRING);
+                    cell.setCellValue(dateOfCompletion);
+                    cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+                    cell = row.createCell(5, CellType.STRING);
+                    cell.setCellValue(wage);
+                    cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+                }
+                rowNum++;
             }
             rowNum += 3;
 
@@ -474,7 +603,7 @@ public class ReportsScreen extends Screen {
             notifications.create(Notifications.NotificationType.TRAY)
                     .withCaption(messageBundle.getMessage("generated"))
                     .show();
-        }else {
+        } else {
             notifications.create().withDescription("You cannot set start or finish date").show();
         }
 
