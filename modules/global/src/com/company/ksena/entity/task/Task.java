@@ -16,6 +16,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @NamePattern("%s|taskNumber")
@@ -81,10 +82,10 @@ public class Task extends StandardEntity {
     protected List<Employee> employees;
 
     @OneToMany(mappedBy = "task")
-    protected List<PositionWrapper> cleaningMap;
+    protected List<PositionWrapper> cleaningMap =  new ArrayList<PositionWrapper>();
 
     @OneToMany(mappedBy = "task")
-    protected List<InventoryWrapper> inventoryMap;
+    protected List<InventoryWrapper> inventoryMap  =  new ArrayList<InventoryWrapper>();
 
     public List<InventoryWrapper> getInventoryMap() {
         return inventoryMap;

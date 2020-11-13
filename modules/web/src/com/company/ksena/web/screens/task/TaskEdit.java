@@ -85,6 +85,8 @@ public class TaskEdit extends StandardEditor<Task> {
     @Inject
     private Button addPosition;
     @Inject
+    private LookupPickerField<TaskDocument> taskDocumentField;
+    @Inject
     private Button ok;
     @Inject
     private SplitPanel mainSplit;
@@ -579,5 +581,9 @@ public class TaskEdit extends StandardEditor<Task> {
         styles.add(String.format(
                 ".colored-cell-%s-%s{background-color:#%s;}",
                 id.toString(), color, color));
+    }
+
+    public LookupPickerField<TaskDocument> getTaskDocumentField() {
+        return taskDocumentField;
     }
 }

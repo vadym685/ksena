@@ -71,10 +71,13 @@
                                 <checkBox id="addPriseExpendableMaterialField" property="addPriseExpendableMaterial"/>
                                 <textField id="fullCostField" property="fullCost" visible="false"/>
                                 <textField id="salaryElementaryField" property="salaryElementary"/>
-                                <textField id="salaryHighField" property="salaryHigh"/>
                                 <textField id="salaryMediumField" property="salaryMedium"/>
+                                <textField id="salaryHighField" property="salaryHigh"/>
                             </column>
                         </form>
+                        <buttonsPanel>
+                            <button invoke="createTask" caption="msg://createTask"/>
+                        </buttonsPanel>
                     </groupBox>
                     <groupBox id="cleaningDayBox" caption="msg://com.company.ksena.entity.task/TaskDocument.cleaningDay"
                               align="TOP_LEFT" width="100%" visible="false" height="AUTO">
@@ -128,6 +131,8 @@
                                 <action id="view" type="view" caption="mainMsg://view"/>
                             </actions>
                             <columns>
+                                <column id="firstName"/>
+                                <column id="lastName"/>
                                 <column id="fullName"/>
                                 <column id="phoneNumber"/>
                             </columns>

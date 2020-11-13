@@ -12,6 +12,7 @@ import com.company.ksena.entity.task.*;
 import com.company.ksena.entity.template.Template;
 import com.company.ksena.web.screens.inventory.AvaibleInventoryBrowse;
 import com.company.ksena.web.screens.room.RoomBrowse;
+import com.company.ksena.web.screens.task.TaskEdit;
 import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.Metadata;
 import com.haulmont.cuba.gui.Dialogs;
@@ -297,7 +298,8 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                                                 cleaningMapDc.getMutableItems().sort(Comparator.comparing(PositionWrapper::getPriorityCleaningPosition));
                                             });
                                         }),
-                                        new DialogAction(DialogAction.Type.NO).withHandler(noEvent -> {}
+                                        new DialogAction(DialogAction.Type.NO).withHandler(noEvent -> {
+                                                }
 //                                                e.forEach(template -> {
 //                                                    template.getCleaningMap().forEach(wrapper ->
 //                                                            wrapper.setTaskDocuments(super.getEditedEntity()));
@@ -522,5 +524,111 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
             }
             docNumberField.setValue(resultString + "/" + listSize);
         }
+    }
+
+    public void createTask() {
+
+        Task newTask = metadata.create(Task.class);
+        newTask.setTaskDocument(this.getEditedEntity());
+
+        newTask.setPoint(null);
+        newTask.setTaskNumber(null);
+        newTask.setCompany(null);
+        newTask.setDelay(null);
+        newTask.setSalaryElementary(null);
+        newTask.setSalaryHigh(null);
+        newTask.setSalaryMedium(null);
+        newTask.setAddPriseExpendableMaterial(null);
+        newTask.setEmployees(null);
+
+        if (newTask.getCleaningMap() != null) {
+            List<PositionWrapper> clearCleaningMapList = newTask.getCleaningMap();
+
+            for (PositionWrapper clearPositionWrapper : clearCleaningMapList) {
+                dataManager.remove(clearPositionWrapper);
+
+            }
+        }
+        if (newTask.getInventoryMap() != null) {
+            List<InventoryWrapper> clearInventoryWrapperList = newTask.getInventoryMap();
+
+            for (InventoryWrapper clearinventoryWrapper : clearInventoryWrapperList) {
+                dataManager.remove(clearinventoryWrapper);
+            }
+        }
+
+        newTask.setInventoryMap(null);
+        newTask.setCleaningMap(null);
+
+
+        String resultString = this.getEditedEntity().getCreateDate().toString().replaceAll("-", "");
+
+
+        List newList = (List) dataManager.load(Task.class)
+                .query("select e from ksena_Task e where e.taskDocument.createDate = :createDate")
+                .parameter("createDate", this.getEditedEntity().getCreateDate())
+                .list();
+        int listSize = 0;
+        if (newList.size() == 0) {
+            listSize = 1;
+        } else {
+            listSize = newList.size() + 1;
+        }
+        newTask.setTaskNumber(this.getEditedEntity().getDocNumber() + " - " + listSize);
+
+        newTask.setPoint(this.getEditedEntity().getPoint());
+        newTask.setCompany(this.getEditedEntity().getCompany());
+        newTask.setDelay(this.getEditedEntity().getDelay());
+        newTask.setSalaryElementary(this.getEditedEntity().getSalaryElementary());
+        newTask.setSalaryHigh(this.getEditedEntity().getSalaryHigh());
+        newTask.setSalaryMedium(this.getEditedEntity().getSalaryMedium());
+        newTask.setAddPriseExpendableMaterial(this.getEditedEntity().getAddPriseExpendableMaterial());
+        newTask.setEmployees(this.getEditedEntity().getEmployeesMap());
+        newTask.setTaskStatus(TaskStatus.CREATE);
+
+        if (this.getEditedEntity().getTypeOfCostFormation() == TypeOfCostFormation.FIXED_PRICE){
+            newTask.setCost(this.getEditedEntity().getFullCost());
+        }
+
+        List<PositionWrapper> cleaningMapList = this.getEditedEntity().getCleaningMap();
+        List<InventoryWrapper> inventoryWrapperList = this.getEditedEntity().getInventoryMap();
+
+
+        List<PositionWrapper> addpositionWrappers = new ArrayList<>();
+
+        this.getEditedEntity().getCleaningMap().forEach(wrapper -> {
+            PositionWrapper positionWrapper = metadata.getTools().copy(wrapper);
+
+            positionWrapper.setId(UUID.randomUUID());
+            positionWrapper.setTaskDocuments(null);
+            positionWrapper.setTask(newTask);
+            addpositionWrappers.add(positionWrapper);
+
+//            newTask.CleaningMap().add(positionWrapper);
+//            newTask.getCleaningMap().sort(Comparator.comparing(PositionWrapper::getPriorityCleaningPosition));
+        });
+
+        newTask.setCleaningMap(addpositionWrappers);
+        newTask.getCleaningMap().sort(Comparator.comparing(PositionWrapper::getPriorityCleaningPosition));
+
+        List<InventoryWrapper> addInventoryWrapper = new ArrayList<>();
+        for (InventoryWrapper inventoryWrapper : inventoryWrapperList) {
+            InventoryWrapper newInventoryWrapper = metadata.create(InventoryWrapper.class);
+            newInventoryWrapper.setInventory(inventoryWrapper.getInventory());
+            newInventoryWrapper.setQuantityInventory(1);
+            newInventoryWrapper.setTask(newTask);
+            newInventoryWrapper.setTaskDocuments(null);
+
+            addInventoryWrapper.add(newInventoryWrapper);
+        }
+        newTask.setInventoryMap(addInventoryWrapper);
+
+        TaskEdit screen = (TaskEdit) screenBuilders.editor(Task.class, this)
+                .editEntity(newTask)
+                .build();
+
+//        screen.onTaskDocumentFieldValueChange(new HasValue.ValueChangeEvent<>(screen.getTaskDocumentField(), null, getEditedEntity()));
+
+        screen.show();
     }
 }
