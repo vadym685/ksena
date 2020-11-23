@@ -32,8 +32,13 @@ public class TaskDocument extends StandardEntity {
     @Column(name = "CREATE_DATE")
     protected LocalDate createDate;
 
+    @NotNull
     @Column(name = "DATE_OF_COMPLETION")
     protected LocalDate dateOfCompletion;
+
+    @NotNull
+    @Column(name = "DATE_OF_END_DOCUMENT")
+    protected LocalDate dateOfEndDocument;
 
     @Column(name = "COST_PER_HOUR")
     protected Double costPerHour;
@@ -98,6 +103,14 @@ public class TaskDocument extends StandardEntity {
             inverseJoinColumns = @JoinColumn(name = "EMPLOYEE_ID"))
     @ManyToMany
     protected List<Employee> employeesMap;
+
+    public LocalDate getDateOfEndDocument() {
+        return dateOfEndDocument;
+    }
+
+    public void setDateOfEndDocument(LocalDate dateOfEndDocument) {
+        this.dateOfEndDocument = dateOfEndDocument;
+    }
 
     public List<Employee> getEmployeesMap() {
         return employeesMap;

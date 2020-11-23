@@ -117,6 +117,7 @@ create table KSENA_TASK_DOCUMENT (
     ADD_PRISE_EXPENDABLE_MATERIAL boolean,
     CREATE_DATE date,
     DATE_OF_COMPLETION date,
+    DATE_OF_END_DOCUMENT date,
     COST_PER_HOUR double precision,
     FULL_COST double precision,
     SALARY_ELEMENTARY bigint,

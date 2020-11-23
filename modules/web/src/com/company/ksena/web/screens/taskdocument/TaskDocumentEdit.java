@@ -97,6 +97,8 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
     @Inject
     private Button cleaningMapPositionUp;
     @Inject
+    private Button createTaskAllTimeDoc;
+    @Inject
     private Button cleaningMapPositionDown;
     @Inject
     private Button excludePosition;
@@ -104,6 +106,10 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
     private TextField<String> docNumberField;
     @Inject
     private DataComponents dataComponents;
+    @Inject
+    private DateField<LocalDate> createDateField;
+    @Inject
+    private DateField<LocalDate> dateOfEndDocumentField;
 
 
     @Subscribe("companyField")
@@ -209,6 +215,12 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
     @Subscribe
     public void onAfterShow(AfterShowEvent event) {
         cleaningMapDc.getMutableItems().sort(Comparator.comparing(PositionWrapper::getPriorityCleaningPosition));
+
+        if (dateOfCompletionField.getValue() != null && dateOfEndDocumentField.getValue() != null){
+            createTaskAllTimeDoc.setEnabled(true);
+        }else{
+            createTaskAllTimeDoc.setEnabled(false);
+        }
     }
 
     @Subscribe
@@ -524,6 +536,8 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
             }
             docNumberField.setValue(resultString + "/" + listSize);
         }
+
+
     }
 
     public void createTask() {
@@ -630,5 +644,23 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
 //        screen.onTaskDocumentFieldValueChange(new HasValue.ValueChangeEvent<>(screen.getTaskDocumentField(), null, getEditedEntity()));
 
         screen.show();
+    }
+
+    @Subscribe("dateOfCompletionField")
+    public void onDateOfCompletionFieldValueChange(HasValue.ValueChangeEvent<LocalDate> event) {
+        if (dateOfCompletionField.getValue() != null && dateOfEndDocumentField.getValue() != null){
+            createTaskAllTimeDoc.setEnabled(true);
+        }else{
+            createTaskAllTimeDoc.setEnabled(false);
+        }
+    }
+
+    @Subscribe("dateOfEndDocumentField")
+    public void onDateOfEndDocumentFieldValueChange(HasValue.ValueChangeEvent<LocalDate> event) {
+        if (dateOfCompletionField.getValue() != null && dateOfEndDocumentField.getValue() != null){
+            createTaskAllTimeDoc.setEnabled(true);
+        }else{
+            createTaskAllTimeDoc.setEnabled(false);
+        }
     }
 }

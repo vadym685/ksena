@@ -50,6 +50,7 @@
                                 <textField id="docNumberField" property="docNumber"/>
                                 <dateField id="createDateField" property="createDate"/>
                                 <dateField id="dateOfCompletionField" property="dateOfCompletion"/>
+                                <dateField id="dateOfEndDocumentField" property="dateOfEndDocument"/>
                                 <checkBox id="isActiveField" property="isActive"/>
                                 <pickerField id="companyField" property="company"/>
                                 <textField id="delay" property="delay"/>
@@ -77,6 +78,7 @@
                         </form>
                         <buttonsPanel>
                             <button invoke="createTask" caption="msg://createTask"/>
+                            <button id="createTaskAllTimeDoc" caption="msg://createTaskAllTimeDoc" enable="false"/>
                         </buttonsPanel>
                     </groupBox>
                     <groupBox id="cleaningDayBox" caption="msg://com.company.ksena.entity.task/TaskDocument.cleaningDay"
