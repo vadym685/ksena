@@ -26,7 +26,7 @@
         </filter>
         <groupTable id="tasksTable"
                     width="100%"
-                    dataContainer="tasksDc">
+                    dataContainer="tasksDc" multiselect="true">
             <actions>
                 <action id="create" type="create" caption="mainMsg://create"/>
                 <action id="edit" type="edit" caption="mainMsg://edit"/>

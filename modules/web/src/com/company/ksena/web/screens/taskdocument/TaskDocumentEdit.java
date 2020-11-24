@@ -13,6 +13,7 @@ import com.company.ksena.entity.template.Template;
 import com.company.ksena.web.screens.inventory.AvaibleInventoryBrowse;
 import com.company.ksena.web.screens.room.RoomBrowse;
 import com.company.ksena.web.screens.task.TaskEdit;
+import com.haulmont.cuba.core.global.CommitContext;
 import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.Metadata;
 import com.haulmont.cuba.gui.Dialogs;
@@ -31,6 +32,7 @@ import com.vaadin.server.Page;
 import com.vaadin.v7.ui.AbstractSelect;
 
 import javax.inject.Inject;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -110,6 +112,8 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
     private DateField<LocalDate> createDateField;
     @Inject
     private DateField<LocalDate> dateOfEndDocumentField;
+    @Inject
+    private LookupField<TaskType> taskTypeField;
 
 
     @Subscribe("companyField")
@@ -147,21 +151,28 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
 
         TypeOfCostFormation type = this.getEditedEntity().getTypeOfCostFormation();
 
-        if (type.equals(TypeOfCostFormation.FOR_TIME)) {
-            costPerHourField.setVisible(true);
-            fullCostField.setVisible(false);
-        } else if (type.equals(TypeOfCostFormation.FOR_CLEANING_MAP)) {
+        if (type == null) {
             costPerHourField.setVisible(false);
             fullCostField.setVisible(false);
-            costPerHourField.clear();
-        } else if (type.equals(TypeOfCostFormation.FIXED_PRICE)) {
-            costPerHourField.setVisible(false);
-            fullCostField.setVisible(true);
             costPerHourField.clear();
         } else {
-            costPerHourField.setVisible(false);
-            fullCostField.setVisible(false);
-            costPerHourField.clear();
+
+            if (type.equals(TypeOfCostFormation.FOR_TIME)) {
+                costPerHourField.setVisible(true);
+                fullCostField.setVisible(false);
+            } else if (type.equals(TypeOfCostFormation.FOR_CLEANING_MAP)) {
+                costPerHourField.setVisible(false);
+                fullCostField.setVisible(false);
+                costPerHourField.clear();
+            } else if (type.equals(TypeOfCostFormation.FIXED_PRICE)) {
+                costPerHourField.setVisible(false);
+                fullCostField.setVisible(true);
+                costPerHourField.clear();
+            } else {
+                costPerHourField.setVisible(false);
+                fullCostField.setVisible(false);
+                costPerHourField.clear();
+            }
         }
 
     }
@@ -662,5 +673,344 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
         }else{
             createTaskAllTimeDoc.setEnabled(false);
         }
+    }
+
+    @Subscribe("createTaskAllTimeDoc")
+    public void onCreateTaskAllTimeDocClick(Button.ClickEvent event) {
+//        createTaskAllTimeDoc.setEnabled(false);
+        if (taskTypeField.getValue() == TaskType.ONE_TIME) {
+            // Task newTask = metadata.create(Task.class);
+            Task newTask = new Task();
+            newTask.setTaskDocument(this.getEditedEntity());
+
+            newTask.setPoint(null);
+            newTask.setTaskNumber(null);
+            newTask.setCompany(null);
+            newTask.setDelay(null);
+            newTask.setSalaryElementary(null);
+            newTask.setSalaryHigh(null);
+            newTask.setSalaryMedium(null);
+            newTask.setAddPriseExpendableMaterial(null);
+            newTask.setEmployees(null);
+
+            if (newTask.getCleaningMap() != null) {
+                List<PositionWrapper> clearCleaningMapList = newTask.getCleaningMap();
+
+                for (PositionWrapper clearPositionWrapper : clearCleaningMapList) {
+                    dataManager.remove(clearPositionWrapper);
+                }
+            }
+            if (newTask.getInventoryMap() != null) {
+                List<InventoryWrapper> clearInventoryWrapperList = newTask.getInventoryMap();
+
+                for (InventoryWrapper clearinventoryWrapper : clearInventoryWrapperList) {
+                    dataManager.remove(clearinventoryWrapper);
+                }
+            }
+
+            newTask.setInventoryMap(null);
+            newTask.setCleaningMap(null);
+
+            String resultString = this.getEditedEntity().getCreateDate().toString().replaceAll("-", "");
+
+            List newList = (List) dataManager.load(Task.class)
+                    .query("select e from ksena_Task e where e.taskDocument.createDate = :createDate")
+                    .parameter("createDate", this.getEditedEntity().getCreateDate())
+                    .list();
+            int listSize = 0;
+            if (newList.size() == 0) {
+                listSize = 1;
+            } else {
+                listSize = newList.size() + 1;
+            }
+            newTask.setTaskNumber(this.getEditedEntity().getDocNumber() + " - " + listSize);
+
+            newTask.setPoint(this.getEditedEntity().getPoint());
+            newTask.setCompany(this.getEditedEntity().getCompany());
+            newTask.setDelay(this.getEditedEntity().getDelay());
+            newTask.setSalaryElementary(this.getEditedEntity().getSalaryElementary());
+            newTask.setSalaryHigh(this.getEditedEntity().getSalaryHigh());
+            newTask.setSalaryMedium(this.getEditedEntity().getSalaryMedium());
+            newTask.setAddPriseExpendableMaterial(this.getEditedEntity().getAddPriseExpendableMaterial());
+            newTask.setEmployees(this.getEditedEntity().getEmployeesMap());
+            newTask.setTaskStatus(TaskStatus.CREATE);
+            newTask.setDateOfCompletion(this.getEditedEntity().getDateOfCompletion());
+
+
+            if (this.getEditedEntity().getTypeOfCostFormation() == TypeOfCostFormation.FIXED_PRICE) {
+                newTask.setCost(this.getEditedEntity().getFullCost());
+            }
+
+            List<PositionWrapper> cleaningMapList = this.getEditedEntity().getCleaningMap();
+            List<InventoryWrapper> inventoryWrapperList = this.getEditedEntity().getInventoryMap();
+
+
+            List<PositionWrapper> addpositionWrappers = new ArrayList<>();
+
+
+
+            this.getEditedEntity().getCleaningMap().forEach(wrapper -> {
+                PositionWrapper positionWrapper = metadata.getTools().copy(wrapper);
+
+                positionWrapper.setId(UUID.randomUUID());
+                positionWrapper.setTaskDocuments(null);
+                positionWrapper.setTask(newTask);
+
+                addpositionWrappers.add(positionWrapper);
+
+            });
+
+            newTask.setCleaningMap(addpositionWrappers);
+            newTask.getCleaningMap().sort(Comparator.comparing(PositionWrapper::getPriorityCleaningPosition));
+
+            List<InventoryWrapper> addInventoryWrapper = new ArrayList<>();
+            for (InventoryWrapper inventoryWrapper : inventoryWrapperList) {
+                InventoryWrapper newInventoryWrapper = metadata.create(InventoryWrapper.class);
+                newInventoryWrapper.setInventory(inventoryWrapper.getInventory());
+                newInventoryWrapper.setQuantityInventory(1);
+                newInventoryWrapper.setTask(newTask);
+                newInventoryWrapper.setTaskDocuments(null);
+
+                addInventoryWrapper.add(newInventoryWrapper);
+            }
+            newTask.setInventoryMap(addInventoryWrapper);
+
+            CommitContext commitContext = new CommitContext();
+            commitContext.addInstanceToCommit(newTask);
+            newTask.getCleaningMap().forEach(commitContext::addInstanceToCommit);
+            newTask.getInventoryMap().forEach(commitContext::addInstanceToCommit);
+
+            dataManager.commit(commitContext);
+
+        } else if (taskTypeField.getValue() == TaskType.REPEAT) {
+            if (this.typeOfPeriodicityField.getValue() == null) {
+                notifications.create().withDescription("Set type of periodicity").show();
+            } else if(typeOfPeriodicityField.getValue() == TypeOfPeriodicity.PERIOD){
+                if (this.cleaningDayDc.getMutableItems().isEmpty()){
+                    notifications.create().withDescription("Set cleaning day").show();
+                } else {
+                    LocalDate startDate = dateOfCompletionField.getValue();
+                    while (startDate.isBefore(dateOfEndDocumentField.getValue().plusDays(1))) {
+
+                        if (startDate.getDayOfWeek() == DayOfWeek.MONDAY) {
+
+                            Task newTask = new Task();
+                            newTask.setTaskDocument(this.getEditedEntity());
+
+                            newTask.setPoint(null);
+                            newTask.setTaskNumber(null);
+                            newTask.setCompany(null);
+                            newTask.setDelay(null);
+                            newTask.setSalaryElementary(null);
+                            newTask.setSalaryHigh(null);
+                            newTask.setSalaryMedium(null);
+                            newTask.setAddPriseExpendableMaterial(null);
+                            newTask.setEmployees(null);
+
+                            if (newTask.getCleaningMap() != null) {
+                                List<PositionWrapper> clearCleaningMapList = newTask.getCleaningMap();
+
+                                for (PositionWrapper clearPositionWrapper : clearCleaningMapList) {
+                                    dataManager.remove(clearPositionWrapper);
+                                }
+                            }
+                            if (newTask.getInventoryMap() != null) {
+                                List<InventoryWrapper> clearInventoryWrapperList = newTask.getInventoryMap();
+
+                                for (InventoryWrapper clearinventoryWrapper : clearInventoryWrapperList) {
+                                    dataManager.remove(clearinventoryWrapper);
+                                }
+                            }
+
+                            newTask.setInventoryMap(null);
+                            newTask.setCleaningMap(null);
+
+                            String resultString = this.getEditedEntity().getCreateDate().toString().replaceAll("-", "");
+
+                            List newList = (List) dataManager.load(Task.class)
+                                    .query("select e from ksena_Task e where e.taskDocument.createDate = :createDate")
+                                    .parameter("createDate", this.getEditedEntity().getCreateDate())
+                                    .list();
+                            int listSize = 0;
+                            if (newList.size() == 0) {
+                                listSize = 1;
+                            } else {
+                                listSize = newList.size() + 1;
+                            }
+                            newTask.setTaskNumber(this.getEditedEntity().getDocNumber() + " - " + listSize);
+
+                            newTask.setPoint(this.getEditedEntity().getPoint());
+                            newTask.setCompany(this.getEditedEntity().getCompany());
+                            newTask.setDelay(this.getEditedEntity().getDelay());
+                            newTask.setSalaryElementary(this.getEditedEntity().getSalaryElementary());
+                            newTask.setSalaryHigh(this.getEditedEntity().getSalaryHigh());
+                            newTask.setSalaryMedium(this.getEditedEntity().getSalaryMedium());
+                            newTask.setAddPriseExpendableMaterial(this.getEditedEntity().getAddPriseExpendableMaterial());
+                            newTask.setEmployees(this.getEditedEntity().getEmployeesMap());
+                            newTask.setTaskStatus(TaskStatus.CREATE);
+                            newTask.setDateOfCompletion(startDate);
+
+
+                            if (this.getEditedEntity().getTypeOfCostFormation() == TypeOfCostFormation.FIXED_PRICE) {
+                                newTask.setCost(this.getEditedEntity().getFullCost());
+                            }
+
+                            List<PositionWrapper> cleaningMapList = this.getEditedEntity().getCleaningMap();
+                            List<InventoryWrapper> inventoryWrapperList = this.getEditedEntity().getInventoryMap();
+
+
+                            List<PositionWrapper> addpositionWrappers = new ArrayList<>();
+
+
+                            this.getEditedEntity().getCleaningMap().forEach(wrapper -> {
+                                PositionWrapper positionWrapper = metadata.getTools().copy(wrapper);
+
+                                positionWrapper.setId(UUID.randomUUID());
+                                positionWrapper.setTaskDocuments(null);
+                                positionWrapper.setTask(newTask);
+
+                                addpositionWrappers.add(positionWrapper);
+
+                            });
+
+                            newTask.setCleaningMap(addpositionWrappers);
+                            newTask.getCleaningMap().sort(Comparator.comparing(PositionWrapper::getPriorityCleaningPosition));
+
+                            List<InventoryWrapper> addInventoryWrapper = new ArrayList<>();
+                            for (InventoryWrapper inventoryWrapper : inventoryWrapperList) {
+                                InventoryWrapper newInventoryWrapper = metadata.create(InventoryWrapper.class);
+                                newInventoryWrapper.setInventory(inventoryWrapper.getInventory());
+                                newInventoryWrapper.setQuantityInventory(1);
+                                newInventoryWrapper.setTask(newTask);
+                                newInventoryWrapper.setTaskDocuments(null);
+
+                                addInventoryWrapper.add(newInventoryWrapper);
+                            }
+                            newTask.setInventoryMap(addInventoryWrapper);
+
+                            CommitContext commitContext = new CommitContext();
+                            commitContext.addInstanceToCommit(newTask);
+                            newTask.getCleaningMap().forEach(commitContext::addInstanceToCommit);
+                            newTask.getInventoryMap().forEach(commitContext::addInstanceToCommit);
+
+                            dataManager.commit(commitContext);
+                        }
+                        startDate = startDate.plusDays(1);
+                    }
+                }
+            } else if(typeOfPeriodicityField.getValue() == TypeOfPeriodicity.PERIODICITY){
+                if (this.periodicityField.getValue() == null){
+                    notifications.create().withDescription("Set periodicity").show();
+                }else {
+                    LocalDate startDate = dateOfCompletionField.getValue();
+                    while (startDate.isBefore(dateOfEndDocumentField.getValue().plusDays(1))){
+
+                        Task newTask = new Task();
+                        newTask.setTaskDocument(this.getEditedEntity());
+
+                        newTask.setPoint(null);
+                        newTask.setTaskNumber(null);
+                        newTask.setCompany(null);
+                        newTask.setDelay(null);
+                        newTask.setSalaryElementary(null);
+                        newTask.setSalaryHigh(null);
+                        newTask.setSalaryMedium(null);
+                        newTask.setAddPriseExpendableMaterial(null);
+                        newTask.setEmployees(null);
+
+                        if (newTask.getCleaningMap() != null) {
+                            List<PositionWrapper> clearCleaningMapList = newTask.getCleaningMap();
+
+                            for (PositionWrapper clearPositionWrapper : clearCleaningMapList) {
+                                dataManager.remove(clearPositionWrapper);
+                            }
+                        }
+                        if (newTask.getInventoryMap() != null) {
+                            List<InventoryWrapper> clearInventoryWrapperList = newTask.getInventoryMap();
+
+                            for (InventoryWrapper clearinventoryWrapper : clearInventoryWrapperList) {
+                                dataManager.remove(clearinventoryWrapper);
+                            }
+                        }
+
+                        newTask.setInventoryMap(null);
+                        newTask.setCleaningMap(null);
+
+                        String resultString = this.getEditedEntity().getCreateDate().toString().replaceAll("-", "");
+
+                        List newList = (List) dataManager.load(Task.class)
+                                .query("select e from ksena_Task e where e.taskDocument.createDate = :createDate")
+                                .parameter("createDate", this.getEditedEntity().getCreateDate())
+                                .list();
+                        int listSize = 0;
+                        if (newList.size() == 0) {
+                            listSize = 1;
+                        } else {
+                            listSize = newList.size() + 1;
+                        }
+                        newTask.setTaskNumber(this.getEditedEntity().getDocNumber() + " - " + listSize);
+
+                        newTask.setPoint(this.getEditedEntity().getPoint());
+                        newTask.setCompany(this.getEditedEntity().getCompany());
+                        newTask.setDelay(this.getEditedEntity().getDelay());
+                        newTask.setSalaryElementary(this.getEditedEntity().getSalaryElementary());
+                        newTask.setSalaryHigh(this.getEditedEntity().getSalaryHigh());
+                        newTask.setSalaryMedium(this.getEditedEntity().getSalaryMedium());
+                        newTask.setAddPriseExpendableMaterial(this.getEditedEntity().getAddPriseExpendableMaterial());
+                        newTask.setEmployees(this.getEditedEntity().getEmployeesMap());
+                        newTask.setTaskStatus(TaskStatus.CREATE);
+                        newTask.setDateOfCompletion(startDate);
+
+
+                        if (this.getEditedEntity().getTypeOfCostFormation() == TypeOfCostFormation.FIXED_PRICE) {
+                            newTask.setCost(this.getEditedEntity().getFullCost());
+                        }
+
+                        List<PositionWrapper> cleaningMapList = this.getEditedEntity().getCleaningMap();
+                        List<InventoryWrapper> inventoryWrapperList = this.getEditedEntity().getInventoryMap();
+
+
+                        List<PositionWrapper> addpositionWrappers = new ArrayList<>();
+
+
+
+                        this.getEditedEntity().getCleaningMap().forEach(wrapper -> {
+                            PositionWrapper positionWrapper = metadata.getTools().copy(wrapper);
+
+                            positionWrapper.setId(UUID.randomUUID());
+                            positionWrapper.setTaskDocuments(null);
+                            positionWrapper.setTask(newTask);
+
+                            addpositionWrappers.add(positionWrapper);
+
+                        });
+
+                        newTask.setCleaningMap(addpositionWrappers);
+                        newTask.getCleaningMap().sort(Comparator.comparing(PositionWrapper::getPriorityCleaningPosition));
+
+                        List<InventoryWrapper> addInventoryWrapper = new ArrayList<>();
+                        for (InventoryWrapper inventoryWrapper : inventoryWrapperList) {
+                            InventoryWrapper newInventoryWrapper = metadata.create(InventoryWrapper.class);
+                            newInventoryWrapper.setInventory(inventoryWrapper.getInventory());
+                            newInventoryWrapper.setQuantityInventory(1);
+                            newInventoryWrapper.setTask(newTask);
+                            newInventoryWrapper.setTaskDocuments(null);
+
+                            addInventoryWrapper.add(newInventoryWrapper);
+                        }
+                        newTask.setInventoryMap(addInventoryWrapper);
+
+                        CommitContext commitContext = new CommitContext();
+                        commitContext.addInstanceToCommit(newTask);
+                        newTask.getCleaningMap().forEach(commitContext::addInstanceToCommit);
+                        newTask.getInventoryMap().forEach(commitContext::addInstanceToCommit);
+
+                        dataManager.commit(commitContext);
+                        startDate = startDate.plusDays(periodicityField.getValue());
+                    }
+                }
+            }
+        }
+//        createTaskAllTimeDoc.setEnabled(true);
     }
 }

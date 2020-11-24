@@ -146,7 +146,6 @@ create table KSENA_DAY_INTERVAL (
     DELETE_TS timestamp,
     DELETED_BY varchar(50),
     --
-    NUMBER_DAY integer,
     NAME_DAY varchar(50),
     --
     primary key (ID)
