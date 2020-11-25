@@ -30,11 +30,14 @@ import com.vaadin.event.dd.acceptcriteria.AcceptAll;
 import com.vaadin.event.dd.acceptcriteria.AcceptCriterion;
 import com.vaadin.server.Page;
 import com.vaadin.v7.ui.AbstractSelect;
+import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 
 import javax.inject.Inject;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
+import java.util.Calendar;
 import java.util.stream.Collectors;
 
 @UiController("ksena_TaskDocument.edit")
@@ -227,9 +230,9 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
     public void onAfterShow(AfterShowEvent event) {
         cleaningMapDc.getMutableItems().sort(Comparator.comparing(PositionWrapper::getPriorityCleaningPosition));
 
-        if (dateOfCompletionField.getValue() != null && dateOfEndDocumentField.getValue() != null){
+        if (dateOfCompletionField.getValue() != null && dateOfEndDocumentField.getValue() != null) {
             createTaskAllTimeDoc.setEnabled(true);
-        }else{
+        } else {
             createTaskAllTimeDoc.setEnabled(false);
         }
     }
@@ -555,7 +558,6 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
 
         Task newTask = metadata.create(Task.class);
         newTask.setTaskDocument(this.getEditedEntity());
-
         newTask.setPoint(null);
         newTask.setTaskNumber(null);
         newTask.setCompany(null);
@@ -611,7 +613,7 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
         newTask.setEmployees(this.getEditedEntity().getEmployeesMap());
         newTask.setTaskStatus(TaskStatus.CREATE);
 
-        if (this.getEditedEntity().getTypeOfCostFormation() == TypeOfCostFormation.FIXED_PRICE){
+        if (this.getEditedEntity().getTypeOfCostFormation() == TypeOfCostFormation.FIXED_PRICE) {
             newTask.setCost(this.getEditedEntity().getFullCost());
         }
 
@@ -659,30 +661,27 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
 
     @Subscribe("dateOfCompletionField")
     public void onDateOfCompletionFieldValueChange(HasValue.ValueChangeEvent<LocalDate> event) {
-        if (dateOfCompletionField.getValue() != null && dateOfEndDocumentField.getValue() != null){
+        if (dateOfCompletionField.getValue() != null && dateOfEndDocumentField.getValue() != null) {
             createTaskAllTimeDoc.setEnabled(true);
-        }else{
+        } else {
             createTaskAllTimeDoc.setEnabled(false);
         }
     }
 
     @Subscribe("dateOfEndDocumentField")
     public void onDateOfEndDocumentFieldValueChange(HasValue.ValueChangeEvent<LocalDate> event) {
-        if (dateOfCompletionField.getValue() != null && dateOfEndDocumentField.getValue() != null){
+        if (dateOfCompletionField.getValue() != null && dateOfEndDocumentField.getValue() != null) {
             createTaskAllTimeDoc.setEnabled(true);
-        }else{
+        } else {
             createTaskAllTimeDoc.setEnabled(false);
         }
     }
 
     @Subscribe("createTaskAllTimeDoc")
     public void onCreateTaskAllTimeDocClick(Button.ClickEvent event) {
-//        createTaskAllTimeDoc.setEnabled(false);
         if (taskTypeField.getValue() == TaskType.ONE_TIME) {
-            // Task newTask = metadata.create(Task.class);
             Task newTask = new Task();
             newTask.setTaskDocument(this.getEditedEntity());
-
             newTask.setPoint(null);
             newTask.setTaskNumber(null);
             newTask.setCompany(null);
@@ -695,14 +694,12 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
 
             if (newTask.getCleaningMap() != null) {
                 List<PositionWrapper> clearCleaningMapList = newTask.getCleaningMap();
-
                 for (PositionWrapper clearPositionWrapper : clearCleaningMapList) {
                     dataManager.remove(clearPositionWrapper);
                 }
             }
             if (newTask.getInventoryMap() != null) {
                 List<InventoryWrapper> clearInventoryWrapperList = newTask.getInventoryMap();
-
                 for (InventoryWrapper clearinventoryWrapper : clearInventoryWrapperList) {
                     dataManager.remove(clearinventoryWrapper);
                 }
@@ -710,9 +707,7 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
 
             newTask.setInventoryMap(null);
             newTask.setCleaningMap(null);
-
             String resultString = this.getEditedEntity().getCreateDate().toString().replaceAll("-", "");
-
             List newList = (List) dataManager.load(Task.class)
                     .query("select e from ksena_Task e where e.taskDocument.createDate = :createDate")
                     .parameter("createDate", this.getEditedEntity().getCreateDate())
@@ -736,7 +731,6 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
             newTask.setTaskStatus(TaskStatus.CREATE);
             newTask.setDateOfCompletion(this.getEditedEntity().getDateOfCompletion());
 
-
             if (this.getEditedEntity().getTypeOfCostFormation() == TypeOfCostFormation.FIXED_PRICE) {
                 newTask.setCost(this.getEditedEntity().getFullCost());
             }
@@ -744,22 +738,16 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
             List<PositionWrapper> cleaningMapList = this.getEditedEntity().getCleaningMap();
             List<InventoryWrapper> inventoryWrapperList = this.getEditedEntity().getInventoryMap();
 
-
             List<PositionWrapper> addpositionWrappers = new ArrayList<>();
-
-
 
             this.getEditedEntity().getCleaningMap().forEach(wrapper -> {
                 PositionWrapper positionWrapper = metadata.getTools().copy(wrapper);
-
                 positionWrapper.setId(UUID.randomUUID());
                 positionWrapper.setTaskDocuments(null);
                 positionWrapper.setTask(newTask);
-
                 addpositionWrappers.add(positionWrapper);
 
             });
-
             newTask.setCleaningMap(addpositionWrappers);
             newTask.getCleaningMap().sort(Comparator.comparing(PositionWrapper::getPriorityCleaningPosition));
 
@@ -770,7 +758,6 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                 newInventoryWrapper.setQuantityInventory(1);
                 newInventoryWrapper.setTask(newTask);
                 newInventoryWrapper.setTaskDocuments(null);
-
                 addInventoryWrapper.add(newInventoryWrapper);
             }
             newTask.setInventoryMap(addInventoryWrapper);
@@ -779,24 +766,46 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
             commitContext.addInstanceToCommit(newTask);
             newTask.getCleaningMap().forEach(commitContext::addInstanceToCommit);
             newTask.getInventoryMap().forEach(commitContext::addInstanceToCommit);
-
             dataManager.commit(commitContext);
 
         } else if (taskTypeField.getValue() == TaskType.REPEAT) {
             if (this.typeOfPeriodicityField.getValue() == null) {
                 notifications.create().withDescription("Set type of periodicity").show();
-            } else if(typeOfPeriodicityField.getValue() == TypeOfPeriodicity.PERIOD){
-                if (this.cleaningDayDc.getMutableItems().isEmpty()){
+            } else if (typeOfPeriodicityField.getValue() == TypeOfPeriodicity.PERIOD) {
+                if (this.cleaningDayDc.getMutableItems().isEmpty()) {
                     notifications.create().withDescription("Set cleaning day").show();
                 } else {
-                    LocalDate startDate = dateOfCompletionField.getValue();
+                    LocalDate currentDate = LocalDateTime.now().toLocalDate();
+                    LocalDate startDate;
+                    if (dateOfCompletionField.getValue().isBefore(currentDate)) {
+                        startDate = currentDate;
+                    } else {
+                        startDate = dateOfCompletionField.getValue();
+                    }
                     while (startDate.isBefore(dateOfEndDocumentField.getValue().plusDays(1))) {
 
-                        if (startDate.getDayOfWeek() == DayOfWeek.MONDAY) {
+                        List<DayOfWeek> dayOfWeeks = new ArrayList<>();
+                        cleaningDayDc.getMutableItems().forEach(nameDay -> {
+                            if (nameDay.getNameDay().toString().equals(com.company.ksena.entity.task.DayOfWeek.MONDAY.toString())) {
+                                dayOfWeeks.add(DayOfWeek.MONDAY);
+                            } else if (nameDay.getNameDay().toString().equals(com.company.ksena.entity.task.DayOfWeek.TUESDAY.toString())) {
+                                dayOfWeeks.add(DayOfWeek.TUESDAY);
+                            } else if (nameDay.getNameDay().toString().equals(com.company.ksena.entity.task.DayOfWeek.WEDNESDAY.toString())) {
+                                dayOfWeeks.add(DayOfWeek.WEDNESDAY);
+                            } else if (nameDay.getNameDay().toString().equals(com.company.ksena.entity.task.DayOfWeek.THURSDAY.toString())) {
+                                dayOfWeeks.add(DayOfWeek.THURSDAY);
+                            } else if (nameDay.getNameDay().toString().equals(com.company.ksena.entity.task.DayOfWeek.FRIDAY.toString())) {
+                                dayOfWeeks.add(DayOfWeek.FRIDAY);
+                            } else if (nameDay.getNameDay().toString().equals(com.company.ksena.entity.task.DayOfWeek.SATURDAY.toString())) {
+                                dayOfWeeks.add(DayOfWeek.SATURDAY);
+                            } else if (nameDay.getNameDay().toString().equals(com.company.ksena.entity.task.DayOfWeek.SUNDAY.toString())) {
+                                dayOfWeeks.add(DayOfWeek.SUNDAY);
+                            }
+                        });
+                        if (dayOfWeeks.contains(startDate.getDayOfWeek())) {
 
                             Task newTask = new Task();
                             newTask.setTaskDocument(this.getEditedEntity());
-
                             newTask.setPoint(null);
                             newTask.setTaskNumber(null);
                             newTask.setCompany(null);
@@ -806,17 +815,14 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                             newTask.setSalaryMedium(null);
                             newTask.setAddPriseExpendableMaterial(null);
                             newTask.setEmployees(null);
-
                             if (newTask.getCleaningMap() != null) {
                                 List<PositionWrapper> clearCleaningMapList = newTask.getCleaningMap();
-
                                 for (PositionWrapper clearPositionWrapper : clearCleaningMapList) {
                                     dataManager.remove(clearPositionWrapper);
                                 }
                             }
                             if (newTask.getInventoryMap() != null) {
                                 List<InventoryWrapper> clearInventoryWrapperList = newTask.getInventoryMap();
-
                                 for (InventoryWrapper clearinventoryWrapper : clearInventoryWrapperList) {
                                     dataManager.remove(clearinventoryWrapper);
                                 }
@@ -824,7 +830,6 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
 
                             newTask.setInventoryMap(null);
                             newTask.setCleaningMap(null);
-
                             String resultString = this.getEditedEntity().getCreateDate().toString().replaceAll("-", "");
 
                             List newList = (List) dataManager.load(Task.class)
@@ -838,7 +843,6 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                                 listSize = newList.size() + 1;
                             }
                             newTask.setTaskNumber(this.getEditedEntity().getDocNumber() + " - " + listSize);
-
                             newTask.setPoint(this.getEditedEntity().getPoint());
                             newTask.setCompany(this.getEditedEntity().getCompany());
                             newTask.setDelay(this.getEditedEntity().getDelay());
@@ -849,28 +853,19 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                             newTask.setEmployees(this.getEditedEntity().getEmployeesMap());
                             newTask.setTaskStatus(TaskStatus.CREATE);
                             newTask.setDateOfCompletion(startDate);
-
-
                             if (this.getEditedEntity().getTypeOfCostFormation() == TypeOfCostFormation.FIXED_PRICE) {
                                 newTask.setCost(this.getEditedEntity().getFullCost());
                             }
-
                             List<PositionWrapper> cleaningMapList = this.getEditedEntity().getCleaningMap();
                             List<InventoryWrapper> inventoryWrapperList = this.getEditedEntity().getInventoryMap();
-
-
                             List<PositionWrapper> addpositionWrappers = new ArrayList<>();
-
 
                             this.getEditedEntity().getCleaningMap().forEach(wrapper -> {
                                 PositionWrapper positionWrapper = metadata.getTools().copy(wrapper);
-
                                 positionWrapper.setId(UUID.randomUUID());
                                 positionWrapper.setTaskDocuments(null);
                                 positionWrapper.setTask(newTask);
-
                                 addpositionWrappers.add(positionWrapper);
-
                             });
 
                             newTask.setCleaningMap(addpositionWrappers);
@@ -883,31 +878,27 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                                 newInventoryWrapper.setQuantityInventory(1);
                                 newInventoryWrapper.setTask(newTask);
                                 newInventoryWrapper.setTaskDocuments(null);
-
                                 addInventoryWrapper.add(newInventoryWrapper);
                             }
                             newTask.setInventoryMap(addInventoryWrapper);
-
                             CommitContext commitContext = new CommitContext();
                             commitContext.addInstanceToCommit(newTask);
                             newTask.getCleaningMap().forEach(commitContext::addInstanceToCommit);
                             newTask.getInventoryMap().forEach(commitContext::addInstanceToCommit);
-
                             dataManager.commit(commitContext);
                         }
                         startDate = startDate.plusDays(1);
                     }
                 }
-            } else if(typeOfPeriodicityField.getValue() == TypeOfPeriodicity.PERIODICITY){
-                if (this.periodicityField.getValue() == null){
+            } else if (typeOfPeriodicityField.getValue() == TypeOfPeriodicity.PERIODICITY) {
+                if (this.periodicityField.getValue() == null) {
                     notifications.create().withDescription("Set periodicity").show();
-                }else {
+                } else {
                     LocalDate startDate = dateOfCompletionField.getValue();
-                    while (startDate.isBefore(dateOfEndDocumentField.getValue().plusDays(1))){
+                    while (startDate.isBefore(dateOfEndDocumentField.getValue().plusDays(1))) {
 
                         Task newTask = new Task();
                         newTask.setTaskDocument(this.getEditedEntity());
-
                         newTask.setPoint(null);
                         newTask.setTaskNumber(null);
                         newTask.setCompany(null);
@@ -917,25 +908,20 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                         newTask.setSalaryMedium(null);
                         newTask.setAddPriseExpendableMaterial(null);
                         newTask.setEmployees(null);
-
                         if (newTask.getCleaningMap() != null) {
                             List<PositionWrapper> clearCleaningMapList = newTask.getCleaningMap();
-
                             for (PositionWrapper clearPositionWrapper : clearCleaningMapList) {
                                 dataManager.remove(clearPositionWrapper);
                             }
                         }
                         if (newTask.getInventoryMap() != null) {
                             List<InventoryWrapper> clearInventoryWrapperList = newTask.getInventoryMap();
-
                             for (InventoryWrapper clearinventoryWrapper : clearInventoryWrapperList) {
                                 dataManager.remove(clearinventoryWrapper);
                             }
                         }
-
                         newTask.setInventoryMap(null);
                         newTask.setCleaningMap(null);
-
                         String resultString = this.getEditedEntity().getCreateDate().toString().replaceAll("-", "");
 
                         List newList = (List) dataManager.load(Task.class)
@@ -949,7 +935,6 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                             listSize = newList.size() + 1;
                         }
                         newTask.setTaskNumber(this.getEditedEntity().getDocNumber() + " - " + listSize);
-
                         newTask.setPoint(this.getEditedEntity().getPoint());
                         newTask.setCompany(this.getEditedEntity().getCompany());
                         newTask.setDelay(this.getEditedEntity().getDelay());
@@ -960,34 +945,22 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                         newTask.setEmployees(this.getEditedEntity().getEmployeesMap());
                         newTask.setTaskStatus(TaskStatus.CREATE);
                         newTask.setDateOfCompletion(startDate);
-
-
                         if (this.getEditedEntity().getTypeOfCostFormation() == TypeOfCostFormation.FIXED_PRICE) {
                             newTask.setCost(this.getEditedEntity().getFullCost());
                         }
-
                         List<PositionWrapper> cleaningMapList = this.getEditedEntity().getCleaningMap();
                         List<InventoryWrapper> inventoryWrapperList = this.getEditedEntity().getInventoryMap();
-
-
                         List<PositionWrapper> addpositionWrappers = new ArrayList<>();
-
-
-
                         this.getEditedEntity().getCleaningMap().forEach(wrapper -> {
                             PositionWrapper positionWrapper = metadata.getTools().copy(wrapper);
-
                             positionWrapper.setId(UUID.randomUUID());
                             positionWrapper.setTaskDocuments(null);
                             positionWrapper.setTask(newTask);
-
                             addpositionWrappers.add(positionWrapper);
-
                         });
 
                         newTask.setCleaningMap(addpositionWrappers);
                         newTask.getCleaningMap().sort(Comparator.comparing(PositionWrapper::getPriorityCleaningPosition));
-
                         List<InventoryWrapper> addInventoryWrapper = new ArrayList<>();
                         for (InventoryWrapper inventoryWrapper : inventoryWrapperList) {
                             InventoryWrapper newInventoryWrapper = metadata.create(InventoryWrapper.class);
@@ -995,11 +968,9 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                             newInventoryWrapper.setQuantityInventory(1);
                             newInventoryWrapper.setTask(newTask);
                             newInventoryWrapper.setTaskDocuments(null);
-
                             addInventoryWrapper.add(newInventoryWrapper);
                         }
                         newTask.setInventoryMap(addInventoryWrapper);
-
                         CommitContext commitContext = new CommitContext();
                         commitContext.addInstanceToCommit(newTask);
                         newTask.getCleaningMap().forEach(commitContext::addInstanceToCommit);
@@ -1011,6 +982,6 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                 }
             }
         }
-//        createTaskAllTimeDoc.setEnabled(true);
+        createTaskAllTimeDoc.setVisible(false);
     }
 }
