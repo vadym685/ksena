@@ -235,6 +235,15 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
         } else {
             createTaskAllTimeDoc.setEnabled(false);
         }
+
+        List newList = (List) dataManager.load(Task.class)
+                .query("select e from ksena_Task e where (e.taskDocument = :taskDocument) and (e.dateOfCompletion >= :dateOfCompletion)")
+                .parameter("taskDocument", this.getEditedEntity())
+                .parameter("dateOfCompletion", LocalDateTime.now().toLocalDate())
+                .list();
+    if (newList.size() == 0) {
+        createTaskAllTimeDoc.setVisible(true);
+    }
     }
 
     @Subscribe
@@ -984,4 +993,5 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
         }
         createTaskAllTimeDoc.setVisible(false);
     }
+
 }

@@ -29,6 +29,7 @@
                     dataContainer="tasksDc" multiselect="true">
             <actions>
                 <action id="create" type="create" caption="mainMsg://create"/>
+                <action id="copy"/>
                 <action id="edit" type="edit" caption="mainMsg://edit"/>
                 <action id="remove" type="remove" caption="mainMsg://remove"/>
                 <action id="list" type="listPrintForm" caption="msg://printDetails"/>

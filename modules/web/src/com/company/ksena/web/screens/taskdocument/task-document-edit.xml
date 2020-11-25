@@ -78,7 +78,7 @@
                         </form>
                         <buttonsPanel>
                             <button invoke="createTask" caption="msg://createTask"/>
-                            <button id="createTaskAllTimeDoc" caption="msg://createTaskAllTimeDoc" enable="false"/>
+                            <button id="createTaskAllTimeDoc" caption="msg://createTaskAllTimeDoc"/>
                         </buttonsPanel>
                     </groupBox>
                     <groupBox id="cleaningDayBox" caption="msg://com.company.ksena.entity.task/TaskDocument.cleaningDay"
