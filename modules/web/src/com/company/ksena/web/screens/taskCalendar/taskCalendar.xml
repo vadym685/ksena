@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://caption"
+        messagesPack="com.company.ksena.web.screens.taskCalendar">
+    <layout>
+
+        <hbox expand="calendar"
+              height="100%"
+              spacing="true"
+              width="100%">
+            <calendar id="calendar"
+
+                      height="100%"/>
+<!--            <scrollBox height="100%"-->
+<!--                       orientation="vertical"-->
+<!--                       spacing="true"-->
+<!--                       width="300px">-->
+<!--            <dateField id="startDateField"-->
+<!--                       caption="msg://startDate"-->
+<!--                       width="100%"/>-->
+<!--            <dateField id="endDateField"-->
+<!--                       caption="msg://endDate"-->
+<!--                       width="100%"/>-->
+<!--            <button id="OK"-->
+<!--                    caption="mainMsg://OK"/>-->
+<!--            </scrollBox>-->
+        </hbox>
+    </layout>
+</window>

@@ -6,6 +6,7 @@
         <item screen="ksena_Task.browse"/>
 <!--        <item screen="ksena_NewScreen"/>-->
         <item screen="ksena_ReportsScreen"/>
+        <item screen="ksena_Taskcalendar"/>
     </menu>
 
     <menu id="Resource-ksena" insertBefore="administration" description="mainMsg://menu-config.Resource-ksena">
