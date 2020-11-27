@@ -15,8 +15,8 @@ public class TaskBrowse extends StandardLookup<Task> {
     @Inject
     private GroupTable<Task> tasksTable;
 
-    @Subscribe("tasksTable.copy")
-    public void onTasksTableCopy(Action.ActionPerformedEvent event) {
-        Task task = (Task) tasksTable.getSelected();
-    }
+//    @Subscribe("tasksTable.copy")
+//    public void onTasksTableCopy(Action.ActionPerformedEvent event) {
+//        Task task = (Task) tasksTable.getSelected();
+//    }
 }
