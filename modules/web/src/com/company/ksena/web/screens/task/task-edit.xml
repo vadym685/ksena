@@ -41,7 +41,7 @@
         </collection>
     </data>
     <dialogMode height="600"
-                width="800"/>
+                width="800" resizable="true"/>
     <layout expand="mainSplit" spacing="true">
         <split id="mainSplit" orientation="horizontal" pos="100" locked="true" enable="false" settingsEnabled="false"
                width="100%">

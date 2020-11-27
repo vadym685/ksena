@@ -1,0 +1,1 @@
+drop table if exists KSENA_CALENDAR_EVENT__U30240 cascade ;

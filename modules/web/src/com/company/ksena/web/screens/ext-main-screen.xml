@@ -42,10 +42,20 @@
                       width="100%"
                       height="100%">
                 <initialLayout spacing="true" margin="true">
-                    <!--
-                        This is the work area - central part of the screen.
-                        Put your components here.
-                    -->
+                    <groupBox>
+                        <vbox>
+                            <buttonsPanel>
+                                <button id="mainScreen" caption="msg://mainScreen" align="BOTTOM_RIGHT"/>
+                            </buttonsPanel>
+                        </vbox>
+                        <hbox expand="calendar"
+                              height="100%"
+                              spacing="true"
+                              width="100%" responsive="true">
+                            <calendar id="calendar"
+                                      height="100%" responsive="true"/>
+                        </hbox>
+                    </groupBox>
                 </initialLayout>
             </workArea>
         </split>

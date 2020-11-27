@@ -1,0 +1,17 @@
+/* Define your theme modifications inside next mixin */
+@mixin com_company_ksena-hover-ext {
+.event-red {
+  background-color: #f4c8c8;
+  color: #e00000;
+}
+
+.event-green {
+  background-color: #c8f4c9;
+  color: #00e026;
+}
+
+.event-blue {
+  background-color: #c8daf4;
+  color: #0300e0;
+}
+}
