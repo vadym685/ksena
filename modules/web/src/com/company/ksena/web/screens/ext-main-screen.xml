@@ -41,21 +41,22 @@
             <workArea id="workArea"
                       width="100%"
                       height="100%">
-                <initialLayout spacing="true" margin="true">
-                    <groupBox>
-                        <vbox>
-                            <buttonsPanel>
-                                <button id="mainScreen" caption="msg://mainScreen" align="BOTTOM_RIGHT"/>
-                            </buttonsPanel>
-                        </vbox>
-                        <hbox expand="calendar"
-                              height="100%"
-                              spacing="true"
-                              width="100%" responsive="true">
-                            <calendar id="calendar"
-                                      height="100%" responsive="true"/>
-                        </hbox>
-                    </groupBox>
+                <initialLayout spacing="true">
+                   <groupBox spacing="true">
+                       <hbox spacing="true">
+                       <dateField id="startDate"/>
+                       <dateField id="finishDate"/>
+                           <button id="refresh" caption="mainMsg://refresh"/>
+                           <button id="mainPeriod" caption="mainMsg://mainPeriod"/>
+                       </hbox>
+                    <hbox expand="calendar"
+                          height="100%"
+                          spacing="true"
+                          width="100%" responsive="true">
+                        <calendar id="calendar"
+                                  height="100%" responsive="true"/>
+                    </hbox>
+                   </groupBox>
                 </initialLayout>
             </workArea>
         </split>

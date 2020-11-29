@@ -3,17 +3,14 @@ package com.company.ksena.web.screens;
 import com.company.ksena.entity.task.Task;
 import com.company.ksena.entity.task.TaskStatus;
 import com.company.ksena.web.screens.task.TaskEdit;
-import com.company.ksena.web.screens.taskCalendar.Taskcalendar;
 import com.haulmont.cuba.core.global.DataManager;
+import com.haulmont.cuba.gui.Notifications;
 import com.haulmont.cuba.gui.ScreenBuilders;
 import com.haulmont.cuba.gui.components.*;
 import com.haulmont.cuba.gui.components.calendar.SimpleCalendarEvent;
 import com.haulmont.cuba.gui.components.mainwindow.AppWorkArea;
 import com.haulmont.cuba.gui.components.mainwindow.FoldersPane;
-import com.haulmont.cuba.gui.screen.OpenMode;
-import com.haulmont.cuba.gui.screen.Subscribe;
-import com.haulmont.cuba.gui.screen.UiController;
-import com.haulmont.cuba.gui.screen.UiDescriptor;
+import com.haulmont.cuba.gui.screen.*;
 import com.haulmont.cuba.web.WebConfig;
 import com.haulmont.cuba.web.app.main.MainScreen;
 import com.haulmont.cuba.web.gui.components.WebComponentsHelper;
@@ -25,10 +22,12 @@ import javax.inject.Inject;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 
 @UiController("extMainScreen")
@@ -48,12 +47,32 @@ public class ExtMainScreen extends MainScreen implements Window.HasFoldersPane {
     private DataManager dataManager;
     @Inject
     private ScreenBuilders screenBuilders;
+    @Inject
+    private DateField<Date> startDate;
+    @Inject
+    private DateField<Date> finishDate;
+    @Inject
+    private MessageBundle messageBundle;
+    @Inject
+    private Notifications notifications;
 
     public ExtMainScreen() {
         addInitListener(this::initLayout);
     }
 
     protected void initLayout(@SuppressWarnings("unused") InitEvent event) {
+        YearMonth month = YearMonth.now();
+        LocalDate firstDay = month.atDay(1);
+        LocalDate endDay = month.atEndOfMonth();
+
+        ZoneId defaultZoneId = ZoneId.systemDefault();
+        Date firstDayDate = Date.from(firstDay.atStartOfDay(defaultZoneId).toInstant());
+        Date endDayDate = Date.from(endDay.atStartOfDay(defaultZoneId).toInstant());
+
+        calendar.setStartDate(firstDayDate);
+        calendar.setEndDate(endDayDate);
+
+        generateEvents(firstDayDate, endDayDate);
         if (webConfig.getFoldersPaneEnabled()) {
             if (webConfig.getFoldersPaneVisibleByDefault()) {
                 foldersSplit.setSplitPosition(webConfig.getFoldersPaneDefaultWidth(), SizeUnit.PIXELS);
@@ -73,19 +92,6 @@ public class ExtMainScreen extends MainScreen implements Window.HasFoldersPane {
             getWindow().add(workArea, foldersSplitIndex);
             getWindow().expand(workArea);
         }
-
-        YearMonth month = YearMonth.now();
-        LocalDate firstDay = month.atDay(1);
-        LocalDate endDay = month.atEndOfMonth();
-
-        ZoneId defaultZoneId = ZoneId.systemDefault();
-        Date firstDayDate = Date.from(firstDay.atStartOfDay(defaultZoneId).toInstant());
-        Date endDayDate = Date.from(endDay.atStartOfDay(defaultZoneId).toInstant());
-
-        calendar.setStartDate(firstDayDate);
-        calendar.setEndDate(endDayDate);
-
-        generateEvents(firstDayDate, endDayDate);
     }
 
     private void generateEvents(Date firstDayDate, Date endDayDate) {
@@ -175,26 +181,49 @@ public class ExtMainScreen extends MainScreen implements Window.HasFoldersPane {
                     .show();
         }
     }
-
     @Nullable
     @Override
     public FoldersPane getFoldersPane() {
         return foldersPane;
     }
 
-    @Subscribe("mainScreen")
-    public void onMainScreenClick(Button.ClickEvent event) {
-        YearMonth month = YearMonth.now();
-        LocalDate firstDay = month.atDay(1);
-        LocalDate endDay = month.atEndOfMonth();
+    @Subscribe("refresh")
+    public void onRefreshClick(Button.ClickEvent event) {
 
         ZoneId defaultZoneId = ZoneId.systemDefault();
-        Date firstDayDate = Date.from(firstDay.atStartOfDay(defaultZoneId).toInstant());
-        Date endDayDate = Date.from(endDay.atStartOfDay(defaultZoneId).toInstant());
 
-        calendar.setStartDate(firstDayDate);
-        calendar.setEndDate(endDayDate);
+//        Date firstDayDate = Date.from(startDate.atStartOfDay(defaultZoneId).toInstant());
+//        Date endDayDate = Date.from(finishDate.atStartOfDay(defaultZoneId).toInstant());
+        if (startDate.getValue() == null & finishDate.getValue() == null) {
+            notifications.create(Notifications.NotificationType.TRAY)
+                    .withCaption(messageBundle.getMessage("refreshError"))
+                    .show();
+        } else {
 
-        generateEvents(firstDayDate, endDayDate);
+            calendar.setStartDate(Objects.requireNonNull(startDate.getValue()));
+            calendar.setEndDate(Objects.requireNonNull(finishDate.getValue()));
+        }
+    }
+
+    @Subscribe("mainPeriod")
+    public void onMainPeriodClick(Button.ClickEvent event) {
+        if (startDate.getValue() != null & finishDate.getValue() != null) {
+            calendar.setStartDate(Objects.requireNonNull(startDate.getValue()));
+            calendar.setEndDate(Objects.requireNonNull(finishDate.getValue()));
+        } else {
+            startDate.setValue(null);
+            finishDate.setValue(null);
+
+            YearMonth month = YearMonth.now();
+            LocalDate firstDay = month.atDay(1);
+            LocalDate endDay = month.atEndOfMonth();
+
+            ZoneId defaultZoneId = ZoneId.systemDefault();
+            Date firstDayDate = Date.from(firstDay.atStartOfDay(defaultZoneId).toInstant());
+            Date endDayDate = Date.from(endDay.atStartOfDay(defaultZoneId).toInstant());
+
+            calendar.setStartDate(firstDayDate);
+            calendar.setEndDate(endDayDate);
+        }
     }
 }
