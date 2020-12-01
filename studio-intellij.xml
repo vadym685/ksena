@@ -20,12 +20,12 @@
           <option name="databaseName" value="ksena_db" />
           <option name="dbType" value="postgres" />
           <option name="dbmsVersion" />
-          <option name="host" value="localhost" />
+          <option name="host" value="159.69.136.87" />
           <option name="pass" value="postgres" />
-          <option name="port" value="9010" />
+          <option name="port" value="25432" />
           <option name="systemPassword" value="" />
           <option name="systemUser" value="" />
-          <option name="url" value="jdbc:postgresql://localhost:9010/ksena_db" />
+          <option name="url" value="jdbc:postgresql://159.69.136.87:25432/ksena_db" />
           <option name="user" value="postgres" />
         </SavedDbProperties>
       </list>

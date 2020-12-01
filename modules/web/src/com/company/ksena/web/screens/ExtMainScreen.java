@@ -2,6 +2,7 @@ package com.company.ksena.web.screens;
 
 import com.company.ksena.entity.task.Task;
 import com.company.ksena.entity.task.TaskStatus;
+import com.company.ksena.service.google_calendar_api_service.GoogleCalendarService;
 import com.company.ksena.web.screens.task.TaskEdit;
 import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.gui.Notifications;
@@ -22,7 +23,6 @@ import javax.inject.Inject;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.time.ZoneId;
 import java.util.Date;
@@ -44,6 +44,8 @@ public class ExtMainScreen extends MainScreen implements Window.HasFoldersPane {
     @Inject
     private Calendar<Date> calendar;
     @Inject
+    private GoogleCalendarService googleCalendarService;
+    @Inject
     private DataManager dataManager;
     @Inject
     private ScreenBuilders screenBuilders;
@@ -59,6 +61,15 @@ public class ExtMainScreen extends MainScreen implements Window.HasFoldersPane {
     public ExtMainScreen() {
         addInitListener(this::initLayout);
     }
+
+//    @Subscribe("google")
+//    public void onGoogleClick(Button.ClickEvent event) {
+//        try {
+//            googleCalendarService.getEvents();
+//        } catch (IOException | GeneralSecurityException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     protected void initLayout(@SuppressWarnings("unused") InitEvent event) {
         YearMonth month = YearMonth.now();

@@ -22,5 +22,6 @@
         <class>com.company.ksena.entity.cleaning_map.PositionWrapper</class>
         <class>com.company.ksena.entity.inventory.InventoryWrapper</class>
         <class>com.company.ksena.entity.template.Template</class>
+        <class>com.company.ksena.entity.task.GoogleCalendarEventId</class>
     </persistence-unit>
 </persistence>

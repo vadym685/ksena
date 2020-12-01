@@ -1,0 +1,12 @@
+<html>
+<body>
+<p>For u set new task:
+<p>Task id: ${taskId}</p>
+<p>Date of completed: ${completedDate}</p>
+<p>Company: ${company}</p>
+<p>Point: ${point}</p>
+<p>Address: ${address}</p>
+<p>Get to object: ${getToObject}</p>
+</body>
+</html>
+

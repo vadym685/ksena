@@ -5,3 +5,7 @@ project(":${modulePrefix}-global").projectDir = new File(settingsDir, 'modules/g
 project(":${modulePrefix}-core").projectDir = new File(settingsDir, 'modules/core')
 project(":${modulePrefix}-web").projectDir = new File(settingsDir, 'modules/web')
 project(":${modulePrefix}-web-toolkit").projectDir = new File(settingsDir, 'modules/web-toolkit')
+
+include 'shared'
+include 'api'
+include 'services:webservice'

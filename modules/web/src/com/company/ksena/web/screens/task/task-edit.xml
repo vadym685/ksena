@@ -12,6 +12,7 @@
             <collection id="employeesDc" property="employees"/>
             <collection id="cleaningMapDc" property="cleaningMap"/>
             <collection id="inventoryDc" property="inventoryMap"/>
+            <collection id="googleCalendarEventIdDc" property="googleCalendarEventId"/>
         </instance>
         <collection id="possitionDc" class="com.company.ksena.entity.cleaning_map.CleaningPosition" view="_local">
             <loader id="possitionLc">

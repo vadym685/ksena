@@ -82,10 +82,21 @@ public class Task extends StandardEntity {
     protected List<Employee> employees;
 
     @OneToMany(mappedBy = "task")
-    protected List<PositionWrapper> cleaningMap =  new ArrayList<PositionWrapper>();
+    protected List<PositionWrapper> cleaningMap = new ArrayList<PositionWrapper>();
 
     @OneToMany(mappedBy = "task")
-    protected List<InventoryWrapper> inventoryMap  =  new ArrayList<InventoryWrapper>();
+    protected List<GoogleCalendarEventId> googleCalendarEventId;
+
+    @OneToMany(mappedBy = "task")
+    protected List<InventoryWrapper> inventoryMap = new ArrayList<InventoryWrapper>();
+
+    public List<GoogleCalendarEventId> getGoogleCalendarEventId() {
+        return googleCalendarEventId;
+    }
+
+    public void setGoogleCalendarEventId(List<GoogleCalendarEventId> googleCalendarEventId) {
+        this.googleCalendarEventId = googleCalendarEventId;
+    }
 
     public List<InventoryWrapper> getInventoryMap() {
         return inventoryMap;

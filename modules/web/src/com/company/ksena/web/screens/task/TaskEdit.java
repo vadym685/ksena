@@ -6,28 +6,30 @@ import com.company.ksena.entity.cleaning_map.Room;
 import com.company.ksena.entity.company.Company;
 import com.company.ksena.entity.inventory.Inventory;
 import com.company.ksena.entity.inventory.InventoryWrapper;
+import com.company.ksena.entity.people.Employee;
 import com.company.ksena.entity.point.Point;
+import com.company.ksena.entity.task.GoogleCalendarEventId;
+import com.company.ksena.entity.task.Task;
 import com.company.ksena.entity.task.TaskDocument;
 import com.company.ksena.entity.task.TaskStatus;
 import com.company.ksena.entity.template.Template;
-import com.company.ksena.web.screens.cleaningposition.CleaningPositionBrowse;
+import com.company.ksena.service.google_calendar_api_service.GoogleCalendarService;
 import com.company.ksena.web.screens.inventory.AvaibleInventoryBrowse;
-import com.company.ksena.web.screens.inventory.InventoryBrowse;
 import com.company.ksena.web.screens.room.RoomBrowse;
-import com.haulmont.cuba.core.entity.contracts.Id;
-import com.haulmont.cuba.core.global.CommitContext;
+import com.haulmont.cuba.core.app.EmailService;
 import com.haulmont.cuba.core.global.DataManager;
+import com.haulmont.cuba.core.global.EmailInfo;
+import com.haulmont.cuba.core.global.EmailInfoBuilder;
 import com.haulmont.cuba.core.global.Metadata;
-import com.haulmont.cuba.core.global.Sort;
 import com.haulmont.cuba.gui.Dialogs;
 import com.haulmont.cuba.gui.Notifications;
 import com.haulmont.cuba.gui.ScreenBuilders;
-import com.haulmont.cuba.gui.builders.AfterScreenCloseEvent;
 import com.haulmont.cuba.gui.components.*;
 import com.haulmont.cuba.gui.data.GroupInfo;
-import com.haulmont.cuba.gui.model.*;
+import com.haulmont.cuba.gui.model.CollectionLoader;
+import com.haulmont.cuba.gui.model.CollectionPropertyContainer;
+import com.haulmont.cuba.gui.model.InstanceContainer;
 import com.haulmont.cuba.gui.screen.*;
-import com.company.ksena.entity.task.Task;
 import com.vaadin.event.dd.DragAndDropEvent;
 import com.vaadin.event.dd.DropHandler;
 import com.vaadin.event.dd.acceptcriteria.AcceptAll;
@@ -36,11 +38,12 @@ import com.vaadin.server.Page;
 import com.vaadin.v7.ui.AbstractSelect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sun.util.calendar.ZoneInfo;
 
-import javax.annotation.Nullable;
 import javax.inject.Inject;
-import javax.swing.*;
-import javax.validation.constraints.Null;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -96,6 +99,16 @@ public class TaskEdit extends StandardEditor<Task> {
     private InstanceContainer<Task> taskDc;
     @Inject
     private Button excludePosition;
+    @Inject
+    private EmailService emailService;
+    @Inject
+    private GoogleCalendarService googleCalendarService;
+    @Inject
+    private CollectionPropertyContainer<Employee> employeesDc;
+    @Inject
+    private DateField<LocalDate> dateOfCompletionField;
+    @Inject
+    private CollectionPropertyContainer<GoogleCalendarEventId> googleCalendarEventIdDc;
 
     @Subscribe
     public void onInit(InitEvent event) {
@@ -111,7 +124,7 @@ public class TaskEdit extends StandardEditor<Task> {
 
                     UUID itemId = (UUID) event.getTransferable().getData("itemId");
                     GroupInfo<Room> targetId = (GroupInfo) ((AbstractSelect.AbstractSelectTargetDetails) event.getTargetDetails()).getItemIdOver();
-                    if(targetId != null) {
+                    if (targetId != null) {
                         Room room = (Room) targetId.getValue();
 
                         removeAllNullPositions(room);
@@ -166,6 +179,55 @@ public class TaskEdit extends StandardEditor<Task> {
     }
 
     @Subscribe
+    public void onAfterCommitChanges(AfterCommitChangesEvent event) {
+
+        String summary = "Task for cleaning:" + Objects.requireNonNull(companyField.getValue()).getName();
+        String location = Objects.requireNonNull(pointField.getValue()).getCity() + " " + pointField.getValue().getStreet();
+        String description = "Get to object: " + pointField.getValue().getGetToObject() + ". Object access" + pointField.getValue().getObjectAccess();
+        String startDateTime = dateOfCompletionField.getValue().atStartOfDay().toString();
+        String endDateTime = dateOfCompletionField.getValue().atStartOfDay().plusHours(1).toString();
+        String timeZone = ZoneInfo.getDefault().getID();
+        for (Employee employee : employeesDc.getMutableItems()) {
+            String email = employee.getEmail();
+            try {
+                String eventId = googleCalendarService.getEvents(summary, location, description, startDateTime, endDateTime, email, timeZone);
+
+
+                GoogleCalendarEventId googleCalendarEventId = metadata.create(GoogleCalendarEventId.class);
+                ;
+                googleCalendarEventId.setEventId(eventId);
+
+                googleCalendarEventIdDc.getMutableItems().add(googleCalendarEventId);
+            } catch (IOException | GeneralSecurityException e) {
+                e.printStackTrace();
+            }
+        }
+        googleCalendarEventIdDc.getItems().forEach(id -> {
+            event.getDataContext().merge(id);
+        });
+    }
+
+
+    private void sendByEmail() {
+        Task taskItem = getEditedEntity();
+
+        EmailInfo emailInfo = EmailInfoBuilder.create()
+                .setAddresses("vadym685@gmail.com")
+                .setCaption(taskItem.getCompany().getName())
+                .setFrom("hd@sngtrans.com.ua")
+                .setTemplatePath("com/company/ksena/templates/task_item.txt")
+                .setTemplateParameters(Collections.singletonMap("taskId", taskItem.getTaskNumber()))
+                .setTemplateParameters(Collections.singletonMap("completedDate", taskItem.getDateOfCompletion()))
+                .setTemplateParameters(Collections.singletonMap("company", taskItem.getCompany().getName()))
+                .setTemplateParameters(Collections.singletonMap("point", taskItem.getPoint().getName()))
+                .setTemplateParameters(Collections.singletonMap("address", taskItem.getPoint().getCity() + " " + taskItem.getPoint().getStreet() + " " + taskItem.getPoint().getHouseNumber()))
+                .setTemplateParameters(Collections.singletonMap("getToObject", taskItem.getPoint().getGetToObject()))
+                .setAttachments()
+                .build();
+        emailService.sendEmailAsync(emailInfo);
+    }
+
+    @Subscribe
     public void onAfterShow(AfterShowEvent event) {
         cleaningMapDc.getMutableItems().sort(Comparator.comparing(PositionWrapper::getPriorityCleaningPosition));
     }
@@ -190,7 +252,8 @@ public class TaskEdit extends StandardEditor<Task> {
                                                 cleaningMapDc.getMutableItems().sort(Comparator.comparing(PositionWrapper::getPriorityCleaningPosition));
                                             });
                                         }),
-                                        new DialogAction(DialogAction.Type.NO).withHandler(noEvent -> {}
+                                        new DialogAction(DialogAction.Type.NO).withHandler(noEvent -> {
+                                                }
 //                                                e.forEach(template -> {
 //                                                    template.getCleaningMap().forEach(wrapper ->
 //                                                            wrapper.setTask(super.getEditedEntity()));
@@ -223,7 +286,7 @@ public class TaskEdit extends StandardEditor<Task> {
                 .filter(wrapper -> wrapper.getRoomName().equals(positionWrapper.getRoomName()))
                 .collect(Collectors.toList());
 
-        for (int i = wrappers.indexOf(positionWrapper); i < wrappers.size(); i++){
+        for (int i = wrappers.indexOf(positionWrapper); i < wrappers.size(); i++) {
             wrappers.get(i).setPriorityCleaningPosition(i);
         }
     }
@@ -537,6 +600,7 @@ public class TaskEdit extends StandardEditor<Task> {
         inventoryDc.getItems().forEach(wrapper -> {
             event.getDataContext().merge(wrapper);
         });
+
     }
 
     @Subscribe("cleaningMapPositionUp")
@@ -563,7 +627,7 @@ public class TaskEdit extends StandardEditor<Task> {
     @Subscribe("cleaningMapPositionDown")
     public void onCleaningMapPositionDownClick(Button.ClickEvent event) {
         PositionWrapper selected = cleaningMapTable.getSingleSelected();
-        if(selected != null) {
+        if (selected != null) {
             PositionWrapper wrapperToDown = cleaningMapDc.getItems()
                     .stream()
                     .filter(wrapper -> wrapper.getRoomName().equals(selected.getRoomName()))

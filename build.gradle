@@ -51,6 +51,7 @@ dependencies {
     appComponent('de.diedavids.cuba.dataimport:dataimport-global:0.14.1')
 }
 
+
 def postgres = 'org.postgresql:postgresql:42.2.9'
 
 configure([globalModule, coreModule, webModule, webToolkitModule]) {
@@ -78,7 +79,6 @@ configure([globalModule, coreModule, webModule, webToolkitModule]) {
         implementation 'com.google.code.gson:gson:2.8.6'
         implementation 'com.fasterxml.jackson.core:jackson-core:2.10.0'
 
-
         implementation 'org.webjars.bower:jrcarousel:1.0.0'
     }
 
@@ -99,6 +99,9 @@ configure(globalModule) {
             runtime('javax.xml.bind:jaxb-api:2.3.1')
             runtime('org.glassfish.jaxb:jaxb-runtime:2.3.1')
         }
+        compile('com.google.api-client:google-api-client:1.23.0')
+        compile('com.google.oauth-client:google-oauth-client-jetty:1.23.0')
+        compile('com.google.apis:google-api-services-calendar:v3-rev305-1.23.0')
     }
 
     entitiesEnhancing {
@@ -119,6 +122,9 @@ configure(coreModule) {
         compile(globalModule)
         compileOnly(servletApi)
         jdbc(postgres)
+        compile('com.google.api-client:google-api-client:1.23.0')
+        compile('com.google.oauth-client:google-oauth-client-jetty:1.23.0')
+        compile('com.google.apis:google-api-services-calendar:v3-rev305-1.23.0')
     }
 
     task cleanConf(description: 'Cleans up conf directory', type: Delete) {

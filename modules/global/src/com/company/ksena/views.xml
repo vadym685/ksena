@@ -61,6 +61,7 @@
             </property>
             <property name="roomName" view="_local"/>
         </property>
+        <property name="googleCalendarEventId" view="_local"/>
         <property name="inventoryMap" view="_local">
             <property name="inventory" view="_local"/>
         </property>

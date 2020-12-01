@@ -13,6 +13,8 @@
             <map>
                 <entry key="ksena_GoogleApiService" value="com.company.ksena.service.google_api_service.GoogleApiService"/>
                 <entry key="ksena_RepoService" value="com.company.ksena.service.google_api_service.RepoService"/>
+                <entry key="ksena_GoogleCalendarService"
+                       value="com.company.ksena.service.google_calendar_api_service.GoogleCalendarService"/>
             </map>
         </property>
     </bean>
