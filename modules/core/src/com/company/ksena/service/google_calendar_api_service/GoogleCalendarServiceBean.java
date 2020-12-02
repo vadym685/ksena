@@ -38,7 +38,7 @@ public class GoogleCalendarServiceBean implements GoogleCalendarService {
      */
     private static final List<String> SCOPES = Collections.singletonList(CalendarScopes.CALENDAR);
 //    private static final String CREDENTIALS_FILE_PATH = "C:\\Users\\Vadym\\StudioProjects\\ksena\\modules\\core\\src\\com\\company\\ksena\\service\\google_calendar_api_service\\credentials.json";
-    private static final String CREDENTIALS_FILE_PATH = "home\\ksena\\modules\\core\\src\\com\\company\\ksena\\service\\google_calendar_api_service\\credentials.json";
+    private static final String CREDENTIALS_FILE_PATH = "home\\ivan\\ksena\\modules\\core\\src\\com\\company\\ksena\\service\\google_calendar_api_service\\credentials.json";
 
     /**
      * Creates an authorized Credential object.
