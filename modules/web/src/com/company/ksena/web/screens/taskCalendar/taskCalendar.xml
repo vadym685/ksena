@@ -4,6 +4,13 @@
         messagesPack="com.company.ksena.web.screens.taskCalendar">
 
     <layout>
+        <groupBox spacing="true">
+        <hbox spacing="true">
+            <dateField id="startDate"/>
+            <dateField id="finishDate"/>
+            <button id="refresh" caption="mainMsg://refresh"/>
+            <button id="mainPeriod" caption="mainMsg://mainPeriod"/>
+        </hbox>
         <hbox expand="calendar"
               height="100%"
               spacing="true"
@@ -11,5 +18,6 @@
             <calendar id="calendar"
                       height="100%" responsive="true"/>
         </hbox>
+        </groupBox>
     </layout>
 </window>

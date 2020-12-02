@@ -2,7 +2,7 @@
 <window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
         xmlns:c="http://schemas.haulmont.com/cuba/rest-queries.xsd"
         caption="msg://editorCaption"
-        focusComponent="form"
+        focusComponent="name"
         messagesPack="com.company.ksena.web.screens.company">
     <data>
         <instance id="companyDc"
@@ -47,22 +47,35 @@
     <dialogMode height="600"
                 width="800"/>
     <layout expand="editActions" spacing="true">
-
         <groupBox width="100%" orientation="horizontal" spacing="true">
             <groupBox width="100%" spacing="true">
-                <form id="form" dataContainer="companyDc">
+                <!--                <form id="form" dataContainer="companyDc" width="100%">-->
+                <!--                    <column width="250px">-->
+                <form id="name" dataContainer="companyDc" width="100%">
                     <column width="250px">
                         <textField id="nameField" property="name"/>
                         <pickerField id="companyTypeField" property="companyType"/>
                         <textField id="fullNameField" property="fullName" editable="false"/>
-                        <textField id="legalIndexField" property="legalIndex"/>
-                        <textField id="legalCity" property="legalCity"/>
-                        <textField id="legalStreet" property="legalStreet"/>
-                        <!--                        <textField id="legalHouseNumber" property="legalHouseNumber"/>-->
-                        <textField id="actualIndex" property="actualIndex"/>
-                        <textField id="actualCity" property="actualCity"/>
-                        <textField id="actualStreet" property="actualStreet"/>
-                        <!--                        <textField id="actualHouseNumber" property="actualHouseNumber"/>-->
+                    </column>
+                </form>
+                <vbox spacing="true" width="100%">
+                    <groupBox spacing="true" width="100%">
+                        <form id="formLegalAdress" dataContainer="companyDc" width="100%">
+                            <textField id="legalIndexField" property="legalIndex"/>
+                            <textField id="legalCity" property="legalCity"/>
+                            <textField id="legalStreet" property="legalStreet"/>
+                        </form>
+                    </groupBox>
+                    <groupBox spacing="true" width="100%">
+                        <form id="formActualAdress" dataContainer="companyDc" width="100%">
+                            <textField id="actualIndex" property="actualIndex"/>
+                            <textField id="actualCity" property="actualCity"/>
+                            <textField id="actualStreet" property="actualStreet"/>
+                        </form>
+                    </groupBox>
+                </vbox>
+                <form id="otherField" dataContainer="companyDc" width="100%">
+                    <column width="250px">
                         <textField id="fieldOfActivity" property="fieldOfActivity"/>
                         <textArea id="fieldOfActivityFull" property="fieldOfActivityFull"/>
                         <lookupField id="billSendType" property="billSendType"/>
@@ -76,6 +89,8 @@
                                    visible="false"/>
                     </column>
                 </form>
+                <!--                    </column>-->
+                <!--                </form>-->
                 <buttonsPanel>
                     <button invoke="createTaskDoc" caption="msg://createTaskDoc"/>
                     <button invoke="createTask" caption="msg://createTask"/>

@@ -8,6 +8,7 @@ import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.gui.Notifications;
 import com.haulmont.cuba.gui.ScreenBuilders;
 import com.haulmont.cuba.gui.components.*;
+import com.haulmont.cuba.gui.components.calendar.CalendarEventProvider;
 import com.haulmont.cuba.gui.components.calendar.SimpleCalendarEvent;
 import com.haulmont.cuba.gui.components.mainwindow.AppWorkArea;
 import com.haulmont.cuba.gui.components.mainwindow.FoldersPane;
@@ -70,7 +71,7 @@ public class ExtMainScreen extends MainScreen implements Window.HasFoldersPane {
 //            e.printStackTrace();
 //        }
 //    }
-
+    
     protected void initLayout(@SuppressWarnings("unused") InitEvent event) {
         YearMonth month = YearMonth.now();
         LocalDate firstDay = month.atDay(1);
@@ -221,6 +222,11 @@ public class ExtMainScreen extends MainScreen implements Window.HasFoldersPane {
         if (startDate.getValue() != null & finishDate.getValue() != null) {
             calendar.setStartDate(Objects.requireNonNull(startDate.getValue()));
             calendar.setEndDate(Objects.requireNonNull(finishDate.getValue()));
+
+            CalendarEventProvider eventProvider = calendar.getEventProvider();
+            eventProvider.removeAllEvents();
+
+            generateEvents(startDate.getValue(), finishDate.getValue());
         } else {
             startDate.setValue(null);
             finishDate.setValue(null);
@@ -233,6 +239,10 @@ public class ExtMainScreen extends MainScreen implements Window.HasFoldersPane {
             Date firstDayDate = Date.from(firstDay.atStartOfDay(defaultZoneId).toInstant());
             Date endDayDate = Date.from(endDay.atStartOfDay(defaultZoneId).toInstant());
 
+            CalendarEventProvider eventProvider = calendar.getEventProvider();
+            eventProvider.removeAllEvents();
+
+            generateEvents(firstDayDate, endDayDate);
             calendar.setStartDate(firstDayDate);
             calendar.setEndDate(endDayDate);
         }

@@ -38,7 +38,6 @@ import com.vaadin.server.Page;
 import com.vaadin.v7.ui.AbstractSelect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.util.calendar.ZoneInfo;
 
 import javax.inject.Inject;
 import java.io.IOException;
@@ -177,36 +176,6 @@ public class TaskEdit extends StandardEditor<Task> {
         });
 
     }
-
-    @Subscribe
-    public void onAfterCommitChanges(AfterCommitChangesEvent event) {
-
-        String summary = "Task for cleaning:" + Objects.requireNonNull(companyField.getValue()).getName();
-        String location = Objects.requireNonNull(pointField.getValue()).getCity() + " " + pointField.getValue().getStreet();
-        String description = "Get to object: " + pointField.getValue().getGetToObject() + ". Object access" + pointField.getValue().getObjectAccess();
-        String startDateTime = dateOfCompletionField.getValue().atStartOfDay().toString();
-        String endDateTime = dateOfCompletionField.getValue().atStartOfDay().plusHours(1).toString();
-        String timeZone = ZoneInfo.getDefault().getID();
-        for (Employee employee : employeesDc.getMutableItems()) {
-            String email = employee.getEmail();
-            try {
-                String eventId = googleCalendarService.getEvents(summary, location, description, startDateTime, endDateTime, email, timeZone);
-
-
-                GoogleCalendarEventId googleCalendarEventId = metadata.create(GoogleCalendarEventId.class);
-                ;
-                googleCalendarEventId.setEventId(eventId);
-
-                googleCalendarEventIdDc.getMutableItems().add(googleCalendarEventId);
-            } catch (IOException | GeneralSecurityException e) {
-                e.printStackTrace();
-            }
-        }
-        googleCalendarEventIdDc.getItems().forEach(id -> {
-            event.getDataContext().merge(id);
-        });
-    }
-
 
     private void sendByEmail() {
         Task taskItem = getEditedEntity();
@@ -593,6 +562,53 @@ public class TaskEdit extends StandardEditor<Task> {
 
     @Subscribe
     public void onBeforeCommitChanges(BeforeCommitChangesEvent event) {
+        try {
+
+
+            if (googleCalendarEventIdDc.getMutableItems().size() > 0) {
+                for (GoogleCalendarEventId id : googleCalendarEventIdDc.getMutableItems()) {
+                    try {
+                        googleCalendarService.removeEvent(id.getEventId());
+                    } catch (IOException | GeneralSecurityException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            for (GoogleCalendarEventId id : googleCalendarEventIdDc.getMutableItems()) {
+                id.setTask(null);
+            }
+            getEditedEntity().setGoogleCalendarEventId(null);
+
+            String summary = "Task for cleaning:" + Objects.requireNonNull(companyField.getValue()).getName();
+            String location = Objects.requireNonNull(pointField.getValue()).getCity() + " " + pointField.getValue().getStreet();
+            String description = "Get to object: " + pointField.getValue().getGetToObject() + ". Object access" + pointField.getValue().getObjectAccess();
+            String startDateTime = dateOfCompletionField.getValue().atStartOfDay().toString();
+            String endDateTime = dateOfCompletionField.getValue().atStartOfDay().plusHours(1).toString();
+            String timeZone = TimeZone.getDefault().getID();
+
+            for (Employee employee : employeesDc.getMutableItems()) {
+                String email = employee.getEmail();
+                try {
+                    String eventId = googleCalendarService.getEvents(summary, location, description, startDateTime, endDateTime, email, timeZone);
+
+
+                    GoogleCalendarEventId googleCalendarEventId = metadata.create(GoogleCalendarEventId.class);
+
+                    googleCalendarEventId.setEventId(eventId);
+                    googleCalendarEventId.setTask(getEditedEntity());
+
+                    googleCalendarEventIdDc.getMutableItems().add(googleCalendarEventId);
+                } catch (IOException | GeneralSecurityException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (Exception e) {
+        }
+        googleCalendarEventIdDc.getItems().forEach(id -> {
+            event.getDataContext().merge(id);
+        });
+
         cleaningMapDc.getItems().forEach(wrapper -> {
             event.getDataContext().merge(wrapper);
         });
@@ -600,7 +616,6 @@ public class TaskEdit extends StandardEditor<Task> {
         inventoryDc.getItems().forEach(wrapper -> {
             event.getDataContext().merge(wrapper);
         });
-
     }
 
     @Subscribe("cleaningMapPositionUp")

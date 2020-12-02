@@ -37,7 +37,8 @@ public class GoogleCalendarServiceBean implements GoogleCalendarService {
      * If modifying these scopes, delete your previously saved tokens/ folder.
      */
     private static final List<String> SCOPES = Collections.singletonList(CalendarScopes.CALENDAR);
-    private static final String CREDENTIALS_FILE_PATH = "C:\\Users\\Vadym\\StudioProjects\\ksena\\modules\\core\\src\\com\\company\\ksena\\service\\google_calendar_api_service\\credentials.json";
+//    private static final String CREDENTIALS_FILE_PATH = "C:\\Users\\Vadym\\StudioProjects\\ksena\\modules\\core\\src\\com\\company\\ksena\\service\\google_calendar_api_service\\credentials.json";
+    private static final String CREDENTIALS_FILE_PATH = "home\\ksena\\modules\\core\\src\\com\\company\\ksena\\service\\google_calendar_api_service\\credentials.json";
 
     /**
      * Creates an authorized Credential object.
@@ -111,5 +112,19 @@ public class GoogleCalendarServiceBean implements GoogleCalendarService {
         System.out.printf("Event created: %s\n", event.getHtmlLink());
 
         return event.getId();
+    }
+
+    public void removeEvent(String eventId) throws IOException, GeneralSecurityException {
+        // Build a new authorized API client service.
+        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+        Calendar service = new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+                .setApplicationName(APPLICATION_NAME)
+                .build();
+
+        String calendarId = "primary";
+        service.events().delete(calendarId,eventId).execute();
+
+        System.out.printf("Event delete: %s\n", eventId);
+
     }
 }

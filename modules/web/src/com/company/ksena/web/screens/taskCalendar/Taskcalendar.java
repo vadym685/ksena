@@ -4,24 +4,24 @@ import com.company.ksena.entity.task.Task;
 import com.company.ksena.entity.task.TaskStatus;
 import com.company.ksena.web.screens.task.TaskEdit;
 import com.haulmont.cuba.core.global.DataManager;
-import com.haulmont.cuba.core.global.TimeSource;
+import com.haulmont.cuba.gui.Notifications;
 import com.haulmont.cuba.gui.ScreenBuilders;
-import com.haulmont.cuba.gui.components.*;
-import com.haulmont.cuba.gui.components.calendar.ListCalendarEventProvider;
+import com.haulmont.cuba.gui.components.Button;
+import com.haulmont.cuba.gui.components.Calendar;
+import com.haulmont.cuba.gui.components.DateField;
+import com.haulmont.cuba.gui.components.calendar.CalendarEventProvider;
 import com.haulmont.cuba.gui.components.calendar.SimpleCalendarEvent;
 import com.haulmont.cuba.gui.screen.*;
 
-
 import javax.inject.Inject;
-import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @UiController("ksena_Taskcalendar")
 @UiDescriptor("taskCalendar.xml")
@@ -34,6 +34,14 @@ public class Taskcalendar extends Screen {
     private DataManager dataManager;
     @Inject
     private ScreenBuilders screenBuilders;
+    @Inject
+    private DateField<Date> startDate;
+    @Inject
+    private DateField<Date> finishDate;
+    @Inject
+    private Notifications notifications;
+    @Inject
+    private MessageBundle messageBundle;
 
     @Subscribe
     protected void onInit(InitEvent event) {
@@ -53,6 +61,54 @@ public class Taskcalendar extends Screen {
 
     }
 
+    @Subscribe("mainPeriod")
+    public void onMainPeriodClick(Button.ClickEvent event) {
+        if (startDate.getValue() != null & finishDate.getValue() != null) {
+            calendar.setStartDate(Objects.requireNonNull(startDate.getValue()));
+            calendar.setEndDate(Objects.requireNonNull(finishDate.getValue()));
+
+            CalendarEventProvider eventProvider = calendar.getEventProvider();
+            eventProvider.removeAllEvents();
+
+            generateEvents(startDate.getValue(), finishDate.getValue());
+        } else {
+            startDate.setValue(null);
+            finishDate.setValue(null);
+
+            YearMonth month = YearMonth.now();
+            LocalDate firstDay = month.atDay(1);
+            LocalDate endDay = month.atEndOfMonth();
+
+            ZoneId defaultZoneId = ZoneId.systemDefault();
+            Date firstDayDate = Date.from(firstDay.atStartOfDay(defaultZoneId).toInstant());
+            Date endDayDate = Date.from(endDay.atStartOfDay(defaultZoneId).toInstant());
+
+            CalendarEventProvider eventProvider = calendar.getEventProvider();
+            eventProvider.removeAllEvents();
+
+            generateEvents(firstDayDate, endDayDate);
+            calendar.setStartDate(firstDayDate);
+            calendar.setEndDate(endDayDate);
+        }
+    }
+
+    @Subscribe("refresh")
+    public void onRefreshClick(Button.ClickEvent event) {
+
+        ZoneId defaultZoneId = ZoneId.systemDefault();
+
+//        Date firstDayDate = Date.from(startDate.atStartOfDay(defaultZoneId).toInstant());
+//        Date endDayDate = Date.from(finishDate.atStartOfDay(defaultZoneId).toInstant());
+        if (startDate.getValue() == null & finishDate.getValue() == null) {
+            notifications.create(Notifications.NotificationType.TRAY)
+                    .withCaption(messageBundle.getMessage("refreshError"))
+                    .show();
+        } else {
+
+            calendar.setStartDate(Objects.requireNonNull(startDate.getValue()));
+            calendar.setEndDate(Objects.requireNonNull(finishDate.getValue()));
+        }
+    }
 
     private void generateEvents(Date firstDayDate, Date endDayDate) {
         List<Task> newList = dataManager.load(Task.class)
@@ -143,18 +199,4 @@ public class Taskcalendar extends Screen {
     }
 
 
-//    @Subscribe
-//    public void onBeforeShow(BeforeShowEvent event) {
-//
-//        YearMonth month = YearMonth.now();
-//        LocalDate firstDay = month.atDay(1);
-//        LocalDate endDay = month.atEndOfMonth();
-//
-//        ZoneId defaultZoneId = ZoneId.systemDefault();
-//        Date firstDayDate = Date.from(firstDay.atStartOfDay(defaultZoneId).toInstant());
-//        Date endDayDate = Date.from(endDay.atStartOfDay(defaultZoneId).toInstant());
-//
-//        calendar.setStartDate(firstDayDate);
-//        calendar.setEndDate(endDayDate);
-//    }
 }
