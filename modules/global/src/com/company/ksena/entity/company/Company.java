@@ -44,8 +44,9 @@ public class Company extends StandardEntity {
     @Column(name = "ACTUAL_INDEX")
     protected String actualIndex;
 
-    @Column(name = "FIELD_OF_ACTIVITY")
-    protected String fieldOfActivity;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "FIELD_OF_ACTIVITY_ID")
+    protected FieldOfActivity fieldOfActivity;
 
     @Column(name = "FIELD_OF_ACTIVITY_FULL")
     protected String fieldOfActivityFull;
@@ -59,6 +60,9 @@ public class Company extends StandardEntity {
     @Email
     @Column(name = "EMAIL")
     protected String email;
+
+    @Column(name = "WEBSITE")
+    protected String website;
 
     @Column(name = "CONTACT_PHONE")
     protected String contactPhone;
@@ -88,6 +92,22 @@ public class Company extends StandardEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "COMPANY_CATEGORY_ID")
     protected CompanyCategory companyCategory;
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    public void setFieldOfActivity(FieldOfActivity fieldOfActivity) {
+        this.fieldOfActivity = fieldOfActivity;
+    }
+
+    public FieldOfActivity getFieldOfActivity() {
+        return fieldOfActivity;
+    }
 
     public String getTempCompanyCategory() {
         return tempCompanyCategory;
@@ -179,14 +199,6 @@ public class Company extends StandardEntity {
 
     public BillSendType getBillSendType() {
         return billSendType == null ? null : BillSendType.fromId(billSendType);
-    }
-
-    public String getFieldOfActivity() {
-        return fieldOfActivity;
-    }
-
-    public void setFieldOfActivity(String fieldOfActivity) {
-        this.fieldOfActivity = fieldOfActivity;
     }
 
     public String getFieldOfActivityFull() {

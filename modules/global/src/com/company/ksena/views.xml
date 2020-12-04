@@ -39,6 +39,7 @@
         <property name="sex"/>
     </view>
     <view entity="ksena_Company" name="company-view" extends="_local">
+        <property name="fieldOfActivity" view="_local"/>
         <property name="responsibleEmployee" view="_local"/>
         <property name="taskDocument" view="taskDocument-view"/>
         <property name="points" view="_local"/>

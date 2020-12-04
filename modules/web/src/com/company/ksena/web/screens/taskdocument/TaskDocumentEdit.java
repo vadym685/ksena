@@ -8,7 +8,6 @@ import com.company.ksena.entity.inventory.Inventory;
 import com.company.ksena.entity.inventory.InventoryWrapper;
 import com.company.ksena.entity.point.Point;
 import com.company.ksena.entity.task.*;
-
 import com.company.ksena.entity.template.Template;
 import com.company.ksena.web.screens.inventory.AvaibleInventoryBrowse;
 import com.company.ksena.web.screens.room.RoomBrowse;
@@ -20,7 +19,6 @@ import com.haulmont.cuba.gui.Dialogs;
 import com.haulmont.cuba.gui.Notifications;
 import com.haulmont.cuba.gui.ScreenBuilders;
 import com.haulmont.cuba.gui.components.*;
-import com.haulmont.cuba.gui.components.TextField;
 import com.haulmont.cuba.gui.data.GroupInfo;
 import com.haulmont.cuba.gui.model.*;
 import com.haulmont.cuba.gui.screen.*;
@@ -30,14 +28,15 @@ import com.vaadin.event.dd.acceptcriteria.AcceptAll;
 import com.vaadin.event.dd.acceptcriteria.AcceptCriterion;
 import com.vaadin.server.Page;
 import com.vaadin.v7.ui.AbstractSelect;
-import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 
 import javax.inject.Inject;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.*;
-import java.util.Calendar;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @UiController("ksena_TaskDocument.edit")
@@ -58,8 +57,7 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
     private GroupBoxLayout cleaningDayBox;
     @Inject
     private CollectionPropertyContainer<DayInterval> cleaningDayDc;
-    @Inject
-    private Table<DayInterval> cleaningDayTable;
+
     @Inject
     private TextField<Double> fullCostField;
 

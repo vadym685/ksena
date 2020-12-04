@@ -104,6 +104,17 @@ public class TaskDocument extends StandardEntity {
     @ManyToMany
     protected List<Employee> employeesMap;
 
+    @Column(name = "COMMENT")
+    protected String comment;
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
     public LocalDate getDateOfEndDocument() {
         return dateOfEndDocument;
     }

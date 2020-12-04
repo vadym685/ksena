@@ -19,8 +19,8 @@
             <groupBox caption="msg://reportName">
                 <hbox spacing="true" align="MIDDLE_RIGHT">
 
-                    <dateField id="startDate" caption="msg://startDate" datatype="localDate" required="true"/>
-                    <dateField id="finishDate" caption="msg://finishDate" datatype="localDate" required="true"/>
+                    <dateField id="startDate" caption="msg://startDate" datatype="localDate" required="true" resolution="DAY" dateFormat="dd.MM.yyyy"/>
+                    <dateField id="finishDate" caption="msg://finishDate" datatype="localDate" required="true" resolution="DAY" dateFormat="dd.MM.yyyy"/>
                     <lookupPickerField id="companyField" optionsContainer="companyDc" align="BOTTOM_CENTER">
                         <actions>
                             <action id="lookup" type="picker_lookup"/>
@@ -35,8 +35,8 @@
             <groupBox caption="msg://employeeReport">
                 <hbox spacing="true" align="MIDDLE_RIGHT">
 
-                    <dateField id="startDateEmployeeReport" caption="msg://startDate" datatype="localDate" required="true"/>
-                    <dateField id="finishDateEmployeeReport" caption="msg://finishDate" datatype="localDate" required="true"/>
+                    <dateField id="startDateEmployeeReport" caption="msg://startDate" datatype="localDate" required="true" resolution="DAY" dateFormat="dd.MM.yyyy"/>
+                    <dateField id="finishDateEmployeeReport" caption="msg://finishDate" datatype="localDate" required="true" resolution="DAY" dateFormat="dd.MM.yyyy"/>
                     <button id="generateEmployeeReport" caption="msg://generate" align="BOTTOM_RIGHT"/>
                 </hbox>
             </groupBox>

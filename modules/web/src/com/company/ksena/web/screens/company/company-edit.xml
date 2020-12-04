@@ -59,14 +59,14 @@
                     </column>
                 </form>
                 <vbox spacing="true" width="100%">
-                    <groupBox spacing="true" width="100%">
+                    <groupBox caption="mainMsg://legal" spacing="true" width="100%">
                         <form id="formLegalAdress" dataContainer="companyDc" width="100%">
                             <textField id="legalIndexField" property="legalIndex"/>
                             <textField id="legalCity" property="legalCity"/>
                             <textField id="legalStreet" property="legalStreet"/>
                         </form>
                     </groupBox>
-                    <groupBox spacing="true" width="100%">
+                    <groupBox caption="mainMsg://acual" spacing="true" width="100%">
                         <form id="formActualAdress" dataContainer="companyDc" width="100%">
                             <textField id="actualIndex" property="actualIndex"/>
                             <textField id="actualCity" property="actualCity"/>
@@ -76,11 +76,12 @@
                 </vbox>
                 <form id="otherField" dataContainer="companyDc" width="100%">
                     <column width="250px">
-                        <textField id="fieldOfActivity" property="fieldOfActivity"/>
+                        <pickerField id="fieldOfActivity" property="fieldOfActivity"/>
                         <textArea id="fieldOfActivityFull" property="fieldOfActivityFull"/>
                         <lookupField id="billSendType" property="billSendType"/>
                         <lookupField id="vatField" property="vat"/>
                         <textField id="emailField" property="email"/>
+                        <textField id="website" property="website"/>
                         <!--                        <maskedField id="contactPhoneField" property="contactPhone" mask="~##(###)###-##-##"-->
                         <!--                                     valueMode="masked"/>-->
                         <textField id="contactPhoneField" property="contactPhone"/>

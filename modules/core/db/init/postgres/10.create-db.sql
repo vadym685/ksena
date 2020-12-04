@@ -57,11 +57,12 @@ create table KSENA_COMPANY (
     ACTUAL_STREET varchar(255),
     COMMENT text,
     ACTUAL_INDEX varchar(255),
-    FIELD_OF_ACTIVITY varchar(255),
+    FIELD_OF_ACTIVITY_ID uuid,
     FIELD_OF_ACTIVITY_FULL varchar(255),
     BILL_SEND_TYPE varchar(50),
     VAT integer,
     EMAIL varchar(255),
+    WEBSITE varchar(255),
     CONTACT_PHONE varchar(255),
     INDIVIDUAL_TAXPAYER_NUMBER varchar(255),
     TEMP_COMPANY_TYPE varchar(255),
@@ -84,6 +85,7 @@ create table KSENA_TASK (
     DELETED_BY varchar(50),
     --
     TASK_NUMBER varchar(255),
+    COMMENT varchar(255),
     ADD_PRISE_EXPENDABLE_MATERIAL boolean,
     TASK_DOCUMENT_ID uuid,
     COMPANY_ID uuid,
@@ -131,6 +133,7 @@ create table KSENA_TASK_DOCUMENT (
     COMPANY_ID uuid,
     TYPE_OF_PERIODICITY varchar(50),
     INTERVAL integer,
+    COMMENT varchar(255),
     --
     primary key (ID)
 )^
@@ -522,3 +525,19 @@ create table KSENA_GOOGLE_CALENDAR_EVENT_ID (
     primary key (ID)
 )^
 -- end KSENA_GOOGLE_CALENDAR_EVENT_ID
+-- begin KSENA_FIELD_OF_ACTIVITY
+create table KSENA_FIELD_OF_ACTIVITY (
+    ID uuid,
+    VERSION integer not null,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    --
+    NAME varchar(255),
+    --
+    primary key (ID)
+)^
+-- end KSENA_FIELD_OF_ACTIVITY

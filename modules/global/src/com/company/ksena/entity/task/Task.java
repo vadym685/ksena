@@ -30,6 +30,9 @@ public class Task extends StandardEntity {
     @Column(name = "TASK_NUMBER", unique = true)
     protected String taskNumber;
 
+    @Column(name = "COMMENT")
+    protected String comment;
+
     @Column(name = "ADD_PRISE_EXPENDABLE_MATERIAL")
     protected Boolean addPriseExpendableMaterial;
 
@@ -89,6 +92,14 @@ public class Task extends StandardEntity {
 
     @OneToMany(mappedBy = "task")
     protected List<InventoryWrapper> inventoryMap = new ArrayList<InventoryWrapper>();
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 
     public List<GoogleCalendarEventId> getGoogleCalendarEventId() {
         return googleCalendarEventId;
