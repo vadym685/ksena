@@ -40,10 +40,26 @@
     </view>
     <view entity="ksena_Company" name="company-view" extends="_local">
         <property name="fieldOfActivity" view="_local"/>
-        <property name="responsibleEmployee" view="_local"/>
-        <property name="taskDocument" view="taskDocument-view"/>
-        <property name="points" view="_local"/>
-        <property name="companyType" view="_minimal"/>
+        <property name="responsibleEmployee" view="_local">
+            <property name="points" view="_local"/>
+            <property name="companies" view="_local"/>
+        </property>
+        <property name="taskDocument" view="taskDocument-view">
+            <property name="point" view="_local">
+                <property name="company" view="_local"/>
+                <property name="point" view="_local"/>
+                <property name="clientEmployees" view="_local"/>
+            </property>
+            <property name="task" view="_local"/>
+        </property>
+        <property name="points" view="_local">
+            <property name="company" view="_local"/>
+            <property name="point" view="_local"/>
+            <property name="clientEmployees" view="_local"/>
+        </property>
+        <property name="companyType" view="_minimal">
+            <property name="companies" view="_local"/>
+        </property>
         <property name="companyCategory" view="_minimal"/>
     </view>
     <view entity="ksena_Inventory" name="inventory-view" extends="_local">
@@ -68,10 +84,8 @@
         </property>
     </view>
     <view entity="ksena_ClientEmployee" name="clientEmployee-view" extends="_local">
-        <property name="points" view="_minimal">
-            <property name="city"/>
-        </property>
-        <property name="companies" view="_minimal"/>
+        <property name="points" view="_local"/>
+        <property name="companies" view="_local"/>
     </view>
     <view entity="ksena_Employee" name="employee-view" extends="employee-view">
         <property name="fullNamePronunciation"/>

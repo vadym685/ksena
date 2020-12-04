@@ -5,20 +5,14 @@ import com.company.ksena.entity.company.CompanyType;
 import com.company.ksena.entity.people.ClientEmployee;
 import com.company.ksena.entity.task.Task;
 import com.company.ksena.entity.task.TaskDocument;
-import com.company.ksena.web.screens.clientemployee.ClientEmployeeBrowse;
 import com.company.ksena.web.screens.clientemployee.ClientEmployeeWithCompanyBrowse;
 import com.company.ksena.web.screens.task.TaskEdit;
-import com.haulmont.cuba.core.entity.contracts.Id;
 import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.Metadata;
 import com.haulmont.cuba.gui.Notifications;
 import com.haulmont.cuba.gui.ScreenBuilders;
-import com.haulmont.cuba.gui.UiComponents;
 import com.haulmont.cuba.gui.components.*;
-import com.haulmont.cuba.gui.model.CollectionLoader;
-import com.haulmont.cuba.gui.model.CollectionPropertyContainer;
-import com.haulmont.cuba.gui.model.DataComponents;
-import com.haulmont.cuba.gui.model.DataContext;
+import com.haulmont.cuba.gui.model.*;
 import com.haulmont.cuba.gui.screen.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,6 +53,12 @@ public class CompanyEdit extends StandardEditor<Company> {
     private DataComponents dataComponents;
     @Inject
     private CollectionLoader<TaskDocument> taskDocDl;
+    @Inject
+    private CollectionContainer<Task> taskDc;
+    @Inject
+    private Table<Task> taskTable;
+    @Inject
+    private Table<TaskDocument> taskDocTable;
 
     @Subscribe
     public void onBeforeShow(BeforeShowEvent event) {
@@ -85,8 +85,6 @@ public class CompanyEdit extends StandardEditor<Company> {
     }
 
     public void createTaskDoc() {
-        LOG.info("");
-
         TaskDocument newTaskDocument = metadata.create(TaskDocument.class);
         newTaskDocument.setCompany(this.getEditedEntity());
         newTaskDocument.setCreateDate(LocalDate.now());
@@ -99,8 +97,6 @@ public class CompanyEdit extends StandardEditor<Company> {
     }
 
     public void createTask() {
-        LOG.info("");
-
         Task newTask = metadata.create(Task.class);
         newTask.setCompany(this.getEditedEntity());
 
@@ -144,7 +140,7 @@ public class CompanyEdit extends StandardEditor<Company> {
     }
 
     //
-    @Subscribe("addResponsibleEmployee")
+//    @Subscribe("addResponsibleEmployee")
     public void addResponsibleEmployee(Button.ClickEvent event) {
 
         if (this.nameField.getRawValue() == "") {
@@ -178,5 +174,40 @@ public class CompanyEdit extends StandardEditor<Company> {
             selectClientEmployee.setQueryParametr(company);
             selectClientEmployee.show();
         }
+    }
+
+    @Subscribe("tabSheet")
+    public void onTabSheetSelectedTabChange(TabSheet.SelectedTabChangeEvent event) {
+
+        String tabName = event.getSelectedTab().getName();
+
+        taskDl.load();
+        taskDocDl.load();
+
+        taskDocTable.refresh();
+        taskTable.refresh();
+    }
+
+    @Subscribe("createTask")
+    public void onCreateClick(Button.ClickEvent event) {
+        Task newTask = metadata.create(Task.class);
+        newTask.setCompany(this.getEditedEntity());
+
+        screenBuilders.editor(Task.class, this)
+                .editEntity(newTask)
+                .show();
+    }
+
+    @Subscribe("createTaskDoc")
+    public void onCreateTaskDocClick(Button.ClickEvent event) {
+        TaskDocument newTaskDocument = metadata.create(TaskDocument.class);
+        newTaskDocument.setCompany(this.getEditedEntity());
+        newTaskDocument.setCreateDate(LocalDate.now());
+        newTaskDocument.setDateOfCompletion(LocalDate.now());
+        newTaskDocument.setIsActive(true);
+
+        screenBuilders.editor(TaskDocument.class, this)
+                .editEntity(newTaskDocument)
+                .show();
     }
 }

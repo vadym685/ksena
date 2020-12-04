@@ -9,3 +9,5 @@ modules/*/build/*
 .idea/*
 out
 test-run
+/modules/core/src/com/company/ksena/service/google_calendar_api_service/
+/modules/core/src/com/company/ksena/app.properties

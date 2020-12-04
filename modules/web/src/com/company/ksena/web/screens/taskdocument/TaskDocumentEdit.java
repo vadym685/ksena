@@ -866,14 +866,17 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                             List<PositionWrapper> cleaningMapList = this.getEditedEntity().getCleaningMap();
                             List<InventoryWrapper> inventoryWrapperList = this.getEditedEntity().getInventoryMap();
                             List<PositionWrapper> addpositionWrappers = new ArrayList<>();
+                            try {
+                                this.getEditedEntity().getCleaningMap().forEach(wrapper -> {
+                                    PositionWrapper positionWrapper = metadata.getTools().copy(wrapper);
+                                    positionWrapper.setId(UUID.randomUUID());
+                                    positionWrapper.setTaskDocuments(null);
+                                    positionWrapper.setTask(newTask);
+                                    addpositionWrappers.add(positionWrapper);
+                                });
+                            } catch (Exception e) {
 
-                            this.getEditedEntity().getCleaningMap().forEach(wrapper -> {
-                                PositionWrapper positionWrapper = metadata.getTools().copy(wrapper);
-                                positionWrapper.setId(UUID.randomUUID());
-                                positionWrapper.setTaskDocuments(null);
-                                positionWrapper.setTask(newTask);
-                                addpositionWrappers.add(positionWrapper);
-                            });
+                            }
 
                             newTask.setCleaningMap(addpositionWrappers);
                             newTask.getCleaningMap().sort(Comparator.comparing(PositionWrapper::getPriorityCleaningPosition));

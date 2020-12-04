@@ -92,26 +92,26 @@
                 </form>
                 <!--                    </column>-->
                 <!--                </form>-->
-                <buttonsPanel>
-                    <button invoke="createTaskDoc" caption="msg://createTaskDoc"/>
-                    <button invoke="createTask" caption="msg://createTask"/>
-                </buttonsPanel>
+<!--                <buttonsPanel>-->
+<!--                    <button invoke="createTaskDoc" caption="msg://createTaskDoc"/>-->
+<!--                    <button invoke="createTask" caption="msg://createTask"/>-->
+<!--                </buttonsPanel>-->
             </groupBox>
             <vbox height="100%" spacing="true">
-                <tabSheet>
+                <tabSheet id="tabSheet">
                     <tab id="responsibleEmployeeBox"
                          caption="msg://com.company.ksena.entity.company/Company.responsibleEmployee">
                         <table id="responsibleEmployeeTable" dataContainer="responsibleEmployeeDc" width="100%"
                                height="300px">
                             <actions>
-                                <action id="add" type="add" caption="mainMsg://add"/>
+                                <action id="create" type="create" caption="mainMsg://create"/>
                                 <action id="edit" type="edit" caption="msg://edit"/>
-                                <action id="exclude" type="exclude" caption="mainMsg://exclude"/>
+<!--                                <action id="exclude" type="exclude" caption="mainMsg://exclude"/>-->
                             </actions>
-                            <buttonsPanel>
-                                <button id="addResponsibleEmployee" caption="mainMsg://add"/>
-                                <button action="responsibleEmployeeTable.exclude"/>
-                            </buttonsPanel>
+<!--                            <buttonsPanel>-->
+<!--                                <button id="addResponsibleEmployee" caption="mainMsg://add"/>-->
+<!--                                <button action="responsibleEmployeeTable.exclude"/>-->
+<!--                            </buttonsPanel>-->
                             <columns>
                                 <column id="fullName"/>
                                 <column id="position"/>
@@ -126,11 +126,11 @@
                             </columns>
                         </table>
                     </tab>
-
                     <tab id="pointsBox"
                          caption="msg://com.company.ksena.entity.company/Company.points">
                         <table id="pointsTable" dataContainer="pointsDc" width="100%" height="300px">
                             <actions>
+                                <action id="create" type="create" caption="mainMsg://create"/>
                                 <action id="edit" type="edit" caption="msg://edit"/>
                             </actions>
                             <columns>
@@ -142,8 +142,12 @@
                     <tab id="taskBox" caption="msg://menu-config.Task-ksena">
                         <table id="taskTable" dataContainer="taskDc" width="100%" height="300px">
                             <actions>
+<!--                                <action id="create" type="create" caption="mainMsg://create"/>-->
                                 <action id="edit" type="edit" caption="msg://edit"/>
                             </actions>
+                            <buttonsPanel>
+                                <button id="createTask" caption="msg://createTask"/>
+                            </buttonsPanel>
                             <columns>
                                 <column id="taskNumber"/>
                                 <column id="point.name"/>
@@ -156,8 +160,12 @@
                     <tab id="taskDocBox" caption="msg://menu-config.ksena_TaskDocument.browse">
                         <table id="taskDocTable" dataContainer="taskDocDc" width="100%" height="300px">
                             <actions>
+<!--                                <action id="create" type="create" caption="mainMsg://create"/>-->
                                 <action id="edit" type="edit" caption="msg://edit"/>
                             </actions>
+                            <buttonsPanel>
+                                <button id="createTaskDoc" caption="msg://createTaskDoc"/>
+                            </buttonsPanel>
                             <columns>
                                 <column id="docNumber"/>
                                 <column id="point.name"/>
