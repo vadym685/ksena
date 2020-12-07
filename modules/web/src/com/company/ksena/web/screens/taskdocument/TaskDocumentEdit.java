@@ -710,6 +710,7 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
             newTask.setSalaryMedium(null);
             newTask.setAddPriseExpendableMaterial(null);
             newTask.setEmployees(null);
+            newTask.setTaskTimePlane(null);
 
             if (newTask.getCleaningMap() != null) {
                 List<PositionWrapper> clearCleaningMapList = newTask.getCleaningMap();
@@ -748,6 +749,11 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
             newTask.setAddPriseExpendableMaterial(this.getEditedEntity().getAddPriseExpendableMaterial());
             newTask.setEmployees(this.getEditedEntity().getEmployeesMap());
             newTask.setTaskStatus(TaskStatus.CREATE);
+            newTask.setTypeOfCostFormation(this.getEditedEntity().getTypeOfCostFormation());
+            newTask.setFixedCostForCleaning(this.getEditedEntity().getFixedCostForCleaning());
+            newTask.setFullCost(this.getEditedEntity().getFullCost());
+            newTask.setCostPerHour(this.getEditedEntity().getCostPerHour());
+            newTask.setTaskTimePlane(this.getEditedEntity().getTaskTimePlane());
             newTask.setDateOfCompletion(this.getEditedEntity().getDateOfCompletion());
 
             if (this.getEditedEntity().getTypeOfCostFormation() == TypeOfCostFormation.FIXED_PRICE) {
@@ -871,6 +877,11 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                             newTask.setAddPriseExpendableMaterial(this.getEditedEntity().getAddPriseExpendableMaterial());
                             newTask.setEmployees(this.getEditedEntity().getEmployeesMap());
                             newTask.setTaskStatus(TaskStatus.CREATE);
+                            newTask.setTypeOfCostFormation(this.getEditedEntity().getTypeOfCostFormation());
+                            newTask.setFixedCostForCleaning(this.getEditedEntity().getFixedCostForCleaning());
+                            newTask.setFullCost(this.getEditedEntity().getFullCost());
+                            newTask.setCostPerHour(this.getEditedEntity().getCostPerHour());
+                            newTask.setTaskTimePlane(this.getEditedEntity().getTaskTimePlane());
                             newTask.setDateOfCompletion(startDate);
                             if (this.getEditedEntity().getTypeOfCostFormation() == TypeOfCostFormation.FIXED_PRICE) {
                                 newTask.setCost(this.getEditedEntity().getFullCost());
@@ -966,6 +977,11 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                         newTask.setAddPriseExpendableMaterial(this.getEditedEntity().getAddPriseExpendableMaterial());
                         newTask.setEmployees(this.getEditedEntity().getEmployeesMap());
                         newTask.setTaskStatus(TaskStatus.CREATE);
+                        newTask.setTypeOfCostFormation(this.getEditedEntity().getTypeOfCostFormation());
+                        newTask.setFixedCostForCleaning(this.getEditedEntity().getFixedCostForCleaning());
+                        newTask.setFullCost(this.getEditedEntity().getFullCost());
+                        newTask.setCostPerHour(this.getEditedEntity().getCostPerHour());
+                        newTask.setTaskTimePlane(this.getEditedEntity().getTaskTimePlane());
                         newTask.setDateOfCompletion(startDate);
                         if (this.getEditedEntity().getTypeOfCostFormation() == TypeOfCostFormation.FIXED_PRICE) {
                             newTask.setCost(this.getEditedEntity().getFullCost());
