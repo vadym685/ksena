@@ -45,6 +45,7 @@ public class Taskcalendar extends Screen {
 
     @Subscribe
     protected void onInit(InitEvent event) {
+
         YearMonth month = YearMonth.now();
         LocalDate firstDay = month.atDay(1);
         LocalDate endDay = month.atEndOfMonth();
@@ -60,6 +61,12 @@ public class Taskcalendar extends Screen {
 
 
     }
+
+    @Subscribe("calendar")
+    public void onCalendarCalendarDateClick(Calendar.CalendarDateClickEvent<Date> event) {
+
+    }
+
 
     @Subscribe("mainPeriod")
     public void onMainPeriodClick(Button.ClickEvent event) {

@@ -169,6 +169,11 @@ public class ExtMainScreen extends MainScreen implements Window.HasFoldersPane {
         calendar.getEventProvider().addEvent(calendarEvent);
     }
 
+
+    @Subscribe("calendar")
+    public void onCalendarCalendarDateClick(Calendar.CalendarDateClickEvent<Date> event) {
+
+    }
     @Subscribe("calendar")
     public void onCalendarCalendarEventClick(Calendar.CalendarEventClickEvent<Date> event) {
         String taskNumber = event.getCalendarEvent().getDescription();
