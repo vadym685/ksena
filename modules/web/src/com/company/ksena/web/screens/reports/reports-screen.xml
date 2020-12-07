@@ -19,8 +19,7 @@
             <groupBox caption="msg://reportName">
                 <hbox spacing="true" align="MIDDLE_RIGHT">
 
-                    <dateField id="startDate" caption="msg://startDate" datatype="localDate" required="true" resolution="DAY" dateFormat="dd.MM.yyyy"/>
-                    <dateField id="finishDate" caption="msg://finishDate" datatype="localDate" required="true" resolution="DAY" dateFormat="dd.MM.yyyy"/>
+                    <dateField id="selectedMonth" caption="msg://selectedMonth" required="true" resolution="MONTH" dateFormat="MM.yyyy"/>
                     <lookupPickerField id="companyField" optionsContainer="companyDc" align="BOTTOM_CENTER">
                         <actions>
                             <action id="lookup" type="picker_lookup"/>

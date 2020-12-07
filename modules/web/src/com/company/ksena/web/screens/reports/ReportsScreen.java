@@ -1,6 +1,5 @@
 package com.company.ksena.web.screens.reports;
 
-import com.company.ksena.entity.cleaning_map.CleaningPosition;
 import com.company.ksena.entity.cleaning_map.PositionWrapper;
 import com.company.ksena.entity.company.Company;
 import com.company.ksena.entity.inventory.ExpendableMaterial;
@@ -8,6 +7,7 @@ import com.company.ksena.entity.people.Employee;
 import com.company.ksena.entity.people.Qualification;
 import com.company.ksena.entity.task.Task;
 import com.company.ksena.entity.task.TaskStatus;
+import com.company.ksena.entity.task.TypeOfCostFormation;
 import com.haulmont.cuba.core.entity.FileDescriptor;
 import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.FileLoader;
@@ -34,22 +34,18 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.ZoneOffset;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
 @UiController("ksena_ReportsScreen")
 @UiDescriptor("reports-screen.xml")
 public class ReportsScreen extends Screen {
-    @Inject
-    private DateField<LocalDate> startDate;
-    @Inject
-    private DateField<LocalDate> finishDate;
+
+    //    @Inject
+//    private DateField<LocalDate> finishDate;
     @Inject
     private LookupPickerField<Company> companyField;
     @Inject
@@ -70,11 +66,17 @@ public class ReportsScreen extends Screen {
     private DateField<LocalDate> startDateEmployeeReport;
     @Inject
     private DateField<LocalDate> finishDateEmployeeReport;
+    @Inject
+    private DateField<Date> selectedMonth;
 
     @Subscribe("generate")
     public void onGenerateClick(Button.ClickEvent event) throws FileStorageException, IOException {
-        LocalDate startDateValue = startDate.getValue();
-        LocalDate finishDateValue = finishDate.getValue();
+
+        LocalDate startDateValue = selectedMonth.getValue().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().withDayOfMonth(1);
+        LocalDate finishDateValue = selectedMonth.getValue().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().withDayOfMonth(selectedMonth.getValue().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().lengthOfMonth());
+
+//        LocalDate startDateValue = startDate.getValue();
+//        LocalDate finishDateValue = finishDate.getValue();
         if (startDateValue != null || finishDateValue != null) {
 
             Company company = companyField.getValue();
@@ -89,6 +91,7 @@ public class ReportsScreen extends Screen {
             double fullPrice = 0;
             double taskCost = 0;
             String oldPointName = null;
+            String oldTaskDocNumber = null;
 
             HSSFWorkbook workbook = new HSSFWorkbook(); //создаешь новый файл
             HSSFSheet sheet = workbook.createSheet(messageBundle.getMessage("sheet")); // создаешь новый лист
@@ -147,24 +150,37 @@ public class ReportsScreen extends Screen {
             cell.setCellValue(messageBundle.getMessage("timeRange") + startDateValue.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + " - " + finishDateValue.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
             cell.setCellStyle(createStyle(workbook, false, 10, false, HorizontalAlignment.CENTER));
 
-            taskList = taskList.stream().sorted(Comparator.comparing(task -> task.getPoint().getName())).collect(Collectors.toList());
-            taskList = taskList.stream().sorted(Comparator.comparing(Task::getDateOfCompletion)).collect(Collectors.toList());
+
+
+
+            try {
+                taskList = taskList.stream().sorted(Comparator.comparing(task -> task.getPoint().getName())).collect(Collectors.toList());
+            } catch (Exception e) {
+            }
+
+            try {
+                taskList = taskList.stream().sorted(Comparator.comparing(Task::getDateOfCompletion)).collect(Collectors.toList());
+            } catch (Exception e) {
+            }
+
+            try {
+                taskList = taskList.stream().sorted(Comparator.comparing(task -> task.getCompany().getName())).collect(Collectors.toList());
+            } catch (Exception e) {
+            }
+
 
             for (Task task : taskList) {
-
 
                 companyName = task.getCompany().getName();
                 taskNumber = task.getTaskNumber();
 
                 try {
                     pointName = task.getPoint().getName();
-
                 } catch (Exception e) {
                     pointName = "";
                 }
-
                 try {
-                    taskDocNumber = task.getTaskNumber();
+                    taskDocNumber = task.getTaskDocument().getDocNumber();
                 } catch (Exception e) {
                     taskDocNumber = "";
                 }
@@ -173,11 +189,22 @@ public class ReportsScreen extends Screen {
                 } catch (Exception e) {
                     taskDate = "";
                 }
-                try {
-                    taskCost = task.getCost();
-                } catch (Exception e) {
-                    taskCost = 0;
+                if (taskDocNumber != "") {
+                    if (task.getTaskDocument().getTypeOfCostFormation() == TypeOfCostFormation.FIXED_PRICE_FOR_CLEANING) {
+                        try {
+                            taskCost = task.getFixedCostForCleaning();
+                        } catch (Exception e) {
+                            taskCost = 0;
+                        }
+                    } else if (task.getTaskDocument().getTypeOfCostFormation() == TypeOfCostFormation.FOR_TIME) {
+                        try {
+                            taskCost = task.getCostPerHour() * task.getTaskTimePlane().getHour();
+                        } catch (Exception e) {
+                            taskCost = 0;
+                        }
+                    }
                 }
+
                 try {
                     taskTimeFactual = task.getTaskTimeFactual().format(DateTimeFormatter.ofPattern("HH:mm"));
                 } catch (Exception e) {
@@ -188,7 +215,70 @@ public class ReportsScreen extends Screen {
                 } catch (Exception e) {
                     taskTimePlane = "";
                 }
+                if (task.getTaskDocument().getTypeOfCostFormation() == TypeOfCostFormation.FIXED_PRICE) {
+                    if (oldTaskDocNumber == taskDocNumber && taskDocNumber != null) {
+                        oldTaskDocNumber = taskDocNumber;
+                        continue;
+                    }
+                    sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 7));
+                    row = sheet.createRow(rowNum);
+                    row.setHeightInPoints(12.75f);
+                    rowNum++;
+                    cell = row.createCell(0, CellType.STRING);
+                    cell.setCellValue(messageBundle.getMessage("point") + pointName);
+                    cell.setCellStyle(createStyle(workbook, false, 10, false, HorizontalAlignment.CENTER));
 
+                    sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 7));
+                    row = sheet.createRow(rowNum);
+                    row.setHeightInPoints(12.75f);
+                    rowNum++;
+                    cell = row.createCell(0, CellType.STRING);
+                    cell.setCellValue(messageBundle.getMessage("client") + companyName);
+                    cell.setCellStyle(createStyle(workbook, false, 10, false, HorizontalAlignment.CENTER));
+
+                    row = sheet.createRow(rowNum);
+                    rowNum++;
+                    row.setHeightInPoints(32.25f);
+
+                    cell = row.createCell(1, CellType.STRING);
+                    cell.setCellValue(messageBundle.getMessage("taskDocNumber"));
+                    cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+                    cell = row.createCell(2, CellType.STRING);
+                    cell.setCellValue(messageBundle.getMessage("timeRange") );
+                    cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+                    cell = row.createCell(5, CellType.STRING);
+                    cell.setCellValue(messageBundle.getMessage("jobCost"));
+                    cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+                    cell = row.createCell(7, CellType.STRING);
+                    cell.setCellValue(messageBundle.getMessage("fullCost"));
+                    cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+                    row = sheet.createRow(rowNum);
+                    rowNum++;
+
+                    cell = row.createCell(1, CellType.STRING);
+                    cell.setCellValue(taskDocNumber);
+                    cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+                    cell = row.createCell(2, CellType.STRING);
+                    cell.setCellValue(startDateValue.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + " - " + finishDateValue.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+                    cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+                    cell = row.createCell(5, CellType.STRING);
+                    cell.setCellValue(task.getTaskDocument().getFullCost());
+                    cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+
+                    cell = row.createCell(7, CellType.STRING);
+                    cell.setCellValue(task.getTaskDocument().getFullCost());
+                    cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+                    oldTaskDocNumber = taskDocNumber;
+                    continue;
+                }
 
                 if (oldPointName != pointName) {
                     sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 7));
@@ -206,7 +296,6 @@ public class ReportsScreen extends Screen {
                     cell = row.createCell(0, CellType.STRING);
                     cell.setCellValue(messageBundle.getMessage("client") + companyName);
                     cell.setCellStyle(createStyle(workbook, false, 10, false, HorizontalAlignment.CENTER));
-
 
                     row = sheet.createRow(rowNum);
                     rowNum++;
@@ -243,12 +332,10 @@ public class ReportsScreen extends Screen {
                     cell.setCellValue(messageBundle.getMessage("fullCost"));
                     cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
                 }
-
                 for (PositionWrapper position : task.getCleaningMap()) {
                     double fullPriseExpendableMaterial = 0;
                     if (task.getAddPriseExpendableMaterial() != null) {
                         if (task.getAddPriseExpendableMaterial()) {
-
                             for (ExpendableMaterial material : position.getPosition().getExpendableMaterials()) {
                                 fullPriseExpendableMaterial = fullPriseExpendableMaterial + material.getPrice();
                             }
@@ -258,10 +345,7 @@ public class ReportsScreen extends Screen {
                     if (position.getPosition().getPrice() != null) {
                         pricePosition = position.getPosition().getPrice();
                     }
-
                     fullPrice = fullPrice + fullPriseExpendableMaterial + pricePosition;
-
-
                 }
 
                 row = sheet.createRow(rowNum);
@@ -300,7 +384,7 @@ public class ReportsScreen extends Screen {
                 cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
 
                 oldPointName = pointName;
-
+                oldTaskDocNumber = taskDocNumber;
             }
             rowNum += 3;
 
@@ -324,9 +408,7 @@ public class ReportsScreen extends Screen {
             });
 
             dataManager.commit(fileDescriptor);
-
             exportDisplay.show(fileDescriptor, ExportFormat.XLS);
-
             notifications.create(Notifications.NotificationType.TRAY)
                     .withCaption(messageBundle.getMessage("generated"))
                     .show();
@@ -346,14 +428,12 @@ public class ReportsScreen extends Screen {
         style.setAlignment(alignment);
         style.setWrapText(true);
 
-
         if (border) {
             style.setBorderBottom(BorderStyle.THIN);
             style.setBorderTop(BorderStyle.THIN);
             style.setBorderLeft(BorderStyle.THIN);
             style.setBorderRight(BorderStyle.THIN);
         }
-
         return style;
     }
 
@@ -486,7 +566,7 @@ public class ReportsScreen extends Screen {
 
                 taskForEmploee = taskForEmploee.stream().sorted(Comparator.comparing(Task::getDateOfCompletion)).collect(Collectors.toList());
 
-                for (Task task :taskForEmploee){
+                for (Task task : taskForEmploee) {
 
                     String taskNumber = task.getTaskNumber();
 
@@ -518,13 +598,13 @@ public class ReportsScreen extends Screen {
                     }
 
                     double wage;
-                    if (employee.getQualification() == Qualification.ELEMENTARY){
+                    if (employee.getQualification() == Qualification.ELEMENTARY) {
                         wage = task.getSalaryElementary();
-                    }else if (employee.getQualification()==Qualification.MEDIUM){
+                    } else if (employee.getQualification() == Qualification.MEDIUM) {
                         wage = task.getSalaryMedium();
-                    }else if (employee.getQualification()==Qualification.HIGH){
+                    } else if (employee.getQualification() == Qualification.HIGH) {
                         wage = task.getSalaryHigh();
-                    }else {
+                    } else {
                         wage = 0;
                     }
 

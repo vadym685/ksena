@@ -77,8 +77,11 @@
                                 <textField id="salaryElementary" property="salaryElementary"/>
                                 <textField id="salaryMedium" property="salaryMedium"/>
                                 <textField id="salaryHigh" property="salaryHigh"/>
+                                <lookupField id="typeOfCostFormationField" property="typeOfCostFormation" enable="false"/>
+                                <textField id="fixedCostForCleaningField" property="fixedCostForCleaning" visible="false"/>
+                                <textField id="costPerHourField" property="costPerHour" visible="false"/>
+                                <textField id="fullCostField" property="fullCost" visible="false"/>
                                 <checkBox id="addPriseExpendableMaterialField" property="addPriseExpendableMaterial"/>
-                                <textField id="costField" property="cost"/>
                                 <timeField id="taskTimePlaneField" property="taskTimePlane"/>
                                 <timeField id="taskTimeFactualField" property="taskTimeFactual"/>
                             </column>

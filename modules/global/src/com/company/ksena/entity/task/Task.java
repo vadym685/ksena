@@ -69,12 +69,15 @@ public class Task extends StandardEntity {
     @Column(name = "TASK_STATUS")
     protected String taskStatus;
 
+    @Positive
     @Column(name = "SALARY_ELEMENTARY")
     protected Long salaryElementary;
 
+    @Positive
     @Column(name = "SALARY_MEDIUM")
     protected Long salaryMedium;
 
+    @Positive
     @Column(name = "SALARY_HIGH")
     protected Long salaryHigh;
 
@@ -92,6 +95,46 @@ public class Task extends StandardEntity {
 
     @OneToMany(mappedBy = "task")
     protected List<InventoryWrapper> inventoryMap = new ArrayList<InventoryWrapper>();
+
+    @Column(name = "TYPE_OF_COST_FORMATION")
+    protected String typeOfCostFormation;
+
+    @Positive
+    @Column(name = "FIXED_COST_FOR_CLEANING")
+    protected Double fixedCostForCleaning;
+
+    @Positive
+    @Column(name = "FULL_COST")
+    protected Double fullCost;
+
+    @Positive
+    @Column(name = "COST_PER_HOUR")
+    protected Double costPerHour;
+
+    public void setFixedCostForCleaning(Double fixedCostForCleaning) {
+        this.fixedCostForCleaning = fixedCostForCleaning;
+    }
+
+    public Double getFixedCostForCleaning() {
+        return fixedCostForCleaning;
+    }
+
+    public Double getCostPerHour() {
+        return costPerHour;
+    }
+
+    public void setCostPerHour(Double costPerHour) {
+        this.costPerHour = costPerHour;
+    }
+
+    public Double getFullCost() {
+        return fullCost;
+    }
+
+    public void setFullCost(Double fullCost) {
+        this.fullCost = fullCost;
+    }
+
 
     public String getComment() {
         return comment;
@@ -131,6 +174,14 @@ public class Task extends StandardEntity {
 
     public void setAddPriseExpendableMaterial(Boolean addPriseExpendableMaterial) {
         this.addPriseExpendableMaterial = addPriseExpendableMaterial;
+    }
+
+    public TypeOfCostFormation getTypeOfCostFormation() {
+        return typeOfCostFormation == null ? null : TypeOfCostFormation.fromId(typeOfCostFormation);
+    }
+
+    public void setTypeOfCostFormation(TypeOfCostFormation typeOfCostFormation) {
+        this.typeOfCostFormation = typeOfCostFormation == null ? null : typeOfCostFormation.getId();
     }
 
     public String getTaskNumber() {

@@ -11,6 +11,7 @@ import com.haulmont.cuba.core.entity.annotation.PublishEntityChangedEvents;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -40,25 +41,17 @@ public class TaskDocument extends StandardEntity {
     @Column(name = "DATE_OF_END_DOCUMENT")
     protected LocalDate dateOfEndDocument;
 
-    @Column(name = "COST_PER_HOUR")
-    protected Double costPerHour;
-
-    @Column(name = "FULL_COST")
-    protected Double fullCost;
-
-
+    @Positive
     @Column(name = "SALARY_ELEMENTARY")
     protected Long salaryElementary;
 
+    @Positive
     @Column(name = "SALARY_MEDIUM")
     protected Long salaryMedium;
 
+    @Positive
     @Column(name = "SALARY_HIGH")
     protected Long salaryHigh;
-
-
-    @Column(name = "TYPE_OF_COST_FORMATION")
-    protected String typeOfCostFormation;
 
     @Column(name = "IS_ACTIVE")
     protected Boolean isActive;
@@ -106,6 +99,30 @@ public class TaskDocument extends StandardEntity {
 
     @Column(name = "COMMENT")
     protected String comment;
+
+    @Column(name = "TYPE_OF_COST_FORMATION")
+    protected String typeOfCostFormation;
+
+    @Positive
+    @Column(name = "FIXED_COST_FOR_CLEANING")
+    protected Double fixedCostForCleaning;
+
+    @Positive
+    @Column(name = "FULL_COST")
+    protected Double fullCost;
+
+    @Positive
+    @Column(name = "COST_PER_HOUR")
+    protected Double costPerHour;
+
+
+    public void setFixedCostForCleaning(Double fixedCostForCleaning) {
+        this.fixedCostForCleaning = fixedCostForCleaning;
+    }
+
+    public Double getFixedCostForCleaning() {
+        return fixedCostForCleaning;
+    }
 
     public String getComment() {
         return comment;

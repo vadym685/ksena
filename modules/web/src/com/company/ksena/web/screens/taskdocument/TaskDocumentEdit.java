@@ -115,6 +115,8 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
     private DateField<LocalDate> dateOfEndDocumentField;
     @Inject
     private LookupField<TaskType> taskTypeField;
+    @Inject
+    private TextField<Double> fixedCostForCleaningField;
 
 
     @Subscribe("companyField")
@@ -160,18 +162,22 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
 
             if (type.equals(TypeOfCostFormation.FOR_TIME)) {
                 costPerHourField.setVisible(true);
+                fixedCostForCleaningField.setVisible(false);
                 fullCostField.setVisible(false);
-            } else if (type.equals(TypeOfCostFormation.FOR_CLEANING_MAP)) {
+            } else if (type.equals(TypeOfCostFormation.FIXED_PRICE_FOR_CLEANING)) {
                 costPerHourField.setVisible(false);
                 fullCostField.setVisible(false);
+                fixedCostForCleaningField.setVisible(true);
                 costPerHourField.clear();
             } else if (type.equals(TypeOfCostFormation.FIXED_PRICE)) {
                 costPerHourField.setVisible(false);
                 fullCostField.setVisible(true);
+                fixedCostForCleaningField.setVisible(false);
                 costPerHourField.clear();
             } else {
                 costPerHourField.setVisible(false);
                 fullCostField.setVisible(false);
+                fixedCostForCleaningField.setVisible(false);
                 costPerHourField.clear();
             }
         }
@@ -618,11 +624,15 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
         newTask.setSalaryMedium(this.getEditedEntity().getSalaryMedium());
         newTask.setAddPriseExpendableMaterial(this.getEditedEntity().getAddPriseExpendableMaterial());
         newTask.setEmployees(this.getEditedEntity().getEmployeesMap());
+        newTask.setTypeOfCostFormation(this.getEditedEntity().getTypeOfCostFormation());
+        newTask.setFixedCostForCleaning(this.getEditedEntity().getFixedCostForCleaning());
+        newTask.setFullCost(this.getEditedEntity().getFullCost());
+        newTask.setCostPerHour(this.getEditedEntity().getCostPerHour());
         newTask.setTaskStatus(TaskStatus.CREATE);
 
-        if (this.getEditedEntity().getTypeOfCostFormation() == TypeOfCostFormation.FIXED_PRICE) {
-            newTask.setCost(this.getEditedEntity().getFullCost());
-        }
+//        if (this.getEditedEntity().getTypeOfCostFormation() == TypeOfCostFormation.FIXED_PRICE) {
+//            newTask.setCost(this.getEditedEntity().getFullCost());
+//        }
 
         List<PositionWrapper> cleaningMapList = this.getEditedEntity().getCleaningMap();
         List<InventoryWrapper> inventoryWrapperList = this.getEditedEntity().getInventoryMap();

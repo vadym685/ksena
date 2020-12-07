@@ -68,9 +68,10 @@
                                 <lookupField id="typeOfPeriodicityField" property="typeOfPeriodicity" visible="false"/>
                                 <textField id="periodicityField" property="periodicity" visible="false"/>
                                 <lookupField id="typeOfCostFormationField" property="typeOfCostFormation"/>
+                                <textField id="fixedCostForCleaningField" property="fixedCostForCleaning" visible="false"/>
                                 <textField id="costPerHourField" property="costPerHour" visible="false"/>
-                                <checkBox id="addPriseExpendableMaterialField" property="addPriseExpendableMaterial"/>
                                 <textField id="fullCostField" property="fullCost" visible="false"/>
+                                <checkBox id="addPriseExpendableMaterialField" property="addPriseExpendableMaterial"/>
                                 <textField id="salaryElementaryField" property="salaryElementary"/>
                                 <textField id="salaryMediumField" property="salaryMedium"/>
                                 <textField id="salaryHighField" property="salaryHigh"/>

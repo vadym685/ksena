@@ -8,10 +8,7 @@ import com.company.ksena.entity.inventory.Inventory;
 import com.company.ksena.entity.inventory.InventoryWrapper;
 import com.company.ksena.entity.people.Employee;
 import com.company.ksena.entity.point.Point;
-import com.company.ksena.entity.task.GoogleCalendarEventId;
-import com.company.ksena.entity.task.Task;
-import com.company.ksena.entity.task.TaskDocument;
-import com.company.ksena.entity.task.TaskStatus;
+import com.company.ksena.entity.task.*;
 import com.company.ksena.entity.template.Template;
 import com.company.ksena.service.google_calendar_api_service.GoogleCalendarService;
 import com.company.ksena.web.screens.inventory.AvaibleInventoryBrowse;
@@ -108,6 +105,12 @@ public class TaskEdit extends StandardEditor<Task> {
     private DateField<LocalDate> dateOfCompletionField;
     @Inject
     private CollectionPropertyContainer<GoogleCalendarEventId> googleCalendarEventIdDc;
+    @Inject
+    private TextField<Double> costPerHourField;
+    @Inject
+    private TextField<Double> fullCostField;
+    @Inject
+    private TextField<Double> fixedCostForCleaningField;
 
     @Subscribe
     public void onInit(InitEvent event) {
@@ -176,7 +179,40 @@ public class TaskEdit extends StandardEditor<Task> {
         });
 
     }
+    @Subscribe("typeOfCostFormationField")
+    public void onTypeOfCostFormationFieldValueChange(HasValue.ValueChangeEvent<Boolean> event) {
 
+        TypeOfCostFormation type = this.getEditedEntity().getTypeOfCostFormation();
+
+        if (type == null) {
+            costPerHourField.setVisible(false);
+            fullCostField.setVisible(false);
+            costPerHourField.clear();
+        } else {
+
+            if (type.equals(TypeOfCostFormation.FOR_TIME)) {
+                costPerHourField.setVisible(true);
+                fixedCostForCleaningField.setVisible(false);
+                fullCostField.setVisible(false);
+            } else if (type.equals(TypeOfCostFormation.FIXED_PRICE_FOR_CLEANING)) {
+                costPerHourField.setVisible(false);
+                fullCostField.setVisible(false);
+                fixedCostForCleaningField.setVisible(true);
+                costPerHourField.clear();
+            } else if (type.equals(TypeOfCostFormation.FIXED_PRICE)) {
+                costPerHourField.setVisible(false);
+                fullCostField.setVisible(true);
+                fixedCostForCleaningField.setVisible(false);
+                costPerHourField.clear();
+            } else {
+                costPerHourField.setVisible(false);
+                fullCostField.setVisible(false);
+                fixedCostForCleaningField.setVisible(false);
+                costPerHourField.clear();
+            }
+        }
+
+    }
     private void sendByEmail() {
         Task taskItem = getEditedEntity();
 
@@ -294,6 +330,9 @@ public class TaskEdit extends StandardEditor<Task> {
                         .withActions(
                                 new DialogAction(DialogAction.Type.YES).withHandler(e -> {
                                     getEditedEntity().setPoint(null);
+                                    getEditedEntity().setFixedCostForCleaning(null);
+                                    getEditedEntity().setFullCost(null);
+                                    getEditedEntity().setCostPerHour(null);
                                     getEditedEntity().setTaskNumber(null);
                                     getEditedEntity().setCompany(null);
                                     getEditedEntity().setDelay(null);
@@ -346,6 +385,10 @@ public class TaskEdit extends StandardEditor<Task> {
                                     getEditedEntity().setSalaryMedium(document.getSalaryMedium());
                                     getEditedEntity().setAddPriseExpendableMaterial(document.getAddPriseExpendableMaterial());
                                     getEditedEntity().setEmployees(document.getEmployeesMap());
+                                    getEditedEntity().setTypeOfCostFormation(document.getTypeOfCostFormation());
+                                    getEditedEntity().setFixedCostForCleaning(document.getFixedCostForCleaning());
+                                    getEditedEntity().setFullCost(document.getFullCost());
+                                    getEditedEntity().setCostPerHour(document.getCostPerHour());
 
                                     List<PositionWrapper> cleaningMapList = document.getCleaningMap();
                                     List<InventoryWrapper> inventoryWrapperList = document.getInventoryMap();
@@ -401,6 +444,10 @@ public class TaskEdit extends StandardEditor<Task> {
                 getEditedEntity().setSalaryMedium(document.getSalaryMedium());
                 getEditedEntity().setAddPriseExpendableMaterial(document.getAddPriseExpendableMaterial());
                 getEditedEntity().setEmployees(document.getEmployeesMap());
+                getEditedEntity().setTypeOfCostFormation(document.getTypeOfCostFormation());
+                getEditedEntity().setFixedCostForCleaning(document.getFixedCostForCleaning());
+                getEditedEntity().setFullCost(document.getFullCost());
+                getEditedEntity().setCostPerHour(document.getCostPerHour());
 
                 List<PositionWrapper> cleaningMapList = document.getCleaningMap();
                 List<InventoryWrapper> inventoryWrapperList = document.getInventoryMap();
