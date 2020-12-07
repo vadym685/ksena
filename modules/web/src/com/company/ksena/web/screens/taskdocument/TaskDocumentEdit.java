@@ -580,6 +580,7 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
         newTask.setSalaryMedium(null);
         newTask.setAddPriseExpendableMaterial(null);
         newTask.setEmployees(null);
+        newTask.setTaskTimePlane(null);
 
         if (newTask.getCleaningMap() != null) {
             List<PositionWrapper> clearCleaningMapList = newTask.getCleaningMap();
@@ -628,6 +629,7 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
         newTask.setFixedCostForCleaning(this.getEditedEntity().getFixedCostForCleaning());
         newTask.setFullCost(this.getEditedEntity().getFullCost());
         newTask.setCostPerHour(this.getEditedEntity().getCostPerHour());
+        newTask.setTaskTimePlane(this.getEditedEntity().getTaskTimePlane());
         newTask.setTaskStatus(TaskStatus.CREATE);
 
 //        if (this.getEditedEntity().getTypeOfCostFormation() == TypeOfCostFormation.FIXED_PRICE) {

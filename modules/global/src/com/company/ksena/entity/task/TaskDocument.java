@@ -13,6 +13,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @PublishEntityChangedEvents
@@ -76,6 +77,9 @@ public class TaskDocument extends StandardEntity {
     @Column(name = "INTERVAL")
     protected Integer periodicity;
 
+    @Column(name = "TASK_TIME_PLANE")
+    protected LocalTime taskTimePlane;
+
     @JoinTable(name = "KSENA_TASK_DOCUMENT_DAY_INTERVAL_LINK",
             joinColumns = @JoinColumn(name = "TASK_DOCUMENT_ID"),
             inverseJoinColumns = @JoinColumn(name = "DAY_INTERVAL_ID"))
@@ -114,6 +118,14 @@ public class TaskDocument extends StandardEntity {
     @Positive
     @Column(name = "COST_PER_HOUR")
     protected Double costPerHour;
+
+    public void setTaskTimePlane(LocalTime taskTimePlane) {
+        this.taskTimePlane = taskTimePlane;
+    }
+
+    public LocalTime getTaskTimePlane() {
+        return taskTimePlane;
+    }
 
 
     public void setFixedCostForCleaning(Double fixedCostForCleaning) {

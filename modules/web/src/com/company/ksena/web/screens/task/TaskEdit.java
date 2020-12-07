@@ -341,6 +341,7 @@ public class TaskEdit extends StandardEditor<Task> {
                                     getEditedEntity().setSalaryMedium(null);
                                     getEditedEntity().setAddPriseExpendableMaterial(null);
                                     getEditedEntity().setEmployees(null);
+                                    getEditedEntity().setTaskTimePlane(null);
 
                                     if (getEditedEntity().getCleaningMap() != null) {
                                         List<PositionWrapper> clearCleaningMapList = getEditedEntity().getCleaningMap();
@@ -389,6 +390,7 @@ public class TaskEdit extends StandardEditor<Task> {
                                     getEditedEntity().setFixedCostForCleaning(document.getFixedCostForCleaning());
                                     getEditedEntity().setFullCost(document.getFullCost());
                                     getEditedEntity().setCostPerHour(document.getCostPerHour());
+                                    getEditedEntity().setTaskTimePlane(document.getTaskTimePlane());
 
                                     List<PositionWrapper> cleaningMapList = document.getCleaningMap();
                                     List<InventoryWrapper> inventoryWrapperList = document.getInventoryMap();
@@ -448,6 +450,7 @@ public class TaskEdit extends StandardEditor<Task> {
                 getEditedEntity().setFixedCostForCleaning(document.getFixedCostForCleaning());
                 getEditedEntity().setFullCost(document.getFullCost());
                 getEditedEntity().setCostPerHour(document.getCostPerHour());
+                getEditedEntity().setTaskTimePlane(document.getTaskTimePlane());
 
                 List<PositionWrapper> cleaningMapList = document.getCleaningMap();
                 List<InventoryWrapper> inventoryWrapperList = document.getInventoryMap();
