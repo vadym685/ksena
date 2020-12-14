@@ -630,7 +630,12 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
         newTask.setFullCost(this.getEditedEntity().getFullCost());
         newTask.setCostPerHour(this.getEditedEntity().getCostPerHour());
         newTask.setTaskTimePlane(this.getEditedEntity().getTaskTimePlane());
-        newTask.setTaskStatus(TaskStatus.CREATE);
+
+        if (this.getEditedEntity().getAllTaskDone() != null && this.getEditedEntity().getAllTaskDone()) {
+            newTask.setTaskStatus(TaskStatus.EXECUTED);
+        } else {
+            newTask.setTaskStatus(TaskStatus.CREATE);
+        }
 
 //        if (this.getEditedEntity().getTypeOfCostFormation() == TypeOfCostFormation.FIXED_PRICE) {
 //            newTask.setCost(this.getEditedEntity().getFullCost());
@@ -748,7 +753,13 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
             newTask.setSalaryMedium(this.getEditedEntity().getSalaryMedium());
             newTask.setAddPriseExpendableMaterial(this.getEditedEntity().getAddPriseExpendableMaterial());
             newTask.setEmployees(this.getEditedEntity().getEmployeesMap());
-            newTask.setTaskStatus(TaskStatus.CREATE);
+
+            if (this.getEditedEntity().getAllTaskDone() != null && this.getEditedEntity().getAllTaskDone()) {
+                newTask.setTaskStatus(TaskStatus.EXECUTED);
+            } else {
+                newTask.setTaskStatus(TaskStatus.CREATE);
+            }
+
             newTask.setTypeOfCostFormation(this.getEditedEntity().getTypeOfCostFormation());
             newTask.setFixedCostForCleaning(this.getEditedEntity().getFixedCostForCleaning());
             newTask.setFullCost(this.getEditedEntity().getFullCost());

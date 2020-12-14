@@ -320,6 +320,7 @@ create table KSENA_TASK_DOCUMENT (
     SALARY_MEDIUM bigint,
     SALARY_HIGH bigint,
     IS_ACTIVE boolean,
+    ALL_TASK_DONE boolean,
     TASK_TYPE varchar(50),
     DELAY integer,
     POINT_ID uuid,

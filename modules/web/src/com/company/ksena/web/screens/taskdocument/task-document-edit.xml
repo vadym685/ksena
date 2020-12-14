@@ -68,7 +68,8 @@
                                 <lookupField id="typeOfPeriodicityField" property="typeOfPeriodicity" visible="false"/>
                                 <textField id="periodicityField" property="periodicity" visible="false"/>
                                 <lookupField id="typeOfCostFormationField" property="typeOfCostFormation"/>
-                                <textField id="fixedCostForCleaningField" property="fixedCostForCleaning" visible="false"/>
+                                <textField id="fixedCostForCleaningField" property="fixedCostForCleaning"
+                                           visible="false"/>
                                 <textField id="costPerHourField" property="costPerHour" visible="false"/>
                                 <textField id="fullCostField" property="fullCost" visible="false"/>
                                 <checkBox id="addPriseExpendableMaterialField" property="addPriseExpendableMaterial"/>
@@ -78,28 +79,37 @@
                                 <textField id="salaryHighField" property="salaryHigh"/>
                             </column>
                         </form>
-                        <buttonsPanel>
-                            <button invoke="createTask" caption="msg://createTask"/>
-                            <button id="createTaskAllTimeDoc" caption="msg://createTaskAllTimeDoc"/>
-                        </buttonsPanel>
+                        <groupBox spacing="true">
+                            <form id="form1" dataContainer="taskDocumentDc">
+                                <column width="250px">
+                                    <checkBox id="allTaskDone" property="allTaskDone"/>
+                                </column>
+                            </form>
+                            <buttonsPanel spacing="true">
+                                <button invoke="createTask" caption="msg://createTask"/>
+                                <button id="createTaskAllTimeDoc" caption="msg://createTaskAllTimeDoc"/>
+                            </buttonsPanel>
+                        </groupBox>
                     </groupBox>
                     <vbox>
-                    <groupBox id="cleaningDayBox" caption="msg://com.company.ksena.entity.task/TaskDocument.cleaningDay"
-                              align="TOP_LEFT" width="100%" visible="false" height="AUTO">
-                        <table id="cleaningDayTable" dataContainer="cleaningDayDc" width="100%" height="100%">
-                            <actions>
-                                <action id="add" type="add" caption="mainMsg://add"/>
-                                <action id="exclude" type="exclude" caption="mainMsg://exclude"/>
-                            </actions>
-                            <buttonsPanel>
-                                <button action="cleaningDayTable.add"/>
-                                <button action="cleaningDayTable.exclude"/>
-                            </buttonsPanel>
-                            <columns>
-                                <column id="nameDay"/>
-                            </columns>
-                        </table>
-                    </groupBox>>
+                        <groupBox id="cleaningDayBox"
+                                  caption="msg://com.company.ksena.entity.task/TaskDocument.cleaningDay"
+                                  align="TOP_LEFT" width="100%" visible="false" height="AUTO">
+                            <table id="cleaningDayTable" dataContainer="cleaningDayDc" width="100%" height="100%">
+                                <actions>
+                                    <action id="add" type="add" caption="mainMsg://add"/>
+                                    <action id="exclude" type="exclude" caption="mainMsg://exclude"/>
+                                </actions>
+                                <buttonsPanel>
+                                    <button action="cleaningDayTable.add"/>
+                                    <button action="cleaningDayTable.exclude"/>
+                                </buttonsPanel>
+                                <columns>
+                                    <column id="nameDay"/>
+                                </columns>
+                            </table>
+                        </groupBox>
+                        >
                         <groupBox id="commentBox" caption="mainMsg://comment" spacing="true" width="100%">
                             <form id="form2" dataContainer="taskDocumentDc" width="100%">
                                 <column width="100%">

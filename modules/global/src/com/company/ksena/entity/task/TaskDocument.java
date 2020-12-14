@@ -57,6 +57,9 @@ public class TaskDocument extends StandardEntity {
     @Column(name = "IS_ACTIVE")
     protected Boolean isActive;
 
+    @Column(name = "ALL_TASK_DONE")
+    protected Boolean allTaskDone;
+
     @Column(name = "TASK_TYPE")
     protected String taskType;
 
@@ -118,6 +121,14 @@ public class TaskDocument extends StandardEntity {
     @Positive
     @Column(name = "COST_PER_HOUR")
     protected Double costPerHour;
+
+    public Boolean getAllTaskDone() {
+        return allTaskDone;
+    }
+
+    public void setAllTaskDone(Boolean allTaskDone) {
+        this.allTaskDone = allTaskDone;
+    }
 
     public void setTaskTimePlane(LocalTime taskTimePlane) {
         this.taskTimePlane = taskTimePlane;
