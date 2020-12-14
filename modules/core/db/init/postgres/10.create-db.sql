@@ -316,13 +316,9 @@ create table KSENA_TASK_DOCUMENT (
     CREATE_DATE date,
     DATE_OF_COMPLETION date,
     DATE_OF_END_DOCUMENT date,
-    COST_PER_HOUR double precision,
-    FULL_COST double precision,
     SALARY_ELEMENTARY bigint,
     SALARY_MEDIUM bigint,
     SALARY_HIGH bigint,
-    TYPE_OF_COST_FORMATION varchar(50),
-    FIXED_COST_FOR_CLEANING double precision,
     IS_ACTIVE boolean,
     TASK_TYPE varchar(50),
     DELAY integer,
@@ -330,7 +326,12 @@ create table KSENA_TASK_DOCUMENT (
     COMPANY_ID uuid,
     TYPE_OF_PERIODICITY varchar(50),
     INTERVAL integer,
+    TASK_TIME_PLANE time,
     COMMENT varchar(255),
+    TYPE_OF_COST_FORMATION varchar(50),
+    FIXED_COST_FOR_CLEANING double precision,
+    FULL_COST double precision,
+    COST_PER_HOUR double precision,
     --
     primary key (ID)
 )^
