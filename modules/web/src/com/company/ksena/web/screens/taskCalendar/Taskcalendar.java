@@ -144,7 +144,14 @@ public class Taskcalendar extends Screen {
                 styleName = "event-blue";
             }
 
-            generateEvent(task.getCompany().getName(),
+            String eventName = "";
+            if (task.getPoint() != null) {
+                eventName = task.getCompany().getName() + ", " + task.getPoint().getName();
+            } else {
+                eventName = task.getCompany().getName();
+            }
+
+            generateEvent(eventName,
                     description,
                     task.getDateOfCompletion().atStartOfDay().toString().replace("T", " "),
                     task.getDateOfCompletion().atStartOfDay().plusHours(1).toString().replace("T", " "), true, styleName);
