@@ -497,7 +497,11 @@ public class ReportsScreen extends Screen {
             cell.setCellValue(messageBundle.getMessage("timeRange") + startDateValue.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + " - " + finishDateValue.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
             cell.setCellStyle(createStyle(workbook, false, 10, false, HorizontalAlignment.CENTER));
 
-            taskList = taskList.stream().sorted(Comparator.comparing(task -> task.getPoint().getName())).collect(Collectors.toList());
+            try {
+                taskList = taskList.stream().sorted(Comparator.comparing(task -> task.getPoint().getName())).collect(Collectors.toList());
+            } catch (Exception e) {
+            }
+
             taskList = taskList.stream().sorted(Comparator.comparing(Task::getDateOfCompletion)).collect(Collectors.toList());
 
             List<Employee> taskEmployeesList = new ArrayList<>();

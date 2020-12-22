@@ -25,6 +25,11 @@
             <loader id="taskDocumentsLc">
                 <query>
                     <![CDATA[select e from ksena_TaskDocument e]]>
+                    <condition>
+                        <c:jpql>
+                            <c:where>e.company = :company</c:where>
+                        </c:jpql>
+                    </condition>
                 </query>
             </loader>
         </collection>

@@ -111,6 +111,10 @@ public class TaskEdit extends StandardEditor<Task> {
     private TextField<Double> fullCostField;
     @Inject
     private TextField<Double> fixedCostForCleaningField;
+    @Inject
+    private CollectionLoader<TaskDocument> taskDocumentsLc;
+    @Inject
+    private TextField<String> taskNumberField;
 
     @Subscribe
     public void onInit(InitEvent event) {
@@ -308,14 +312,24 @@ public class TaskEdit extends StandardEditor<Task> {
 
     @Subscribe("companyField")
     public void onCompanyFieldValueChange(HasValue.ValueChangeEvent<Company> event) {
-        if (event.getValue() != null) {
-            pointField.clear();
-            pointsForCompanyLc.setParameter("company", event.getValue());
-        } else {
-            pointField.clear();
-            pointsForCompanyLc.removeParameter("company");
+        if (event.isUserOriginated()) {
+            if (event.getValue() != null) {
+                pointField.clear();
+                taskDocumentField.clear();
+                taskNumberField.clear();
+                pointsForCompanyLc.setParameter("company", event.getValue());
+                taskDocumentsLc.setParameter("company", event.getValue());
+            } else {
+
+                pointField.clear();
+                taskDocumentField.clear();
+                taskNumberField.clear();
+                pointsForCompanyLc.removeParameter("company");
+                taskDocumentsLc.removeParameter("company");
+            }
+            pointsForCompanyLc.load();
+            taskDocumentsLc.load();
         }
-        pointsForCompanyLc.load();
     }
 
     @Subscribe("taskDocumentField")
