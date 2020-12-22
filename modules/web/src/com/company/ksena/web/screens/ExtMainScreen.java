@@ -135,7 +135,7 @@ public class ExtMainScreen extends MainScreen implements Window.HasFoldersPane {
 
             String eventName = "";
             if (task.getPoint() != null) {
-                eventName = task.getCompany().getName() + ", " + task.getPoint().getName();
+                eventName = task.getCompany().getName() +", " + task.getPoint().getName();
             } else {
                 eventName = task.getCompany().getName();
             }
