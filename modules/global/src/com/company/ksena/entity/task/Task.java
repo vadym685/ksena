@@ -36,6 +36,9 @@ public class Task extends StandardEntity {
     @Column(name = "ADD_PRISE_EXPENDABLE_MATERIAL")
     protected Boolean addPriseExpendableMaterial;
 
+    @Column(name = "PRISE_EXPENDABLE_MATERIAL")
+    protected Double priсeExpendableMaterial;
+
     @Lookup(type = LookupType.DROPDOWN, actions = {"lookup", "open", "clear"})
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TASK_DOCUMENT_ID")
@@ -110,6 +113,14 @@ public class Task extends StandardEntity {
     @Positive
     @Column(name = "COST_PER_HOUR")
     protected Double costPerHour;
+
+    public Double getPriсeExpendableMaterial() {
+        return priсeExpendableMaterial;
+    }
+
+    public void setPriсeExpendableMaterial(Double priсeExpendableMaterial) {
+        this.priсeExpendableMaterial = priсeExpendableMaterial;
+    }
 
     public void setFixedCostForCleaning(Double fixedCostForCleaning) {
         this.fixedCostForCleaning = fixedCostForCleaning;

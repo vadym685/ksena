@@ -3,6 +3,7 @@ package com.company.ksena.web.screens.company;
 import com.company.ksena.entity.company.Company;
 import com.company.ksena.entity.company.CompanyType;
 import com.company.ksena.entity.people.ClientEmployee;
+import com.company.ksena.entity.point.Point;
 import com.company.ksena.entity.task.Task;
 import com.company.ksena.entity.task.TaskDocument;
 import com.company.ksena.web.screens.clientemployee.ClientEmployeeWithCompanyBrowse;
@@ -42,8 +43,6 @@ public class CompanyEdit extends StandardEditor<Company> {
     @Inject
     private ScreenBuilders screenBuilders;
     @Inject
-    private CollectionPropertyContainer<ClientEmployee> responsibleEmployeeDc;
-    @Inject
     private DataManager dataManager;
     @Inject
     private CollectionLoader<Task> taskDl;
@@ -59,15 +58,30 @@ public class CompanyEdit extends StandardEditor<Company> {
     private Table<Task> taskTable;
     @Inject
     private Table<TaskDocument> taskDocTable;
+    @Inject
+    private CollectionLoader<ClientEmployee> responsibleEmployeesDl;
+    @Inject
+    private CollectionLoader<Point> pointsDl;
+    @Inject
+    private Table<ClientEmployee> responsibleEmployeeTable;
+    @Inject
+    private Table<Point> pointsTable;
+    @Inject
+    private CollectionContainer<ClientEmployee> responsibleEmployeeDc;
 
     @Subscribe
     public void onBeforeShow(BeforeShowEvent event) {
         if (this.getEditedEntity().getName() != null) {
-//            CollectionLoader<Task> loader = dataComponents.createCollectionLoader();
+
             taskDl.setParameter("name", this.getEditedEntity().getName());
             taskDl.load();
 
-//            CollectionLoader<TaskDocument> loader = dataComponents.createCollectionLoader();
+            responsibleEmployeesDl.setParameter("name", this.getEditedEntity().getName());
+            responsibleEmployeesDl.load();
+
+            pointsDl.setParameter("name", this.getEditedEntity().getName());
+            pointsDl.load();
+
             taskDocDl.setParameter("name", this.getEditedEntity().getName());
             taskDocDl.load();
         }
@@ -183,9 +197,13 @@ public class CompanyEdit extends StandardEditor<Company> {
 
         taskDl.load();
         taskDocDl.load();
+        responsibleEmployeesDl.load();
+        pointsDl.load();
 
         taskDocTable.refresh();
         taskTable.refresh();
+        responsibleEmployeeTable.refresh();
+        pointsTable.refresh();
     }
 
     @Subscribe("createTask")

@@ -30,6 +30,9 @@ public class TaskDocument extends StandardEntity {
     @Column(name = "ADD_PRISE_EXPENDABLE_MATERIAL")
     protected Boolean addPriseExpendableMaterial;
 
+    @Column(name = "PRISE_EXPENDABLE_MATERIAL")
+    protected Double priceExpendableMaterial;
+
     @NotNull
     @Column(name = "CREATE_DATE")
     protected LocalDate createDate;
@@ -121,6 +124,14 @@ public class TaskDocument extends StandardEntity {
     @Positive
     @Column(name = "COST_PER_HOUR")
     protected Double costPerHour;
+
+    public Double getPriceExpendableMaterial() {
+        return priceExpendableMaterial;
+    }
+
+    public void setPriceExpendableMaterial(Double priceExpendableMaterial) {
+        this.priceExpendableMaterial = priceExpendableMaterial;
+    }
 
     public Boolean getAllTaskDone() {
         return allTaskDone;

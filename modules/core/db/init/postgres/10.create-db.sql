@@ -231,6 +231,7 @@ create table KSENA_TASK (
     TASK_NUMBER varchar(255),
     COMMENT varchar(255),
     ADD_PRISE_EXPENDABLE_MATERIAL boolean,
+    PRISE_EXPENDABLE_MATERIAL double precision,
     TASK_DOCUMENT_ID uuid,
     COMPANY_ID uuid,
     POINT_ID uuid,
@@ -313,6 +314,7 @@ create table KSENA_TASK_DOCUMENT (
     --
     DOC_NUMBER varchar(255),
     ADD_PRISE_EXPENDABLE_MATERIAL boolean,
+    PRISE_EXPENDABLE_MATERIAL double precision,
     CREATE_DATE date,
     DATE_OF_COMPLETION date,
     DATE_OF_END_DOCUMENT date,

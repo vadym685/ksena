@@ -73,6 +73,7 @@
                                 <textField id="costPerHourField" property="costPerHour" visible="false"/>
                                 <textField id="fullCostField" property="fullCost" visible="false"/>
                                 <checkBox id="addPriseExpendableMaterialField" property="addPriseExpendableMaterial"/>
+                                <textField id="priseExpendableMaterialField" property="priceExpendableMaterial" visible="false"/>
                                 <timeField id="taskTimePlaneField" property="taskTimePlane"/>
                                 <textField id="salaryElementaryField" property="salaryElementary"/>
                                 <textField id="salaryMediumField" property="salaryMedium"/>
