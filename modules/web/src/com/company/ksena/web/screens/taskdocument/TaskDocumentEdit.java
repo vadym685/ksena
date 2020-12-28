@@ -117,6 +117,10 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
     private LookupField<TaskType> taskTypeField;
     @Inject
     private TextField<Double> fixedCostForCleaningField;
+    @Inject
+    private CheckBox addPriseExpendableMaterialField;
+    @Inject
+    private TextField<Double> priseExpendableMaterialField;
 
 
     @Subscribe("companyField")
@@ -547,7 +551,7 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
 
     @Subscribe("createDateField")
     public void onCreateDateFieldValueChange(HasValue.ValueChangeEvent<LocalDate> event) {
-        if (event.getValue() != null && docNumberField.getValue() == null) {
+            if (event.getValue() != null) {
             String resultString = event.getValue().toString().replaceAll("-", "");
 
 
@@ -567,7 +571,8 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
 
     }
 
-    public void createTask() {
+    public void createTask(){
+        this.commitChanges();
 
         Task newTask = metadata.create(Task.class);
         newTask.setTaskDocument(this.getEditedEntity());
@@ -579,6 +584,7 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
         newTask.setSalaryHigh(null);
         newTask.setSalaryMedium(null);
         newTask.setAddPriseExpendableMaterial(null);
+        newTask.setPriсeExpendableMaterial(null);
         newTask.setEmployees(null);
         newTask.setTaskTimePlane(null);
 
@@ -624,6 +630,7 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
         newTask.setSalaryHigh(this.getEditedEntity().getSalaryHigh());
         newTask.setSalaryMedium(this.getEditedEntity().getSalaryMedium());
         newTask.setAddPriseExpendableMaterial(this.getEditedEntity().getAddPriseExpendableMaterial());
+        newTask.setPriсeExpendableMaterial(this.getEditedEntity().getPriceExpendableMaterial());
         newTask.setEmployees(this.getEditedEntity().getEmployeesMap());
         newTask.setTypeOfCostFormation(this.getEditedEntity().getTypeOfCostFormation());
         newTask.setFixedCostForCleaning(this.getEditedEntity().getFixedCostForCleaning());
@@ -646,33 +653,38 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
 
 
         List<PositionWrapper> addpositionWrappers = new ArrayList<>();
+        if (this.getEditedEntity().getCleaningMap() != null) {
+            this.getEditedEntity().getCleaningMap().forEach(wrapper -> {
+                PositionWrapper positionWrapper = metadata.getTools().copy(wrapper);
 
-        this.getEditedEntity().getCleaningMap().forEach(wrapper -> {
-            PositionWrapper positionWrapper = metadata.getTools().copy(wrapper);
+                positionWrapper.setId(UUID.randomUUID());
+                positionWrapper.setTaskDocuments(null);
+                positionWrapper.setTask(newTask);
+                addpositionWrappers.add(positionWrapper);
+            });
 
-            positionWrapper.setId(UUID.randomUUID());
-            positionWrapper.setTaskDocuments(null);
-            positionWrapper.setTask(newTask);
-            addpositionWrappers.add(positionWrapper);
 
-//            newTask.CleaningMap().add(positionWrapper);
-//            newTask.getCleaningMap().sort(Comparator.comparing(PositionWrapper::getPriorityCleaningPosition));
-        });
-
-        newTask.setCleaningMap(addpositionWrappers);
-        newTask.getCleaningMap().sort(Comparator.comparing(PositionWrapper::getPriorityCleaningPosition));
+            newTask.setCleaningMap(addpositionWrappers);
+            newTask.getCleaningMap().sort(Comparator.comparing(PositionWrapper::getPriorityCleaningPosition));
+        } else {
+            newTask.setCleaningMap(addpositionWrappers);
+        }
 
         List<InventoryWrapper> addInventoryWrapper = new ArrayList<>();
-        for (InventoryWrapper inventoryWrapper : inventoryWrapperList) {
-            InventoryWrapper newInventoryWrapper = metadata.create(InventoryWrapper.class);
-            newInventoryWrapper.setInventory(inventoryWrapper.getInventory());
-            newInventoryWrapper.setQuantityInventory(1);
-            newInventoryWrapper.setTask(newTask);
-            newInventoryWrapper.setTaskDocuments(null);
+        if (this.getEditedEntity().getInventoryMap() != null) {
+            for (InventoryWrapper inventoryWrapper : inventoryWrapperList) {
+                InventoryWrapper newInventoryWrapper = metadata.create(InventoryWrapper.class);
+                newInventoryWrapper.setInventory(inventoryWrapper.getInventory());
+                newInventoryWrapper.setQuantityInventory(1);
+                newInventoryWrapper.setTask(newTask);
+                newInventoryWrapper.setTaskDocuments(null);
 
-            addInventoryWrapper.add(newInventoryWrapper);
+                addInventoryWrapper.add(newInventoryWrapper);
+            }
+            newTask.setInventoryMap(addInventoryWrapper);
+        } else {
+            newTask.setInventoryMap(addInventoryWrapper);
         }
-        newTask.setInventoryMap(addInventoryWrapper);
 
         TaskEdit screen = (TaskEdit) screenBuilders.editor(Task.class, this)
                 .editEntity(newTask)
@@ -681,7 +693,10 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
 //        screen.onTaskDocumentFieldValueChange(new HasValue.ValueChangeEvent<>(screen.getTaskDocumentField(), null, getEditedEntity()));
 
         screen.show();
+
     }
+
+
 
     @Subscribe("dateOfCompletionField")
     public void onDateOfCompletionFieldValueChange(HasValue.ValueChangeEvent<LocalDate> event) {
@@ -703,7 +718,9 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
 
     @Subscribe("createTaskAllTimeDoc")
     public void onCreateTaskAllTimeDocClick(Button.ClickEvent event) {
+        this.commitChanges();
         if (taskTypeField.getValue() == TaskType.ONE_TIME) {
+
             Task newTask = new Task();
             newTask.setTaskDocument(this.getEditedEntity());
             newTask.setPoint(null);
@@ -752,6 +769,7 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
             newTask.setSalaryHigh(this.getEditedEntity().getSalaryHigh());
             newTask.setSalaryMedium(this.getEditedEntity().getSalaryMedium());
             newTask.setAddPriseExpendableMaterial(this.getEditedEntity().getAddPriseExpendableMaterial());
+            newTask.setPriсeExpendableMaterial(this.getEditedEntity().getPriceExpendableMaterial());
             newTask.setEmployees(this.getEditedEntity().getEmployeesMap());
 
             if (this.getEditedEntity().getAllTaskDone() != null && this.getEditedEntity().getAllTaskDone()) {
@@ -775,35 +793,40 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
             List<InventoryWrapper> inventoryWrapperList = this.getEditedEntity().getInventoryMap();
 
             List<PositionWrapper> addpositionWrappers = new ArrayList<>();
+            if (this.getEditedEntity().getInventoryMap() != null) {
+                this.getEditedEntity().getCleaningMap().forEach(wrapper -> {
+                    PositionWrapper positionWrapper = metadata.getTools().copy(wrapper);
+                    positionWrapper.setId(UUID.randomUUID());
+                    positionWrapper.setTaskDocuments(null);
+                    positionWrapper.setTask(newTask);
+                    addpositionWrappers.add(positionWrapper);
 
-            this.getEditedEntity().getCleaningMap().forEach(wrapper -> {
-                PositionWrapper positionWrapper = metadata.getTools().copy(wrapper);
-                positionWrapper.setId(UUID.randomUUID());
-                positionWrapper.setTaskDocuments(null);
-                positionWrapper.setTask(newTask);
-                addpositionWrappers.add(positionWrapper);
-
-            });
-            newTask.setCleaningMap(addpositionWrappers);
-            newTask.getCleaningMap().sort(Comparator.comparing(PositionWrapper::getPriorityCleaningPosition));
-
-            List<InventoryWrapper> addInventoryWrapper = new ArrayList<>();
-            for (InventoryWrapper inventoryWrapper : inventoryWrapperList) {
-                InventoryWrapper newInventoryWrapper = metadata.create(InventoryWrapper.class);
-                newInventoryWrapper.setInventory(inventoryWrapper.getInventory());
-                newInventoryWrapper.setQuantityInventory(1);
-                newInventoryWrapper.setTask(newTask);
-                newInventoryWrapper.setTaskDocuments(null);
-                addInventoryWrapper.add(newInventoryWrapper);
+                });
+                newTask.setCleaningMap(addpositionWrappers);
+                newTask.getCleaningMap().sort(Comparator.comparing(PositionWrapper::getPriorityCleaningPosition));
+            }else {
+                newTask.setCleaningMap(addpositionWrappers);
             }
-            newTask.setInventoryMap(addInventoryWrapper);
+            List<InventoryWrapper> addInventoryWrapper = new ArrayList<>();
+            if (this.getEditedEntity().getInventoryMap() != null) {
+                for (InventoryWrapper inventoryWrapper : inventoryWrapperList) {
+                    InventoryWrapper newInventoryWrapper = metadata.create(InventoryWrapper.class);
+                    newInventoryWrapper.setInventory(inventoryWrapper.getInventory());
+                    newInventoryWrapper.setQuantityInventory(1);
+                    newInventoryWrapper.setTask(newTask);
+                    newInventoryWrapper.setTaskDocuments(null);
+                    addInventoryWrapper.add(newInventoryWrapper);
+                }
+                newTask.setInventoryMap(addInventoryWrapper);
 
-            CommitContext commitContext = new CommitContext();
-            commitContext.addInstanceToCommit(newTask);
-            newTask.getCleaningMap().forEach(commitContext::addInstanceToCommit);
-            newTask.getInventoryMap().forEach(commitContext::addInstanceToCommit);
-            dataManager.commit(commitContext);
-
+                CommitContext commitContext = new CommitContext();
+                commitContext.addInstanceToCommit(newTask);
+                newTask.getCleaningMap().forEach(commitContext::addInstanceToCommit);
+                newTask.getInventoryMap().forEach(commitContext::addInstanceToCommit);
+                dataManager.commit(commitContext);
+            } else {
+                newTask.setInventoryMap(addInventoryWrapper);
+            }
         } else if (taskTypeField.getValue() == TaskType.REPEAT) {
             if (this.typeOfPeriodicityField.getValue() == null) {
                 notifications.create().withDescription("Set type of periodicity").show();
@@ -850,6 +873,7 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                             newTask.setSalaryHigh(null);
                             newTask.setSalaryMedium(null);
                             newTask.setAddPriseExpendableMaterial(null);
+                            newTask.setPriсeExpendableMaterial(null);
                             newTask.setEmployees(null);
                             if (newTask.getCleaningMap() != null) {
                                 List<PositionWrapper> clearCleaningMapList = newTask.getCleaningMap();
@@ -886,6 +910,7 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                             newTask.setSalaryHigh(this.getEditedEntity().getSalaryHigh());
                             newTask.setSalaryMedium(this.getEditedEntity().getSalaryMedium());
                             newTask.setAddPriseExpendableMaterial(this.getEditedEntity().getAddPriseExpendableMaterial());
+                            newTask.setPriсeExpendableMaterial(this.getEditedEntity().getPriceExpendableMaterial());
                             newTask.setEmployees(this.getEditedEntity().getEmployeesMap());
 
                             if (this.getEditedEntity().getAllTaskDone() != null && this.getEditedEntity().getAllTaskDone()) {
@@ -956,6 +981,7 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                         newTask.setSalaryHigh(null);
                         newTask.setSalaryMedium(null);
                         newTask.setAddPriseExpendableMaterial(null);
+                        newTask.setPriсeExpendableMaterial(null);
                         newTask.setEmployees(null);
                         if (newTask.getCleaningMap() != null) {
                             List<PositionWrapper> clearCleaningMapList = newTask.getCleaningMap();
@@ -991,6 +1017,7 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                         newTask.setSalaryHigh(this.getEditedEntity().getSalaryHigh());
                         newTask.setSalaryMedium(this.getEditedEntity().getSalaryMedium());
                         newTask.setAddPriseExpendableMaterial(this.getEditedEntity().getAddPriseExpendableMaterial());
+                        newTask.setPriсeExpendableMaterial(this.getEditedEntity().getPriceExpendableMaterial());
                         newTask.setEmployees(this.getEditedEntity().getEmployeesMap());
 
                         if (this.getEditedEntity().getAllTaskDone() != null && this.getEditedEntity().getAllTaskDone()) {
@@ -1042,6 +1069,16 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
             }
         }
         createTaskAllTimeDoc.setVisible(false);
+    }
+
+    @Subscribe("addPriseExpendableMaterialField")
+    public void onAddPriseExpendableMaterialFieldValueChange(HasValue.ValueChangeEvent<Boolean> event) {
+        if (addPriseExpendableMaterialField.getValue()){
+            priseExpendableMaterialField.setVisible(true);
+        }else{
+            priseExpendableMaterialField.setVisible(false);
+            priseExpendableMaterialField.clear();
+        }
     }
 
 }

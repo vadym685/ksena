@@ -10,8 +10,8 @@
                   view="company-view">
             <loader>
             </loader>
-            <collection id="responsibleEmployeeDc" property="responsibleEmployee"/>
-            <collection id="pointsDc" property="points"/>
+<!--            <collection id="responsibleEmployeeDc" property="responsibleEmployee"/>-->
+<!--            <collection id="pointsDc" property="points"/>-->
         </instance>
 
         <collection id="taskDc"
@@ -33,6 +33,34 @@
             <loader id="taskDocDl">
                 <query>
                     <![CDATA[select e from ksena_TaskDocument e ]]>
+                    <condition>
+                        <c:jpql>
+                            <c:where>e.company.name = :name</c:where>
+                        </c:jpql>
+                    </condition>
+                </query>
+            </loader>
+        </collection>
+
+        <collection id="responsibleEmployeeDc"
+                    class="com.company.ksena.entity.people.ClientEmployee" view="clientEmployee-view">
+            <loader id="responsibleEmployeesDl">
+                <query>
+                    <![CDATA[select e from ksena_ClientEmployee e ]]>
+                    <condition>
+                        <c:jpql>
+                            <c:where>e.companies.name = :name</c:where>
+                        </c:jpql>
+                    </condition>
+                </query>
+            </loader>
+        </collection>
+
+        <collection id="pointsDc"
+                    class="com.company.ksena.entity.point.Point" view="point-view">
+            <loader id="pointsDl">
+                <query>
+                    <![CDATA[select e from ksena_Point e ]]>
                     <condition>
                         <c:jpql>
                             <c:where>e.company.name = :name</c:where>

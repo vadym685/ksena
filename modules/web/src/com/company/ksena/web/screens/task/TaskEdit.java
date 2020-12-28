@@ -115,6 +115,10 @@ public class TaskEdit extends StandardEditor<Task> {
     private CollectionLoader<TaskDocument> taskDocumentsLc;
     @Inject
     private TextField<String> taskNumberField;
+    @Inject
+    private CheckBox addPriseExpendableMaterialField;
+    @Inject
+    private TextField<Double> priseExpendableMaterialField;
 
     @Subscribe
     public void onInit(InitEvent event) {
@@ -182,6 +186,9 @@ public class TaskEdit extends StandardEditor<Task> {
             });
         });
 
+        if (addPriseExpendableMaterialField.getValue()){
+            priseExpendableMaterialField.setVisible(true);
+        }
     }
     @Subscribe("typeOfCostFormationField")
     public void onTypeOfCostFormationFieldValueChange(HasValue.ValueChangeEvent<Boolean> event) {
@@ -728,5 +735,16 @@ public class TaskEdit extends StandardEditor<Task> {
 
     public LookupPickerField<TaskDocument> getTaskDocumentField() {
         return taskDocumentField;
+    }
+
+    @Subscribe("addPriseExpendableMaterialField")
+    public void onAddPriseExpendableMaterialFieldValueChange(HasValue.ValueChangeEvent<Boolean> event) {
+        if (addPriseExpendableMaterialField.getValue()){
+            priseExpendableMaterialField.setVisible(true);
+        }else{
+            priseExpendableMaterialField.setVisible(false);
+            priseExpendableMaterialField.clear();
+        }
+
     }
 }
