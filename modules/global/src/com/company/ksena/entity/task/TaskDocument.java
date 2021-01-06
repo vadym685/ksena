@@ -125,6 +125,26 @@ public class TaskDocument extends StandardEntity {
     @Column(name = "COST_PER_HOUR")
     protected Double costPerHour;
 
+    @Column(name = "ADDITIONAL_CUSTOMER_PAYMENT")
+    private Double additionalCustomerPayment;
+
+    @Column(name = "ADDITIONAL_EMPLOYEE_PAYMENT")
+    private Double additionalEmployeePayment;
+
+    @Column(name = "TRANSPORT_COSTS_CUSTOMER")
+    private Double transportCostsCustomer;
+
+    @Column(name = "TRANSPORT_COSTS_EMPLOYEE")
+    private Double transportCostsEmployee;
+
+    public void setAdditionalCustomerPayment(Double additionalCustomerPayment) {
+        this.additionalCustomerPayment = additionalCustomerPayment;
+    }
+
+    public Double getAdditionalCustomerPayment() {
+        return additionalCustomerPayment;
+    }
+
     public Double getPriceExpendableMaterial() {
         return priceExpendableMaterial;
     }
@@ -355,4 +375,27 @@ public class TaskDocument extends StandardEntity {
 
     }
 
+    public Double getAdditionalEmployeePayment() {
+        return additionalEmployeePayment;
+    }
+
+    public void setAdditionalEmployeePayment(Double additionalEmployeePayment) {
+        this.additionalEmployeePayment = additionalEmployeePayment;
+    }
+
+    public Double getTransportCostsCustomer() {
+        return transportCostsCustomer;
+    }
+
+    public void setTransportCostsCustomer(Double transportCostsCustomer) {
+        this.transportCostsCustomer = transportCostsCustomer;
+    }
+
+    public Double getTransportCostsEmployee() {
+        return transportCostsEmployee;
+    }
+
+    public void setTransportCostsEmployee(Double transportCostsEmployee) {
+        this.transportCostsEmployee = transportCostsEmployee;
+    }
 }

@@ -78,6 +78,10 @@
                                 <textField id="salaryElementaryField" property="salaryElementary"/>
                                 <textField id="salaryMediumField" property="salaryMedium"/>
                                 <textField id="salaryHighField" property="salaryHigh"/>
+                                <textField id="AdditionalCustomerPaymentField" property="additionalCustomerPayment"/>
+                                <textField id="AdditionalEmployeePaymentField" property="additionalEmployeePayment"/>
+                                <textField id="transportCostsCustomerField" property="transportCostsCustomer"/>
+                                <textField id="transportCostsEmployeeField" property="transportCostsEmployee"/>
                             </column>
                         </form>
                         <groupBox spacing="true">
