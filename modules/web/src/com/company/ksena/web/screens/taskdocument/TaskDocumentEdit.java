@@ -651,6 +651,10 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
         newTask.setFullCost(this.getEditedEntity().getFullCost());
         newTask.setCostPerHour(this.getEditedEntity().getCostPerHour());
         newTask.setTaskTimePlane(this.getEditedEntity().getTaskTimePlane());
+        newTask.setAdditionalCustomerPayment(getEditedEntity().getAdditionalCustomerPayment());
+        newTask.setAdditionalEmployeePayment(getEditedEntity().getAdditionalEmployeePayment());
+        newTask.setTransportCostsCustomer(getEditedEntity().getTransportCostsCustomer());
+        newTask.setTransportCostsEmployee(getEditedEntity().getTransportCostsEmployee());
 
         if (this.getEditedEntity().getAllTaskDone() != null && this.getEditedEntity().getAllTaskDone()) {
             newTask.setTaskStatus(TaskStatus.EXECUTED);
@@ -797,6 +801,10 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
             newTask.setCostPerHour(this.getEditedEntity().getCostPerHour());
             newTask.setTaskTimePlane(this.getEditedEntity().getTaskTimePlane());
             newTask.setDateOfCompletion(this.getEditedEntity().getDateOfCompletion());
+            newTask.setAdditionalCustomerPayment(getEditedEntity().getAdditionalCustomerPayment());
+            newTask.setAdditionalEmployeePayment(getEditedEntity().getAdditionalEmployeePayment());
+            newTask.setTransportCostsCustomer(getEditedEntity().getTransportCostsCustomer());
+            newTask.setTransportCostsEmployee(getEditedEntity().getTransportCostsEmployee());
 
             if (this.getEditedEntity().getTypeOfCostFormation() == TypeOfCostFormation.FIXED_PRICE) {
                 newTask.setCost(this.getEditedEntity().getFullCost());
@@ -937,6 +945,10 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                             newTask.setCostPerHour(this.getEditedEntity().getCostPerHour());
                             newTask.setTaskTimePlane(this.getEditedEntity().getTaskTimePlane());
                             newTask.setDateOfCompletion(startDate);
+                            newTask.setAdditionalCustomerPayment(getEditedEntity().getAdditionalCustomerPayment());
+                            newTask.setAdditionalEmployeePayment(getEditedEntity().getAdditionalEmployeePayment());
+                            newTask.setTransportCostsCustomer(getEditedEntity().getTransportCostsCustomer());
+                            newTask.setTransportCostsEmployee(getEditedEntity().getTransportCostsEmployee());
                             if (this.getEditedEntity().getTypeOfCostFormation() == TypeOfCostFormation.FIXED_PRICE) {
                                 newTask.setCost(this.getEditedEntity().getFullCost());
                             }
@@ -1044,6 +1056,10 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                         newTask.setCostPerHour(this.getEditedEntity().getCostPerHour());
                         newTask.setTaskTimePlane(this.getEditedEntity().getTaskTimePlane());
                         newTask.setDateOfCompletion(startDate);
+                        newTask.setAdditionalCustomerPayment(getEditedEntity().getAdditionalCustomerPayment());
+                        newTask.setAdditionalEmployeePayment(getEditedEntity().getAdditionalEmployeePayment());
+                        newTask.setTransportCostsCustomer(getEditedEntity().getTransportCostsCustomer());
+                        newTask.setTransportCostsEmployee(getEditedEntity().getTransportCostsEmployee());
                         if (this.getEditedEntity().getTypeOfCostFormation() == TypeOfCostFormation.FIXED_PRICE) {
                             newTask.setCost(this.getEditedEntity().getFullCost());
                         }

@@ -131,6 +131,12 @@ public class TaskDocument extends StandardEntity {
     @Column(name = "ADDITIONAL_EMPLOYEE_PAYMENT")
     private Double additionalEmployeePayment;
 
+    @Column(name = "TRANSPORT_COSTS_CUSTOMER")
+    private Double transportCostsCustomer;
+
+    @Column(name = "TRANSPORT_COSTS_EMPLOYEE")
+    private Double transportCostsEmployee;
+
     public void setAdditionalCustomerPayment(Double additionalCustomerPayment) {
         this.additionalCustomerPayment = additionalCustomerPayment;
     }
@@ -375,5 +381,21 @@ public class TaskDocument extends StandardEntity {
 
     public void setAdditionalEmployeePayment(Double additionalEmployeePayment) {
         this.additionalEmployeePayment = additionalEmployeePayment;
+    }
+
+    public Double getTransportCostsCustomer() {
+        return transportCostsCustomer;
+    }
+
+    public void setTransportCostsCustomer(Double transportCostsCustomer) {
+        this.transportCostsCustomer = transportCostsCustomer;
+    }
+
+    public Double getTransportCostsEmployee() {
+        return transportCostsEmployee;
+    }
+
+    public void setTransportCostsEmployee(Double transportCostsEmployee) {
+        this.transportCostsEmployee = transportCostsEmployee;
     }
 }

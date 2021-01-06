@@ -250,6 +250,8 @@ create table KSENA_TASK (
     COST_PER_HOUR double precision,
     ADDITIONAL_CUSTOMER_PAYMENT double precision,
     ADDITIONAL_EMPLOYEE_PAYMENT double precision,
+    TRANSPORT_COSTS_CUSTOMER double precision,
+    TRANSPORT_COSTS_EMPLOYEE double precision,
     --
     primary key (ID)
 )^
@@ -339,6 +341,8 @@ create table KSENA_TASK_DOCUMENT (
     COST_PER_HOUR double precision,
     ADDITIONAL_CUSTOMER_PAYMENT double precision,
     ADDITIONAL_EMPLOYEE_PAYMENT double precision,
+    TRANSPORT_COSTS_CUSTOMER double precision,
+    TRANSPORT_COSTS_EMPLOYEE double precision,
     --
     primary key (ID)
 )^
