@@ -249,9 +249,9 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                 .parameter("taskDocument", this.getEditedEntity())
                 .parameter("dateOfCompletion", LocalDateTime.now().toLocalDate())
                 .list();
-    if (newList.size() == 0) {
-        createTaskAllTimeDoc.setVisible(true);
-    }
+        if (newList.size() == 0) {
+            createTaskAllTimeDoc.setVisible(true);
+        }
     }
 
     @Subscribe
@@ -530,13 +530,27 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
 
     @Subscribe
     public void onBeforeCommitChanges(BeforeCommitChangesEvent event) {
-        cleaningMapDc.getItems().forEach(wrapper -> {
-            event.getDataContext().merge(wrapper);
-        });
+        event.preventCommit();
+        try {
+            TaskDocument document = dataManager.load(TaskDocument.class)
+                    .query("select e from ksena_TaskDocument e where e.docNumber = :docNumber")
+                    .parameter("docNumber", getEditedEntity().getDocNumber())
+                    .one();
 
-        inventoryDc.getItems().forEach(wrapper -> {
-            event.getDataContext().merge(wrapper);
-        });
+            if(!document.equals(getEditedEntity())) {
+                notifications.create(Notifications.NotificationType.TRAY)
+                        .withCaption(messageBundle.getMessage("notUniqueDocNumber"))
+                        .show();
+            } else {
+                event.resume();
+            }
+        } catch (Exception e) {
+            event.resume();
+        }
+
+        cleaningMapDc.getItems().forEach(wrapper -> event.getDataContext().merge(wrapper));
+
+        inventoryDc.getItems().forEach(wrapper -> event.getDataContext().merge(wrapper));
     }
 
     private void injectColorCss(String color, UUID id) {
@@ -551,7 +565,7 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
 
     @Subscribe("createDateField")
     public void onCreateDateFieldValueChange(HasValue.ValueChangeEvent<LocalDate> event) {
-            if (event.getValue() != null) {
+        if (event.getValue() != null) {
             String resultString = event.getValue().toString().replaceAll("-", "");
 
 
@@ -571,7 +585,7 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
 
     }
 
-    public void createTask(){
+    public void createTask() {
         this.commitChanges();
 
         Task newTask = metadata.create(Task.class);
@@ -697,7 +711,6 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
     }
 
 
-
     @Subscribe("dateOfCompletionField")
     public void onDateOfCompletionFieldValueChange(HasValue.ValueChangeEvent<LocalDate> event) {
         if (dateOfCompletionField.getValue() != null && dateOfEndDocumentField.getValue() != null) {
@@ -804,7 +817,7 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                 });
                 newTask.setCleaningMap(addpositionWrappers);
                 newTask.getCleaningMap().sort(Comparator.comparing(PositionWrapper::getPriorityCleaningPosition));
-            }else {
+            } else {
                 newTask.setCleaningMap(addpositionWrappers);
             }
             List<InventoryWrapper> addInventoryWrapper = new ArrayList<>();
@@ -1073,9 +1086,9 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
 
     @Subscribe("addPriseExpendableMaterialField")
     public void onAddPriseExpendableMaterialFieldValueChange(HasValue.ValueChangeEvent<Boolean> event) {
-        if (addPriseExpendableMaterialField.getValue()){
+        if (addPriseExpendableMaterialField.getValue()) {
             priseExpendableMaterialField.setVisible(true);
-        }else{
+        } else {
             priseExpendableMaterialField.setVisible(false);
             priseExpendableMaterialField.clear();
         }

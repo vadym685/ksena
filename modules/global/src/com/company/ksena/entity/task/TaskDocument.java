@@ -24,7 +24,7 @@ public class TaskDocument extends StandardEntity {
     private static final long serialVersionUID = 2314314178317765350L;
 
     @NotNull
-    @Column(name = "DOC_NUMBER", unique = true)
+    @Column(name = "DOC_NUMBER")
     protected String docNumber;
 
     @Column(name = "ADD_PRISE_EXPENDABLE_MATERIAL")
