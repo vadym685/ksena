@@ -122,7 +122,7 @@ create table KSENA_COORDINATES (
     UPDATED_BY varchar(50),
     DELETE_TS timestamp,
     DELETED_BY varchar(50),
-    DTYPE varchar(100),
+    DTYPE varchar(31),
     --
     LATITUDE double precision,
     LONGITUDE double precision,
@@ -248,6 +248,8 @@ create table KSENA_TASK (
     FIXED_COST_FOR_CLEANING double precision,
     FULL_COST double precision,
     COST_PER_HOUR double precision,
+    ADDITIONAL_CUSTOMER_PAYMENT double precision,
+    ADDITIONAL_EMPLOYEE_PAYMENT double precision,
     --
     primary key (ID)
 )^
@@ -335,6 +337,8 @@ create table KSENA_TASK_DOCUMENT (
     FIXED_COST_FOR_CLEANING double precision,
     FULL_COST double precision,
     COST_PER_HOUR double precision,
+    ADDITIONAL_CUSTOMER_PAYMENT double precision,
+    ADDITIONAL_EMPLOYEE_PAYMENT double precision,
     --
     primary key (ID)
 )^

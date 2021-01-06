@@ -44,8 +44,6 @@ import java.util.stream.Collectors;
 @UiDescriptor("reports-screen.xml")
 public class ReportsScreen extends Screen {
 
-    //    @Inject
-//    private DateField<LocalDate> finishDate;
     @Inject
     private LookupPickerField<Company> companyField;
     @Inject
@@ -90,6 +88,7 @@ public class ReportsScreen extends Screen {
             String taskDate;
             double fullPrice = 0;
             double taskCost = 0;
+            double additionalCustomerPayment = 0;
             String oldCompanyName = null;
             String oldTaskDocNumber = null;
 
@@ -215,11 +214,22 @@ public class ReportsScreen extends Screen {
                 } catch (Exception e) {
                     taskTimePlane = "";
                 }
+                try {
+                    additionalCustomerPayment = task.getAdditionalCustomerPayment();
+                } catch (Exception e) {
+                    additionalCustomerPayment = 0;
+                }
                 if (task.getTaskDocument().getTypeOfCostFormation() == TypeOfCostFormation.FIXED_PRICE) {
                     if (oldTaskDocNumber == taskDocNumber && taskDocNumber != null) {
                         oldTaskDocNumber = taskDocNumber;
                         continue;
                     }
+                    try {
+                        additionalCustomerPayment = task.getTaskDocument().getAdditionalCustomerPayment();
+                    } catch (Exception e) {
+                        additionalCustomerPayment = 0;
+                    }
+
                     sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 7));
                     row = sheet.createRow(rowNum);
                     row.setHeightInPoints(12.75f);
@@ -252,6 +262,10 @@ public class ReportsScreen extends Screen {
                     cell.setCellValue(messageBundle.getMessage("jobCost"));
                     cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
 
+                    cell = row.createCell(6, CellType.STRING);
+                    cell.setCellValue(messageBundle.getMessage("additionalCustomerPayment"));
+                    cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
                     cell = row.createCell(7, CellType.STRING);
                     cell.setCellValue(messageBundle.getMessage("fullCost"));
                     cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
@@ -271,9 +285,12 @@ public class ReportsScreen extends Screen {
                     cell.setCellValue(task.getTaskDocument().getFullCost());
                     cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
 
+                    cell = row.createCell(6, CellType.STRING);
+                    cell.setCellValue(additionalCustomerPayment);
+                    cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
 
                     cell = row.createCell(7, CellType.STRING);
-                    cell.setCellValue(task.getTaskDocument().getFullCost());
+                    cell.setCellValue(task.getTaskDocument().getFullCost() + additionalCustomerPayment);
                     cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
 
                     oldTaskDocNumber = taskDocNumber;
@@ -333,6 +350,10 @@ public class ReportsScreen extends Screen {
                     cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
 
                     cell = row.createCell(8, CellType.STRING);
+                    cell.setCellValue(messageBundle.getMessage("additionalCustomerPayment"));
+                    cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+                    cell = row.createCell(9, CellType.STRING);
                     cell.setCellValue(messageBundle.getMessage("fullCost"));
                     cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
                 }
@@ -386,7 +407,11 @@ public class ReportsScreen extends Screen {
                 cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
 
                 cell = row.createCell(8, CellType.STRING);
-                cell.setCellValue(fullPrice + taskCost);
+                cell.setCellValue(additionalCustomerPayment);
+                cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+                cell = row.createCell(9, CellType.STRING);
+                cell.setCellValue(fullPrice + taskCost + additionalCustomerPayment);
                 cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
 
                 oldCompanyName = companyName;
@@ -571,6 +596,10 @@ public class ReportsScreen extends Screen {
                 cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
 
                 cell = row.createCell(5, CellType.STRING);
+                cell.setCellValue(messageBundle.getMessage("additionalEmployeePayment"));
+                cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+                cell = row.createCell(6, CellType.STRING);
                 cell.setCellValue(messageBundle.getMessage("wage"));
                 cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
 
@@ -605,6 +634,13 @@ public class ReportsScreen extends Screen {
                         companyName = task.getCompany().getName();
                     } catch (Exception e) {
                         companyName = "";
+                    }
+
+                    double additionalPayment = 0;
+                    try {
+                        additionalPayment = task.getAdditionalEmployeePayment();
+                    } catch (Exception e){
+                        additionalPayment = 0;
                     }
 
                     double wage;
@@ -642,6 +678,10 @@ public class ReportsScreen extends Screen {
                     cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
 
                     cell = row.createCell(5, CellType.STRING);
+                    cell.setCellValue(additionalPayment);
+                    cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
+
+                    cell = row.createCell(6, CellType.STRING);
                     cell.setCellValue(wage);
                     cell.setCellStyle(createStyle(workbook, true, 8, true, HorizontalAlignment.CENTER));
 
