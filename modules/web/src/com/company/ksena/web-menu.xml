@@ -26,9 +26,9 @@
         <item screen="ksena_ClientEmployee.browse"/>
         <item screen="ksena_CompanyType.browse"/>
         <item screen="ksena_CompanyCategory.browse"/>
-
     </menu>
 
-
-
+    <menu id="hidden" insertBefore="administration">
+        <item screen="ksena_ServerConstants.browse"/>
+    </menu>
 </menu-config>
