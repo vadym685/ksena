@@ -21,12 +21,9 @@ import com.haulmont.cuba.gui.export.ExportDisplay;
 import com.haulmont.cuba.gui.export.ExportFormat;
 import com.haulmont.cuba.gui.screen.*;
 import com.haulmont.cuba.gui.upload.FileUploadingAPI;
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFFont;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.*;
 
 import javax.inject.Inject;
 import java.io.FileInputStream;
@@ -93,8 +90,9 @@ public class ReportsScreen extends Screen {
             String oldCompanyName = null;
             String oldTaskDocNumber = null;
 
-            HSSFWorkbook workbook = new HSSFWorkbook(); //создаешь новый файл
-            HSSFSheet sheet = workbook.createSheet(messageBundle.getMessage("sheet")); // создаешь новый лист
+            XSSFWorkbook workbook = new XSSFWorkbook(); //создаешь новый файл
+            workbook.setWorkbookType(XSSFWorkbookType.XLSX);
+            XSSFSheet sheet = workbook.createSheet(messageBundle.getMessage("sheet")); // создаешь новый лист
             sheet.setMargin(Sheet.LeftMargin, 0.0);
             sheet.setMargin(Sheet.RightMargin, 0.0);
             sheet.getPrintSetup().setLandscape(true);
@@ -203,7 +201,7 @@ public class ReportsScreen extends Screen {
                         }
                     } else if (task.getTaskDocument().getTypeOfCostFormation() == TypeOfCostFormation.FOR_TIME) {
                         try {
-                            taskCost = task.getCostPerHour() * task.getTaskTimePlane().getHour();
+                            taskCost = task.getCostPerHour() * task.getTaskTimeFactual().getHour();
                         } catch (Exception e) {
                             taskCost = 0;
                         }
@@ -476,12 +474,12 @@ public class ReportsScreen extends Screen {
 
     }
 
-    private static HSSFCellStyle createStyle(HSSFWorkbook workbook, boolean bold, int fontHeight, boolean border, HorizontalAlignment alignment) {
-        HSSFFont font = workbook.createFont();
+    private static XSSFCellStyle createStyle(XSSFWorkbook workbook, boolean bold, int fontHeight, boolean border, HorizontalAlignment alignment) {
+        XSSFFont font = workbook.createFont();
         font.setFontHeightInPoints((short) fontHeight);
         font.setBold(bold);
 
-        HSSFCellStyle style = workbook.createCellStyle();
+        XSSFCellStyle style = workbook.createCellStyle();
         style.setFont(font);
         style.setAlignment(alignment);
         style.setWrapText(true);
@@ -503,8 +501,9 @@ public class ReportsScreen extends Screen {
 
             List<Task> taskList;
 
-            HSSFWorkbook workbook = new HSSFWorkbook(); //создаешь новый файл
-            HSSFSheet sheet = workbook.createSheet(messageBundle.getMessage("sheet")); // создаешь новый лист
+            XSSFWorkbook workbook = new XSSFWorkbook(); //создаешь новый файл
+            workbook.setWorkbookType(XSSFWorkbookType.XLSX);
+            XSSFSheet sheet = workbook.createSheet(messageBundle.getMessage("sheet")); // создаешь новый лист
             sheet.setMargin(Sheet.LeftMargin, 0.0);
             sheet.setMargin(Sheet.RightMargin, 0.0);
             sheet.getPrintSetup().setLandscape(true);
@@ -687,7 +686,11 @@ public class ReportsScreen extends Screen {
                     } else if (employee.getQualification() == Qualification.MEDIUM) {
                         wage = task.getSalaryMedium();
                     } else if (employee.getQualification() == Qualification.HIGH) {
-                        wage = task.getSalaryHigh();
+                        try {
+                            wage = task.getSalaryHigh();
+                        } catch (Exception e) {
+                            wage = 0;
+                        }
                     } else {
                         wage = 0;
                     }

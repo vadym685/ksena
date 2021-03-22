@@ -29,11 +29,15 @@
                     dataContainer="tasksDc" multiselect="true">
             <actions>
                 <action id="create" type="create" caption="mainMsg://create"/>
-<!--                <action id="copy"  caption="copy"/>-->
                 <action id="edit" type="edit" caption="mainMsg://edit"/>
                 <action id="remove" type="remove" caption="mainMsg://remove"/>
                 <action id="list" type="listPrintForm" caption="msg://printDetails"/>
                 <action id="excel" type="excel"/>
+                <action id="bulkEdit" type="bulkEdit">
+                    <properties>
+                        <property name="loadDynamicAttributes" value="true"/>
+                    </properties>
+                </action>
             </actions>
             <columns>
                 <column id="taskNumber"/>
@@ -45,8 +49,11 @@
                 <column id="salaryHigh"/>
                 <column id="addPriseExpendableMaterial"/>
                 <column id="cost"/>
+                <column id="costPerHour"/>
+                <column id="fixedCostForCleaning"/>
+<!--                <column id="typeOfCostFormation"/>-->
                 <column id="taskTimePlane"/>
-                <column id="point.name"/>
+                <column id="point.name" caption="mainMsg://PointName"/>
                 <column id="salaryMedium"/>
                 <column id="delay"/>
                 <column id="salaryElementary"/>
@@ -60,6 +67,7 @@
                 <button id="removeBtn" action="tasksTable.remove"/>
                 <button id="listBtn" action="tasksTable.list"/>
                 <button id="excelBtn" action="tasksTable.excel"/>
+                <button id="bulkEDit" action="tasksTable.bulkEdit"/>
             </buttonsPanel>
         </groupTable>
         <hbox id="lookupActions" spacing="true" visible="false">

@@ -84,6 +84,11 @@ public class CompanyEdit extends StandardEditor<Company> {
 
             taskDocDl.setParameter("name", this.getEditedEntity().getName());
             taskDocDl.load();
+        } else {
+            taskDl.addPreLoadListener(CollectionLoader.PreLoadEvent::preventLoad);
+            pointsDl.addPreLoadListener(CollectionLoader.PreLoadEvent::preventLoad);
+            taskDocDl.addPreLoadListener(CollectionLoader.PreLoadEvent::preventLoad);
+            responsibleEmployeesDl.addPreLoadListener(CollectionLoader.PreLoadEvent::preventLoad);
         }
     }
 
@@ -157,7 +162,7 @@ public class CompanyEdit extends StandardEditor<Company> {
 //    @Subscribe("addResponsibleEmployee")
     public void addResponsibleEmployee(Button.ClickEvent event) {
 
-        if (this.nameField.getRawValue() == "") {
+        if (this.nameField.getRawValue().equals("")) {
             notifications.create().withDescription("Before adding employees, save the company").show();
         } else {
             Company company = dataManager.load(Company.class)
@@ -192,18 +197,19 @@ public class CompanyEdit extends StandardEditor<Company> {
 
     @Subscribe("tabSheet")
     public void onTabSheetSelectedTabChange(TabSheet.SelectedTabChangeEvent event) {
+        if (this.getEditedEntity().getName() != null) {
+            String tabName = event.getSelectedTab().getName();
 
-        String tabName = event.getSelectedTab().getName();
+            taskDl.load();
+            taskDocDl.load();
+            responsibleEmployeesDl.load();
+            pointsDl.load();
 
-        taskDl.load();
-        taskDocDl.load();
-        responsibleEmployeesDl.load();
-        pointsDl.load();
-
-        taskDocTable.refresh();
-        taskTable.refresh();
-        responsibleEmployeeTable.refresh();
-        pointsTable.refresh();
+            taskDocTable.refresh();
+            taskTable.refresh();
+            responsibleEmployeeTable.refresh();
+            pointsTable.refresh();
+        }
     }
 
     @Subscribe("createTask")

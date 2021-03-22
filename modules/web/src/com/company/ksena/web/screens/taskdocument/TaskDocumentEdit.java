@@ -884,7 +884,7 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                         });
                         if (dayOfWeeks.contains(startDate.getDayOfWeek())) {
 
-                            Task newTask = new Task();
+                            Task newTask = dataManager.create(Task.class);
                             newTask.setTaskDocument(this.getEditedEntity());
                             newTask.setPoint(null);
                             newTask.setTaskNumber(null);
@@ -982,6 +982,8 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                             newTask.setInventoryMap(addInventoryWrapper);
                             CommitContext commitContext = new CommitContext();
                             commitContext.addInstanceToCommit(newTask);
+                            commitContext.addInstanceToCommit(newTask.getCompany());
+                            commitContext.addInstanceToCommit(newTask.getPoint());
                             newTask.getCleaningMap().forEach(commitContext::addInstanceToCommit);
                             newTask.getInventoryMap().forEach(commitContext::addInstanceToCommit);
                             dataManager.commit(commitContext);
