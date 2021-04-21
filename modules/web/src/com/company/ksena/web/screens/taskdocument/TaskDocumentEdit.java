@@ -1090,6 +1090,8 @@ public class TaskDocumentEdit extends StandardEditor<TaskDocument> {
                         newTask.setInventoryMap(addInventoryWrapper);
                         CommitContext commitContext = new CommitContext();
                         commitContext.addInstanceToCommit(newTask);
+                        commitContext.addInstanceToCommit(newTask.getPoint());
+                        commitContext.addInstanceToCommit(newTask.getCompany());
                         newTask.getCleaningMap().forEach(commitContext::addInstanceToCommit);
                         newTask.getInventoryMap().forEach(commitContext::addInstanceToCommit);
 
