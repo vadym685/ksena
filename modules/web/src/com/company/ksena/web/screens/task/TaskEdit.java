@@ -7,10 +7,12 @@ import com.company.ksena.entity.company.Company;
 import com.company.ksena.entity.inventory.Inventory;
 import com.company.ksena.entity.inventory.InventoryWrapper;
 import com.company.ksena.entity.people.Employee;
+import com.company.ksena.entity.people.EmployeeType;
 import com.company.ksena.entity.point.Point;
 import com.company.ksena.entity.task.*;
 import com.company.ksena.entity.template.Template;
 import com.company.ksena.service.google_calendar_api_service.GoogleCalendarService;
+import com.company.ksena.web.screens.employee.EmployeeBrowse;
 import com.company.ksena.web.screens.inventory.AvaibleInventoryBrowse;
 import com.company.ksena.web.screens.room.RoomBrowse;
 import com.haulmont.cuba.core.app.EmailService;
@@ -119,9 +121,21 @@ public class TaskEdit extends StandardEditor<Task> {
     private CheckBox addPriseExpendableMaterialField;
     @Inject
     private TextField<Double> priseExpendableMaterialField;
+    @Inject
+    private CheckBox inventoryDeliveryRequiredField;
+    @Inject
+    private TextField<Double> costOfDeliveryField;
+    @Inject
+    private LookupPickerField responsibleForTheDeliveryOfInventoryField;
+    @Inject
+    private CollectionLoader<Employee> responsibleForTheDeliveryOfInventoryLc;
 
     @Subscribe
     public void onInit(InitEvent event) {
+
+        responsibleForTheDeliveryOfInventoryLc.setParameter("employeeType", EmployeeType.DRIVER);
+        responsibleForTheDeliveryOfInventoryLc.load();
+
         possitionTable.withUnwrapped(com.vaadin.v7.ui.Table.class, table ->
                 table.setDragMode(com.vaadin.v7.ui.Table.TableDragMode.MULTIROW)
         );
@@ -186,10 +200,22 @@ public class TaskEdit extends StandardEditor<Task> {
             });
         });
 
-        if (addPriseExpendableMaterialField.getValue()){
+        if (addPriseExpendableMaterialField.getValue()) {
             priseExpendableMaterialField.setVisible(true);
         }
+
+        if (inventoryDeliveryRequiredField.getValue()) {
+            responsibleForTheDeliveryOfInventoryField.setVisible(true);
+            costOfDeliveryField.setVisible(true);
+        } else {
+            responsibleForTheDeliveryOfInventoryField.setVisible(false);
+            costOfDeliveryField.setVisible(false);
+            costOfDeliveryField.clear();
+            responsibleForTheDeliveryOfInventoryField.clear();
+        }
+
     }
+
     @Subscribe("typeOfCostFormationField")
     public void onTypeOfCostFormationFieldValueChange(HasValue.ValueChangeEvent<Boolean> event) {
 
@@ -224,6 +250,7 @@ public class TaskEdit extends StandardEditor<Task> {
         }
 
     }
+
     private void sendByEmail() {
         Task taskItem = getEditedEntity();
 
@@ -739,12 +766,53 @@ public class TaskEdit extends StandardEditor<Task> {
 
     @Subscribe("addPriseExpendableMaterialField")
     public void onAddPriseExpendableMaterialFieldValueChange(HasValue.ValueChangeEvent<Boolean> event) {
-        if (addPriseExpendableMaterialField.getValue()){
+        if (addPriseExpendableMaterialField.getValue()) {
             priseExpendableMaterialField.setVisible(true);
-        }else{
+        } else {
             priseExpendableMaterialField.setVisible(false);
             priseExpendableMaterialField.clear();
         }
 
+    }
+
+    @Subscribe("inventoryDeliveryRequiredField")
+    public void onInventoryDeliveryRequiredFieldValueChange(HasValue.ValueChangeEvent<Boolean> event) {
+        if (inventoryDeliveryRequiredField.getValue()) {
+            responsibleForTheDeliveryOfInventoryField.setVisible(true);
+            costOfDeliveryField.setVisible(true);
+        } else {
+            responsibleForTheDeliveryOfInventoryField.setVisible(false);
+            costOfDeliveryField.setVisible(false);
+            costOfDeliveryField.clear();
+            responsibleForTheDeliveryOfInventoryField.clear();
+        }
+    }
+
+    @Subscribe("addTemporaryEmployees")
+    public void onAddTemporaryEmployeesClick(Button.ClickEvent event) {
+        EmployeeBrowse selectedEmployee = screenBuilders.lookup(Employee.class, this)
+                .withScreenClass(EmployeeBrowse.class)
+                .withOpenMode(OpenMode.DIALOG)
+                .withAfterCloseListener(e -> {
+                    if (((StandardCloseAction) e.getCloseAction()).getActionId().equals("select")) {
+                        Employee employee = e.getScreen().getSelectedEmployee();
+
+//                        for (Employee employee1 : employeesDc.getItems()) {
+//                            if (employee1.getFullNamePronunciation().equals(employee1)) {
+//                                dialogs.createExceptionDialog()
+//                                        .withCaption(messageBundle.getMessage("warning"))
+//                                        .withThrowable(new Throwable())
+//                                        .withMessage(messageBundle.getMessage("roomAlreadyAdded"))
+//                                        .show();
+//                                return;
+//                            }
+//                        }
+//тут проверка на наличие
+                    }
+                })
+                .withSelectHandler(e -> {
+                })
+                .build();
+        selectedEmployee.show();
     }
 }

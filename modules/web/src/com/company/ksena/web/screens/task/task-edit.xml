@@ -45,6 +45,19 @@
                 </query>
             </loader>
         </collection>
+        <collection id="responsibleForTheDeliveryOfInventoryDc" class="com.company.ksena.entity.people.Employee"
+                    view="_local">
+            <loader id="responsibleForTheDeliveryOfInventoryLc">
+                <query>
+                    <![CDATA[select e from ksena_Employee e]]>
+                    <condition>
+                        <c:jpql>
+                            <c:where>e.employeeType = :employeeType</c:where>
+                        </c:jpql>
+                    </condition>
+                </query>
+            </loader>
+        </collection>
     </data>
     <dialogMode height="600"
                 width="800" resizable="true"/>
@@ -77,10 +90,8 @@
                                         <action id="clear" type="picker_clear"/>
                                     </actions>
                                 </lookupPickerField>
-<!--                                <hbox caption="dateOfCompletion" width="100%">-->
-                                    <dateField id="dateOfCompletionField" property="dateOfCompletion"/>
-                                    <timeField id="timeForStartCompletionField" property="timeForStartCompletion"/>
-<!--                                </hbox>-->
+                                <dateField id="dateOfCompletionField" property="dateOfCompletion"/>
+                                <timeField id="timeForStartCompletionField" property="timeForStartCompletion"/>
                                 <lookupField id="taskStatusField" property="taskStatus"/>
                                 <textField id="delay" property="delay"/>
                                 <textField id="salaryElementary" property="salaryElementary"/>
@@ -90,24 +101,52 @@
                                 <textField id="AdditionalEmployeePaymentField" property="additionalEmployeePayment"/>
                                 <textField id="transportCostsCustomerField" property="transportCostsCustomer"/>
                                 <textField id="transportCostsEmployeeField" property="transportCostsEmployee"/>
-                                <lookupField id="typeOfCostFormationField" property="typeOfCostFormation" enable="false"/>
-                                <textField id="fixedCostForCleaningField" property="fixedCostForCleaning" visible="false"/>
+                                <lookupField id="typeOfCostFormationField" property="typeOfCostFormation"
+                                             enable="false"/>
+                                <textField id="fixedCostForCleaningField" property="fixedCostForCleaning"
+                                           visible="false"/>
                                 <textField id="costPerHourField" property="costPerHour" visible="false"/>
                                 <textField id="fullCostField" property="fullCost" visible="false"/>
                                 <checkBox id="addPriseExpendableMaterialField" property="addPriseExpendableMaterial"/>
-                                <textField id="priseExpendableMaterialField" property="priсeExpendableMaterial" visible="false"/>
+                                <textField id="priseExpendableMaterialField" property="priсeExpendableMaterial"
+                                           visible="false"/>
                                 <timeField id="taskTimePlaneField" property="taskTimePlane"/>
                                 <timeField id="taskTimeFactualField" property="taskTimeFactual"/>
+                                <textField id="plannedCleaningVolumeField" property="plannedCleaningVolume"/>
+                                <textField id="factualCleaningVolumeField" property="factualCleaningVolume"/>
+                                <textField id="plannedCleaningCostField" property="plannedCleaningCost"/>
+                                <textField id="factualCleaningCostField" property="factualCleaningCost"/>
+                                <checkBox id="inventoryDeliveryRequiredField" property="inventoryDeliveryRequired"/>
+                                <textField id="costOfDeliveryField" property="costOfDelivery" visible="false"/>
+                                <lookupPickerField id="responsibleForTheDeliveryOfInventoryField"
+                                                   optionsContainer="responsibleForTheDeliveryOfInventoryDc"
+                                                   property="responsibleForTheDeliveryOfInventory" visible="false">
+                                    <actions>
+                                        <action id="open" type="picker_open"/>
+                                        <action id="clear" type="picker_clear"/>
+                                    </actions>
+                                </lookupPickerField>
                             </column>
                         </form>
                     </groupBox>
-                    <groupBox id="commentBox" caption="mainMsg://comment" spacing="true" width="100%" align="TOP_LEFT">
-                        <form id="form2" dataContainer="taskDc" width="100%">
-                            <column width="100%">
-                                <textArea id="comment" property="comment" caption="" width="100%"/>
-                            </column>
-                        </form>
-                    </groupBox>
+                    <vbox>
+                        <groupBox id="commentBox" caption="mainMsg://comment" spacing="true" width="100%"
+                                  align="TOP_LEFT">
+                            <form id="form2" dataContainer="taskDc" width="100%">
+                                <column width="100%">
+                                    <textArea id="comment" property="comment" caption="" width="100%"/>
+                                </column>
+                            </form>
+                        </groupBox>
+                        <groupBox id="clientCommentBox" caption="mainMsg://clientComment" spacing="true" width="100%"
+                                  align="TOP_LEFT">
+                            <form id="form3" dataContainer="taskDc" width="100%">
+                                <column width="100%">
+                                    <textArea id="clientComment" property="clientComment" caption="" width="100%"/>
+                                </column>
+                            </form>
+                        </groupBox>
+                    </vbox>
                 </hbox>
 
                 <groupBox width="100%" orientation="horizontal" spacing="true">
@@ -150,6 +189,7 @@
                             </columns>
                             <buttonsPanel>
                                 <button action="employeesTable.add"/>
+                                <button id="addTemporaryEmployees" caption="mainMsg://addTemporaryEmployees"/>
                                 <button action="employeesTable.exclude"/>
                             </buttonsPanel>
                         </table>

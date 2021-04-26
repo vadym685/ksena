@@ -116,36 +116,36 @@ public class ExtMainScreen extends MainScreen implements Window.HasFoldersPane {
 
 
         for (Task task : newList) {
-//            try {
-            String styleName;
-            String description;
-            if (!task.getTaskNumber().equals("")) {
-                description = task.getTaskNumber();
-            } else {
-                continue;
-            }
+            try {
+                String styleName;
+                String description;
+                if (!task.getTaskNumber().equals("")) {
+                    description = task.getTaskNumber();
+                } else {
+                    continue;
+                }
 
-            if (task.getTaskStatus() == TaskStatus.EXECUTED) {
-                styleName = "event-green";
-            } else if (task.getTaskStatus() == TaskStatus.REJECTED || task.getTaskStatus() == TaskStatus.UNCOMPLETED) {
-                styleName = "event-red";
-            } else {
-                styleName = "event-blue";
-            }
+                if (task.getTaskStatus() == TaskStatus.EXECUTED) {
+                    styleName = "event-green";
+                } else if (task.getTaskStatus() == TaskStatus.REJECTED || task.getTaskStatus() == TaskStatus.UNCOMPLETED) {
+                    styleName = "event-red";
+                } else {
+                    styleName = "event-blue";
+                }
 
-            String eventName = "";
-            if (task.getPoint() != null) {
-                eventName = task.getCompany().getName() +", " + task.getPoint().getName();
-            } else {
-                eventName = task.getCompany().getName();
-            }
+                String eventName = "";
+                if (task.getPoint() != null) {
+                    eventName = task.getCompany().getName() + ", " + task.getPoint().getName();
+                } else {
+                    eventName = task.getCompany().getName();
+                }
 
-            generateEvent(eventName,
-                    description,
-                    task.getDateOfCompletion().atStartOfDay().toString().replace("T", " "),
-                    task.getDateOfCompletion().atStartOfDay().plusHours(1).toString().replace("T", " "), true, styleName);
-//            } catch (Exception ignored) {
-//            }
+                generateEvent(eventName,
+                        description,
+                        task.getDateOfCompletion().atStartOfDay().toString().replace("T", " "),
+                        task.getDateOfCompletion().atStartOfDay().plusHours(1).toString().replace("T", " "), true, styleName);
+            } catch (Exception ignored) {
+            }
         }
     }
 

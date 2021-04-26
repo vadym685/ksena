@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Table(name = "KSENA_EMPLOYEE")
-@NamePattern("%s|fullName")
+@NamePattern("%s|fullNamePronunciation")
 @Entity(name = "ksena_Employee")
 public class Employee extends PasportData {
     private static final long serialVersionUID = 774612025741552324L;

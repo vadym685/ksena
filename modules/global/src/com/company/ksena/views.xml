@@ -36,6 +36,7 @@
     </view>
     <view entity="ksena_Task" name="task-view" extends="_local">
         <property name="kindOfCleaning" view="_local"/>
+        <property name="responsibleForTheDeliveryOfInventory" view="employee-view"/>
         <property name="taskDocument" view="taskDocument-view"/>
         <property name="company" view="_local"/>
         <property name="point" view="_local"/>

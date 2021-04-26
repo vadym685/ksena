@@ -30,21 +30,40 @@ public class Task extends StandardEntity {
     @Column(name = "TASK_NUMBER", unique = true)
     protected String taskNumber;
 
+    @Column(name = "INVENTORY_DELIVERY_REQUIRED")
+    protected Boolean inventoryDeliveryRequired;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "KIND_OF_CLEANING_ID")
     protected KindOfCleaning kindOfCleaning;
 
-    @Column(name = "INVENTORY_DELIVERY")
-    protected Boolean inventoryDelivery;
-
     @Column(name = "COST_OF_DELIVERY")
     protected Double costOfDelivery;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "RESPONSIBLE_FOR_THE_DELIVERY_OF_INVENTORY_ID")
+    protected Employee responsibleForTheDeliveryOfInventory;
 
     @Column(name = "TIME_FOR_START_COMPLETION")
     protected LocalTime timeForStartCompletion;
 
     @Column(name = "COMMENT")
     protected String comment;
+
+    @Column(name = "CLIENT_COMMENT")
+    protected String clientComment;
+
+    @Column(name = "PLANNED_CLEANING_VOLUME")
+    protected Double plannedCleaningVolume;
+
+    @Column(name = "ACTUAL_CLEANING_VOLUME")
+    protected Double factualCleaningVolume;
+
+    @Column(name = "FACTUAL_CLEANING_COST")
+    protected Double factualCleaningCost;
+
+    @Column(name = "PLANNED_CLEANING_COST")
+    protected Double plannedCleaningCost;
 
     @Column(name = "ADD_PRISE_EXPENDABLE_MATERIAL")
     protected Boolean addPriseExpendableMaterial;
@@ -139,20 +158,68 @@ public class Task extends StandardEntity {
     @Column(name = "TRANSPORT_COSTS_EMPLOYEE")
     private Double transportCostsEmployee;
 
+    public void setFactualCleaningCost(Double factualCleaningCost) {
+        this.factualCleaningCost = factualCleaningCost;
+    }
+
+    public Double getFactualCleaningCost() {
+        return factualCleaningCost;
+    }
+
+    public Double getPlannedCleaningCost() {
+        return plannedCleaningCost;
+    }
+
+    public void setPlannedCleaningCost(Double plannedCleaningCost) {
+        this.plannedCleaningCost = plannedCleaningCost;
+    }
+
+    public Double getFactualCleaningVolume() {
+        return factualCleaningVolume;
+    }
+
+    public void setFactualCleaningVolume(Double factualCleaningVolume) {
+        this.factualCleaningVolume = factualCleaningVolume;
+    }
+
+    public Double getPlannedCleaningVolume() {
+        return plannedCleaningVolume;
+    }
+
+    public void setPlannedCleaningVolume(Double plannedCleaningVolume) {
+        this.plannedCleaningVolume = plannedCleaningVolume;
+    }
+
+    public String getClientComment() {
+        return clientComment;
+    }
+
+    public void setClientComment(String clientComment) {
+        this.clientComment = clientComment;
+    }
+
+    public Boolean getInventoryDeliveryRequired() {
+        return inventoryDeliveryRequired;
+    }
+
+    public void setInventoryDeliveryRequired(Boolean inventoryDeliveryRequired) {
+        this.inventoryDeliveryRequired = inventoryDeliveryRequired;
+    }
+
+    public Employee getResponsibleForTheDeliveryOfInventory() {
+        return responsibleForTheDeliveryOfInventory;
+    }
+
+    public void setResponsibleForTheDeliveryOfInventory(Employee responsibleForTheDeliveryOfInventory) {
+        this.responsibleForTheDeliveryOfInventory = responsibleForTheDeliveryOfInventory;
+    }
+
     public Double getCostOfDelivery() {
         return costOfDelivery;
     }
 
     public void setCostOfDelivery(Double costOfDelivery) {
         this.costOfDelivery = costOfDelivery;
-    }
-
-    public Boolean getInventoryDelivery() {
-        return inventoryDelivery;
-    }
-
-    public void setInventoryDelivery(Boolean inventoryDelivery) {
-        this.inventoryDelivery = inventoryDelivery;
     }
 
     public LocalTime getTimeForStartCompletion() {
