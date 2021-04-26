@@ -24,5 +24,6 @@
         <class>com.company.ksena.entity.template.Template</class>
         <class>com.company.ksena.entity.task.GoogleCalendarEventId</class>
         <class>com.company.ksena.entity.company.FieldOfActivity</class>
+        <class>com.company.ksena.entity.task.KindOfCleaning</class>
     </persistence-unit>
 </persistence>

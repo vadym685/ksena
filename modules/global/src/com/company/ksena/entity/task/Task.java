@@ -30,6 +30,19 @@ public class Task extends StandardEntity {
     @Column(name = "TASK_NUMBER", unique = true)
     protected String taskNumber;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "KIND_OF_CLEANING_ID")
+    protected KindOfCleaning kindOfCleaning;
+
+    @Column(name = "INVENTORY_DELIVERY")
+    protected Boolean inventoryDelivery;
+
+    @Column(name = "COST_OF_DELIVERY")
+    protected Double costOfDelivery;
+
+    @Column(name = "TIME_FOR_START_COMPLETION")
+    protected LocalTime timeForStartCompletion;
+
     @Column(name = "COMMENT")
     protected String comment;
 
@@ -125,6 +138,38 @@ public class Task extends StandardEntity {
 
     @Column(name = "TRANSPORT_COSTS_EMPLOYEE")
     private Double transportCostsEmployee;
+
+    public Double getCostOfDelivery() {
+        return costOfDelivery;
+    }
+
+    public void setCostOfDelivery(Double costOfDelivery) {
+        this.costOfDelivery = costOfDelivery;
+    }
+
+    public Boolean getInventoryDelivery() {
+        return inventoryDelivery;
+    }
+
+    public void setInventoryDelivery(Boolean inventoryDelivery) {
+        this.inventoryDelivery = inventoryDelivery;
+    }
+
+    public LocalTime getTimeForStartCompletion() {
+        return timeForStartCompletion;
+    }
+
+    public void setTimeForStartCompletion(LocalTime timeForStartCompletion) {
+        this.timeForStartCompletion = timeForStartCompletion;
+    }
+
+    public KindOfCleaning getKindOfCleaning() {
+        return kindOfCleaning;
+    }
+
+    public void setKindOfCleaning(KindOfCleaning kindOfCleaning) {
+        this.kindOfCleaning = kindOfCleaning;
+    }
 
     public void setTypeOfCostFormation(String typeOfCostFormation) {
         this.typeOfCostFormation = typeOfCostFormation;

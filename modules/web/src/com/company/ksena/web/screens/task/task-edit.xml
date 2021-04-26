@@ -66,6 +66,7 @@
                                 </lookupPickerField>
                                 <textField id="taskNumberField" property="taskNumber"/>
                                 <pickerField id="companyField" property="company"/>
+                                <pickerField id="kindOfCleaningField" property="kindOfCleaning"/>
                                 <lookupPickerField id="pointField" optionsContainer="pointsDc" property="point">
                                     <actions>
                                         <action id="open" type="picker_open">
@@ -76,7 +77,10 @@
                                         <action id="clear" type="picker_clear"/>
                                     </actions>
                                 </lookupPickerField>
-                                <dateField id="dateOfCompletionField" property="dateOfCompletion"/>
+<!--                                <hbox caption="dateOfCompletion" width="100%">-->
+                                    <dateField id="dateOfCompletionField" property="dateOfCompletion"/>
+                                    <timeField id="timeForStartCompletionField" property="timeForStartCompletion"/>
+<!--                                </hbox>-->
                                 <lookupField id="taskStatusField" property="taskStatus"/>
                                 <textField id="delay" property="delay"/>
                                 <textField id="salaryElementary" property="salaryElementary"/>
