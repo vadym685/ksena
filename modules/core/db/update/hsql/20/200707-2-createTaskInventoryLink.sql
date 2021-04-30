@@ -1,2 +1,0 @@
-alter table KSENA_TASK_INVENTORY_LINK add constraint FK_TASINV_ON_INVENTORY foreign key (INVENTORY_ID) references KSENA_INVENTORY(ID);
-alter table KSENA_TASK_INVENTORY_LINK add constraint FK_TASINV_ON_TASK foreign key (TASK_ID) references KSENA_TASK(ID);

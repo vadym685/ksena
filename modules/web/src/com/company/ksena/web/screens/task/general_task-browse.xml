@@ -10,7 +10,7 @@
                     view="task-view">
             <loader id="tasksDl">
                 <query>
-                    <![CDATA[select e from ksena_Task e where e.disposable = false]]>
+                    <![CDATA[select e from ksena_Task e where e.disposable = true]]>
                 </query>
             </loader>
         </collection>

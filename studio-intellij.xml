@@ -17,7 +17,7 @@
           <option name="user" value="sa" />
         </SavedDbProperties>
         <SavedDbProperties>
-          <option name="databaseName" value="ksena_db" />
+          <option name="databaseName" value="ksena_db_copy" />
           <option name="dbType" value="postgres" />
           <option name="dbmsVersion" />
           <option name="host" value="159.69.136.87" />
@@ -25,7 +25,7 @@
           <option name="port" value="25432" />
           <option name="systemPassword" value="" />
           <option name="systemUser" value="" />
-          <option name="url" value="jdbc:postgresql://159.69.136.87:25432/ksena_db" />
+          <option name="url" value="jdbc:postgresql://159.69.136.87:25432/ksena_db_copy" />
           <option name="user" value="postgres" />
         </SavedDbProperties>
       </list>

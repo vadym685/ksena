@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://browseCaption"
+        focusComponent="employeesTable"
+        messagesPack="com.company.ksena.web.screens.employee">
+    <data readOnly="true">
+        <collection id="employeesDc"
+                    class="com.company.ksena.entity.people.Employee"
+                    view="_local">
+            <loader id="employeesDl">
+                <query>
+                    <![CDATA[select e from ksena_Employee e]]>
+                    <condition>
+                        <c:jpql>
+                            <c:where>e.employeeType = :employeeType</c:where>
+                        </c:jpql>
+                    </condition>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="employeesTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="employeesTable"
+                dataLoader="employeesDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="employeesTable"
+                    width="100%"
+                    dataContainer="employeesDc">
+            <actions>
+                <action id="create" type="create" caption="mainMsg://create"/>
+                <action id="edit" type="edit" caption="mainMsg://edit"/>
+                <action id="remove" type="remove" caption="mainMsg://remove"/>
+                <action id="excel" type="excel"/>
+            </actions>
+            <columns>
+                <column id="firstName"/>
+                <column id="lastName"/>
+                <column id="middleName"/>
+                <column id="fullName"/>
+                <column id="phoneNumber"/>
+                <column id="employeeType"/>
+                <column id="isActive"/>
+                <column id="fullNamePronunciation"/>
+                <column id="qualification"/>
+                <column id="dateOfEmployment"/>
+                <column id="dateOfDismissal"/>
+                <column id="coment"/>
+                <column id="personalPhoneNumber"/>
+                <column id="relativesPhoneNumber"/>
+                <column id="residenceNumber"/>
+                <column id="nationality"/>
+                <column id="residenceType"/>
+                <column id="residenceEndTime"/>
+                <column id="residenceAddress"/>
+                <column id="residencePlace"/>
+                <column id="email"/>
+                <column id="pasportNumber"/>
+                <column id="authority"/>
+                <column id="dateOfIssue"/>
+                <column id="individualTaxpayerNumber"/>
+                <column id="sex"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="employeesTable.create"/>
+                <button id="editBtn" action="employeesTable.edit"/>
+                <button id="removeBtn" action="employeesTable.remove"/>
+                <button id="excelBtn" action="employeesTable.excel"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

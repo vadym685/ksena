@@ -229,6 +229,7 @@ create table KSENA_TASK (
     DELETED_BY varchar(50),
     --
     TASK_NUMBER varchar(255),
+    RECOMMENDED_AMOUNT integer,
     INVENTORY_DELIVERY_REQUIRED boolean,
     KIND_OF_CLEANING_ID uuid,
     COST_OF_DELIVERY double precision,
@@ -241,6 +242,7 @@ create table KSENA_TASK (
     FACTUAL_CLEANING_COST double precision,
     PLANNED_CLEANING_COST double precision,
     ADD_PRISE_EXPENDABLE_MATERIAL boolean,
+    DISPOSABLE boolean,
     PRISE_EXPENDABLE_MATERIAL double precision,
     TASK_DOCUMENT_ID uuid,
     COMPANY_ID uuid,

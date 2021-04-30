@@ -64,11 +64,12 @@
     <layout expand="mainSplit" spacing="true" width="100%" height="100%">
         <split id="mainSplit" orientation="horizontal" pos="100" locked="true" enable="false" settingsEnabled="false"
                width="100%">
-            <vbox id="mainBox" expand="">
-                <hbox width="100%" spacing="true">
-                    <groupBox id="dataBox" caption="msg://TaskData" spacing="true" width="AUTO">
+            <vbox id="mainBox" expand="" spacing="true">
+                <groupBox orientation="horizontal" width="125%" spacing="true">
+                    <groupBox id="dataBox" caption="msg://TaskData" spacing="true" width="100%">
                         <form id="form" dataContainer="taskDc">
                             <column width="250px">
+<!--                                <checkBox id="disposableField" property="disposable" visible="false"/>-->
                                 <lookupPickerField id="taskDocumentField" optionsContainer="taskDocumentsDc"
                                                    property="taskDocument">
                                     <actions>
@@ -78,6 +79,7 @@
                                     </actions>
                                 </lookupPickerField>
                                 <textField id="taskNumberField" property="taskNumber"/>
+                                <button id="createCompany"/>
                                 <pickerField id="companyField" property="company"/>
                                 <pickerField id="kindOfCleaningField" property="kindOfCleaning"/>
                                 <lookupPickerField id="pointField" optionsContainer="pointsDc" property="point">
@@ -101,6 +103,8 @@
                                 <textField id="AdditionalEmployeePaymentField" property="additionalEmployeePayment"/>
                                 <textField id="transportCostsCustomerField" property="transportCostsCustomer"/>
                                 <textField id="transportCostsEmployeeField" property="transportCostsEmployee"/>
+                            </column>
+                            <column width="250px">
                                 <lookupField id="typeOfCostFormationField" property="typeOfCostFormation"
                                              enable="false"/>
                                 <textField id="fixedCostForCleaningField" property="fixedCostForCleaning"
@@ -129,7 +133,8 @@
                             </column>
                         </form>
                     </groupBox>
-                    <vbox>
+                    <groupBox id="commentsBox" caption="mainMsg://coments" spacing="true" width="60%"
+                              orientation="vertical">
                         <groupBox id="commentBox" caption="mainMsg://comment" spacing="true" width="100%"
                                   align="TOP_LEFT">
                             <form id="form2" dataContainer="taskDc" width="100%">
@@ -146,8 +151,8 @@
                                 </column>
                             </form>
                         </groupBox>
-                    </vbox>
-                </hbox>
+                    </groupBox>
+                </groupBox>
 
                 <groupBox width="100%" orientation="horizontal" spacing="true">
                     <groupBox id="inventoryBox" caption="msg://com.company.ksena.entity.task/Task.inventoryMap"
@@ -174,7 +179,10 @@
                         </table>
                     </groupBox>
                     <groupBox id="employeesBox" caption="msg://com.company.ksena.entity.task/Task.employees"
-                              height="100%">
+                              height="100%" spacing="true">
+                        <form id="form6" dataContainer="taskDc">
+                            <textField id="recommendedАmountField" property="recommendedAmount"/>
+                        </form>
                         <table id="employeesTable" dataContainer="employeesDc" width="100%" height="100%">
                             <actions>
                                 <action id="add" type="add" caption="mainMsg://add"/>
@@ -190,7 +198,7 @@
                             <buttonsPanel>
                                 <button action="employeesTable.add"/>
                                 <button id="addTemporaryEmployees" caption="mainMsg://addTemporaryEmployees"/>
-                                <button action="employeesTable.exclude"/>
+                                <button action="employeesTable.exclude" align="TOP_LEFT"/>
                             </buttonsPanel>
                         </table>
                     </groupBox>

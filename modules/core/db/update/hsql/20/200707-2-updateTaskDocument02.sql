@@ -1,3 +1,0 @@
-alter table KSENA_TASK_DOCUMENT alter column COMPANY_ID rename to COMPANY_ID__U89556 ^
-alter table KSENA_TASK_DOCUMENT drop constraint FK_KSENA_TASK_DOCUMENT_ON_COMPANY ;
-drop index IDX_KSENA_TASK_DOCUMENT_ON_COMPANY ;

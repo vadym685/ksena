@@ -1,2 +1,0 @@
-alter table KSENA_TASK_TASK_DOCUMENT_LINK add constraint FK_TASTASDOC_ON_TASK foreign key (TASK_ID) references KSENA_TASK(ID);
-alter table KSENA_TASK_TASK_DOCUMENT_LINK add constraint FK_TASTASDOC_ON_TASK_DOCUMENT foreign key (TASK_DOCUMENT_ID) references KSENA_TASK_DOCUMENT(ID);

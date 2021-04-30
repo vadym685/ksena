@@ -1,1 +1,0 @@
-drop table KSENA_CLIENT__U97451 if exists cascade ;

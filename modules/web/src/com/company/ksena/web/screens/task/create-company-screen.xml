@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://caption"
+        messagesPack="com.company.ksena.web.screens.task">
+    <layout>
+        <groupBox id="dataBox" spacing="true" caption="dataBox">
+        <textField id="companyNameField" caption="companyName" />
+        <textField id="contactField" caption="contact"/>
+        <textField id="adressField" caption="adress"/>
+            <buttonsPanel>
+                <button id="ok" caption="OK"/>
+            </buttonsPanel>
+        </groupBox>
+
+    </layout>
+</window>

@@ -15,7 +15,6 @@
     <layout>
 
         <form>
-
             <groupBox caption="msg://reportName">
                 <hbox spacing="true" align="MIDDLE_RIGHT">
 
@@ -37,6 +36,21 @@
                     <dateField id="startDateEmployeeReport" caption="msg://startDate" datatype="localDate" required="true" resolution="DAY" dateFormat="dd.MM.yyyy"/>
                     <dateField id="finishDateEmployeeReport" caption="msg://finishDate" datatype="localDate" required="true" resolution="DAY" dateFormat="dd.MM.yyyy"/>
                     <button id="generateEmployeeReport" caption="msg://generate" align="BOTTOM_RIGHT"/>
+                </hbox>
+            </groupBox>
+
+            <groupBox caption="msg://GeneralTaskReport">
+                <hbox spacing="true" align="MIDDLE_RIGHT">
+
+                    <dateField id="selectedMonthGeneralTaskReport" caption="msg://selectedMonth" required="true" resolution="MONTH" dateFormat="MM.yyyy"/>
+                    <lookupPickerField id="companyFieldGeneralTaskReport" optionsContainer="companyDc" align="BOTTOM_CENTER">
+                        <actions>
+                            <action id="lookup" type="picker_lookup"/>
+                            <action id="open" type="picker_open"/>
+                            <action id="clear" type="picker_clear"/>
+                        </actions>
+                    </lookupPickerField>
+                    <button id="generateSelectedMonthGeneralTaskReport" caption="msg://generate" align="BOTTOM_RIGHT"/>
                 </hbox>
             </groupBox>
 

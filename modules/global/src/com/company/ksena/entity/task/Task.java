@@ -30,6 +30,9 @@ public class Task extends StandardEntity {
     @Column(name = "TASK_NUMBER", unique = true)
     protected String taskNumber;
 
+    @Column(name = "RECOMMENDED_AMOUNT")
+    protected Integer recommendedAmount;
+
     @Column(name = "INVENTORY_DELIVERY_REQUIRED")
     protected Boolean inventoryDeliveryRequired;
 
@@ -67,6 +70,9 @@ public class Task extends StandardEntity {
 
     @Column(name = "ADD_PRISE_EXPENDABLE_MATERIAL")
     protected Boolean addPriseExpendableMaterial;
+
+    @Column(name = "DISPOSABLE")
+    protected Boolean disposable;
 
     @Column(name = "PRISE_EXPENDABLE_MATERIAL")
     protected Double priсeExpendableMaterial;
@@ -157,6 +163,22 @@ public class Task extends StandardEntity {
 
     @Column(name = "TRANSPORT_COSTS_EMPLOYEE")
     private Double transportCostsEmployee;
+
+    public Boolean getDisposable() {
+        return disposable;
+    }
+
+    public void setDisposable(Boolean disposable) {
+        this.disposable = disposable;
+    }
+
+    public Integer getRecommendedAmount() {
+        return recommendedAmount;
+    }
+
+    public void setRecommendedAmount(Integer recommendedAmount) {
+        this.recommendedAmount = recommendedAmount;
+    }
 
     public void setFactualCleaningCost(Double factualCleaningCost) {
         this.factualCleaningCost = factualCleaningCost;

@@ -1,1 +1,0 @@
-drop table KSENA_CLIENTEMPLOYEE__U01127 if exists cascade ;

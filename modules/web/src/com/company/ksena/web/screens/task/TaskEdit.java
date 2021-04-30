@@ -13,6 +13,7 @@ import com.company.ksena.entity.task.*;
 import com.company.ksena.entity.template.Template;
 import com.company.ksena.service.google_calendar_api_service.GoogleCalendarService;
 import com.company.ksena.web.screens.employee.EmployeeBrowse;
+import com.company.ksena.web.screens.employee.TemporaryEmployeeBrowse;
 import com.company.ksena.web.screens.inventory.AvaibleInventoryBrowse;
 import com.company.ksena.web.screens.room.RoomBrowse;
 import com.haulmont.cuba.core.app.EmailService;
@@ -23,6 +24,7 @@ import com.haulmont.cuba.core.global.Metadata;
 import com.haulmont.cuba.gui.Dialogs;
 import com.haulmont.cuba.gui.Notifications;
 import com.haulmont.cuba.gui.ScreenBuilders;
+import com.haulmont.cuba.gui.Screens;
 import com.haulmont.cuba.gui.components.*;
 import com.haulmont.cuba.gui.data.GroupInfo;
 import com.haulmont.cuba.gui.model.CollectionLoader;
@@ -129,6 +131,8 @@ public class TaskEdit extends StandardEditor<Task> {
     private LookupPickerField responsibleForTheDeliveryOfInventoryField;
     @Inject
     private CollectionLoader<Employee> responsibleForTheDeliveryOfInventoryLc;
+    @Inject
+    private Screens screens;
 
     @Subscribe
     public void onInit(InitEvent event) {
@@ -790,24 +794,26 @@ public class TaskEdit extends StandardEditor<Task> {
 
     @Subscribe("addTemporaryEmployees")
     public void onAddTemporaryEmployeesClick(Button.ClickEvent event) {
-        EmployeeBrowse selectedEmployee = screenBuilders.lookup(Employee.class, this)
-                .withScreenClass(EmployeeBrowse.class)
-                .withOpenMode(OpenMode.DIALOG)
+        TemporaryEmployeeBrowse selectedEmployee;
+        selectedEmployee = screenBuilders.lookup(Employee.class, this)
+                .withScreenClass(TemporaryEmployeeBrowse.class)
+                .withOpenMode(OpenMode.THIS_TAB)
                 .withAfterCloseListener(e -> {
-                    if (((StandardCloseAction) e.getCloseAction()).getActionId().equals("select")) {
-                        Employee employee = e.getScreen().getSelectedEmployee();
 
-//                        for (Employee employee1 : employeesDc.getItems()) {
-//                            if (employee1.getFullNamePronunciation().equals(employee1)) {
-//                                dialogs.createExceptionDialog()
-//                                        .withCaption(messageBundle.getMessage("warning"))
-//                                        .withThrowable(new Throwable())
-//                                        .withMessage(messageBundle.getMessage("roomAlreadyAdded"))
-//                                        .show();
-//                                return;
-//                            }
-//                        }
-//тут проверка на наличие
+                    if (((StandardCloseAction) e.getCloseAction()).getActionId().equals("select")) {
+                        Employee employee1 = e.getScreen().getSelectedEmployee();
+                        for (Employee employee : employeesDc.getItems()) {
+                            if (employee.getId().equals(employee1.getId())) {
+                                dialogs.createExceptionDialog()
+                                        .withCaption(messageBundle.getMessage("warning"))
+                                        .withThrowable(new Throwable())
+                                        .withMessage(messageBundle.getMessage("employeeAlreadyAdded"))
+                                        .show();
+                                return;
+                            }
+
+                        }
+                        employeesDc.getMutableItems().add(employee1);
                     }
                 })
                 .withSelectHandler(e -> {
@@ -815,4 +821,19 @@ public class TaskEdit extends StandardEditor<Task> {
                 .build();
         selectedEmployee.show();
     }
+
+    @Subscribe("createCompany")
+    public void onCreateCompanyClick(Button.ClickEvent event) {
+        CreateCompanyScreen screen = screens.create(CreateCompanyScreen.class);
+        screen.addAfterCloseListener(e -> {
+                    if (((StandardCloseAction) e.getCloseAction()).getActionId().equals("close")) {
+
+                        e.getSource().getWindow().getComponent("companyNameField");
+                    }
+                }
+        );
+
+        screens.show(screen);
+    }
+
 }

@@ -1,2 +1,0 @@
-alter table KSENA_TASK_EMPLOYEE_LINK add constraint FK_TASEMP_ON_EMPLOYEE foreign key (EMPLOYEE_ID) references KSENA_PASPORT_DATA(ID);
-alter table KSENA_TASK_EMPLOYEE_LINK add constraint FK_TASEMP_ON_TASK foreign key (TASK_ID) references KSENA_TASK(ID);

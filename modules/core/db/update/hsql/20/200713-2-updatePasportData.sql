@@ -1,3 +1,0 @@
-alter table KSENA_PASPORT_DATA alter column IMAGE_FILE_ID rename to IMAGE_FILE_ID__U77801 ^
-alter table KSENA_PASPORT_DATA drop constraint FK_KSENA_PASPORT_DATA_ON_IMAGE_FILE ;
-drop index IDX_KSENA_PASPORT_DATA_ON_IMAGE_FILE ;

@@ -1,1 +1,0 @@
-drop table KSENA_TASK_DOCUMENT_POSITION_WRAPPER_LINK__U03472 if exists cascade ;
